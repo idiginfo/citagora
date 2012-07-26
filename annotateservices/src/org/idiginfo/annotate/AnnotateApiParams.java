@@ -2,6 +2,11 @@ package org.idiginfo.annotate;
 
 import com.google.api.client.util.Key;
 
+/**
+ * Class that helps manage HTTP parameters for the a.nnotate service
+ * @author griccardi
+ *
+ */
 public class AnnotateApiParams {
 
 	public static final String API_URL = "http://annotate.msrc.fsu.edu/php/";
