@@ -1,8 +1,5 @@
 package org.idiginfo.annotate;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class AnnotateMeta {
 	String code;
 	String date;

@@ -1,6 +1,5 @@
 package org.idiginfo.annotate;
 
-import com.google.api.client.util.Key;
 
 /**
  * Class that helps manage HTTP parameters for the a.nnotate service

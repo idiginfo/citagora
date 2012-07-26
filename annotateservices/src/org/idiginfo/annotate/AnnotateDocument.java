@@ -1,7 +1,5 @@
 package org.idiginfo.annotate;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class AnnotateDocument {
 	String code;

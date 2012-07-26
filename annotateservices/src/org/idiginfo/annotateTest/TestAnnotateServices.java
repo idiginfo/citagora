@@ -1,23 +1,7 @@
 package org.idiginfo.annotateTest;
 
-/*
- * Copyright (c) 2011 Google Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
- */
-
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.idiginfo.annotate.AnnotateApiParams;
@@ -35,11 +19,6 @@ import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonIOException;
-import com.google.gson.JsonParseException;
-import com.google.gson.JsonParser;
 
 /**
  * Test of a few features of the a.nnotate service and the java package that we
@@ -102,17 +81,10 @@ public class TestAnnotateServices {
 			return null;
 		}
 		// generic parse and print
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		// convert the json string back to object
-		JsonParser parser = new JsonParser();
-		try {
-			JsonElement tree = parser.parse(content);
-			String json = gson.toJson(tree);
-			// System.out.println("response from listusers.php\n" + json);
-		} catch (JsonIOException e) {
-		} catch (JsonParseException e) {
-
-		}
+		Gson gson = new Gson();
+		// format the content
+		String json = service.format(content);
+		System.out.println("response from listusers.php\n" + json);
 		// map to AnnotateUsers
 		AnnotateUsers users = gson.fromJson(content, AnnotateUsers.class);
 		return users;
@@ -142,19 +114,15 @@ public class TestAnnotateServices {
 			return null;
 		}
 		// generic parse and print
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		Gson gson = new Gson();
 		// convert the json string back to object
-		JsonParser parser = new JsonParser();
-		String json = null;
+		String json = service.format(content);
+		// System.out.println("response from listusers.php\n" + json);
 		try {
-			JsonElement tree = parser.parse(content);
-			json = gson.toJson(tree);
 			FileWriter writer = new FileWriter("c:\\dev\\docnotes.json");
 			writer.write(json);
 			writer.close();
 			// System.out.println("response from listusers.php\n" + json);
-		} catch (JsonIOException e) {
-		} catch (JsonParseException e) {
 		} catch (IOException e) {
 		}
 		// map to AnnotateDocuments
@@ -185,27 +153,21 @@ public class TestAnnotateServices {
 			return null;
 		}
 		// generic parse and print
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		Gson gson = new Gson();
 		// convert the json string back to object
-		JsonParser parser = new JsonParser();
-		String json = null;
+		String json = service.format(content);
 		try {
-			JsonElement tree = parser.parse(content);
-			json = gson.toJson(tree);
-			FileWriter writer = new FileWriter("c:\\dev\\notes.json");
+			FileWriter writer = new FileWriter("c:/dev/notes.json");
 			writer.write(json);
 			writer.close();
-			// System.out.println("response from listNotes.php\n" + json);
-		} catch (JsonIOException e) {
-		} catch (JsonParseException e) {
+			// System.out.println("response from listusers.php\n" + json);
 		} catch (IOException e) {
-
 		}
+
 		// map to AnnotateUsers
 		AnnotateDocumentNotes documentNotes = gson.fromJson(json,
 				AnnotateDocumentNotes.class);
 		return documentNotes;
-
 	}
 
 	public static void main(String[] args) {
