@@ -1,4 +1,4 @@
-package org.idiginfo.annotate;
+package org.idiginfo.annotate.services;
 
 import java.util.Date;
 
