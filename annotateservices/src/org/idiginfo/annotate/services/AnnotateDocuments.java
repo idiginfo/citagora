@@ -3,7 +3,9 @@ package org.idiginfo.annotate.services;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AnnotateDocuments {
+import org.idiginfo.annotationmodel.Documents;
+
+public class AnnotateDocuments implements Documents {
 
 	public AnnotateDocuments(AnnotateDocument[][] documentArray) {
 		for (int i = 0; i < documentArray.length; i++) {

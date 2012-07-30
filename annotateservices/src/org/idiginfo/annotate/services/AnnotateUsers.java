@@ -3,7 +3,9 @@ package org.idiginfo.annotate.services;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AnnotateUsers {
+import org.idiginfo.annotationmodel.Users;
+
+public class AnnotateUsers implements Users {
 
 	private List<String> members = new ArrayList<String>();
 	private List<String> annotators = new ArrayList<String>();

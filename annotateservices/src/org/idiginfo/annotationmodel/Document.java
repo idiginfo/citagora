@@ -35,4 +35,8 @@ public interface Document {
 	public String getTitle();
 
 	public void setTitle(String title);
+
+	public int getNumAnnotations();
+
+	public Annotation getAnnotation(int i);
 }

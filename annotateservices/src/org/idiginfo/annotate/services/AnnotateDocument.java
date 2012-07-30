@@ -15,8 +15,19 @@ public class AnnotateDocument implements Document {
 	String owner;
 	String type;
 	String parentId;
-	AnnotateNote[] notes; // may be string?
+	AnnotateNote[] notes;
 	AnnotateMeta meta;
+
+	AnnotateNote getNote(int i) {
+		if (notes == null || i < 0 || i >= notes.length) return null;
+		// TODO exception!
+		return notes[i];
+	}
+
+	AnnotateMeta getMeta() {
+		return meta;
+
+	}
 
 	public String getCode() {
 		return code;
@@ -78,38 +89,35 @@ public class AnnotateDocument implements Document {
 
 	@Override
 	public void setDate(Date date) {
-		// TODO Auto-generated method stub
-
+		if (meta != null) meta.setDate(date);
 	}
 
 	@Override
 	public Document getParent() {
-		// TODO Auto-generated method stub
+		if (meta != null) return meta.getParent();
 		return null;
 	}
 
 	@Override
 	public void setParent(Document parent) {
-		// TODO Auto-generated method stub
+		if (meta != null) meta.setParent(parent);
 
 	}
 
 	@Override
 	public Annotation[] getAnnotations() {
-		// TODO Auto-generated method stub
 		return notes;
 	}
 
 	@Override
 	public String getTitle() {
-		// TODO Auto-generated method stub
+		if (meta != null) return meta.getTitle();
 		return null;
 	}
 
 	@Override
 	public void setTitle(String title) {
-		// TODO Auto-generated method stub
-
+		if (meta != null) meta.setTitle(title);
 	}
 
 	static DateFormat formatter = new SimpleDateFormat("yyyy-MM.dd");
@@ -121,6 +129,18 @@ public class AnnotateDocument implements Document {
 		} catch (ParseException e) {
 		}
 		return null;
+	}
+
+	@Override
+	public int getNumAnnotations() {
+		if (notes == null) return 0;
+		return notes.length;
+	}
+
+	@Override
+	public Annotation getAnnotation(int i) {
+		if (notes == null || i < 0 || i >= notes.length) return null;
+		return notes[i];
 	}
 
 }

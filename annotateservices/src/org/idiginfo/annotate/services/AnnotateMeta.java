@@ -225,6 +225,15 @@ public class AnnotateMeta implements Document {
 	}
 	@Override
 	public Annotation[] getAnnotations() {
+		return null;
+	}
+	@Override
+	public int getNumAnnotations() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public Annotation getAnnotation(int i) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -17,6 +17,8 @@ package org.idiginfo.annotate.services;
 import java.io.IOException;
 
 import org.apache.commons.io.IOUtils;
+import org.idiginfo.annotationmodel.AnnotationService;
+import org.idiginfo.annotationmodel.Document;
 
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestFactory;
@@ -30,7 +32,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 
-public class AnnotateServices {
+public class AnnotateService implements AnnotationService {
 
 	static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
 	static JsonParser parser = new JsonParser();
@@ -60,25 +62,25 @@ public class AnnotateServices {
 		return users;
 	}
 
-	public AnnotateDocument getDocument(String code, String date) {
-		return getDocument(code,date, false, false);
+	public AnnotateDocumentNotes getDocument(String code, String date) {
+		return getDocument(code, date, false, false);
 	}
 
-	public AnnotateDocument getDocument(String code, String date, boolean withMeta,
-			boolean withNotes){
+	public AnnotateDocumentNotes getDocument(String code, String date,
+			boolean withMeta, boolean withNotes) {
 		String content;
 		AnnotateApiParams params = new AnnotateApiParams();
 		params.setCode(code);
 		params.setDate(date);
-		//params.setApiAnnotateUser(user);
+		// params.setApiAnnotateUser(user);
 		params.setWithMeta(withMeta);
 		params.setWithNotes(withNotes);
-		content = queryService("listDocuments.php", params);
+		content = queryService("listNotes.php", params);
 		content = format(content);
 		System.out.println(content);
 		// map to AnnotateDocuments
-		AnnotateDocument document = gson.fromJson(
-				content, AnnotateDocument.class);
+		AnnotateDocumentNotes document = gson.fromJson(content,
+				AnnotateDocumentNotes.class);
 		return document;
 	}
 
@@ -101,8 +103,9 @@ public class AnnotateServices {
 	}
 
 	/**
-	 * This routine will get the document without providing a date.
-	 * Currently no way to do this on a.nnotate services
+	 * This routine will get the document without providing a date. Currently no
+	 * way to do this on a.nnotate services
+	 * 
 	 * @param documentCode
 	 * @return
 	 */
@@ -113,12 +116,12 @@ public class AnnotateServices {
 	}
 
 	public AnnotateDocumentNotes getNotes(AnnotateDocument document) {
-		if (document==null) return null;
-		return getNotes(document.getCode(), document.getDate());
+		if (document == null) return null;
+		return getAnnotations(document.getCode(), document.getDate());
 	}
 
-	public AnnotateDocumentNotes getNotes(String code, String date) {
-		if (code == null || date==null) return null;
+	public AnnotateDocumentNotes getAnnotations(String code, String date) {
+		if (code == null || date == null) return null;
 		String content;
 		AnnotateApiParams params = new AnnotateApiParams();
 		params.setCode(code);
@@ -138,7 +141,7 @@ public class AnnotateServices {
 	 * @return
 	 */
 	private String queryService(String function, AnnotateApiParams params) {
-		if (function==null) return null;
+		if (function == null) return null;
 		String content;
 		try {
 			AnnotateUrl url = new AnnotateUrl(function, params);
@@ -157,6 +160,12 @@ public class AnnotateServices {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	@Override
+	public AnnotateDocumentNotes getAnnotations(Document document) {
+		if (!(document instanceof AnnotateDocumentNotes)) return null;
+		return getNotes(document.getId());
 	}
 
 }

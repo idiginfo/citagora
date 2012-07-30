@@ -175,4 +175,14 @@ public class BaseDocument implements Document {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public int getNumAnnotations() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public Annotation getAnnotation(int i) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

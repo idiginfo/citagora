@@ -11,6 +11,9 @@ import org.idiginfo.annotate.services.AnnotateDocuments;
 import org.idiginfo.annotate.services.AnnotateService;
 import org.idiginfo.annotate.services.AnnotateUrl;
 import org.idiginfo.annotate.services.AnnotateUsers;
+import org.idiginfo.annotationmodel.Document;
+import org.idiginfo.annotationmodel.Documents;
+import org.idiginfo.annotationmodel.Users;
 
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestFactory;
@@ -27,7 +30,7 @@ import com.google.gson.Gson;
  * @author griccardi
  * 
  */
-public class TestAnnotateServices {
+public class TestInterfaceServices {
 
 	static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
 	static HttpRequestFactory requestFactory;
@@ -41,49 +44,55 @@ public class TestAnnotateServices {
 					}
 				});
 
-		AnnotateUsers users = testUsers();
+		Users users = testUsers();
 		String selectedUser = users.getMembers().get(0);
 		String code = "TZpwu9je";
 		String date = "2012-06-29";
-		AnnotateDocumentNotes document = testDocument(code, date);
-		AnnotateDocuments documents = testDocuments(selectedUser);
-		AnnotateDocumentNotes notes = testNotes(documents.getDocument(0));
+		Document document = testDocument(code, date);
+		Documents documents = testDocuments(selectedUser);
+		Document notes = testNotes(documents.getDocument(0));
 	}
 
 	public static AnnotateDocuments testDocuments(String documentUser) {
-
+		System.out.println("\n** test docs for user " + documentUser + " **");
 		// get all documents for a user
 		AnnotateDocuments documents = service.getDocuments(documentUser);
-		System.out.println("name of first document: "
+		System.out.println("\nname of first document: "
 				+ documents.getDocument(0).getName());
 		System.out.println("code of first document: "
 				+ documents.getDocument(0).getCode());
 		System.out.println("number of documents " + documents.size());
-		AnnotateDocument selectedDocument = documents.getDocument(1);
-		System.out.println("Selected document: " + selectedDocument.getCode());
+		Document selectedDocument = documents.getDocument(1);
+		System.out.println("Selected document: " + selectedDocument.getId());
 		return documents;
 	}
 
-	public static AnnotateDocumentNotes testDocument(String code, String date) {
-		// get single document
-		AnnotateDocumentNotes document = service.getDocument(code, date);
+	public static Document testDocument(String code, String date) {
+		System.out.println("\n** test doc (" + code + ", " + date + ") **");
+		// get single document(
+		Document document = service.getDocument(code, date);
 		System.out.println("Owner of document: " + document.getOwner());
 		System.out.println("Name of document: " + document.getName());
 		return document;
 
 	}
 
-	public static AnnotateDocumentNotes testNotes(AnnotateDocument document) {
+	public static Document testNotes(Document document) {
+		String code = document.getId();
+		String date = document.getDate();
+		System.out.println("\n** test notes (" + code + ", " + date + ") **");
 		// get notes on a document
-		AnnotateDocumentNotes documentNotes = service.getNotes(document);// selectedDocument.getCode());
-		System.out.println("Number of notes: " + documentNotes.notes.length);
-		System.out.println("Name of document: " + documentNotes.meta.getName());
+		Document documentNotes = service.getAnnotations(code, date);// selectedDocument.getCode());
+		System.out.println("Number of notes: "
+				+ documentNotes.getNumAnnotations());
+		System.out.println("Name of document: " + documentNotes.getName());
 		return documentNotes;
 	}
 
-	public static AnnotateUsers testUsers() {
+	public static Users testUsers() {
+		System.out.println("\n** test users **");
 		// get all members and annotators
-		AnnotateUsers users = service.getUsers(null);
+		Users users = service.getUsers(null);
 		System.out.println("first member: " + users.getMembers().get(0));
 		System.out.println("first annotator: " + users.getAnnotaters().get(0));
 		String documentUser = users.getMembers().get(7);

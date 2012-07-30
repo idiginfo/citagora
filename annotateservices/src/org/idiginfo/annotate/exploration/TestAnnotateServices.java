@@ -22,7 +22,7 @@ import org.idiginfo.annotate.services.AnnotateApiParams;
 import org.idiginfo.annotate.services.AnnotateDocument;
 import org.idiginfo.annotate.services.AnnotateDocumentNotes;
 import org.idiginfo.annotate.services.AnnotateDocuments;
-import org.idiginfo.annotate.services.AnnotateServices;
+import org.idiginfo.annotate.services.AnnotateService;
 import org.idiginfo.annotate.services.AnnotateUrl;
 import org.idiginfo.annotate.services.AnnotateUsers;
 
@@ -50,7 +50,7 @@ public class TestAnnotateServices {
 
 	static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
 	static HttpRequestFactory requestFactory;
-	static AnnotateServices service = new AnnotateServices();
+	static AnnotateService service = new AnnotateService();
 
 	private static void run() {
 		requestFactory = HTTP_TRANSPORT
