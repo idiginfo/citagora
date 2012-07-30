@@ -60,6 +60,28 @@ public class AnnotateServices {
 		return users;
 	}
 
+	public AnnotateDocument getDocument(String code, String date) {
+		return getDocument(code,date, false, false);
+	}
+
+	public AnnotateDocument getDocument(String code, String date, boolean withMeta,
+			boolean withNotes){
+		String content;
+		AnnotateApiParams params = new AnnotateApiParams();
+		params.setCode(code);
+		params.setDate(date);
+		//params.setApiAnnotateUser(user);
+		params.setWithMeta(withMeta);
+		params.setWithNotes(withNotes);
+		content = queryService("listDocuments.php", params);
+		content = format(content);
+		System.out.println(content);
+		// map to AnnotateDocuments
+		AnnotateDocument document = gson.fromJson(
+				content, AnnotateDocument.class);
+		return document;
+	}
+
 	public AnnotateDocuments getDocuments(String user) {
 		return getDocuments(user, false, false);
 	}
@@ -78,17 +100,25 @@ public class AnnotateServices {
 		return documents;
 	}
 
+	/**
+	 * This routine will get the document without providing a date.
+	 * Currently no way to do this on a.nnotate services
+	 * @param documentCode
+	 * @return
+	 */
 	public AnnotateDocumentNotes getNotes(String documentCode) {
 		AnnotateDocument document = null;
-		//TODO get the document!
+		// TODO get the document!
 		return getNotes(document);
 	}
 
 	public AnnotateDocumentNotes getNotes(AnnotateDocument document) {
-		return getNotes(document.getCode(),document.getDate());
+		if (document==null) return null;
+		return getNotes(document.getCode(), document.getDate());
 	}
 
 	public AnnotateDocumentNotes getNotes(String code, String date) {
+		if (code == null || date==null) return null;
 		String content;
 		AnnotateApiParams params = new AnnotateApiParams();
 		params.setCode(code);
@@ -108,10 +138,12 @@ public class AnnotateServices {
 	 * @return
 	 */
 	private String queryService(String function, AnnotateApiParams params) {
+		if (function==null) return null;
 		String content;
 		try {
 			AnnotateUrl url = new AnnotateUrl(function, params);
 			url.prepare();
+			System.out.println(url.build());
 			HttpRequest request = requestFactory.buildGetRequest(url);
 			HttpResponse result = request.execute();
 			content = IOUtils.toString(result.getContent());

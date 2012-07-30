@@ -1,7 +1,14 @@
 package org.idiginfo.annotate.services;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-public class AnnotateDocument {
+import org.idiginfo.annotationmodel.Annotation;
+import org.idiginfo.annotationmodel.Document;
+
+public class AnnotateDocument implements Document {
 	String code;
 	String date;
 	String name;
@@ -57,6 +64,63 @@ public class AnnotateDocument {
 
 	public void setParentId(String parentId) {
 		this.parentId = parentId;
+	}
+
+	@Override
+	public String getId() {
+		return code;
+	}
+
+	@Override
+	public void setId(String id) {
+		setCode(id);
+	}
+
+	@Override
+	public void setDate(Date date) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public Document getParent() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setParent(Document parent) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public Annotation[] getAnnotations() {
+		// TODO Auto-generated method stub
+		return notes;
+	}
+
+	@Override
+	public String getTitle() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setTitle(String title) {
+		// TODO Auto-generated method stub
+
+	}
+
+	static DateFormat formatter = new SimpleDateFormat("yyyy-MM.dd");
+
+	@Override
+	public Date getDateObject() {
+		try {
+			return formatter.parse(date);
+		} catch (ParseException e) {
+		}
+		return null;
 	}
 
 }

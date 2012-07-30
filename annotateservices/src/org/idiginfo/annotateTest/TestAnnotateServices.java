@@ -41,25 +41,35 @@ public class TestAnnotateServices {
 					}
 				});
 
-		AnnotateUsers users = service.getUsers(null);
-		System.out.println("first member: " + users.getMembers().get(0));
-		System.out.println("first annotator: " + users.getAnnotaters().get(0));
-		String documentUser = users.getMembers().get(7);
-		System.out.println("Document user: " + documentUser);
+//		// get all members and annotators
+//		AnnotateUsers users = service.getUsers(null);
+//		System.out.println("first member: " + users.getMembers().get(0));
+//		System.out.println("first annotator: " + users.getAnnotaters().get(0));
+//		String documentUser = users.getMembers().get(7);
+//		System.out.println("Document user: " + documentUser);
+//
+//		// get all documents for a user
+//		AnnotateDocuments documents = service.getDocuments(documentUser);
+//		System.out.println("name of first document: "
+//				+ documents.getDocument(0).getName());
+//		System.out.println("code of first document: "
+//				+ documents.getDocument(0).getCode());
+//		System.out.println("number of documents " + documents.size());
+//		AnnotateDocument selectedDocument = documents.getDocument(1);
+//		System.out.println("Selected document: " + selectedDocument.getCode());
+		
+		// get single document
+		AnnotateDocument document = service
+				.getDocument("TZpwu9je","2012-06-29");// selectedDocument.getCode());
+		System.out.println("Owner of document: " + document.getOwner());
+		System.out.println("Name of document: " + document.getName());
 
-		AnnotateDocuments documents = service.getDocuments(documentUser);
-		System.out.println("name of first document: "
-				+ documents.getDocument(0).getName());
-		System.out.println("code of first document: "
-				+ documents.getDocument(0).getCode());
-		System.out.println("number of documents " + documents.size());
-		AnnotateDocument selectedDocument = documents.getDocument(1);
-		System.out.println("Selected document: " + selectedDocument.getCode());
-
-		AnnotateDocumentNotes documentNotes = service
-				.getNotes(selectedDocument);// selectedDocument.getCode());
-		System.out.println("Number of notes: " + documentNotes.notes.length);
-		System.out.println("Name of document: " + documentNotes.meta.getName());
+		
+//		// get notes on a document
+//		AnnotateDocumentNotes documentNotes = service
+//				.getNotes(selectedDocument);// selectedDocument.getCode());
+//		System.out.println("Number of notes: " + documentNotes.notes.length);
+//		System.out.println("Name of document: " + documentNotes.meta.getName());
 	}
 
 	public static AnnotateUsers testUsers() {
