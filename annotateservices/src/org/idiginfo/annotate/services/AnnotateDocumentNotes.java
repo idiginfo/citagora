@@ -232,8 +232,8 @@ public class AnnotateDocumentNotes implements Document {
 
 	@Override
 	public Document getParent() {
-		// TODO Auto-generated method stub
-		return null;
+		if (meta == null) return null;
+		return meta.getParent();
 	}
 
 	@Override
@@ -244,14 +244,13 @@ public class AnnotateDocumentNotes implements Document {
 
 	@Override
 	public Annotation[] getAnnotations() {
-		// TODO Auto-generated method stub
-		return null;
+		return notes;
 	}
 
 	@Override
 	public int getNumAnnotations() {
-		// TODO Auto-generated method stub
-		return 0;
+		if (notes == null) return 0;
+		return notes.length;
 	}
 
 	@Override
@@ -259,4 +258,5 @@ public class AnnotateDocumentNotes implements Document {
 		if (notes == null || i < 0 || i >= notes.length) return null;
 		return notes[i];
 	}
+
 }

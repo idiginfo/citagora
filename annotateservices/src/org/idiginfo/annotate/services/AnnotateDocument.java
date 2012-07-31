@@ -143,4 +143,15 @@ public class AnnotateDocument implements Document {
 		return notes[i];
 	}
 
+	@Override
+	public String getAuthors() {
+		if (meta != null) return meta.getAuthors();
+		return null;
+	}
+
+	@Override
+	public void setAuthors(String authors) {
+		if (meta != null) meta.setAuthors(authors);
+	}
+
 }

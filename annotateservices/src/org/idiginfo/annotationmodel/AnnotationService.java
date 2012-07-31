@@ -22,17 +22,23 @@ public interface AnnotationService {
 
 	public Users getUsers(AnnotateApiParams params);
 
+	public Document getDocument(AnnotateApiParams params);
+
 	public Document getDocument(String code, String date);
 
-	public Document getDocument(String code, String date,
-			boolean withMeta, boolean withNotes);
+	public Document getDocument(String code, String date, boolean withMeta,
+			boolean withNotes);
+
+	public Documents getDocuments(AnnotateApiParams params);
 
 	public Documents getDocuments(String user);
 
 	public Documents getDocuments(String user, boolean withMeta,
 			boolean withNotes);
 
-	//public Document getNotes(String documentCode);
+	// public Document getNotes(String documentCode);
+
+	public Document getAnnotations(AnnotateApiParams params);
 
 	public Document getAnnotations(Document document);
 

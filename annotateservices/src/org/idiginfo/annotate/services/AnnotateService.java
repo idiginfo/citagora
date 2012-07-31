@@ -19,6 +19,7 @@ import java.io.IOException;
 import org.apache.commons.io.IOUtils;
 import org.idiginfo.annotationmodel.AnnotationService;
 import org.idiginfo.annotationmodel.Document;
+import org.idiginfo.annotationmodel.Documents;
 
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestFactory;
@@ -62,8 +63,21 @@ public class AnnotateService implements AnnotationService {
 		return users;
 	}
 
+	@Override
+	public Document getDocument(AnnotateApiParams params) {
+
+		return getDocument(params.code, params.date, params.getWithMeta(),
+				params.getWithNotes());
+	}
+
 	public AnnotateDocumentNotes getDocument(String code, String date) {
 		return getDocument(code, date, false, false);
+	}
+
+	public AnnotateDocumentNotes getDocument(String code, String date,
+			String withMeta, String withNotes) {
+		return getDocument(code, date, "1".equals(withMeta),
+				"1".equals(withNotes));
 	}
 
 	public AnnotateDocumentNotes getDocument(String code, String date,
@@ -84,8 +98,20 @@ public class AnnotateService implements AnnotationService {
 		return document;
 	}
 
+	@Override
+	public Documents getDocuments(AnnotateApiParams params) {
+		// TODO Auto-generated method stub
+		return getDocuments(params.apiUser, params.withMeta, params.withNotes);
+	}
+
 	public AnnotateDocuments getDocuments(String user) {
 		return getDocuments(user, false, false);
+	}
+
+	public AnnotateDocuments getDocuments(String user, String withMeta,
+			String withNotes) {
+		return getDocuments(user, "1".equals(withMeta), "1".equals(withNotes));
+
 	}
 
 	public AnnotateDocuments getDocuments(String user, boolean withMeta,
@@ -113,6 +139,17 @@ public class AnnotateService implements AnnotationService {
 		AnnotateDocument document = null;
 		// TODO get the document!
 		return getNotes(document);
+	}
+
+	@Override
+	public AnnotateDocumentNotes getAnnotations(Document document) {
+		if (!(document instanceof AnnotateDocumentNotes)) return null;
+		return getNotes(document.getId());
+	}
+
+	@Override
+	public Document getAnnotations(AnnotateApiParams params) {
+		return getAnnotations(params.code, params.date);
 	}
 
 	public AnnotateDocumentNotes getNotes(AnnotateDocument document) {
@@ -146,7 +183,7 @@ public class AnnotateService implements AnnotationService {
 		try {
 			AnnotateUrl url = new AnnotateUrl(function, params);
 			url.prepare();
-			System.out.println(url.build());
+			// System.out.println(url.build());
 			HttpRequest request = requestFactory.buildGetRequest(url);
 			HttpResponse result = request.execute();
 			content = IOUtils.toString(result.getContent());
@@ -160,12 +197,6 @@ public class AnnotateService implements AnnotationService {
 			e.printStackTrace();
 			return null;
 		}
-	}
-
-	@Override
-	public AnnotateDocumentNotes getAnnotations(Document document) {
-		if (!(document instanceof AnnotateDocumentNotes)) return null;
-		return getNotes(document.getId());
 	}
 
 }

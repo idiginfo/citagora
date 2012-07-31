@@ -36,6 +36,10 @@ public interface Document {
 
 	public void setTitle(String title);
 
+	public String getAuthors();
+
+	public void setAuthors(String authors);
+
 	public int getNumAnnotations();
 
 	public Annotation getAnnotation(int i);

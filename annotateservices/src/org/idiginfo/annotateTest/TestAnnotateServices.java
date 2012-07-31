@@ -1,24 +1,10 @@
 package org.idiginfo.annotateTest;
 
-import java.io.FileWriter;
-import java.io.IOException;
-
-import org.apache.commons.io.IOUtils;
-import org.idiginfo.annotate.services.AnnotateApiParams;
 import org.idiginfo.annotate.services.AnnotateDocument;
 import org.idiginfo.annotate.services.AnnotateDocumentNotes;
 import org.idiginfo.annotate.services.AnnotateDocuments;
 import org.idiginfo.annotate.services.AnnotateService;
-import org.idiginfo.annotate.services.AnnotateUrl;
 import org.idiginfo.annotate.services.AnnotateUsers;
-
-import com.google.api.client.http.HttpRequest;
-import com.google.api.client.http.HttpRequestFactory;
-import com.google.api.client.http.HttpRequestInitializer;
-import com.google.api.client.http.HttpResponse;
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.gson.Gson;
 
 /**
  * Test of a few features of the a.nnotate service and the java package that we
@@ -29,17 +15,10 @@ import com.google.gson.Gson;
  */
 public class TestAnnotateServices {
 
-	static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
-	static HttpRequestFactory requestFactory;
 	static AnnotateService service = new AnnotateService();
 
+	@SuppressWarnings("unused")
 	private static void run() {
-		requestFactory = HTTP_TRANSPORT
-				.createRequestFactory(new HttpRequestInitializer() {
-					public void initialize(HttpRequest request)
-							throws IOException {
-					}
-				});
 
 		AnnotateUsers users = testUsers();
 		String selectedUser = users.getMembers().get(0);
