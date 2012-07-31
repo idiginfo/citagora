@@ -1,7 +1,8 @@
 package org.idiginfo.annotateTest;
 
-import org.idiginfo.annotate.services.AnnotateDocuments;
+
 import org.idiginfo.annotate.services.AnnotateService;
+import org.idiginfo.annotationmodel.AnnotationService;
 import org.idiginfo.annotationmodel.Document;
 import org.idiginfo.annotationmodel.Documents;
 import org.idiginfo.annotationmodel.Users;
@@ -15,7 +16,7 @@ import org.idiginfo.annotationmodel.Users;
  */
 public class TestInterfaceServices {
 
-	static AnnotateService service = new AnnotateService();
+	static AnnotationService service = new AnnotateService();
 
 	@SuppressWarnings("unused")
 	private static void run() {
@@ -29,10 +30,10 @@ public class TestInterfaceServices {
 		Document notes = testNotes(documents.getDocument(0));
 	}
 
-	public static AnnotateDocuments testDocuments(String documentUser) {
+	public static Documents testDocuments(String documentUser) {
 		System.out.println("\n** test docs for user " + documentUser + " **");
 		// get all documents for a user
-		AnnotateDocuments documents = service.getDocuments(documentUser);
+		Documents documents = service.getDocuments(documentUser);
 		System.out.println("\nname of first document: "
 				+ documents.getDocument(0).getName());
 		System.out.println("code of first document: "
