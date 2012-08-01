@@ -12,6 +12,55 @@ public class ServiceParams {
 	public static String CODE_PARAM = "code";
 	public static String DATA_PARAM = "date";
 	public static String API_USER_PARAM = "apiUser";
+
+	public String getMethod() {
+		return method;
+	}
+
+	public void setMethod(String method) {
+		this.method = method;
+	}
+
+	public String getFormat() {
+		return format;
+	}
+
+	public void setFormat(String format) {
+		this.format = format;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public String getApiUser() {
+		return apiUser;
+	}
+
+	public void setApiUser(String apiUser) {
+		this.apiUser = apiUser;
+	}
+
+	public String getApiAnnotateUser() {
+		return apiAnnotateUser;
+	}
+
+	public void setApiAnnotateUser(String apiAnnotateUser) {
+		this.apiAnnotateUser = apiAnnotateUser;
+	}
+
 	public static String API_ANNOTATE_USER_PARAM = "apiAnnotateUser";
 
 	String method;
@@ -32,6 +81,7 @@ public class ServiceParams {
 
 	/**
 	 * Unpack the request parameters
+	 * 
 	 * @param request
 	 */
 	public ServiceParams(HttpServletRequest request) {
@@ -43,15 +93,17 @@ public class ServiceParams {
 	}
 
 	/**
-	 * Create an ApiServiceParams object to be used in calls to the annotations service
+	 * Create an ApiServiceParams object to be used in calls to the annotations
+	 * service
+	 * 
 	 * @return
 	 */
 	public AnnotateApiParams getApiServiceParams() {
 		AnnotateApiParams apiParams = new AnnotateApiParams();
-		apiParams.setCode(code);
-		apiParams.setDate(date);
-		apiParams.setApiUser(apiUser);
-		apiParams.setApiAnnotateUser(apiAnnotateUser);
+		if (code != null) apiParams.setCode(code);
+		if (date!=null) apiParams.setDate(date);
+		if (apiUser!=null) apiParams.setApiUser(apiUser);
+		if (apiAnnotateUser!=null)apiParams.setApiAnnotateUser(apiAnnotateUser);
 		return apiParams;
 	}
 	// methods to call (interface AnnotationService

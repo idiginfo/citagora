@@ -40,5 +40,7 @@ public interface Annotation {
 	public void setFinalTags(String finalTags) ;
 	public AnnotateNote[] getReplies();
 	public void setReplies(AnnotateNote[] replies) ;
+	public Object getFullPageUrl();
+	public Integer getPagenum();
 
 }

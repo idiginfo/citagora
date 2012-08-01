@@ -21,7 +21,48 @@ public class AnnotateNote implements Annotation {
 	String mark; // "h" highlight, "s" strikethrough, "i" insert, "l" link
 	String state; // "dead" for deleted notes
 	String finalTags; // latest version of tags (maybe modified by replies)
+	String origTags;
+	String recentdate;
+	Integer pagenum;
+
+	public String getOrigTags() {
+		return origTags;
+	}
+
+	public void setOrigTags(String origTags) {
+		this.origTags = origTags;
+	}
+
+	public String getRecentdate() {
+		return recentdate;
+	}
+
+	public void setRecentdate(String recentdate) {
+		this.recentdate = recentdate;
+	}
+
+	public Integer getPagenum() {
+		return pagenum;
+	}
+
+	public void setPagenum(Integer pagenum) {
+		this.pagenum = pagenum;
+	}
+
 	AnnotateNote[] replies; // {optional} list of replies to this note
+
+	public static final String BASE_URL = "http://annotate.msrc.fsu.edu/php/pdfnotate.php?";
+
+	public String getFullPageUrl() {
+		// sample local:2012-06-29/TZpwu9je
+		if (pageurl != null && pageurl.startsWith("local:")) {
+			String[] fields = pageurl.split(":|/");
+			String url = BASE_URL + "d=" + fields[1] + "&c=" + fields[2]
+					+ "#page" + pagenum;// + "_note" + num;
+			return url;
+		}
+		return pageurl;
+	}
 
 	public String getPageurl() {
 		return pageurl;

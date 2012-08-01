@@ -14,22 +14,29 @@ package org.idiginfo.annotationmodel;
  * the License.
  */
 
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.idiginfo.annotate.services.AnnotateApiParams;
+import org.idiginfo.annotate.webapp.ResponseFormatter;
+import org.idiginfo.annotate.webapp.ServiceParams;
 
 public interface AnnotationService {
 
 	public String format(String content);
 
-	public Users getUsers(AnnotateApiParams params);
+	public Users getUsers(ApiParams params);
 
-	public Document getDocument(AnnotateApiParams params);
+	public Document getDocument(ApiParams params);
 
 	public Document getDocument(String code, String date);
 
 	public Document getDocument(String code, String date, boolean withMeta,
 			boolean withNotes);
 
-	public Documents getDocuments(AnnotateApiParams params);
+	public Documents getDocuments(ApiParams params);
 
 	public Documents getDocuments(String user);
 
@@ -38,7 +45,7 @@ public interface AnnotationService {
 
 	// public Document getNotes(String documentCode);
 
-	public Document getAnnotations(AnnotateApiParams params);
+	public Document getAnnotations(ApiParams params);
 
 	public Document getAnnotations(Document document);
 

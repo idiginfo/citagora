@@ -1,12 +1,14 @@
 package org.idiginfo.annotate.services;
 
+import org.idiginfo.annotationmodel.ApiParams;
 
 /**
  * Class that helps manage HTTP parameters for the a.nnotate service
+ * 
  * @author griccardi
- *
+ * 
  */
-public class AnnotateApiParams {
+public class AnnotateApiParams implements ApiParams {
 
 	public static final String API_URL = "http://annotate.msrc.fsu.edu/php/";
 	public static final String API_KEY = "giqfrstIk9b6CddDL3ogGTUac6Lr3II9";
@@ -113,8 +115,7 @@ public class AnnotateApiParams {
 	}
 
 	public void setWithNotes(boolean withNotes) {
-		if (withNotes)
-			this.withNotes = "1";
+		if (withNotes) this.withNotes = "1";
 		else
 			this.withNotes = null;
 	}
@@ -128,8 +129,7 @@ public class AnnotateApiParams {
 	}
 
 	public void setWithMeta(boolean withMeta) {
-		if (withMeta)
-			this.withMeta = "1";
+		if (withMeta) this.withMeta = "1";
 		else
 			this.withMeta = null;
 	}

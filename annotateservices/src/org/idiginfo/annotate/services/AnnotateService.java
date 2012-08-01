@@ -18,6 +18,7 @@ import java.io.IOException;
 
 import org.apache.commons.io.IOUtils;
 import org.idiginfo.annotationmodel.AnnotationService;
+import org.idiginfo.annotationmodel.ApiParams;
 import org.idiginfo.annotationmodel.Document;
 import org.idiginfo.annotationmodel.Documents;
 
@@ -56,18 +57,21 @@ public class AnnotateService implements AnnotationService {
 		return null;
 	}
 
-	public AnnotateUsers getUsers(AnnotateApiParams params) {
-		String content = queryService("listUsers.php", params);
+	public AnnotateUsers getUsers(ApiParams params) {
+		if (!(params instanceof AnnotateApiParams)) return null;
+		AnnotateApiParams annotateParams = (AnnotateApiParams) params;
+		String content = queryService("listUsers.php", annotateParams);
 		// map to AnnotateUsers
 		AnnotateUsers users = gson.fromJson(content, AnnotateUsers.class);
 		return users;
 	}
 
 	@Override
-	public Document getDocument(AnnotateApiParams params) {
-
-		return getDocument(params.code, params.date, params.getWithMeta(),
-				params.getWithNotes());
+	public Document getDocument(ApiParams params) {
+		if (!(params instanceof AnnotateApiParams)) return null;
+		AnnotateApiParams annotateParams = (AnnotateApiParams) params;
+		return getDocument(annotateParams.code, annotateParams.date,
+				annotateParams.withMeta, annotateParams.withNotes);
 	}
 
 	public AnnotateDocumentNotes getDocument(String code, String date) {
@@ -91,7 +95,7 @@ public class AnnotateService implements AnnotationService {
 		params.setWithNotes(withNotes);
 		content = queryService("listNotes.php", params);
 		content = format(content);
-		System.out.println(content);
+		// System.out.println(content);
 		// map to AnnotateDocuments
 		AnnotateDocumentNotes document = gson.fromJson(content,
 				AnnotateDocumentNotes.class);
@@ -99,9 +103,12 @@ public class AnnotateService implements AnnotationService {
 	}
 
 	@Override
-	public Documents getDocuments(AnnotateApiParams params) {
-		// TODO Auto-generated method stub
-		return getDocuments(params.apiUser, params.withMeta, params.withNotes);
+	public Documents getDocuments(ApiParams params) {
+		if (!(params instanceof AnnotateApiParams)) return null;
+		AnnotateApiParams annotateParams = (AnnotateApiParams) params;
+
+		return getDocuments(annotateParams.apiUser, annotateParams.withMeta,
+				annotateParams.withNotes);
 	}
 
 	public AnnotateDocuments getDocuments(String user) {
@@ -148,8 +155,10 @@ public class AnnotateService implements AnnotationService {
 	}
 
 	@Override
-	public Document getAnnotations(AnnotateApiParams params) {
-		return getAnnotations(params.code, params.date);
+	public Document getAnnotations(ApiParams params) {
+		if (!(params instanceof AnnotateApiParams)) return null;
+		AnnotateApiParams annotateParams = (AnnotateApiParams) params;
+		return getAnnotations(annotateParams.code, annotateParams.date);
 	}
 
 	public AnnotateDocumentNotes getNotes(AnnotateDocument document) {
