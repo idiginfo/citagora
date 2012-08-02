@@ -21,12 +21,12 @@ public class TestAnnotateServices {
 	private static void run() {
 
 		AnnotateUsers users = testUsers();
-		String selectedUser = users.getMembers().get(0);
+		String selectedUser = "drupal@msrc.fsu.edu"; // users.getMembers().get(0);
 		String code = "TZpwu9je";
 		String date = "2012-06-29";
-		AnnotateDocumentNotes document = testDocument(code, date);
+		//AnnotateDocumentNotes document = testDocument(code, date);
 		AnnotateDocuments documents = testDocuments(selectedUser);
-		AnnotateDocumentNotes notes = testNotes(documents.getDocument(0));
+		//AnnotateDocumentNotes notes = testNotes(documents.getDocument(0));
 	}
 
 	public static AnnotateDocuments testDocuments(String documentUser) {

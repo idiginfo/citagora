@@ -122,7 +122,7 @@ public class TestAnnotateServices {
 			AnnotateApiParams params = new AnnotateApiParams();
 			params.setApiAnnotateUser(user);
 			params.setWithMeta("1");
-			// params.setWithNotes("1");
+			params.setWithNotes("1");
 			AnnotateUrl url = new AnnotateUrl("listDocuments.php", params);
 			url.prepare();
 			// System.out.println(url.build());

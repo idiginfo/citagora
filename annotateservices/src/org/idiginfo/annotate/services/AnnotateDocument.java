@@ -112,7 +112,7 @@ public class AnnotateDocument implements Document {
 	@Override
 	public String getTitle() {
 		if (meta != null) return meta.getTitle();
-		return null;
+		return name;
 	}
 
 	@Override

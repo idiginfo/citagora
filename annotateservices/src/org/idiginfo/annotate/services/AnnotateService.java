@@ -14,7 +14,10 @@ package org.idiginfo.annotate.services;
  * the License.
  */
 
+import java.io.FileWriter;
 import java.io.IOException;
+
+import javax.faces.view.facelets.FaceletException;
 
 import org.apache.commons.io.IOUtils;
 import org.idiginfo.annotationmodel.AnnotationService;
@@ -38,6 +41,7 @@ public class AnnotateService implements AnnotationService {
 
 	static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
 	static JsonParser parser = new JsonParser();
+	static final int CONNECT_TIMEOUT = 200000;
 
 	private static HttpRequestFactory requestFactory = HTTP_TRANSPORT
 			.createRequestFactory(new HttpRequestInitializer() {
@@ -148,9 +152,8 @@ public class AnnotateService implements AnnotationService {
 		return getNotes(document);
 	}
 
-	@Override
-	public AnnotateDocumentNotes getAnnotations(Document document) {
-		if (!(document instanceof AnnotateDocumentNotes)) return null;
+	public AnnotateDocumentNotes getNotes(Document document) {
+		if (!(document instanceof AnnotateDocument)) return null;
 		return getNotes(document.getId());
 	}
 
@@ -161,9 +164,11 @@ public class AnnotateService implements AnnotationService {
 		return getAnnotations(annotateParams.code, annotateParams.date);
 	}
 
-	public AnnotateDocumentNotes getNotes(AnnotateDocument document) {
-		if (document == null) return null;
-		return getAnnotations(document.getCode(), document.getDate());
+	@Override
+	public AnnotateDocumentNotes getAnnotations(Document document) {
+		if (document == null || !(document instanceof AnnotateDocument)) return null;
+		return getAnnotations(((AnnotateDocument) document).getCode(),
+				document.getDate());
 	}
 
 	public AnnotateDocumentNotes getAnnotations(String code, String date) {
@@ -194,6 +199,7 @@ public class AnnotateService implements AnnotationService {
 			url.prepare();
 			// System.out.println(url.build());
 			HttpRequest request = requestFactory.buildGetRequest(url);
+			request.setConnectTimeout(CONNECT_TIMEOUT);
 			HttpResponse result = request.execute();
 			content = IOUtils.toString(result.getContent());
 			result.disconnect();

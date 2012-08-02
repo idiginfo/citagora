@@ -222,7 +222,7 @@ public class SpringerAnnotation implements Annotation{
 	}
 
 	@Override
-	public Object getFullPageUrl() {
+	public String getFullPageUrl() {
 		// TODO Auto-generated method stub
 		return null;
 	}
