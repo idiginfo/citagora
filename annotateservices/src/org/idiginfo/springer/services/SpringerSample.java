@@ -1,23 +1,10 @@
 package org.idiginfo.springer.services;
 
-/*
- * Copyright (c) 2011 Google Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
- */
-
 import java.io.IOException;
 
 import org.apache.commons.io.IOUtils;
 import org.idiginfo.annotate.services.AnnotateApiParams;
+import org.idiginfo.sciverse.services.SciVerseDocument;
 
 import com.google.api.client.http.HttpHeaders;
 import com.google.api.client.http.HttpRequest;
@@ -34,14 +21,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 
-/**
- * Simple example for the <a
- * href="http://www.dailymotion.com/doc/api/graph-api.html">Dailymotion Graph
- * API</a>.
- * 
- * @author Yaniv Inbar
- */
-public class SciVerseSample {
+public class SpringerSample {
 
 	static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
 	static HttpRequestFactory requestFactory;
@@ -53,48 +33,84 @@ public class SciVerseSample {
 							throws IOException {
 					}
 				});
-		String test = testSciVerse();
+		String test = null;
+		// test = testSpringerDocument();
+		test = testSpringerQuery();
 	}
 
-	public static String testSciVerse() {
+	public static String testSpringerDocument() {
 		String content;
 		try {
 			AnnotateApiParams params = new AnnotateApiParams();
-			SciVerseUrl url = new SciVerseUrl("article/DOI:10.1016/j.jpsychires.2008.05.001");
-			//url.view="META_ABS";
+			SpringerUrl url = new SpringerUrl("metadata", "json");
+			// url.view="META_ABS";
+			url.addParameter("doi", "10.1007/s11276-008-0131-4");
 			url.prepare();
 			System.out.println(url.build());
 			HttpRequest request = requestFactory.buildGetRequest(url);
-			HttpHeaders headers = new HttpHeaders();
-			headers.setAccept("application/json");
-			headers.set("X-ELS-APIKey", "32044be7be3a652a32654afeae5bf4d1");
-			//headers.set("X-ELS-APIKey", "5135c5817a6d86b633013ee9e4d120b5");
-			headers.set("X-ELS-ResourceVersion", "XOCS");
-			request.setHeaders(headers);
 			HttpResponse result = request.execute();
 			content = IOUtils.toString(result.getContent());
-			//System.out.print(content);
+			// System.out.print(content);
 			Gson gson = new GsonBuilder().setPrettyPrinting().create();
 			JsonParser parser = new JsonParser();
 			JsonObject tree = parser.parse(content).getAsJsonObject();
 			System.out.println(gson.toJson(tree));
-			
-			SciVerseDocument data = gson.fromJson(content, SciVerseDocument.class);
-			System.out.println("Id is: "+data.getId());
-			System.out.println("Title is: "+data.getTitle());
-			System.out.println("Pub name is: "+data.getPubName());
-		
+
 		} catch (IOException e) {
 			e.printStackTrace();
 			return null;
 		}
-		if (SciVerseUrl.isError(content)) {
+		if (SpringerUrl.isError(content)) {
 			System.err.println(content);
 			return null;
 		}
 		return null;
 	}
 
+	public static String testSpringerQuery() {
+		String content;
+		try {
+			AnnotateApiParams params = new AnnotateApiParams();
+			SpringerUrl url = new SpringerUrl("metadata", "json");
+			// url.view="META_ABS";
+			url.addParameter("title", "suicide");
+			url.prepare();
+			System.out.println(url.build());
+			HttpRequest request = requestFactory.buildGetRequest(url);
+			HttpResponse result = request.execute();
+			content = IOUtils.toString(result.getContent());
+			// System.out.print(content);
+			Gson gson = new GsonBuilder().setPrettyPrinting().create();
+			JsonParser parser = new JsonParser();
+			JsonObject tree = parser.parse(content).getAsJsonObject();
+			String json = gson.toJson(tree);
+			//System.out.println(json);
+
+			SpringerResult springerResult = gson.fromJson(json,
+					SpringerResult.class);
+			SpringerRecord record = springerResult.records.get(1);
+			System.out.println("Id is: " + record.identifier);
+			System.out.println("Title is: " + record.title);
+			System.out.println("Pub name is: " + record.publicationName);
+			// System.out.println("num results "+springerResult.result.get(0).total);
+			System.out.println("num results "
+					+ springerResult.getResult().total);
+			for (int i = 0; i < springerResult.facets.size(); i++) {
+				SpringerResult.Facet facet = springerResult.getFacet(i);
+				System.out.println("Facet " + i + " '" + facet.name + "': "
+						+ facet.values.get(0).value + ": "
+						+ facet.values.get(0).count);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+		if (SpringerUrl.isError(content)) {
+			System.err.println(content);
+			return null;
+		}
+		return null;
+	}
 
 	public static void main(String[] args) {
 		run();

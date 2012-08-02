@@ -10,7 +10,7 @@ import org.idiginfo.annotationmodel.Document;
 
 import com.google.gson.annotations.SerializedName;
 
-public class SciVerseDocument implements Document {
+public class SpringerDocument implements Document {
 
 	class FullTextRetrievalResponse {
 		@SerializedName("coredata")
@@ -21,7 +21,7 @@ public class SciVerseDocument implements Document {
 		@SerializedName("prism:url")
 		String url; // "http://api.elsevier.com/content/article/DOI:10.1016/j.jpsychires.2008.05.001",
 
-		SciVerseLink link;
+		SpringerLink link;
 
 		@SerializedName("dc:identifier")
 		String id; // : "DOI:10.1016/j.jpsychires.2008.05.001",

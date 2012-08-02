@@ -11,13 +11,42 @@ public class SciVerseUrl extends GenericUrl {
 		super(SciVerseApiParams.API_URL + function);
 	}
 
-	@Key("view")
-	protected String view;
+	public SciVerseUrl(String function, String cluster) {
+		super(SciVerseApiParams.API_URL + function + cluster);
+	}
+
+	// Clusters: HUB SCIDIR SCIDIR-OBJECT SCOPUS AUTHOR AFFILIATION
 
 	@Key
-	List<String> field;
+	String query;
+	@Key
+	String date;
+	@Key
+	String view;
+	@Key
+	String field;
+	@Key
+	String content;
+	@Key
+	String count;
+	@Key
+	String start;
+	@Key
+	String sort;
+	@Key
+	String subj;
+	@Key
+	String subscribed;
+	@Key
+	String facet;
+	@Key
+	String httpAccept;
+	@Key
+	String collapse;
+	@Key("co-author")
+	String coAuthor;
 
-	// view, field
+	// ={searchTerms}&[{param}=[paramValue]&{param]=[paramValue]...]
 
 	/**
 	 * Get the URL ready for execution

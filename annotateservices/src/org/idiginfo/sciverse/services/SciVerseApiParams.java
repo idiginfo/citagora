@@ -4,7 +4,7 @@ import org.idiginfo.annotationmodel.ApiParams;
 
 public class SciVerseApiParams implements ApiParams {
 
-	public static final String API_URL = "http://api.elsevier.com/content/";
+	public static final String API_URL = "https://api.elsevier.com/content/";
 
 	// Content Categories
 	String[] contentCategories = {"Article", "Abstract", "Author", "Affiliation" };

@@ -6,7 +6,7 @@ import org.idiginfo.annotationmodel.Document;
 import org.idiginfo.annotationmodel.Documents;
 import org.idiginfo.annotationmodel.Users;
 
-public class SciVerseService implements AnnotationService {
+public class SpringerService implements AnnotationService {
 
 	@Override
 	public String format(String content) {

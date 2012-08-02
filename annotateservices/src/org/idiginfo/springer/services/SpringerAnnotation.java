@@ -3,7 +3,7 @@ package org.idiginfo.springer.services;
 import org.idiginfo.annotate.services.AnnotateNote;
 import org.idiginfo.annotationmodel.Annotation;
 
-public class SciVerseAnnotation implements Annotation{
+public class SpringerAnnotation implements Annotation{
 
 	@Override
 	public String getPageurl() {

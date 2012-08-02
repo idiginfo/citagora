@@ -14,6 +14,7 @@ package org.idiginfo.sciverse.services;
  * the License.
  */
 
+import java.io.FileWriter;
 import java.io.IOException;
 
 import org.apache.commons.io.IOUtils;
@@ -53,37 +54,41 @@ public class SciVerseSample {
 							throws IOException {
 					}
 				});
-		String test = testSciVerse();
+		String test;
+		// test = testSciVerseDocument();
+		test = testSciVerseSearch();
 	}
 
-	public static String testSciVerse() {
+	public static String testSciVerseDocument() {
 		String content;
 		try {
 			AnnotateApiParams params = new AnnotateApiParams();
-			SciVerseUrl url = new SciVerseUrl("article/DOI:10.1016/j.jpsychires.2008.05.001");
-			//url.view="META_ABS";
+			SciVerseUrl url = new SciVerseUrl(
+					"article/DOI:10.1016/j.jpsychires.2008.05.001");
+			url.view = "META_ABS";
 			url.prepare();
 			System.out.println(url.build());
 			HttpRequest request = requestFactory.buildGetRequest(url);
 			HttpHeaders headers = new HttpHeaders();
 			headers.setAccept("application/json");
-			headers.set("X-ELS-APIKey", "32044be7be3a652a32654afeae5bf4d1");
-			//headers.set("X-ELS-APIKey", "5135c5817a6d86b633013ee9e4d120b5");
+			headers.set("X-ELS-APIKey", "32044be7be3a652a32654afeae5bf4d1");// griccardi
+			// headers.set("X-ELS-APIKey", "5135c5817a6d86b633013ee9e4d120b5");
 			headers.set("X-ELS-ResourceVersion", "XOCS");
 			request.setHeaders(headers);
 			HttpResponse result = request.execute();
 			content = IOUtils.toString(result.getContent());
-			//System.out.print(content);
+			// System.out.print(content);
 			Gson gson = new GsonBuilder().setPrettyPrinting().create();
 			JsonParser parser = new JsonParser();
 			JsonObject tree = parser.parse(content).getAsJsonObject();
 			System.out.println(gson.toJson(tree));
-			
-			SciVerseDocument data = gson.fromJson(content, SciVerseDocument.class);
-			System.out.println("Id is: "+data.getId());
-			System.out.println("Title is: "+data.getTitle());
-			System.out.println("Pub name is: "+data.getPubName());
-		
+
+			SciVerseDocument data = gson.fromJson(content,
+					SciVerseDocument.class);
+			System.out.println("Id is: " + data.getId());
+			System.out.println("Title is: " + data.getTitle());
+			System.out.println("Pub name is: " + data.getPubName());
+
 		} catch (IOException e) {
 			e.printStackTrace();
 			return null;
@@ -95,6 +100,51 @@ public class SciVerseSample {
 		return null;
 	}
 
+	public static String testSciVerseSearch() {
+		String content;
+		try {
+			AnnotateApiParams params = new AnnotateApiParams();
+			SciVerseUrl url = new SciVerseUrl("search/index:hub");
+			// url.view = "META_ABS";
+			url.query = "suicide";
+			url.count = "1";
+			//url.httpAccept="application/json";
+			url.prepare();
+			System.out.println(url.build());
+			HttpRequest request = requestFactory.buildGetRequest(url);
+			HttpHeaders headers = new HttpHeaders();
+			headers.setAccept("application/json");
+			headers.set("X-ELS-APIKey", "32044be7be3a652a32654afeae5bf4d1");// griccardi
+			// headers.set("X-ELS-APIKey", "5135c5817a6d86b633013ee9e4d120b5");
+			headers.set("X-ELS-ResourceVersion", "XOCS");
+			request.setHeaders(headers);
+			HttpResponse result = request.execute();
+			content = IOUtils.toString(result.getContent());
+			FileWriter outFile = new FileWriter("c:/dev/sciverse.html");
+			outFile.write(content);
+			outFile.close();
+			//System.out.print(content);
+			Gson gson = new GsonBuilder().setPrettyPrinting().create();
+			JsonParser parser = new JsonParser();
+			JsonObject tree = parser.parse(content).getAsJsonObject();
+			System.out.println(gson.toJson(tree));
+
+			// SciVerseDocument data = gson.fromJson(content,
+			// SciVerseDocument.class);
+			// System.out.println("Id is: " + data.getId());
+			// System.out.println("Title is: " + data.getTitle());
+			// System.out.println("Pub name is: " + data.getPubName());
+
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+		if (SciVerseUrl.isError(content)) {
+			System.err.println(content);
+			return null;
+		}
+		return null;
+	}
 
 	public static void main(String[] args) {
 		run();
