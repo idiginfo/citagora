@@ -2,9 +2,6 @@ package org.idiginfo.springer.services;
 
 import java.util.List;
 
-import org.idiginfo.springer.services.SpringerResult.Facet;
-
-import com.google.api.client.util.Key;
 import com.google.gson.annotations.SerializedName;
 
 public class SpringerResult {

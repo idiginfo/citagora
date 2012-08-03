@@ -1,11 +1,11 @@
 package org.idiginfo.annotate.webapp;
 
-import java.io.File;
-import java.io.PrintWriter;
 import java.util.Iterator;
-import java.util.List;
 
-import org.idiginfo.annotationmodel.*;
+import org.idiginfo.annotationmodel.Annotation;
+import org.idiginfo.annotationmodel.Document;
+import org.idiginfo.annotationmodel.Documents;
+import org.idiginfo.annotationmodel.Users;
 
 public class ResponseFormatter {
 

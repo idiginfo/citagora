@@ -1,7 +1,5 @@
 package org.idiginfo.springer.services;
 
-import com.google.api.client.util.Key;
-
 public class SpringerRecord {
 	String identifier;
 	String title;

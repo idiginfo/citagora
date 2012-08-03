@@ -1,7 +1,5 @@
 package org.idiginfo.sciverse.services;
 
-import java.util.List;
-
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.util.Key;
 

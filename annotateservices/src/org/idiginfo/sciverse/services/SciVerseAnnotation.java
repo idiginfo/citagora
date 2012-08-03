@@ -3,9 +3,6 @@ package org.idiginfo.sciverse.services;
 import org.idiginfo.annotate.services.AnnotateNote;
 import org.idiginfo.annotationmodel.Annotation;
 
-import org.idiginfo.annotate.services.AnnotateNote;
-import org.idiginfo.annotationmodel.Annotation;
-
 public class SciVerseAnnotation implements Annotation {
 
 	@Override

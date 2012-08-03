@@ -43,19 +43,20 @@ public class TestGetNotes {
 
 		String code = "TZpwu9je";
 		String date = "2012-06-29";
-		Document notes = testNotes(code, date);
+		testNotes(code, date);
 	}
 
-	public static Document testNotes(String code, String date) throws FileNotFoundException {
-		//System.out.println("\n** test notes (" + code + ", " + date + ") **");
+	public static Document testNotes(String code, String date)
+			throws FileNotFoundException {
+		// System.out.println("\n** test notes (" + code + ", " + date +
+		// ") **");
 		// get notes on a document
 		Document documentNotes = service.getAnnotations(code, date);
 		File outFile = new File("c:/dev/notes.html");
 		PrintWriter out = new PrintWriter(outFile);
 		out.println("<html><body>");
 		out.println("<p><b>Code: " + documentNotes.getId() + "</b></p>");
-		out.println("<p><b>Title: " + documentNotes.getTitle()
-				+ "</b></p>");
+		out.println("<p><b>Title: " + documentNotes.getTitle() + "</b></p>");
 		out.println("<p><b>Authors: " + documentNotes.getAuthors() + "</b></p>");
 		out.println("<p><b>Number of Annotations: "
 				+ documentNotes.getNumAnnotations() + "</b></p>");
@@ -64,12 +65,13 @@ public class TestGetNotes {
 		out.println(getNotesTable(documentNotes));
 		out.println("</body></html>");
 		out.close();
-		//outFile.
+		// outFile.
 		return documentNotes;
 	}
 
 	public static String getNotesTable(Document document) {
-		StringBuffer out = new StringBuffer("<table border=\"1\" valign=\"top\"><tr>");
+		StringBuffer out = new StringBuffer(
+				"<table border=\"1\" valign=\"top\"><tr>");
 		out.append("<th>Annotator</th>");
 		out.append("<th>Context</th>");
 		out.append("<th>Type</th>");

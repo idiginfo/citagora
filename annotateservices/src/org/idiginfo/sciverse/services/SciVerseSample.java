@@ -1,24 +1,9 @@
 package org.idiginfo.sciverse.services;
 
-/*
- * Copyright (c) 2011 Google Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
- */
-
 import java.io.FileWriter;
 import java.io.IOException;
 
 import org.apache.commons.io.IOUtils;
-import org.idiginfo.annotate.services.AnnotateApiParams;
 
 import com.google.api.client.http.HttpHeaders;
 import com.google.api.client.http.HttpRequest;
@@ -29,24 +14,15 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 
-/**
- * Simple example for the <a
- * href="http://www.dailymotion.com/doc/api/graph-api.html">Dailymotion Graph
- * API</a>.
- * 
- * @author Yaniv Inbar
- */
 public class SciVerseSample {
 
 	static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
 	static HttpRequestFactory requestFactory;
 
+	@SuppressWarnings("unused")
 	private static void run() {
 		requestFactory = HTTP_TRANSPORT
 				.createRequestFactory(new HttpRequestInitializer() {
@@ -62,7 +38,7 @@ public class SciVerseSample {
 	public static String testSciVerseDocument() {
 		String content;
 		try {
-			AnnotateApiParams params = new AnnotateApiParams();
+			// AnnotateApiParams params = new AnnotateApiParams();
 			SciVerseUrl url = new SciVerseUrl(
 					"article/DOI:10.1016/j.jpsychires.2008.05.001");
 			url.view = "META_ABS";
@@ -103,12 +79,11 @@ public class SciVerseSample {
 	public static String testSciVerseSearch() {
 		String content;
 		try {
-			AnnotateApiParams params = new AnnotateApiParams();
 			SciVerseUrl url = new SciVerseUrl("search/index:hub");
 			// url.view = "META_ABS";
 			url.query = "suicide";
 			url.count = "1";
-			//url.httpAccept="application/json";
+			// url.httpAccept="application/json";
 			url.prepare();
 			System.out.println(url.build());
 			HttpRequest request = requestFactory.buildGetRequest(url);
@@ -123,7 +98,7 @@ public class SciVerseSample {
 			FileWriter outFile = new FileWriter("c:/dev/sciverse.html");
 			outFile.write(content);
 			outFile.close();
-			//System.out.print(content);
+			// System.out.print(content);
 			Gson gson = new GsonBuilder().setPrettyPrinting().create();
 			JsonParser parser = new JsonParser();
 			JsonObject tree = parser.parse(content).getAsJsonObject();

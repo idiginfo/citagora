@@ -3,10 +3,7 @@ package org.idiginfo.springer.services;
 import java.io.IOException;
 
 import org.apache.commons.io.IOUtils;
-import org.idiginfo.annotate.services.AnnotateApiParams;
-import org.idiginfo.sciverse.services.SciVerseDocument;
 
-import com.google.api.client.http.HttpHeaders;
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestFactory;
 import com.google.api.client.http.HttpRequestInitializer;
@@ -15,10 +12,7 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 
 public class SpringerSample {
@@ -33,15 +27,12 @@ public class SpringerSample {
 							throws IOException {
 					}
 				});
-		String test = null;
-		// test = testSpringerDocument();
-		test = testSpringerQuery();
+		testSpringerQuery();
 	}
 
 	public static String testSpringerDocument() {
 		String content;
 		try {
-			AnnotateApiParams params = new AnnotateApiParams();
 			SpringerUrl url = new SpringerUrl("metadata", "json");
 			// url.view="META_ABS";
 			url.addParameter("doi", "10.1007/s11276-008-0131-4");
@@ -70,7 +61,6 @@ public class SpringerSample {
 	public static String testSpringerQuery() {
 		String content;
 		try {
-			AnnotateApiParams params = new AnnotateApiParams();
 			SpringerUrl url = new SpringerUrl("metadata", "json");
 			// url.view="META_ABS";
 			url.addParameter("title", "suicide");
@@ -84,7 +74,7 @@ public class SpringerSample {
 			JsonParser parser = new JsonParser();
 			JsonObject tree = parser.parse(content).getAsJsonObject();
 			String json = gson.toJson(tree);
-			//System.out.println(json);
+			// System.out.println(json);
 
 			SpringerResult springerResult = gson.fromJson(json,
 					SpringerResult.class);
