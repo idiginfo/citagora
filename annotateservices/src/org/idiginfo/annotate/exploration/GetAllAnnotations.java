@@ -14,9 +14,20 @@ package org.idiginfo.annotate.exploration;
  * the License.
  */
 
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.CreationHelper;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.Hyperlink;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.idiginfo.annotate.services.AnnotateService;
 import org.idiginfo.annotationmodel.Annotation;
 import org.idiginfo.annotationmodel.Document;
@@ -41,10 +52,24 @@ public class GetAllAnnotations {
 	HttpRequestFactory requestFactory;
 	AnnotateService service = new AnnotateService();
 	static final String CSV_FILE_NAME = "c:/dev/allnotes.csv";
+	static final String XLS_FILE_NAME = "c:/dev/allnotes.xls";
 	static final char SEPARATOR = ',';
 	CSVWriter writer;
-	String[] headers = { "document", "title", "date", "annotator", "tags",
-			"comment", "context", "pageurl" };
+	Workbook wb = new HSSFWorkbook();
+	Sheet sheet = wb.createSheet("annotations");
+	short xlsRowNumber = 0;
+	CreationHelper createHelper = wb.getCreationHelper();
+	CellStyle hlink_style = wb.createCellStyle();
+	Font hlink_font = wb.createFont();
+
+	String[] headers = { "document", "title", "date", "annotator", "subject",
+			"tags", "comment", "context", "pageurl" };
+
+	public GetAllAnnotations() {
+		hlink_font.setUnderline(Font.U_SINGLE);
+		hlink_font.setColor(IndexedColors.BLUE.getIndex());
+		hlink_style.setFont(hlink_font);
+	}
 
 	private void run() {
 		String documentUser = "drupal@msrc.fsu.edu";
@@ -52,12 +77,15 @@ public class GetAllAnnotations {
 
 		String selectedUser = "drupal@msrc.fsu.edu";
 		Documents documents = service.getDocuments(selectedUser);
-		System.out.println("number of documents" + documents.size());
+		System.out.println("number of documents " + documents.size());
 		try {
 			writer = new CSVWriter(new FileWriter(CSV_FILE_NAME), SEPARATOR);
 			writeHeader(headers);
 			getAllNotes(documents);
 			writer.close();
+			FileOutputStream outFile = new FileOutputStream(XLS_FILE_NAME);
+			wb.write(outFile);
+			outFile.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -94,24 +122,45 @@ public class GetAllAnnotations {
 
 	private void writeHeader(String[] headers) {
 		writer.writeNext(headers);
+		xlsAddRow(headers, null);
+	}
+
+	private void xlsAddRow(String[] values, String url) {
+		Row row = sheet.createRow(xlsRowNumber);
+		for (int i = 0; i < values.length; i++) {
+			Cell cell = row.createCell(i);
+			cell.setCellValue(values[i]);
+			if (i == values.length - 1) {// last cell
+				if (url != null) {
+					Hyperlink link = createHelper
+							.createHyperlink(Hyperlink.LINK_URL);
+					link.setAddress(url);
+					cell.setHyperlink(link);
+					cell.setCellStyle(hlink_style);
+				}
+			}
+		}
+		xlsRowNumber++;
 	}
 
 	private void writeLine(Document document, Annotation note) {
 		// String[] headers = { "document", "title", "date", "annotator",
-		// "type", "comment", "context", "pageurl" };
+		// "subject", "type", "comment", "context", "pageurl" };
 
-		String[] line = new String[9];
-		line[0] = document.getId();
-		line[1] = document.getTitle();
-		line[2] = note.getDate();
-		line[3] = note.getSigned();
-		line[4] = note.getTags();
-		line[5] = note.getNotetext();
-		line[6] = note.getContext();
+		String[] fields = new String[9];
+		fields[0] = document.getId();
+		fields[1] = document.getTitle();
+		fields[2] = note.getDate();
+		fields[3] = note.getSigned();
+		fields[4] = note.getSubject();
+		fields[5] = note.getTags();
+		fields[6] = note.getNotetext();
+		fields[7] = note.getContext();
 		String url = note.getFullPageUrl();
-		line[7] = url;
+		fields[8] = url;
 		// line[7] = "<a href=\"" + url + "\">" + url + "</a>";
-		writer.writeNext(line);
+		writer.writeNext(fields);
+		xlsAddRow(fields, url);
 	}
 
 	public static void main(String[] args) {
