@@ -1,8 +1,11 @@
 package org.idiginfo.annotate.exploration;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -16,45 +19,49 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.idiginfo.annotate.services.AnnotateService;
 import org.idiginfo.annotationmodel.Annotation;
+import org.idiginfo.annotationmodel.AnnotationService;
 import org.idiginfo.annotationmodel.Document;
 import org.idiginfo.annotationmodel.Documents;
 
 import au.com.bytecode.opencsv.CSVWriter;
 
-import com.google.api.client.http.HttpRequestFactory;
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.http.javanet.NetHttpTransport;
-
 /**
- * Test of a few features of the a.nnotate service and the java package that we
- * use to access it.
+ * Generates files containing extracts of the annotate.msrc.fsu.edu notes
+ * database
  * 
  * @author griccardi
  * 
  */
 public class GetAllAnnotations {
 
-	HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
-	HttpRequestFactory requestFactory;
-	AnnotateService service = new AnnotateService();
-	static final String CSV_FILE_NAME = "c:/dev/allnotes.csv";
-	static final String XLS_FILE_NAME = "c:/dev/allnotes.xls";
+	public static void main(String[] args) {
+		new GetAllAnnotations().run();
+		return;
+	}
+
+	AnnotationService service = new AnnotateService();
+	// output parameters
+	static final String OUTPUT_PREFIX = "c:/dev/annotateSampleFiles/partial_notes";
+	// CSV output parameters
+	static final String CSV_FILE_NAME = OUTPUT_PREFIX + ".csv";
 	static final char SEPARATOR = ',';
 	CSVWriter writer;
-	Workbook wb = new HSSFWorkbook();
-	Sheet sheet = wb.createSheet("annotations");
+	// XLS output parameters
+	static final String XLS_FILE_NAME = OUTPUT_PREFIX + "s.xls";
+	Workbook wb = null;
+	Sheet sheet = null;
 	short xlsRowNumber = 0;
-	CreationHelper createHelper = wb.getCreationHelper();
-	CellStyle hlink_style = wb.createCellStyle();
-	Font hlink_font = wb.createFont();
+	CreationHelper createHelper = null;
+	CellStyle hlink_style = null;
+	Font hlink_font = null;
+	// Context text file output parameters
+	static final String CONTEXT_FILE_NAME = OUTPUT_PREFIX
+			+ ".txt";
+	PrintWriter contextPrinter = null;
 
-	String[] headers = { "document", "title", "date", "annotator", "subject",
-			"tags", "comment", "context", "pageurl" };
+	String[] headers = { "title", "tags", "context", "url" };
 
 	public GetAllAnnotations() {
-		hlink_font.setUnderline(Font.U_SINGLE);
-		hlink_font.setColor(IndexedColors.BLUE.getIndex());
-		hlink_style.setFont(hlink_font);
 	}
 
 	private void run() {
@@ -65,33 +72,58 @@ public class GetAllAnnotations {
 		Documents documents = service.getDocuments(selectedUser);
 		System.out.println("number of documents " + documents.size());
 		try {
+			// create output objects
+			// CSV
 			writer = new CSVWriter(new FileWriter(CSV_FILE_NAME), SEPARATOR);
+			// XLS
+			wb = new HSSFWorkbook();
+			sheet = wb.createSheet("annotations");
+			createHelper = wb.getCreationHelper();
+			hlink_style = wb.createCellStyle();
+			hlink_font = wb.createFont();
+			hlink_font.setUnderline(Font.U_SINGLE);
+			hlink_font.setColor(IndexedColors.BLUE.getIndex());
+			hlink_style.setFont(hlink_font);
+			// Context text
+			contextPrinter = new PrintWriter(new File(CONTEXT_FILE_NAME));
+
+			// initialize output objects
 			writeHeader(headers);
+
 			getAllNotes(documents);
+
+			// finalize output objects
 			writer.close();
 			FileOutputStream outFile = new FileOutputStream(XLS_FILE_NAME);
 			wb.write(outFile);
 			outFile.close();
+			contextPrinter.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 
+	/**
+	 * Gets all of the notes for each document in documents Writes the notes
+	 * information to various files
+	 * 
+	 * @param documents
+	 */
 	private void getAllNotes(Documents documents) {
-		int numDocs = 0;
-		int numNotes = 0;
+		int numDocsWithNotes = 0;
+		int numNotesProcessed = 0;
 		for (int i = 0; i < documents.size(); i++) {
 			Document document = documents.getDocument(i);
 			Document annotations = service.getAnnotations(document);
 			if (annotations == null) continue;
 			// print all annotations
 			int numAnnotations = annotations.getNumAnnotations();
-			if (numAnnotations > 0) numDocs++;
+			if (numAnnotations > 0) numDocsWithNotes++;
+			if (numDocsWithNotes>2) break;
 			for (int j = 0; j < numAnnotations; j++) {
 				Annotation note = annotations.getAnnotation(j);
 				String context = note.getContext();
-				numNotes++;
+				numNotesProcessed++;
 				if (context.length() > 1500) {
 					// printLine(note);
 					System.err
@@ -103,7 +135,8 @@ public class GetAllAnnotations {
 				}
 			}
 		}
-		System.out.println("Num docs: " + numDocs + " num notes: " + numNotes);
+		System.out.println("Num docs: " + numDocsWithNotes + " num notes: "
+				+ numNotesProcessed);
 	}
 
 	private void writeHeader(String[] headers) {
@@ -116,7 +149,7 @@ public class GetAllAnnotations {
 		for (int i = 0; i < values.length; i++) {
 			Cell cell = row.createCell(i);
 			cell.setCellValue(values[i]);
-			if (i == values.length - 1) {// last cell
+			if (i == 0) {// first cell
 				if (url != null) {
 					Hyperlink link = createHelper
 							.createHyperlink(Hyperlink.LINK_URL);
@@ -130,30 +163,17 @@ public class GetAllAnnotations {
 	}
 
 	private void writeLine(Document document, Annotation note) {
-		// String[] headers = { "document", "title", "date", "annotator",
-		// "subject", "type", "comment", "context", "pageurl" };
+		// String[] headers = { "title", "tags", "context", "url"};
 
 		String[] fields = new String[9];
-		fields[0] = document.getId();
-		fields[1] = document.getTitle();
-		fields[2] = note.getDate();
-		fields[3] = note.getSigned();
-		fields[4] = note.getSubject();
-		fields[5] = note.getTags();
-		fields[6] = note.getNotetext();
-		fields[7] = note.getContext();
+		fields[0] = document.getTitle();
+		fields[1] = note.getTags();
+		fields[2] = note.getContext();
 		String url = note.getFullPageUrl();
-		fields[8] = url;
-		// line[7] = "<a href=\"" + url + "\">" + url + "</a>";
+		fields[3] = url;
 		writer.writeNext(fields);
 		xlsAddRow(fields, url);
+		contextPrinter.println(note.getContext());
 	}
 
-	public static void main(String[] args) {
-		new GetAllAnnotations().run();
-		return;
-	}
 }
-
-// http://annotate.msrc.fsu.edu/php/listUsers.php?api-auth=yKOfIUFmwDxk21FWkn2X0Ets9fY%3D&api-requesttime=1343244291737&api-user=casey.mclaughlin@cci.fsu.edu&api_key=giqfrstIk9b6CddDL3ogGTUac6Lr3II9
-// http://annotate.msrc.fsu.edu/php/listUsers.php?api-user=casey.mclaughlin%40cci.fsu.edu&api-requesttime=1343244209&api-auth=43F6TiOpvCVhDs4CnNRZHvvPMa0%3D&api-annotateuser=casey.mclaughlin%40cci.fsu.edu

@@ -31,7 +31,7 @@ public class SciVerseSample {
 					}
 				});
 		String test;
-		// test = testSciVerseDocument();
+		test = testSciVerseDocument();
 		test = testSciVerseSearch();
 	}
 
@@ -41,7 +41,7 @@ public class SciVerseSample {
 			// AnnotateApiParams params = new AnnotateApiParams();
 			SciVerseUrl url = new SciVerseUrl(
 					"article/DOI:10.1016/j.jpsychires.2008.05.001");
-			url.view = "META_ABS";
+			// url.view = "META_ABS";
 			url.prepare();
 			System.out.println(url.build());
 			HttpRequest request = requestFactory.buildGetRequest(url);
@@ -50,8 +50,17 @@ public class SciVerseSample {
 			headers.set("X-ELS-APIKey", "32044be7be3a652a32654afeae5bf4d1");// griccardi
 			// headers.set("X-ELS-APIKey", "5135c5817a6d86b633013ee9e4d120b5");
 			headers.set("X-ELS-ResourceVersion", "XOCS");
+			headers.set(
+					"'X-ELS-Authtoken",
+					"sat_A5D36D13C75DB32A685EF8935432A79FC0EA39A485140BDB29B60"
+					+"81ED5B1645B02840BBA64E46BFDC15C6660FB8A967CDA6715A849B6A"
+					+"0512C016FE54618BC699B7A6B169FA20A37230E7EEDBDF7783F04E6A"
+					+"CBE78DACBA60CF81FE55B10D2799007513F5CD057432516E32EB82BA"+
+					"68663B63EEEB1A5FAC9C1F1219899D4C03CA9A0E5E1DDC2B11E819541"+
+					"C0FA0FB846AE731857AA106BF718D2BE281B2987A26754BDAE73F708B5");
 			request.setHeaders(headers);
 			HttpResponse result = request.execute();
+			HttpHeaders httpHeaders = result.getHeaders();
 			content = IOUtils.toString(result.getContent());
 			// System.out.print(content);
 			Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -88,12 +97,17 @@ public class SciVerseSample {
 			System.out.println(url.build());
 			HttpRequest request = requestFactory.buildGetRequest(url);
 			HttpHeaders headers = new HttpHeaders();
-			headers.setAccept("application/json");
+			// headers.setAccept("application/json");
 			headers.set("X-ELS-APIKey", "32044be7be3a652a32654afeae5bf4d1");// griccardi
 			// headers.set("X-ELS-APIKey", "5135c5817a6d86b633013ee9e4d120b5");
 			headers.set("X-ELS-ResourceVersion", "XOCS");
 			request.setHeaders(headers);
-			HttpResponse result = request.execute();
+			HttpResponse result = null;
+			try {
+				result = request.execute();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			content = IOUtils.toString(result.getContent());
 			FileWriter outFile = new FileWriter("c:/dev/sciverse.html");
 			outFile.write(content);

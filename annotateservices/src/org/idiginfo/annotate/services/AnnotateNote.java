@@ -58,7 +58,7 @@ public class AnnotateNote implements Annotation {
 		if (pageurl != null && pageurl.startsWith("local:")) {
 			String[] fields = pageurl.split(":|/");
 			String url = BASE_URL + "d=" + fields[1] + "&c=" + fields[2]
-					+ "#page" + pagenum;// + "_note" + num;
+					+ "#page" + pagenum + "_note" + gid;
 			return url;
 		}
 		return pageurl;
