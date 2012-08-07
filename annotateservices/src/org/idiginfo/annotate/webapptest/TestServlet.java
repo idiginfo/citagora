@@ -1,6 +1,7 @@
 package org.idiginfo.annotate.webapptest;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.idiginfo.annotate.webapp.RequestProcessor;
+import org.idiginfo.annotate.webapp.ServiceParams;
+import org.idiginfo.annotate.webapp.RequestProcessor.Result;
 
 /**
  * Servlet implementation class TestServlet
@@ -33,7 +36,7 @@ public class TestServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		requestProcessor.processRequest(request, response);
+		processRequest(request, response);
 	}
 
 	/**
@@ -42,7 +45,18 @@ public class TestServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		requestProcessor.processRequest(request, response);
+		processRequest(request, response);
 	}
 
+	public void processRequest(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		ServiceParams params = new ServiceParams(request);
+		PrintWriter out = response.getWriter();
+		RequestProcessor.Result result = requestProcessor
+				.processRequest(params);
+		if (result.statusCode != HttpServletResponse.SC_OK
+				|| result.statusCode != 0) {
+			response.sendError(result.statusCode, result.message);
+		}
+	}
 }
