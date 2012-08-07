@@ -40,7 +40,7 @@ public class Hello {
 	@GET
 	@Path("xxx")
 	public String nonono() {
-		Response response = Response.status(Responses.NO_CONTENT)
+		Response response = Response.status(Responses.NOT_FOUND)
 				.entity("Sorry!").type("text/plain").build();
 		WebApplicationException e = new WebApplicationException(response);
 		throw e;

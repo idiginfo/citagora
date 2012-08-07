@@ -2,6 +2,7 @@ package org.idiginfo.annotate.webapp;
 
 import java.util.Iterator;
 
+import org.idiginfo.annotate.services.AnnotateApiParams;
 import org.idiginfo.annotationmodel.Annotation;
 import org.idiginfo.annotationmodel.Document;
 import org.idiginfo.annotationmodel.Documents;
@@ -9,7 +10,7 @@ import org.idiginfo.annotationmodel.Users;
 
 public class ResponseFormatter {
 
-	public static String format(Users users) {
+	public static String toHtml(Users users) {
 		StringBuffer out = new StringBuffer();
 		Iterator<String> members = users.getMembers().iterator();
 		while (members.hasNext()) {
@@ -19,7 +20,7 @@ public class ResponseFormatter {
 		return out.toString();
 	}
 
-	public static String format(Document document) {
+	public static String toHtml(Document document) {
 		StringBuffer out = new StringBuffer();
 		out.append("<html><body>");
 		out.append("<p><b>Code: ").append(document.getId()).append("</b></p>");
@@ -63,12 +64,45 @@ public class ResponseFormatter {
 		return out.toString();
 	}
 
-	public static String format(Documents document) {
+	public static String toHtml(Documents document) {
 		return null;
 	}
 
-	public static String formatAnnotations(Document document) {
+	public static String toHtmlAnnotations(Document document) {
 		return null;
+	}
+
+	static String toHtml(ServiceParams params, Object objects) {
+		StringBuffer title = new StringBuffer();
+		StringBuffer body = new StringBuffer();
+		title.append("MSRC ").append(params.getCollection());
+		AnnotateApiParams apiParams = params.getApiServiceParams();
+		if (params.method.equals(ServiceParams.METHOD_GET_USERS)) {
+			Users users = (Users) objects;
+			title.append("users");
+			body.append(toHtml(users));
+		} else if (params.method.equals(ServiceParams.METHOD_GET_DOCUMENTS)) {
+			Documents documents = (Documents) objects;
+			title.append("documents for user").append(params.apiAnnotateUser);
+			body.append(toHtml(documents));
+		} else if (params.method.equals(ServiceParams.METHOD_GET_DOCUMENT)) {
+			Document document = (Document) objects;
+			title.append("document").append(params.code);
+			body.append(toHtml(document));
+		} else if (params.method.equals(ServiceParams.METHOD_GET_ANNOTATIONS)) {
+			Document documentNotes = (Document) objects;
+			title.append("notes for document").append(params.code);
+			body.append(toHtmlAnnotations(documentNotes));
+		} else {
+			return ("unkown error");
+		}
+		StringBuffer out = new StringBuffer("<html><body><title>");
+		out.append(title.toString());
+		out.append("</title><body>");
+		out.append("<h2>").append(title.toString()).append("</h2>");
+		out.append(body.toString());
+		out.append("</body></html>");
+		return out.toString();
 	}
 
 }

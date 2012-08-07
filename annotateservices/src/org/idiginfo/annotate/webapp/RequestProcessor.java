@@ -1,6 +1,8 @@
 package org.idiginfo.annotate.webapp;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -10,62 +12,90 @@ import org.idiginfo.annotationmodel.AnnotationService;
 import org.idiginfo.annotationmodel.Document;
 import org.idiginfo.annotationmodel.Documents;
 import org.idiginfo.annotationmodel.Users;
+import org.idiginfo.sciverse.services.SciVerseService;
+import org.idiginfo.springer.services.SpringerService;
 
 public class RequestProcessor {
 
-	private AnnotationService service = new AnnotateService();
+	public RequestProcessor() {
+		services = new HashMap<String, AnnotationService>();
+		services.put(ServiceParams.COLLECTION_ANNOTATE, new AnnotateService());
+		services.put(ServiceParams.COLLECTION_SPRINGER, new SpringerService());
+		services.put(ServiceParams.COLLECTION_ELSEVIER, new SciVerseService());
+	}
 
 	public class Result {
+		Result() {
+		}
+
+		Result(int statusCode, String body) {
+			this.statusCode = statusCode;
+			this.body = body;
+		}
+
 		public int statusCode;
-		public String message;
-		public String out;
+		public String body;
 	}
 
-	public List<Object> getObjects(ServiceParams params){
-		return null;
+	Map<String, AnnotationService> services;
+
+	public Object getObjects(ServiceParams params) {
+		String collection = params.getCollection();
+		if (collection == null) {
+			return new Result(HttpServletResponse.SC_BAD_REQUEST,
+					"collection must be specified");
+		}
+		AnnotationService service = services.get(collection);
+		if (service == null) {
+			return new Result(HttpServletResponse.SC_BAD_REQUEST, "collection "
+					+ collection + " is unknown");
+		}
+		return getObjects(service, params);
 	}
-	public Result processRequest(ServiceParams params) {
+
+	public Object getObjects(AnnotationService service, ServiceParams params) {
 		Result result = new Result();
-		StringBuffer title = new StringBuffer();
-		StringBuffer body = new StringBuffer();
-		title.append("MSRC A.nnotate ");
 		if (params.method == null) {
 			result.statusCode = HttpServletResponse.SC_NOT_FOUND;
-			result.message = "'method' parameter must be supplied";
+			result.body = "'method' parameter must be supplied";
 			return result;
 		}
 		AnnotateApiParams apiParams = params.getApiServiceParams();
 		if (params.method.equals(ServiceParams.METHOD_GET_USERS)) {
 			Users users = service.getUsers(apiParams);
-			title.append("users");
-			body.append(ResponseFormatter.format(users));
+			return users;
 		} else if (params.method.equals(ServiceParams.METHOD_GET_DOCUMENTS)) {
 			Documents documents = service.getDocuments(params.apiAnnotateUser);
-			title.append("documents for user").append(params.apiAnnotateUser);
-			body.append(ResponseFormatter.format(documents));
+			return documents;
 		} else if (params.method.equals(ServiceParams.METHOD_GET_DOCUMENT)) {
 			Document document = service.getDocument(apiParams);
-			title.append("document").append(params.code);
-			body.append(ResponseFormatter.format(document));
+			return document;
 		} else if (params.method.equals(ServiceParams.METHOD_GET_ANNOTATIONS)) {
 			Document documentNotes = service.getAnnotations(params.code,
 					params.date);
-			title.append("notes for document").append(params.code);
-			body.append(ResponseFormatter.formatAnnotations(documentNotes));
+			return documentNotes;
 		} else {
 			result.statusCode = HttpServletResponse.SC_NOT_FOUND;
-			result.message = "'method' parameter value '" + params.method
+			result.body = "'method' parameter value '" + params.method
 					+ "' not allowed";
 			return result;
 		}
-		StringBuffer out = new StringBuffer("<html><body><title>");
-		out.append(title.toString());
-		out.append("</title><body>");
-		out.append("<h2>").append(title.toString()).append("</h2>");
-		out.append(body.toString());
-		out.append("</body></html>");
-		result.out = out.toString();
-		return result;
+	}
+
+	public Result processRequest(ServiceParams params) {
+		Object objects = getObjects(params);
+		String body = null;
+		if (objects instanceof Users) {
+			body = ResponseFormatter.toHtml((Users) objects);
+		} else if (objects instanceof Documents) {
+			body = ResponseFormatter.toHtml((Documents) objects);
+		} else if (objects instanceof Document) {
+			body = ResponseFormatter.toHtml((Document) objects);
+		}
+		if (body == null)
+			return new Result(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
+					"no body returned");
+		return new Result(HttpServletResponse.SC_OK, body);
 	}
 
 }

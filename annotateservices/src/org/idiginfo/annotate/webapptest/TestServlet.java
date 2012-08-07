@@ -56,7 +56,7 @@ public class TestServlet extends HttpServlet {
 				.processRequest(params);
 		if (result.statusCode != HttpServletResponse.SC_OK
 				|| result.statusCode != 0) {
-			response.sendError(result.statusCode, result.message);
+			response.sendError(result.statusCode, result.body);
 		}
 	}
 }
