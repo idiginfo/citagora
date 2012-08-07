@@ -22,7 +22,8 @@ public class TestRequestProcessor {
 
 	public String run(ServiceParams params) throws IOException {
 		PrintWriter out = new PrintWriter(System.out);
-		requestProcessor.processRequest(params, out);
+		RequestProcessor.Result result = requestProcessor.processRequest(params);
+		out.println(result.out);
 		return null;
 	}
 

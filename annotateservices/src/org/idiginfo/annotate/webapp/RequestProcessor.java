@@ -1,10 +1,7 @@
 package org.idiginfo.annotate.webapp;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.idiginfo.annotate.services.AnnotateApiParams;
@@ -17,29 +14,25 @@ import org.idiginfo.annotationmodel.Users;
 public class RequestProcessor {
 
 	private AnnotationService service = new AnnotateService();
-	private int statusCode = 200;
-	private String statusMessage = null;
 
-	public void processRequest(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		ServiceParams params = new ServiceParams(request);
-		PrintWriter out = response.getWriter();
-		int statusCode = processRequest(params, out);
-		if (statusCode != HttpServletResponse.SC_OK || statusCode != 0) {
-			response.sendError(statusCode, statusMessage);
-		}
-
+	public class Result {
+		public int statusCode;
+		public String message;
+		public String out;
 	}
 
-	public int processRequest(ServiceParams params, PrintWriter out)
-			throws IOException {
+	public List<Object> getObjects(ServiceParams params){
+		return null;
+	}
+	public Result processRequest(ServiceParams params) {
+		Result result = new Result();
 		StringBuffer title = new StringBuffer();
 		StringBuffer body = new StringBuffer();
 		title.append("MSRC A.nnotate ");
 		if (params.method == null) {
-			statusCode = HttpServletResponse.SC_NOT_FOUND;
-			statusMessage = "'method' parameter must be supplied";
-			return statusCode;
+			result.statusCode = HttpServletResponse.SC_NOT_FOUND;
+			result.message = "'method' parameter must be supplied";
+			return result;
 		}
 		AnnotateApiParams apiParams = params.getApiServiceParams();
 		if (params.method.equals(ServiceParams.METHOD_GET_USERS)) {
@@ -60,19 +53,19 @@ public class RequestProcessor {
 			title.append("notes for document").append(params.code);
 			body.append(ResponseFormatter.formatAnnotations(documentNotes));
 		} else {
-			statusCode = HttpServletResponse.SC_NOT_FOUND;
-			statusMessage = "'method' parameter value '" + params.method
+			result.statusCode = HttpServletResponse.SC_NOT_FOUND;
+			result.message = "'method' parameter value '" + params.method
 					+ "' not allowed";
-			return statusCode;
+			return result;
 		}
-		out.println("<html><body><title>");
-		out.println(title.toString());
-		out.println("</title><body>");
-		out.println("<h2>" + title.toString() + "</h2>");
-		out.print(body.toString());
-		out.println("</body></html>");
-		out.close();
-		return HttpServletResponse.SC_OK;
+		StringBuffer out = new StringBuffer("<html><body><title>");
+		out.append(title.toString());
+		out.append("</title><body>");
+		out.append("<h2>").append(title.toString()).append("</h2>");
+		out.append(body.toString());
+		out.append("</body></html>");
+		result.out = out.toString();
+		return result;
 	}
 
 }

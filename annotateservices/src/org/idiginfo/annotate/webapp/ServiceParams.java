@@ -63,12 +63,12 @@ public class ServiceParams {
 
 	public static String API_ANNOTATE_USER_PARAM = "apiAnnotateUser";
 
-	String method;
-	String format;
-	String code;
-	String date;
-	String apiUser;
-	String apiAnnotateUser;
+	protected String method;
+	protected String format;
+	protected String code;
+	protected String date;
+	protected String apiUser;
+	protected String apiAnnotateUser;
 
 	public static String METHOD_GET_USERS = "getusers";
 	public static String METHOD_GET_DOCUMENT = "getdocument";
@@ -100,10 +100,14 @@ public class ServiceParams {
 	 */
 	public AnnotateApiParams getApiServiceParams() {
 		AnnotateApiParams apiParams = new AnnotateApiParams();
-		if (code != null) apiParams.setCode(code);
-		if (date!=null) apiParams.setDate(date);
-		if (apiUser!=null) apiParams.setApiUser(apiUser);
-		if (apiAnnotateUser!=null)apiParams.setApiAnnotateUser(apiAnnotateUser);
+		if (code != null)
+			apiParams.setCode(code);
+		if (date != null)
+			apiParams.setDate(date);
+		if (apiUser != null)
+			apiParams.setApiUser(apiUser);
+		if (apiAnnotateUser != null)
+			apiParams.setApiAnnotateUser(apiAnnotateUser);
 		return apiParams;
 	}
 	// methods to call (interface AnnotationService
