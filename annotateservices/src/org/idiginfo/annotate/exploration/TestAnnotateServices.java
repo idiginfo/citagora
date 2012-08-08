@@ -63,8 +63,14 @@ public class TestAnnotateServices {
 
 		AnnotateDocumentNotes documentNotes = service
 				.getNotes(selectedDocument);// selectedDocument.getCode());
-		System.out.println("Number of notes: " + documentNotes.notes.length);
-		System.out.println("Name of document: " + documentNotes.meta.getName());
+		if (documentNotes == null) {
+			System.out.println("No notes for document");
+		} else {
+			System.out
+					.println("Number of notes: " + documentNotes.notes.length);
+			System.out.println("Name of document: "
+					+ documentNotes.meta.getName());
+		}
 	}
 
 	public static AnnotateUsers testUsers() {

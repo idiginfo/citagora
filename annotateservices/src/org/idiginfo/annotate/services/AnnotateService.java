@@ -45,7 +45,8 @@ public class AnnotateService implements AnnotationService {
 	}
 
 	public AnnotateUsers getUsers(ApiParams params) {
-		if (!(params instanceof AnnotateApiParams)) return null;
+		if (params != null && !(params instanceof AnnotateApiParams))
+			return null;
 		AnnotateApiParams annotateParams = (AnnotateApiParams) params;
 		String content = queryService("listUsers.php", annotateParams);
 		// map to AnnotateUsers
@@ -55,7 +56,8 @@ public class AnnotateService implements AnnotationService {
 
 	@Override
 	public Document getDocument(ApiParams params) {
-		if (!(params instanceof AnnotateApiParams)) return null;
+		if (!(params instanceof AnnotateApiParams))
+			return null;
 		AnnotateApiParams annotateParams = (AnnotateApiParams) params;
 		return getDocument(annotateParams.code, annotateParams.date,
 				annotateParams.withMeta, annotateParams.withNotes);
@@ -91,7 +93,8 @@ public class AnnotateService implements AnnotationService {
 
 	@Override
 	public Documents getDocuments(ApiParams params) {
-		if (!(params instanceof AnnotateApiParams)) return null;
+		if (!(params instanceof AnnotateApiParams))
+			return null;
 		AnnotateApiParams annotateParams = (AnnotateApiParams) params;
 
 		return getDocuments(annotateParams.apiUser, annotateParams.withMeta,
@@ -136,26 +139,30 @@ public class AnnotateService implements AnnotationService {
 	}
 
 	public AnnotateDocumentNotes getNotes(Document document) {
-		if (!(document instanceof AnnotateDocument)) return null;
+		if (!(document instanceof AnnotateDocument))
+			return null;
 		return getNotes(document.getId());
 	}
 
 	@Override
 	public Document getAnnotations(ApiParams params) {
-		if (!(params instanceof AnnotateApiParams)) return null;
+		if (!(params instanceof AnnotateApiParams))
+			return null;
 		AnnotateApiParams annotateParams = (AnnotateApiParams) params;
 		return getAnnotations(annotateParams.code, annotateParams.date);
 	}
 
 	@Override
 	public AnnotateDocumentNotes getAnnotations(Document document) {
-		if (document == null || !(document instanceof AnnotateDocument)) return null;
+		if (document == null || !(document instanceof AnnotateDocument))
+			return null;
 		return getAnnotations(((AnnotateDocument) document).getCode(),
 				document.getDate());
 	}
 
 	public AnnotateDocumentNotes getAnnotations(String code, String date) {
-		if (code == null || date == null) return null;
+		if (code == null || date == null)
+			return null;
 		String content;
 		AnnotateApiParams params = new AnnotateApiParams();
 		params.setCode(code);
@@ -174,11 +181,13 @@ public class AnnotateService implements AnnotationService {
 	 * @param function
 	 * @return
 	 */
-	private String queryService(String function, AnnotateApiParams params) {
-		if (function == null) return null;
+	private String queryService(String function,
+			AnnotateApiParams annotateParams) {
+		if (function == null)
+			return null;
 		String content;
 		try {
-			AnnotateUrl url = new AnnotateUrl(function, params);
+			AnnotateUrl url = new AnnotateUrl(function, annotateParams);
 			url.prepare();
 			// System.out.println(url.build());
 			HttpRequest request = requestFactory.buildGetRequest(url);

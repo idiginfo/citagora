@@ -27,6 +27,7 @@ public class SpringerSample {
 							throws IOException {
 					}
 				});
+		testSpringerDocument();
 		testSpringerQuery();
 	}
 

@@ -52,8 +52,8 @@ public class AnnotateSample {
 		AnnotateDocument selectedDocument = documents.getDocument(1);
 		System.out.println("Selected document: " + selectedDocument.getCode());
 		AnnotateDocumentNotes documentNotes = testNotes(selectedDocument);// selectedDocument.getCode());
-		System.out.println("Number of notes: "+documentNotes.notes.length);
-		System.out.println("Name of document: "+documentNotes.meta.getName());
+		System.out.println("Number of notes: " + documentNotes.notes.length);
+		System.out.println("Name of document: " + documentNotes.meta.getName());
 	}
 
 	public static AnnotateUsers testUsers() {
@@ -97,7 +97,7 @@ public class AnnotateSample {
 			AnnotateApiParams params = new AnnotateApiParams();
 			params.setApiAnnotateUser(user);
 			params.setWithMeta("1");
-			//params.setWithNotes("1");
+			// params.setWithNotes("1");
 			AnnotateUrl url = new AnnotateUrl("listDocuments.php", params);
 			url.prepare();
 			// System.out.println(url.build());
@@ -145,7 +145,7 @@ public class AnnotateSample {
 			params.setDate(document.getDate());// doesn't work without date
 			AnnotateUrl url = new AnnotateUrl("listNotes.php", params);
 			url.prepare();
-			//System.out.println(url.build());
+			// System.out.println(url.build());
 			HttpRequest request = requestFactory.buildGetRequest(url);
 			HttpResponse result = request.execute();
 			content = IOUtils.toString(result.getContent());
@@ -168,7 +168,7 @@ public class AnnotateSample {
 			FileWriter writer = new FileWriter("c:\\dev\\notes.json");
 			writer.write(json);
 			writer.close();
-			//System.out.println("response from listNotes.php\n" + json);
+			// System.out.println("response from listNotes.php\n" + json);
 		} catch (JsonIOException e) {
 		} catch (JsonParseException e) {
 		} catch (IOException e) {

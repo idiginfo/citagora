@@ -39,6 +39,10 @@ public class ResponseFormatter {
 	}
 
 	private static String getNotesTable(Document document) {
+		Annotation[] annotations = document.getAnnotations();
+		if (annotations == null)
+			return "";
+
 		StringBuffer out = new StringBuffer(
 				"<table border=\"1\" valign=\"top\"><tr>");
 		out.append("<th>Date </br>Click to see page</th>");
@@ -47,11 +51,11 @@ public class ResponseFormatter {
 		out.append("<th>Type</th>");
 		out.append("<th>Comment</th>");
 		out.append("<th>Match</th>");
-		Annotation[] annotations = document.getAnnotations();
 		for (int i = 0; i < annotations.length; i++) {
 			Annotation note = annotations[i];
 			out.append("<tr valign=\"top\">\n");
-			out.append("<td><a href=\"").append(note.getFullPageUrl()).append("\" target=\"pagedetail\">");
+			out.append("<td><a href=\"").append(note.getFullPageUrl())
+					.append("\" target=\"pagedetail\">");
 			out.append(note.getDate()).append("</a></td>");
 			out.append("<td>").append(note.getSigned()).append("</td>");
 			out.append("<td>").append(note.getContext()).append("</td>");

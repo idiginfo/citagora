@@ -45,17 +45,27 @@ public class SpringerDocument implements Document {
 
 	@Override
 	public String getId() {
+		if (fullTextRetrievalResponse == null
+				|| fullTextRetrievalResponse.coreData == null)
+			return null;
 		return fullTextRetrievalResponse.coreData.id;
 	}
 
 	@Override
 	public void setId(String id) {
+		if (fullTextRetrievalResponse == null
+				|| fullTextRetrievalResponse.coreData == null)
+			return;
 		fullTextRetrievalResponse.coreData.id = id;
 
 	}
 
 	@Override
 	public String getDate() {
+		if (fullTextRetrievalResponse == null
+				|| fullTextRetrievalResponse.coreData == null)
+			return null;
+
 		return fullTextRetrievalResponse.coreData.coverDate;
 	}
 
@@ -71,6 +81,10 @@ public class SpringerDocument implements Document {
 	}
 
 	public void setDate(String date) {
+		if (fullTextRetrievalResponse == null
+				|| fullTextRetrievalResponse.coreData == null)
+			return;
+
 		fullTextRetrievalResponse.coreData.coverDate = date;
 	}
 
@@ -130,11 +144,18 @@ public class SpringerDocument implements Document {
 
 	@Override
 	public String getTitle() {
+		if (fullTextRetrievalResponse == null
+				|| fullTextRetrievalResponse.coreData == null)
+			return null;
 		return fullTextRetrievalResponse.coreData.title;
 	}
 
 	@Override
 	public void setTitle(String title) {
+		if (fullTextRetrievalResponse == null
+				|| fullTextRetrievalResponse.coreData == null)
+			return;
+
 		fullTextRetrievalResponse.coreData.title = title;
 
 	}
@@ -170,6 +191,9 @@ public class SpringerDocument implements Document {
 	}
 
 	public String getPubName() {
+		if (fullTextRetrievalResponse == null
+				|| fullTextRetrievalResponse.coreData == null)
+			return null;
 		return fullTextRetrievalResponse.coreData.pubName;
 	}
 
