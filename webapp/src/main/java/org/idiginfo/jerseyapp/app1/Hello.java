@@ -33,7 +33,6 @@ public class Hello {
 	@GET
 	@Path("yo/{name}")
 	public String yo(@PathParam("name") String name) {
-		WebApplicationException e;
 		return "Hello " + name;
 	}
 

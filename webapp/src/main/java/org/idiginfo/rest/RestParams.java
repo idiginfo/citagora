@@ -3,8 +3,6 @@ package org.idiginfo.rest;
 import java.util.List;
 import java.util.Map;
 
-import javax.ws.rs.core.MultivaluedMap;
-
 import org.idiginfo.annotate.webapp.ServiceParams;
 
 public class RestParams extends ServiceParams {
