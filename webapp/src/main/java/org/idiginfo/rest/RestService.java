@@ -4,6 +4,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.*;
 
 import org.idiginfo.annotate.webapp.RequestProcessor;
@@ -28,9 +29,9 @@ public class RestService {
 	}
 
 	@GET
-	@Path("citagora/{collection}")
+	@Path("citagora/")
 	@Produces(MediaType.TEXT_HTML)
-	public String get(@PathParam("collection") String collection) {
+	public String get(@QueryParam("collection") String collection) {
 		MultivaluedMap<String, String> queryParams = uriInfo
 				.getQueryParameters();
 		RestParams params = new RestParams(queryParams);

@@ -17,6 +17,18 @@
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.1.1</version>
+				<configuration>
+					<warName>webapp</warName>
+					<dependentWarExcludes>WEB-INF/web.xml,**/**.class</dependentWarExcludes>
+					<webResources>
+						<resource>
+							<!-- change if necessary -->
+							<directory>src/main/webapp/WEB-INF</directory>
+							<filtering>true</filtering>
+							<targetPath>WEB-INF</targetPath>
+						</resource>
+					</webResources>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -48,20 +60,18 @@
 			<artifactId>asm-all</artifactId>
 			<version>3.3</version>
 		</dependency>
+		<dependency>
+			<groupId>org.idiginfo</groupId>
+			<artifactId>annotateservices</artifactId>
+			<version>1</version>
+			<type>jar</type>
+			<scope>runtime</scope>
+		</dependency>
 	</dependencies>
 	<repositories>
-		<repository>
-			<id>lib</id>
-			<name>lib</name>
-			<releases>
-				<enabled>true</enabled>
-				<checksumPolicy>ignore</checksumPolicy>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-			<url>file://c:/dev/lib</url>
-		</repository>
+		<!-- <repository> <id>lib</id> <name>lib</name> <releases> <enabled>true</enabled> 
+			<checksumPolicy>ignore</checksumPolicy> </releases> <snapshots> <enabled>false</enabled> 
+			</snapshots> <url>file://c:/dev/lib</url> </repository> -->
 		<repository>
 			<id>maven2-repository.dev.java.net</id>
 			<name>Java.net Repository for Maven</name>
@@ -72,6 +82,6 @@
 		<groupId>org.idiginfo.rest</groupId>
 		<artifactId>service</artifactId>
 		<version>1</version>
-		<relativePath>../../../workspaces/jerseyapp/service</relativePath>
+		<relativePath>../service</relativePath>
 	</parent>
 </project>

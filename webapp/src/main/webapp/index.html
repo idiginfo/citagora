@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Test of annotate services</title>
+</head>
+<body>
+	<form action="api/rest/citagora/">
+		Execute request <input type="submit" />
+		<p>
+			Select collection <select name="collection">
+				<option value="springer">Springer</option>
+				<option value="annotate" selected="selected">A.nnotate at
+					MSRC</option>
+				<option value="sciverse">Elsevier -- currently not working
+					:(</option>
+			</select>
+		</p>
+		<p>
+			Select operation <select name="method">
+				<option value="getusers">Users</option>
+				<option value="getdocuments">Documents</option>
+				<option value="getdocument" selected="selected">Document
+					with annotations</option>
+			</select>
+		</p>
+		<p>Choose some parameters</p>
+		<p>
+			Code <input type="text" name="code" value="TZpwu9je" />
+		</p>
+		<p>
+			Date <input type="text" name="date" value="2012-06-29" />
+		</p>
+		<p>
+			User <input type="text" name="apiAnnotateUser" />
+		</p>
+	</form>
+</body>
+</html>
