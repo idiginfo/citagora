@@ -17,8 +17,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<modules>
-  	
-  	<module>../../../repos/citagora/annotateservices</module>
-  	<module>../../../repos/citagora/webapp</module>
-  </modules>
+		<module>../annotateservices</module>
+		<module>../webapp</module>
+	</modules>
 </project>
