@@ -60,7 +60,7 @@ public class SciVerseSample {
 					"C0FA0FB846AE731857AA106BF718D2BE281B2987A26754BDAE73F708B5");
 			request.setHeaders(headers);
 			HttpResponse result = request.execute();
-			HttpHeaders httpHeaders = result.getHeaders();
+			//HttpHeaders httpHeaders = result.getHeaders();
 			content = IOUtils.toString(result.getContent());
 			// System.out.print(content);
 			Gson gson = new GsonBuilder().setPrettyPrinting().create();

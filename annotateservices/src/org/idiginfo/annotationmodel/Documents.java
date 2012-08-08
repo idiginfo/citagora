@@ -1,10 +1,7 @@
 package org.idiginfo.annotationmodel;
 
-import org.idiginfo.annotate.services.AnnotateDocument;
+import java.util.List;
 
-public interface Documents {
-	public AnnotateDocument getDocument(int i);
-
-	public int size();
-
+public interface Documents extends List<Document> {
+	public Document getDocument(int i);
 }

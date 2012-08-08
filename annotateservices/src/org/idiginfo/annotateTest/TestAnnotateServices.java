@@ -5,6 +5,7 @@ import org.idiginfo.annotate.services.AnnotateDocumentNotes;
 import org.idiginfo.annotate.services.AnnotateDocuments;
 import org.idiginfo.annotate.services.AnnotateService;
 import org.idiginfo.annotate.services.AnnotateUsers;
+import org.idiginfo.annotationmodel.Document;
 
 /**
  * Test of a few features of the a.nnotate service and the java package that we
@@ -24,9 +25,9 @@ public class TestAnnotateServices {
 		String selectedUser = "drupal@msrc.fsu.edu"; // users.getMembers().get(0);
 		String code = "TZpwu9je";
 		String date = "2012-06-29";
-		//AnnotateDocumentNotes document = testDocument(code, date);
+		// AnnotateDocumentNotes document = testDocument(code, date);
 		AnnotateDocuments documents = testDocuments(selectedUser);
-		//AnnotateDocumentNotes notes = testNotes(documents.getDocument(0));
+		// AnnotateDocumentNotes notes = testNotes(documents.getDocument(0));
 	}
 
 	public static AnnotateDocuments testDocuments(String documentUser) {
@@ -36,10 +37,10 @@ public class TestAnnotateServices {
 		System.out.println("name of first document: "
 				+ documents.getDocument(0).getName());
 		System.out.println("code of first document: "
-				+ documents.getDocument(0).getCode());
+				+ documents.getDocument(0).getId());
 		System.out.println("number of documents " + documents.size());
-		AnnotateDocument selectedDocument = documents.getDocument(1);
-		System.out.println("Selected document: " + selectedDocument.getCode());
+		Document selectedDocument = documents.getDocument(1);
+		System.out.println("Selected document: " + selectedDocument.getId());
 		return documents;
 	}
 

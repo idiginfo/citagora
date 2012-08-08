@@ -182,4 +182,10 @@ public class AnnotateApiParams implements ApiParams {
 		this.docxmltype = docxmltype;
 	}
 
+	@Override
+	public String getSearchTerms() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

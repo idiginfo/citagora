@@ -10,6 +10,7 @@ import org.idiginfo.annotate.services.AnnotateDocumentNotes;
 import org.idiginfo.annotate.services.AnnotateDocuments;
 import org.idiginfo.annotate.services.AnnotateUrl;
 import org.idiginfo.annotate.services.AnnotateUsers;
+import org.idiginfo.annotationmodel.Document;
 
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestFactory;
@@ -47,10 +48,10 @@ public class AnnotateSample {
 		System.out.println("name of first document: "
 				+ documents.getDocument(0).getName());
 		System.out.println("code of first document: "
-				+ documents.getDocument(0).getCode());
+				+ documents.getDocument(0).getId());
 		System.out.println("number of documents " + documents.size());
-		AnnotateDocument selectedDocument = documents.getDocument(1);
-		System.out.println("Selected document: " + selectedDocument.getCode());
+		Document selectedDocument = documents.getDocument(1);
+		System.out.println("Selected document: " + selectedDocument.getId());
 		AnnotateDocumentNotes documentNotes = testNotes(selectedDocument);// selectedDocument.getCode());
 		System.out.println("Number of notes: " + documentNotes.notes.length);
 		System.out.println("Name of document: " + documentNotes.meta.getName());
@@ -137,11 +138,11 @@ public class AnnotateSample {
 
 	}
 
-	public static AnnotateDocumentNotes testNotes(AnnotateDocument document) {
+	public static AnnotateDocumentNotes testNotes(Document document) {
 		String content;
 		try {
 			AnnotateApiParams params = new AnnotateApiParams();
-			params.setCode(document.getCode());
+			params.setCode(document.getId());
 			params.setDate(document.getDate());// doesn't work without date
 			AnnotateUrl url = new AnnotateUrl("listNotes.php", params);
 			url.prepare();

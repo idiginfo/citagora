@@ -11,6 +11,7 @@ import org.idiginfo.annotate.services.AnnotateDocuments;
 import org.idiginfo.annotate.services.AnnotateService;
 import org.idiginfo.annotate.services.AnnotateUrl;
 import org.idiginfo.annotate.services.AnnotateUsers;
+import org.idiginfo.annotationmodel.Document;
 
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestFactory;
@@ -56,10 +57,10 @@ public class TestAnnotateServices {
 		System.out.println("name of first document: "
 				+ documents.getDocument(0).getName());
 		System.out.println("code of first document: "
-				+ documents.getDocument(0).getCode());
+				+ documents.getDocument(0).getId());
 		System.out.println("number of documents " + documents.size());
-		AnnotateDocument selectedDocument = documents.getDocument(1);
-		System.out.println("Selected document: " + selectedDocument.getCode());
+		Document selectedDocument = documents.getDocument(1);
+		System.out.println("Selected document: " + selectedDocument.getId());
 
 		AnnotateDocumentNotes documentNotes = service
 				.getNotes(selectedDocument);// selectedDocument.getCode());

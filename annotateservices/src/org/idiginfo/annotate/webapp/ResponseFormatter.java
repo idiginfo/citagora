@@ -2,7 +2,6 @@ package org.idiginfo.annotate.webapp;
 
 import java.util.Iterator;
 
-import org.idiginfo.annotate.services.AnnotateApiParams;
 import org.idiginfo.annotationmodel.Annotation;
 import org.idiginfo.annotationmodel.Document;
 import org.idiginfo.annotationmodel.Documents;
@@ -80,7 +79,6 @@ public class ResponseFormatter {
 		StringBuffer title = new StringBuffer();
 		StringBuffer body = new StringBuffer();
 		title.append("MSRC ").append(params.getCollection());
-		AnnotateApiParams apiParams = params.getApiServiceParams();
 		if (params.method.equals(ServiceParams.METHOD_GET_USERS)) {
 			Users users = (Users) objects;
 			title.append("users");

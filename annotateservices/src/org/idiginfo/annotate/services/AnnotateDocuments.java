@@ -3,10 +3,11 @@ package org.idiginfo.annotate.services;
 import java.util.List;
 import java.util.Vector;
 
+import org.idiginfo.annotationmodel.Document;
 import org.idiginfo.annotationmodel.Documents;
 
-public class AnnotateDocuments extends Vector<AnnotateDocument> implements
-		List<AnnotateDocument>, Documents {
+public class AnnotateDocuments extends Vector<Document> implements
+		List<Document>, Documents {
 
 	private static final long serialVersionUID = 1L;
 
@@ -18,7 +19,7 @@ public class AnnotateDocuments extends Vector<AnnotateDocument> implements
 		}
 	}
 
-	public AnnotateDocument getDocument(int i) {
+	public Document getDocument(int i) {
 		if (i < 0 || i > size())
 			return null;
 		return get(i);

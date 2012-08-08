@@ -1,6 +1,5 @@
 package org.idiginfo.annotateTest;
 
-
 import org.idiginfo.annotate.services.AnnotateService;
 import org.idiginfo.annotationmodel.AnnotationService;
 import org.idiginfo.annotationmodel.Document;
@@ -36,8 +35,9 @@ public class TestInterfaceServices {
 		Documents documents = service.getDocuments(documentUser);
 		System.out.println("\nname of first document: "
 				+ documents.getDocument(0).getName());
+
 		System.out.println("code of first document: "
-				+ documents.getDocument(0).getCode());
+				+ documents.getDocument(0).getId());
 		System.out.println("number of documents " + documents.size());
 		Document selectedDocument = documents.getDocument(1);
 		System.out.println("Selected document: " + selectedDocument.getId());

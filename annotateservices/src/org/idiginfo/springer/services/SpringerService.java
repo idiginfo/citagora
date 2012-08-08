@@ -1,18 +1,13 @@
 package org.idiginfo.springer.services;
 
 import java.io.IOException;
-import java.util.List;
 
 import org.apache.commons.io.IOUtils;
-import org.idiginfo.annotate.services.AnnotateApiParams;
-import org.idiginfo.annotate.services.AnnotateDocumentNotes;
-import org.idiginfo.annotate.services.AnnotateUrl;
 import org.idiginfo.annotationmodel.AnnotationService;
 import org.idiginfo.annotationmodel.ApiParams;
 import org.idiginfo.annotationmodel.Document;
 import org.idiginfo.annotationmodel.Documents;
 import org.idiginfo.annotationmodel.Users;
-import org.idiginfo.springer.services.SpringerResult.Result;
 
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestFactory;
@@ -71,26 +66,26 @@ public class SpringerService implements AnnotationService {
 	@Override
 	public Document getDocument(String code, String date, boolean withMeta,
 			boolean withNotes) {
-		String content;
-		ApiParams params = new AnnotateApiParams();
+		SpringerApiParams params = new SpringerApiParams();
 		params.setCode(code);
-		params.setDate(date);
-		// params.setApiAnnotateUser(user);
-		// params.setWithMeta(withMeta);
-		// params.setWithNotes(withNotes);
-		SpringerResult results = getSpringerResult("getdocument", params);
-		// System.out.println(content);
-		// map to AnnotateDocuments
-		List<SpringerRecord> records = results.records;
-		SpringerRecord record = records.get(0);
-
-		return record;
+		Documents documents = getSpringerDocuments("getdocument", params);
+		if (documents == null)
+			return null;
+		return documents.get(0);
 	}
 
 	@Override
-	public Documents getDocuments(ApiParams params) {
+	public Documents getDocuments(ApiParams apiParams) {
 		// TODO Auto-generated method stub
-		return null;
+		SpringerApiParams params;
+
+		if (apiParams instanceof SpringerApiParams) {
+			params = (SpringerApiParams) apiParams;
+		} else {
+			params = new SpringerApiParams(apiParams);
+		}
+		Documents documents = getSpringerDocuments("getdocuments", params);
+		return documents;
 	}
 
 	@Override
@@ -101,8 +96,9 @@ public class SpringerService implements AnnotationService {
 	@Override
 	public Documents getDocuments(String user, boolean withMeta,
 			boolean withNotes) {
-		// TODO Auto-generated method stub
-		return null;
+		SpringerApiParams params = new SpringerApiParams();
+		// map to AnnotateDocuments
+		return getDocuments(params);
 	}
 
 	@Override
@@ -123,20 +119,25 @@ public class SpringerService implements AnnotationService {
 		return null;
 	}
 
-	private SpringerResult getSpringerResult(String function, ApiParams params) {
+	private Documents getSpringerDocuments(String function,
+			SpringerApiParams params) {
 		String content = queryService(function, params);
 		SpringerResult result = gson.fromJson(content, SpringerResult.class);
-		return result;
+		if (result == null)
+			return null;
+		return result.getDocuments();
 	}
 
-	private String queryService(String function, ApiParams params) {
-		if (function == null || !function.equals("getdocument"))
-			return null;
-		String content;
+	private String queryService(String function, SpringerApiParams params) {
 		try {
+			String content;
 			// TODO add other functions
 			SpringerUrl url = new SpringerUrl("metadata", "json");
-			url.addParameter("doi", params.getCode());
+			if ("getdocument".equals(function)) {
+				url.addParameter("doi", params.getCode());
+			} else if ("getdocuments".equals(function)) {
+				url.addParameter("keyword", params.getSearchTerms());
+			}
 			url.prepare();
 			// System.out.println(url.build());
 			HttpRequest request = requestFactory.buildGetRequest(url);

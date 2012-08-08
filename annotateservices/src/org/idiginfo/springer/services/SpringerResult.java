@@ -2,6 +2,8 @@ package org.idiginfo.springer.services;
 
 import java.util.List;
 
+import org.idiginfo.annotationmodel.Documents;
+
 import com.google.gson.annotations.SerializedName;
 
 public class SpringerResult {
@@ -12,6 +14,13 @@ public class SpringerResult {
 	Result[] results;
 	List<SpringerRecord> records;
 	List<Facet> facets;
+	Documents documents;
+
+	Documents getDocuments() {
+		if (documents != null)
+			return documents;
+		return new SpringerDocuments(records);
+	}
 
 	class Result {
 		String total;
@@ -30,12 +39,14 @@ public class SpringerResult {
 	}
 
 	public Result getResult() {
-		if (results != null && results.length > 0) return results[0];
+		if (results != null && results.length > 0)
+			return results[0];
 		return null;
 	}
 
 	public Facet getFacet(int i) {
-		if (facets != null && facets.size() > i) return facets.get(i);
+		if (facets != null && facets.size() > i)
+			return facets.get(i);
 		return null;
 	}
 }

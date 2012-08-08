@@ -16,4 +16,6 @@ public interface ApiParams {
 	public String getCode();
 
 	public void setCode(String code);
+
+	public String getSearchTerms();
 }

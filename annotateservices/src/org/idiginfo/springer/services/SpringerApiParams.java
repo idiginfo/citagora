@@ -7,16 +7,37 @@ public class SpringerApiParams implements ApiParams {
 	public static final String API_URL = "http://api.springer.com/";
 	public static final String API_KEY = "yprt5a5cy4pgj3788ewfj7wz";
 
+	String apiUser;
+
 	// http://api.springer.com/metadata/json?q=10.1007/s11276-008-0131-4&api_key=yprt5a5cy4pgj3788ewfj7wz
+
+	String constraint;
+	String doi;
+	String subject;
+	String keyword;
+	String pub;
+	String year;
+	String country;
+	String isbn;
+	String issn;
+	String date;
+	String openaccess;
+	String type;
+	String imageType;
+	String title;
+	String orgname;
+	String journal;
+	String book;
+	String name;
+	String sort;
 
 	// Content Categories
 	String[] contentCategories = { "Article", "Abstract", "Author",
 			"Affiliation" };
-	String[] constraints = { 
+	String[] constraints = {
 			// equals constraints
-			"doi", "subject", "keyword", "pub", "year",
-			"country", "isbn", "issn", "date", "openaccess", "type",
-			"imagetype",
+			"doi", "subject", "keyword", "pub", "year", "country", "isbn",
+			"issn", "date", "openaccess", "type", "imagetype",
 			// contains constraints
 			"", "title", "imagetype", "orgname", "journal", "book", "name",
 			// display constraints
@@ -74,6 +95,17 @@ public class SpringerApiParams implements ApiParams {
 	// operation will remove any results that meet the negated criteria from the
 	// response.
 
+	public SpringerApiParams(ApiParams apiParams) {
+		if (apiParams==null) return;
+		this.apiUser = apiParams.getApiUser();
+		setCode(apiParams.getCode());
+		setDate(apiParams.getDate());
+		setSearchTerms(apiParams.getSearchTerms());
+	}
+
+	public SpringerApiParams() {
+	}
+
 	@Override
 	public String getApiUser() {
 		// TODO Auto-generated method stub
@@ -88,38 +120,40 @@ public class SpringerApiParams implements ApiParams {
 
 	@Override
 	public String getApiRequestTime() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void setApiRequestTime(String apiRequestTime) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public String getDate() {
-		// TODO Auto-generated method stub
-		return null;
+		return date;
 	}
 
 	@Override
 	public void setDate(String date) {
-		// TODO Auto-generated method stub
-
+		this.date = date;
 	}
 
 	@Override
 	public String getCode() {
-		// TODO Auto-generated method stub
-		return null;
+		return doi;
 	}
 
 	@Override
 	public void setCode(String code) {
-		// TODO Auto-generated method stub
+		doi = code;
+	}
 
+	@Override
+	public java.lang.String getSearchTerms() {
+		return keyword;
+	}
+
+	private void setSearchTerms(String searchTerms) {
+		keyword = searchTerms;
 	}
 
 }
