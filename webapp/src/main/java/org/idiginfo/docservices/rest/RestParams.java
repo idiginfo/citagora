@@ -1,9 +1,9 @@
-package org.idiginfo.rest;
+package org.idiginfo.docservices.rest;
 
 import java.util.List;
 import java.util.Map;
 
-import org.idiginfo.annotate.webapp.ServiceParams;
+import org.idiginfo.docservices.webapp.ServiceParams;
 
 public class RestParams extends ServiceParams {
 
@@ -12,7 +12,8 @@ public class RestParams extends ServiceParams {
 		code = getParam(queryParams, CODE_PARAM);
 		date = getParam(queryParams, DATA_PARAM);
 		apiUser = getParam(queryParams, API_USER_PARAM);
-		apiAnnotateUser = getParam(queryParams, API_ANNOTATE_USER_PARAM);
+		owner = getParam(queryParams, API_ANNOTATE_USER_PARAM);
+		keyword = getParam(queryParams, KEYWORD_PARAM);
 	}
 
 	private String getParam(Map<String, List<String>> queryParams,

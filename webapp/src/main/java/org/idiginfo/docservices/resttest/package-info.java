@@ -5,4 +5,4 @@
  * @author griccardi
  *
  */
-package org.idiginfo.rest;
+package org.idiginfo.docservices.resttest;

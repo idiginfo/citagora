@@ -1,4 +1,4 @@
-package org.idiginfo.rest;
+package org.idiginfo.docservices.rest;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Request;
 import javax.ws.rs.core.UriInfo;
 
-import org.idiginfo.annotate.webapp.RequestProcessor;
+import org.idiginfo.docservices.webapp.RequestProcessor;
 
 /**
  * Hello world!

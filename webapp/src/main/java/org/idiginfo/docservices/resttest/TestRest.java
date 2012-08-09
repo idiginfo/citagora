@@ -1,4 +1,4 @@
-package org.idiginfo.resttest;
+package org.idiginfo.docservices.resttest;
 
 import java.util.HashMap;
 import java.util.List;
