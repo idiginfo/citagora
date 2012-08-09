@@ -5,9 +5,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
-import org.idiginfo.annotate.webapp.RequestProcessor;
-import org.idiginfo.annotate.webapp.ServiceParams;
-import org.idiginfo.rest.RestParams;
+import org.idiginfo.docservices.AnnotationFactory;
+import org.idiginfo.docservices.rest.RestParams;
+import org.idiginfo.docservices.webapp.RequestProcessor;
+import org.idiginfo.docservices.webapp.ServiceParams;
 
 /**
  * Hello world!
@@ -19,10 +20,10 @@ public class TestRest {
 	RequestProcessor requestProcessor = new RequestProcessor();
 
 	String get(String collection) {
-		if (ServiceParams.COLLECTION_SPRINGER.equals(collection)) {
-			return getSpringer();
+		if (AnnotationFactory.COLLECTION_SPRINGER.equals(collection)) {
+			return getSpringerQuery();
 		}
-		if (ServiceParams.COLLECTION_ANNOTATE.equals(collection)) {
+		if (AnnotationFactory.COLLECTION_ANNOTATE.equals(collection)) {
 			return getAnnotate();
 		}
 		return null;
@@ -44,14 +45,14 @@ public class TestRest {
 		queryParams.put(RestParams.DATA_PARAM, strings);
 
 		RestParams params = new RestParams(queryParams);
-		params.setCollection(ServiceParams.COLLECTION_ANNOTATE);
+		params.setCollection(AnnotationFactory.COLLECTION_ANNOTATE);
 
 		RequestProcessor.Result result = requestProcessor
 				.processRequest(params);
 		return result.body;
 	}
 
-	String getSpringer() {
+	String getSpringerDoc() {
 		Map<String, List<String>> queryParams = new HashMap<String, List<String>>();
 		List<String> strings;
 		strings = new Vector<String>();
@@ -63,7 +64,25 @@ public class TestRest {
 		queryParams.put(RestParams.CODE_PARAM, strings);
 
 		RestParams params = new RestParams(queryParams);
-		params.setCollection(ServiceParams.COLLECTION_SPRINGER);
+		params.setCollection(AnnotationFactory.COLLECTION_SPRINGER);
+
+		RequestProcessor.Result result = requestProcessor
+				.processRequest(params);
+		return result.body;
+	}
+
+	String getSpringerQuery() {
+		Map<String, List<String>> queryParams = new HashMap<String, List<String>>();
+		List<String> strings;
+		strings = new Vector<String>();
+		strings.add(ServiceParams.METHOD_GET_DOCUMENTS);
+		queryParams.put(RestParams.METHOD_PARAM, strings);
+		strings = new Vector<String>();
+		strings.add("suicide");
+		queryParams.put("keyword", strings);
+
+		RestParams params = new RestParams(queryParams);
+		params.setCollection(AnnotationFactory.COLLECTION_SPRINGER);
 
 		RequestProcessor.Result result = requestProcessor
 				.processRequest(params);
@@ -71,7 +90,7 @@ public class TestRest {
 	}
 
 	static public void main(String[] args) {
-		String body = new TestRest().get(ServiceParams.COLLECTION_SPRINGER);
+		String body = new TestRest().get(AnnotationFactory.COLLECTION_SPRINGER);
 		System.out.println(body);
 	}
 }

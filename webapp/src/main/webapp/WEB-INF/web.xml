@@ -14,7 +14,7 @@
     <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
     <init-param>
       <param-name>com.sun.jersey.config.property.packages</param-name>
-      <param-value>org.idiginfo.jerseyapp.app;org.idiginfo.jerseyapp.app1;org.idiginfo.rest</param-value>
+      <param-value>org.idiginfo.jerseyapp.app;org.idiginfo.jerseyapp.app1;org.idiginfo.docservices.rest</param-value>
     </init-param>
   </servlet>
   <servlet-mapping>

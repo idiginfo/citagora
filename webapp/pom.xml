@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>org.idiginfo.jerseyapp</groupId>
+	<groupId>org.idiginfo.docservices.rest</groupId>
 	<artifactId>webapp</artifactId>
 	<packaging>war</packaging>
 
@@ -69,9 +69,6 @@
 		</dependency>
 	</dependencies>
 	<repositories>
-		<!-- <repository> <id>lib</id> <name>lib</name> <releases> <enabled>true</enabled> 
-			<checksumPolicy>ignore</checksumPolicy> </releases> <snapshots> <enabled>false</enabled> 
-			</snapshots> <url>file://c:/dev/lib</url> </repository> -->
 		<repository>
 			<id>maven2-repository.dev.java.net</id>
 			<name>Java.net Repository for Maven</name>
@@ -79,7 +76,7 @@
 		</repository>
 	</repositories>
 	<parent>
-		<groupId>org.idiginfo.rest</groupId>
+		<groupId>org.idiginfo.docservices</groupId>
 		<artifactId>service</artifactId>
 		<version>1</version>
 		<relativePath>../service</relativePath>
