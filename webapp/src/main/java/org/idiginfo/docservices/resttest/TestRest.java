@@ -1,5 +1,6 @@
 package org.idiginfo.docservices.resttest;
 
+import java.io.FileWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -89,8 +90,11 @@ public class TestRest {
 		return result.body;
 	}
 
-	static public void main(String[] args) {
+	static public void main(String[] args) throws Exception {
 		String body = new TestRest().get(AnnotationFactory.COLLECTION_SPRINGER);
+		FileWriter out = new FileWriter("c:/dev/api samples/springer.html");
+		out.write(body);
+		out.close();
 		System.out.println(body);
 	}
 }
