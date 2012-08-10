@@ -139,11 +139,11 @@ public class SpringerService implements AnnotationService {
 				url.addParameter("keyword", params.getSearchTerms());
 			}
 			url.prepare();
-			// System.out.println(url.build());
+			System.out.println(url.build());
 			HttpRequest request = requestFactory.buildGetRequest(url);
 			request.setConnectTimeout(CONNECT_TIMEOUT);
 			HttpResponse result = request.execute();
-			content = IOUtils.toString(result.getContent());
+			content = IOUtils.toString(result.getContent(),"UTF-8");
 			JsonParser parser = new JsonParser();
 			JsonObject tree = parser.parse(content).getAsJsonObject();
 			content = gson.toJson(tree);

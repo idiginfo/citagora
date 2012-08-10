@@ -153,7 +153,7 @@ public class SpringerApiParams implements ApiParams {
 		return keyword;
 	}
 
-	private void setSearchTerms(String searchTerms) {
+	public void setSearchTerms(String searchTerms) {
 		keyword = searchTerms;
 	}
 

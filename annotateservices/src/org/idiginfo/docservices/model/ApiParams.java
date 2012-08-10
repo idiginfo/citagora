@@ -19,7 +19,10 @@ public interface ApiParams {
 
 	public String getSearchTerms();
 
+	public void setSearchTerms(String keyword);
+
 	public void setOwner(String apiAnnotateUser);
 
 	public String getOwner();
+
 }

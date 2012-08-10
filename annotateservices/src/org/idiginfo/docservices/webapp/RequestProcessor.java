@@ -73,13 +73,7 @@ public class RequestProcessor {
 	public Result processRequest(ServiceParams params) {
 		Object objects = getObjects(params);
 		String body = null;
-		if (objects instanceof Users) {
-			body = ResponseFormatter.toHtml((Users) objects);
-		} else if (objects instanceof Documents) {
-			body = ResponseFormatter.toHtml((Documents) objects);
-		} else if (objects instanceof Document) {
-			body = ResponseFormatter.toHtml((Document) objects);
-		}
+		body = ResponseFormatter.toHtml(params, objects);
 		if (body == null)
 			return new Result(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
 					"no body returned");

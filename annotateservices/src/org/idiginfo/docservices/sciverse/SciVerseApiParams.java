@@ -75,4 +75,10 @@ public class SciVerseApiParams implements ApiParams {
 		return null;
 	}
 
+	@Override
+	public void setSearchTerms(String keyword) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

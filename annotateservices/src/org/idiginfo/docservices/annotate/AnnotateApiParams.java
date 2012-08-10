@@ -188,4 +188,10 @@ public class AnnotateApiParams implements ApiParams {
 		return null;
 	}
 
+	@Override
+	public void setSearchTerms(String keyword) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -8,6 +8,7 @@ import org.idiginfo.docservices.model.Documents;
 import org.idiginfo.docservices.model.Users;
 
 public class ResponseFormatter {
+	static final String CHARSET = "UTF-8";
 
 	public static String toHtml(Users users) {
 		StringBuffer out = new StringBuffer();
@@ -21,19 +22,18 @@ public class ResponseFormatter {
 
 	public static String toHtml(Document document) {
 		StringBuffer out = new StringBuffer();
-		out.append("<html><body>");
-		out.append("<p><b>Code: ").append(document.getId()).append("</b></p>");
-		out.append("<p><b>Title: ").append(document.getTitle())
-				.append("</b></p>");
-		out.append("<p><b>Authors: ").append(document.getAuthors())
-				.append("</b></p>");
+		out.append("<p><b>Identifier:</b> ").append(document.getId())
+				.append("</p>");
+		out.append("<p><b>Title:</b> ").append(document.getTitle())
+				.append("</p>");
+		out.append("<p><b>Authors:</b> ").append(document.getAuthors())
+				.append("</p>");
 		out.append(
-				"<p><b>Number of Annotations: " + document.getNumAnnotations())
-				.append("</b></p>");
-		out.append("<p><b>Name of document: ").append(document.getName())
-				.append("</b></p>");
+				"<p><b>Number of Annotations:</b> "
+						+ document.getNumAnnotations()).append("</p>");
+		out.append("<p><b>Name of document:</b> ").append(document.getName())
+				.append("</p>");
 		out.append(getNotesTable(document));
-		out.append("</body></html>");
 		return out.toString();
 	}
 
@@ -67,8 +67,17 @@ public class ResponseFormatter {
 		return out.toString();
 	}
 
-	public static String toHtml(Documents document) {
-		return null;
+	public static String toHtml(Documents documents) {
+		if (documents == null)
+			return null;
+		StringBuffer out = new StringBuffer();
+		Iterator<Document> documentIterator = documents.iterator();
+		while (documentIterator.hasNext()) {
+			out.append("<div>");
+			out.append(toHtml(documentIterator.next()));
+			out.append("</div>");
+		}
+		return out.toString();
 	}
 
 	public static String toHtmlAnnotations(Document document) {
@@ -81,24 +90,30 @@ public class ResponseFormatter {
 		title.append("MSRC ").append(params.getCollection());
 		if (params.method.equals(ServiceParams.METHOD_GET_USERS)) {
 			Users users = (Users) objects;
-			title.append("users");
+			title.append(" users ");
 			body.append(toHtml(users));
 		} else if (params.method.equals(ServiceParams.METHOD_GET_DOCUMENTS)) {
 			Documents documents = (Documents) objects;
-			title.append("documents for user").append(params.owner);
+			title.append(" documents ");
+			if (params.getKeyword() != null) {
+				title.append(" with keyword \"").append(params.getKeyword()).append("\"");
+			} else {
+				title.append("for user ").append(params.owner);
+			}
 			body.append(toHtml(documents));
 		} else if (params.method.equals(ServiceParams.METHOD_GET_DOCUMENT)) {
 			Document document = (Document) objects;
-			title.append("document").append(params.code);
+			title.append(" document ").append(params.code);
 			body.append(toHtml(document));
 		} else if (params.method.equals(ServiceParams.METHOD_GET_ANNOTATIONS)) {
 			Document documentNotes = (Document) objects;
-			title.append("notes for document").append(params.code);
+			title.append(" notes for document ").append(params.code);
 			body.append(toHtmlAnnotations(documentNotes));
 		} else {
 			return ("unkown error");
 		}
-		StringBuffer out = new StringBuffer("<html><body><title>");
+		StringBuffer out = new StringBuffer("<html><head><meta charset=\"");
+		out.append(CHARSET).append("\"><body><title>");
 		out.append(title.toString());
 		out.append("</title><body>");
 		out.append("<h2>").append(title.toString()).append("</h2>");

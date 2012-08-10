@@ -13,7 +13,7 @@ public class ServiceParams {
 	public static String CODE_PARAM = "code";
 	public static String DATA_PARAM = "date";
 	public static String API_USER_PARAM = "apiUser";
-	public static String KEYWORD_PARAM;
+	public static String KEYWORD_PARAM = "keyword";
 
 	public static String API_ANNOTATE_USER_PARAM = "apiAnnotateUser";
 
@@ -64,6 +64,8 @@ public class ServiceParams {
 			apiParams.setApiUser(apiUser);
 		if (owner != null)
 			apiParams.setOwner(owner);
+		if (keyword != null)
+			apiParams.setSearchTerms(keyword);
 		return apiParams;
 	}
 
@@ -124,4 +126,11 @@ public class ServiceParams {
 		this.owner = owner;
 	}
 
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword){
+		this.keyword = keyword;
+	}
 }
