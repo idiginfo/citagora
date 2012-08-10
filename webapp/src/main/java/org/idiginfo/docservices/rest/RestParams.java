@@ -3,20 +3,20 @@ package org.idiginfo.docservices.rest;
 import java.util.List;
 import java.util.Map;
 
-import org.idiginfo.docservices.webapp.ServiceParams;
+import org.idiginfo.docservices.webapp.DocServicesParams;
 
-public class RestParams extends ServiceParams {
+public class RestParams extends DocServicesParams {
 
 	public RestParams(Map<String, List<String>> queryParams) {
 		method = getParam(queryParams, METHOD_PARAM);
-		code = getParam(queryParams, CODE_PARAM);
-		date = getParam(queryParams, DATA_PARAM);
+		id = getParam(queryParams, ID_PARAM);
+		date = getParam(queryParams, DATE_PARAM);
 		apiUser = getParam(queryParams, API_USER_PARAM);
-		owner = getParam(queryParams, API_ANNOTATE_USER_PARAM);
+		owner = getParam(queryParams, OWNER_PARAM);
 		keyword = getParam(queryParams, KEYWORD_PARAM);
 	}
 
-	private String getParam(Map<String, List<String>> queryParams,
+	private static String getParam(Map<String, List<String>> queryParams,
 			String paramName) {
 		List<String> values;
 		values = queryParams.get(paramName);

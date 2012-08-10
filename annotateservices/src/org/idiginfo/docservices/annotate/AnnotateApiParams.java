@@ -1,6 +1,6 @@
 package org.idiginfo.docservices.annotate;
 
-import org.idiginfo.docservices.model.ApiParams;
+import org.idiginfo.docservices.model.BaseApiParams;
 
 /**
  * Class that helps manage HTTP parameters for the a.nnotate service
@@ -8,19 +8,20 @@ import org.idiginfo.docservices.model.ApiParams;
  * @author griccardi
  * 
  */
-public class AnnotateApiParams implements ApiParams {
+public class AnnotateApiParams extends BaseApiParams {
 
 	public static final String API_URL = "http://annotate.msrc.fsu.edu/php/";
 	public static final String API_KEY = "giqfrstIk9b6CddDL3ogGTUac6Lr3II9";
 	public static final String API_USER = "casey.mclaughlin@cci.fsu.edu";
 	public static final long VALID_FOR = 0;
 
-	protected String apiUser = AnnotateApiParams.API_USER;
-	protected String apiRequestTime;
+	public AnnotateApiParams() {
+		apiUser = AnnotateApiParams.API_USER;
+		owner= AnnotateApiParams.API_USER;
+	}
+	
+	// fields specific to a.nnotate API
 	protected String apiAuth;
-	protected String apiAnnotateUser = AnnotateApiParams.API_USER;
-	protected String date;
-	protected String code;
 	protected String allusers; // set to 1 to return activity for all users in
 								// account
 	protected String fromMonth; // YYYY_MM (optional)
@@ -34,21 +35,6 @@ public class AnnotateApiParams implements ApiParams {
 	protected String docname; // Filename of .docx file (or .xml word2003)
 	protected String docxmltype; // optional: if uploading word2003 .xml
 
-	public String getApiUser() {
-		return apiUser;
-	}
-
-	public void setApiUser(String apiUser) {
-		this.apiUser = apiUser;
-	}
-
-	public String getApiRequestTime() {
-		return apiRequestTime;
-	}
-
-	public void setApiRequestTime(String apiRequestTime) {
-		this.apiRequestTime = apiRequestTime;
-	}
 
 	public String getApiAuth() {
 		return apiAuth;
@@ -56,30 +42,6 @@ public class AnnotateApiParams implements ApiParams {
 
 	public void setApiAuth(String apiAuth) {
 		this.apiAuth = apiAuth;
-	}
-
-	public String getOwner() {
-		return apiAnnotateUser;
-	}
-
-	public void setOwner(String apiAnnotateUser) {
-		this.apiAnnotateUser = apiAnnotateUser;
-	}
-
-	public String getDate() {
-		return date;
-	}
-
-	public void setDate(String date) {
-		this.date = date;
-	}
-
-	public String getCode() {
-		return code;
-	}
-
-	public void setCode(String code) {
-		this.code = code;
 	}
 
 	public String getAllusers() {

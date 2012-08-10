@@ -10,9 +10,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.UriInfo;
 
+import org.idiginfo.docservices.model.ApiParams;
+import org.idiginfo.docservices.webapp.DocServicesParams;
 import org.idiginfo.docservices.webapp.RequestProcessor;
 
 /**
@@ -40,7 +41,7 @@ public class RestService {
 	public Response get(@QueryParam("collection") String collection) {
 		MultivaluedMap<String, String> queryParams = uriInfo
 				.getQueryParameters();
-		RestParams params = new RestParams(queryParams);
+		ApiParams params = DocServicesParams.getApiServiceParams(queryParams);
 		params.setCollection(collection);
 		RequestProcessor.Result result = requestProcessor
 				.processRequest(params);

@@ -59,7 +59,7 @@ public class AnnotateService implements AnnotationService {
 		if (!(params instanceof AnnotateApiParams))
 			return null;
 		AnnotateApiParams annotateParams = (AnnotateApiParams) params;
-		return getDocument(annotateParams.code, annotateParams.date,
+		return getDocument(annotateParams.getId(), annotateParams.getDate(),
 				annotateParams.withMeta, annotateParams.withNotes);
 	}
 
@@ -77,7 +77,7 @@ public class AnnotateService implements AnnotationService {
 			boolean withMeta, boolean withNotes) {
 		String content;
 		AnnotateApiParams params = new AnnotateApiParams();
-		params.setCode(code);
+		params.setId(code);
 		params.setDate(date);
 		// params.setApiAnnotateUser(user);
 		params.setWithMeta(withMeta);
@@ -97,7 +97,7 @@ public class AnnotateService implements AnnotationService {
 			return null;
 		AnnotateApiParams annotateParams = (AnnotateApiParams) params;
 
-		return getDocuments(annotateParams.apiUser, annotateParams.withMeta,
+		return getDocuments(annotateParams.getApiUser(), annotateParams.withMeta,
 				annotateParams.withNotes);
 	}
 
@@ -149,7 +149,7 @@ public class AnnotateService implements AnnotationService {
 		if (!(params instanceof AnnotateApiParams))
 			return null;
 		AnnotateApiParams annotateParams = (AnnotateApiParams) params;
-		return getAnnotations(annotateParams.code, annotateParams.date);
+		return getAnnotations(annotateParams.getId(), annotateParams.getDate());
 	}
 
 	@Override
@@ -165,7 +165,7 @@ public class AnnotateService implements AnnotationService {
 			return null;
 		String content;
 		AnnotateApiParams params = new AnnotateApiParams();
-		params.setCode(code);
+		params.setId(code);
 		params.setDate(date);// doesn't work without date
 		content = queryService("listNotes.php", params);
 		// map to AnnotateDocumentNotes

@@ -55,7 +55,7 @@ public class SpringerService implements AnnotationService {
 
 	@Override
 	public Document getDocument(ApiParams params) {
-		return getDocument(params.getCode(), params.getDate());
+		return getDocument(params.getId(), params.getDate());
 	}
 
 	@Override
@@ -67,7 +67,7 @@ public class SpringerService implements AnnotationService {
 	public Document getDocument(String code, String date, boolean withMeta,
 			boolean withNotes) {
 		SpringerApiParams params = new SpringerApiParams();
-		params.setCode(code);
+		params.setId(code);
 		Documents documents = getSpringerDocuments("getdocument", params);
 		if (documents == null)
 			return null;
@@ -119,8 +119,7 @@ public class SpringerService implements AnnotationService {
 		return null;
 	}
 
-	private Documents getSpringerDocuments(String function,
-			SpringerApiParams params) {
+	private Documents getSpringerDocuments(String function, ApiParams params) {
 		String content = queryService(function, params);
 		SpringerResult result = gson.fromJson(content, SpringerResult.class);
 		if (result == null)
@@ -128,13 +127,13 @@ public class SpringerService implements AnnotationService {
 		return result.getDocuments();
 	}
 
-	private String queryService(String function, SpringerApiParams params) {
+	private String queryService(String function, ApiParams params) {
 		try {
 			String content;
 			// TODO add other functions
 			SpringerUrl url = new SpringerUrl("metadata", "json");
 			if ("getdocument".equals(function)) {
-				url.addParameter("doi", params.getCode());
+				url.addParameter("doi", params.getId());
 			} else if ("getdocuments".equals(function)) {
 				url.addParameter("keyword", params.getSearchTerms());
 			}
@@ -143,7 +142,7 @@ public class SpringerService implements AnnotationService {
 			HttpRequest request = requestFactory.buildGetRequest(url);
 			request.setConnectTimeout(CONNECT_TIMEOUT);
 			HttpResponse result = request.execute();
-			content = IOUtils.toString(result.getContent(),"UTF-8");
+			content = IOUtils.toString(result.getContent(), "UTF-8");
 			JsonParser parser = new JsonParser();
 			JsonObject tree = parser.parse(content).getAsJsonObject();
 			content = gson.toJson(tree);

@@ -142,7 +142,7 @@ public class AnnotateSample {
 		String content;
 		try {
 			AnnotateApiParams params = new AnnotateApiParams();
-			params.setCode(document.getId());
+			params.setId(document.getId());
 			params.setDate(document.getDate());// doesn't work without date
 			AnnotateUrl url = new AnnotateUrl("listNotes.php", params);
 			url.prepare();

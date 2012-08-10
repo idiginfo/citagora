@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.idiginfo.docservices.webapp.RequestProcessor;
-import org.idiginfo.docservices.webapp.ServiceParams;
+import org.idiginfo.docservices.webapp.DocServicesParams;
 
 /**
  * Servlet implementation class TestServlet
@@ -48,7 +48,7 @@ public class TestServlet extends HttpServlet {
 
 	public void processRequest(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		ServiceParams params = new ServiceParams(request);
+		DocServicesParams params = new DocServicesParams(request);
 		RequestProcessor.Result result = requestProcessor
 				.processRequest(params);
 		if (result.statusCode != HttpServletResponse.SC_OK

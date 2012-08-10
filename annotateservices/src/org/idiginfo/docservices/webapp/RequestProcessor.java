@@ -27,7 +27,7 @@ public class RequestProcessor {
 		public String body;
 	}
 
-	public Object getObjects(ServiceParams params) {
+	public Object getObjects(ApiParams params) {
 		String collection = params.getCollection();
 		if (collection == null) {
 			return new Result(HttpServletResponse.SC_BAD_REQUEST,
@@ -42,35 +42,36 @@ public class RequestProcessor {
 		return getObjects(service, params);
 	}
 
-	public Object getObjects(AnnotationService service, ServiceParams params) {
+	public Object getObjects(AnnotationService service, ApiParams params) {
+		if (params==null) return null;
 		Result result = new Result();
-		if (params.method == null) {
+		if (params.getMethod() == null) {
 			result.statusCode = HttpServletResponse.SC_NOT_FOUND;
 			result.body = "'method' parameter must be supplied";
 			return result;
 		}
-		ApiParams apiParams = params.getApiServiceParams();
-		if (params.method.equals(ServiceParams.METHOD_GET_USERS)) {
-			Users users = service.getUsers(apiParams);
+		//ApiParams apiParams = params.getApiServiceParams();
+		if (params.getMethod().equals(DocServicesParams.METHOD_GET_USERS)) {
+			Users users = service.getUsers(params);
 			return users;
-		} else if (params.method.equals(ServiceParams.METHOD_GET_DOCUMENTS)) {
-			Documents documents = service.getDocuments(apiParams);
+		} else if (params.getMethod().equals(DocServicesParams.METHOD_GET_DOCUMENTS)) {
+			Documents documents = service.getDocuments(params);
 			return documents;
-		} else if (params.method.equals(ServiceParams.METHOD_GET_DOCUMENT)) {
-			Document document = service.getDocument(apiParams);
+		} else if (params.getMethod().equals(DocServicesParams.METHOD_GET_DOCUMENT)) {
+			Document document = service.getDocument(params);
 			return document;
-		} else if (params.method.equals(ServiceParams.METHOD_GET_ANNOTATIONS)) {
-			Document documentNotes = service.getAnnotations(apiParams);
+		} else if (params.getMethod().equals(DocServicesParams.METHOD_GET_ANNOTATIONS)) {
+			Document documentNotes = service.getAnnotations(params);
 			return documentNotes;
 		} else {
 			result.statusCode = HttpServletResponse.SC_NOT_FOUND;
-			result.body = "'method' parameter value '" + params.method
+			result.body = "'method' parameter value '" + params.getMethod()
 					+ "' not allowed";
 			return result;
 		}
 	}
 
-	public Result processRequest(ServiceParams params) {
+	public Result processRequest(ApiParams params) {
 		Object objects = getObjects(params);
 		String body = null;
 		body = ResponseFormatter.toHtml(params, objects);

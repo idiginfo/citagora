@@ -121,12 +121,12 @@ public class AnnotateUrl extends GenericUrl {
 
 	private void mapParams(AnnotateApiParams params) {
 		if (params == null) return;
-		this.apiUser = params.apiUser;
-		this.apiRequestTime = params.apiRequestTime;
+		this.apiUser = params.getApiUser();
+		this.apiRequestTime = params.getApiRequestTime();
 		this.apiAuth = params.apiAuth;
-		this.apiAnnotateUser = params.apiAnnotateUser;
-		this.date = params.date;
-		this.code = params.code;
+		this.apiAnnotateUser = params.getOwner();
+		this.date = params.getDate();
+		this.code = params.getId();
 		this.allusers = params.allusers;
 		this.fromMonth = params.fromMonth;
 		this.toMonth = params.toMonth;

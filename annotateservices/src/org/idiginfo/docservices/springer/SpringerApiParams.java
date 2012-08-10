@@ -1,35 +1,12 @@
 package org.idiginfo.docservices.springer;
 
 import org.idiginfo.docservices.model.ApiParams;
+import org.idiginfo.docservices.model.BaseApiParams;
 
-public class SpringerApiParams implements ApiParams {
+public class SpringerApiParams extends BaseApiParams {
 
 	public static final String API_URL = "http://api.springer.com/";
 	public static final String API_KEY = "yprt5a5cy4pgj3788ewfj7wz";
-
-	String apiUser;
-
-	// http://api.springer.com/metadata/json?q=10.1007/s11276-008-0131-4&api_key=yprt5a5cy4pgj3788ewfj7wz
-
-	String constraint;
-	String doi;
-	String subject;
-	String keyword;
-	String pub;
-	String year;
-	String country;
-	String isbn;
-	String issn;
-	String date;
-	String openaccess;
-	String type;
-	String imageType;
-	String title;
-	String orgname;
-	String journal;
-	String book;
-	String name;
-	String sort;
 
 	// Content Categories
 	String[] contentCategories = { "Article", "Abstract", "Author",
@@ -99,74 +76,11 @@ public class SpringerApiParams implements ApiParams {
 		if (apiParams == null)
 			return;
 		this.apiUser = apiParams.getApiUser();
-		setCode(apiParams.getCode());
+		setId(apiParams.getId());
 		setDate(apiParams.getDate());
 		setSearchTerms(apiParams.getSearchTerms());
 	}
 
 	public SpringerApiParams() {
 	}
-
-	@Override
-	public String getApiUser() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setApiUser(String apiUser) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public String getApiRequestTime() {
-		return null;
-	}
-
-	@Override
-	public void setApiRequestTime(String apiRequestTime) {
-	}
-
-	@Override
-	public String getDate() {
-		return date;
-	}
-
-	@Override
-	public void setDate(String date) {
-		this.date = date;
-	}
-
-	@Override
-	public String getCode() {
-		return doi;
-	}
-
-	@Override
-	public void setCode(String code) {
-		doi = code;
-	}
-
-	@Override
-	public java.lang.String getSearchTerms() {
-		return keyword;
-	}
-
-	public void setSearchTerms(String searchTerms) {
-		keyword = searchTerms;
-	}
-
-	@Override
-	public void setOwner(String apiAnnotateUser) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public String getOwner() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

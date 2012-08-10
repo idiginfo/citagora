@@ -7,6 +7,7 @@ import org.idiginfo.docservices.annotate.AnnotateApiParams;
 import org.idiginfo.docservices.annotate.AnnotateService;
 import org.idiginfo.docservices.model.AnnotationService;
 import org.idiginfo.docservices.model.ApiParams;
+import org.idiginfo.docservices.model.BaseApiParams;
 import org.idiginfo.docservices.sciverse.SciVerseApiParams;
 import org.idiginfo.docservices.sciverse.SciVerseService;
 import org.idiginfo.docservices.springer.SpringerApiParams;
@@ -82,17 +83,17 @@ public class AnnotationFactory {
 	 * @return
 	 */
 	public static ApiParams createApiParams(String collection) {
-		if (collection == null)
-			return null;
-		if (collection.equals(COLLECTION_ANNOTATE)) {
-			return new AnnotateApiParams();
+		if (collection != null) {
+			if (collection.equals(COLLECTION_ANNOTATE)) {
+				return new AnnotateApiParams();
+			}
+			if (collection.equals(COLLECTION_SPRINGER)) {
+				return new SpringerApiParams();
+			}
+			if (collection.equals(COLLECTION_ELSEVIER)) {
+				return new SciVerseApiParams();
+			}
 		}
-		if (collection.equals(COLLECTION_SPRINGER)) {
-			return new SpringerApiParams();
-		}
-		if (collection.equals(COLLECTION_ELSEVIER)) {
-			return new SciVerseApiParams();
-		}
-		return null;
+		return new BaseApiParams();
 	}
 }

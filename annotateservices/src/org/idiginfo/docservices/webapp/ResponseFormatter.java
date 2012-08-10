@@ -3,10 +3,18 @@ package org.idiginfo.docservices.webapp;
 import java.util.Iterator;
 
 import org.idiginfo.docservices.model.Annotation;
+import org.idiginfo.docservices.model.ApiParams;
 import org.idiginfo.docservices.model.Document;
 import org.idiginfo.docservices.model.Documents;
 import org.idiginfo.docservices.model.Users;
 
+/**
+ * Demonstration class to create an html page from a collection of documents
+ * and/or annotations
+ * 
+ * @author griccardi
+ * 
+ */
 public class ResponseFormatter {
 	static final String CHARSET = "UTF-8";
 
@@ -84,30 +92,34 @@ public class ResponseFormatter {
 		return null;
 	}
 
-	static String toHtml(ServiceParams params, Object objects) {
+	static String toHtml(ApiParams params, Object objects) {
 		StringBuffer title = new StringBuffer();
 		StringBuffer body = new StringBuffer();
 		title.append("MSRC ").append(params.getCollection());
-		if (params.method.equals(ServiceParams.METHOD_GET_USERS)) {
+		if (params.getMethod().equals(DocServicesParams.METHOD_GET_USERS)) {
 			Users users = (Users) objects;
 			title.append(" users ");
 			body.append(toHtml(users));
-		} else if (params.method.equals(ServiceParams.METHOD_GET_DOCUMENTS)) {
+		} else if (params.getMethod().equals(
+				DocServicesParams.METHOD_GET_DOCUMENTS)) {
 			Documents documents = (Documents) objects;
 			title.append(" documents ");
 			if (params.getKeyword() != null) {
-				title.append(" with keyword \"").append(params.getKeyword()).append("\"");
+				title.append(" with keyword \"").append(params.getKeyword())
+						.append("\"");
 			} else {
-				title.append("for user ").append(params.owner);
+				title.append("for user ").append(params.getOwner());
 			}
 			body.append(toHtml(documents));
-		} else if (params.method.equals(ServiceParams.METHOD_GET_DOCUMENT)) {
+		} else if (params.getMethod().equals(
+				DocServicesParams.METHOD_GET_DOCUMENT)) {
 			Document document = (Document) objects;
-			title.append(" document ").append(params.code);
+			title.append(" document ").append(params.getId());
 			body.append(toHtml(document));
-		} else if (params.method.equals(ServiceParams.METHOD_GET_ANNOTATIONS)) {
+		} else if (params.getMethod().equals(
+				DocServicesParams.METHOD_GET_ANNOTATIONS)) {
 			Document documentNotes = (Document) objects;
-			title.append(" notes for document ").append(params.code);
+			title.append(" notes for document ").append(params.getId());
 			body.append(toHtmlAnnotations(documentNotes));
 		} else {
 			return ("unkown error");
