@@ -8,7 +8,6 @@ import java.util.Vector;
 
 import org.idiginfo.docservices.AnnotationFactory;
 import org.idiginfo.docservices.model.ApiParams;
-import org.idiginfo.docservices.rest.RestParams;
 import org.idiginfo.docservices.webapp.DocServicesParams;
 import org.idiginfo.docservices.webapp.RequestProcessor;
 
@@ -36,15 +35,15 @@ public class TestRest {
 		List<String> strings;
 		strings = new Vector<String>();
 		strings.add(DocServicesParams.METHOD_GET_DOCUMENT);
-		queryParams.put(RestParams.METHOD_PARAM, strings);
+		queryParams.put(DocServicesParams.METHOD_PARAM, strings);
 
 		strings = new Vector<String>();
 		strings.add("TZpwu9je");
-		queryParams.put(RestParams.ID_PARAM, strings);
+		queryParams.put(DocServicesParams.ID_PARAM, strings);
 
 		strings = new Vector<String>();
 		strings.add("2012-06-29");
-		queryParams.put(RestParams.DATE_PARAM, strings);
+		queryParams.put(DocServicesParams.DATE_PARAM, strings);
 
 		ApiParams params = DocServicesParams.getApiServiceParams(AnnotationFactory.COLLECTION_ANNOTATE, queryParams);
 		params.setCollection(AnnotationFactory.COLLECTION_ANNOTATE);
@@ -59,11 +58,11 @@ public class TestRest {
 		List<String> strings;
 		strings = new Vector<String>();
 		strings.add(DocServicesParams.METHOD_GET_DOCUMENT);
-		queryParams.put(RestParams.METHOD_PARAM, strings);
+		queryParams.put(DocServicesParams.METHOD_PARAM, strings);
 
 		strings = new Vector<String>();
 		strings.add("10.1007/s11276-008-0131-4");
-		queryParams.put(RestParams.ID_PARAM, strings);
+		queryParams.put(DocServicesParams.ID_PARAM, strings);
 
 		ApiParams params = DocServicesParams.getApiServiceParams(queryParams);
 		params.setCollection(AnnotationFactory.COLLECTION_SPRINGER);
@@ -78,7 +77,7 @@ public class TestRest {
 		List<String> strings;
 		strings = new Vector<String>();
 		strings.add(DocServicesParams.METHOD_GET_DOCUMENTS);
-		queryParams.put(RestParams.METHOD_PARAM, strings);
+		queryParams.put(DocServicesParams.METHOD_PARAM, strings);
 		strings = new Vector<String>();
 		strings.add("suicide");
 		queryParams.put("keyword", strings);

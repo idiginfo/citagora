@@ -45,8 +45,8 @@ public class RestService {
 		params.setCollection(collection);
 		RequestProcessor.Result result = requestProcessor
 				.processRequest(params);
-		// return result.body;
-
+		// return result.body as a Response object;
+		// creating and returning a Response object allows the charset to be specified
 		return Response
 				.status(result.statusCode)
 				.entity(result.body)
