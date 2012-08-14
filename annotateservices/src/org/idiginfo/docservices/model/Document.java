@@ -43,4 +43,6 @@ public interface Document {
 	public int getNumAnnotations();
 
 	public Annotation getAnnotation(int i);
+
+	public String getDoi();
 }

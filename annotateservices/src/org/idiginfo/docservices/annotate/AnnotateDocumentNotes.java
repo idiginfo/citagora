@@ -259,4 +259,10 @@ public class AnnotateDocumentNotes implements Document {
 		return notes[i];
 	}
 
+	@Override
+	public String getDoi() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

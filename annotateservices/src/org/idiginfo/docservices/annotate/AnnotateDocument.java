@@ -154,4 +154,9 @@ public class AnnotateDocument implements Document {
 		if (meta != null) meta.setAuthors(authors);
 	}
 
+	@Override
+	public String getDoi() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

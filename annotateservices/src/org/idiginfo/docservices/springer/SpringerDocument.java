@@ -197,4 +197,10 @@ public class SpringerDocument implements Document {
 		return fullTextRetrievalResponse.coreData.pubName;
 	}
 
+	@Override
+	public String getDoi() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

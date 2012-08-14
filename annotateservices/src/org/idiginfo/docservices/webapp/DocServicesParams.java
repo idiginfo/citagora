@@ -17,6 +17,7 @@ public class DocServicesParams extends BaseApiParams {
 	// request params for use in service requests to the
 	// org.idiginfo.docservices API
 
+	// Parameter name strings for use in HTTP requests
 	public static String METHOD_PARAM = "method";
 	public static String COLLECTION_PARAM = "collection";
 	public static String FORMAT_PARAM = "format";
@@ -65,6 +66,7 @@ public class DocServicesParams extends BaseApiParams {
 	 * 
 	 * @param request
 	 */
+	@Deprecated
 	public DocServicesParams(HttpServletRequest request) {
 		method = request.getParameter(METHOD_PARAM);
 		id = request.getParameter(ID_PARAM);
@@ -74,26 +76,11 @@ public class DocServicesParams extends BaseApiParams {
 	}
 
 	/**
-	 * Create an ApiServiceParams object to be used in calls to the annotations
-	 * service
+	 * Create an ApiParams object, of proper type from an HTTP parameter map
 	 * 
+	 * @param queryParams
 	 * @return
 	 */
-	public ApiParams getApiServiceParams() {
-		ApiParams apiParams = AnnotationFactory.createApiParams(collection);
-		if (id != null)
-			apiParams.setId(id);
-		if (date != null)
-			apiParams.setDate(date);
-		if (apiUser != null)
-			apiParams.setApiUser(apiUser);
-		if (owner != null)
-			apiParams.setOwner(owner);
-		if (keyword != null)
-			apiParams.setSearchTerms(keyword);
-		return apiParams;
-	}
-
 	public static ApiParams getApiServiceParams(
 			Map<String, List<String>> queryParams) {
 		String collection = null;
@@ -104,6 +91,13 @@ public class DocServicesParams extends BaseApiParams {
 		return getApiServiceParams(collection, queryParams);
 	}
 
+	/**
+	 * Create an ApiParams object, of proper type from an HTTP parameter map
+	 * 
+	 * @param collection
+	 * @param queryParams
+	 * @return
+	 */
 	public static ApiParams getApiServiceParams(String collection,
 			Map<String, List<String>> queryParams) {
 		ApiParams apiParams = AnnotationFactory.createApiParams(collection);
@@ -112,6 +106,13 @@ public class DocServicesParams extends BaseApiParams {
 		return apiParams;
 	}
 
+	/**
+	 * Use reflection methods to set fields of an ApiParam object from an HTTP
+	 * parameter map
+	 * 
+	 * @param apiParams
+	 * @param queryParams
+	 */
 	private static void mapParams(ApiParams apiParams,
 			Map<String, List<String>> queryParams) {
 		// iterate through all parameters and set fields as possible
@@ -140,57 +141,10 @@ public class DocServicesParams extends BaseApiParams {
 		}
 	}
 
-	public void setParam(String paramName, String paramValue) {
-		if (METHOD_PARAM.equals(paramName)) {
-			setMethod(paramValue);
-		}
-		if (COLLECTION_PARAM.equals(paramName)) {
-		}
-		if (FORMAT_PARAM.equals(paramName)) {
-		}
-		if (ID_PARAM.equals(paramName)) {
-		}
-		if (DATE_PARAM.equals(paramName)) {
-		}
-		if (API_USER_PARAM.equals(paramName)) {
-		}
-		if (OWNER_PARAM.equals(paramName)) {
-		}
-		if (KEYWORD_PARAM.equals(paramName)) {
-		}
-		if (CONSTRAINT_PARAM.equals(paramName)) {
-		}
-		if (DOI_PARAM.equals(paramName)) {
-		}
-		if (SUBJECT_PARAM.equals(paramName)) {
-		}
-		if (PUB_PARAM.equals(paramName)) {
-		}
-		if (YEAR_PARAM.equals(paramName)) {
-		}
-		if (COUNTRY_PARAM.equals(paramName)) {
-		}
-		if (ISBND_PARAM.equals(paramName)) {
-		}
-		if (ISSN_PARAM.equals(paramName)) {
-		}
-		if (OPENACCESS_PARAM.equals(paramName)) {
-		}
-		if (TYPE_PARAM.equals(paramName)) {
-		}
-		if (IMAGE_TYPE_PARAM.equals(paramName)) {
-		}
-		if (TITLE_PARAM.equals(paramName)) {
-		}
-		if (ORGNAME_PARAM.equals(paramName)) {
-		}
-		if (JOURNAL_PARAM.equals(paramName)) {
-		}
-		if (BOOK_PARAM.equals(paramName)) {
-		}
-		if (NAME_PARAM.equals(paramName)) {
-		}
-		if (SORT_PARAM.equals(paramName)) {
-		}
+	Map<String, List<String>> createMap() {
+		// TODO add method to create a query parameter block from a params
+		// object
+		return null;
 	}
+
 }

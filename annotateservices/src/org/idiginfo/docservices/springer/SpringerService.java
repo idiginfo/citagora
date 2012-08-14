@@ -59,15 +59,15 @@ public class SpringerService implements AnnotationService {
 	}
 
 	@Override
-	public Document getDocument(String code, String date) {
-		return getDocument(code, date, false, false);
+	public Document getDocument(String id, String date) {
+		return getDocument(id, date, false, false);
 	}
 
 	@Override
-	public Document getDocument(String code, String date, boolean withMeta,
+	public Document getDocument(String id, String date, boolean withMeta,
 			boolean withNotes) {
 		SpringerApiParams params = new SpringerApiParams();
-		params.setId(code);
+		params.setId(id);
 		Documents documents = getSpringerDocuments("getdocument", params);
 		if (documents == null)
 			return null;
@@ -75,15 +75,7 @@ public class SpringerService implements AnnotationService {
 	}
 
 	@Override
-	public Documents getDocuments(ApiParams apiParams) {
-		// TODO Auto-generated method stub
-		SpringerApiParams params;
-
-		if (apiParams instanceof SpringerApiParams) {
-			params = (SpringerApiParams) apiParams;
-		} else {
-			params = new SpringerApiParams(apiParams);
-		}
+	public Documents getDocuments(ApiParams params) {
 		Documents documents = getSpringerDocuments("getdocuments", params);
 		return documents;
 	}
@@ -131,7 +123,7 @@ public class SpringerService implements AnnotationService {
 		try {
 			String content;
 			// TODO add other functions
-			SpringerUrl url = new SpringerUrl("metadata", "json");
+			SpringerUrl url = getSpringerUrl(function, params);
 			if ("getdocument".equals(function)) {
 				url.addParameter("doi", params.getId());
 			} else if ("getdocuments".equals(function)) {
@@ -156,5 +148,22 @@ public class SpringerService implements AnnotationService {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	/**
+	 * Add all of the Springer parameters to the URL
+	 * 
+	 * @param url
+	 * @param params
+	 */
+	protected SpringerUrl getSpringerUrl(String function, ApiParams params) {
+		SpringerUrl url = new SpringerUrl("metadata", "json");
+		if ("getdocument".equals(function)) {
+			url.addParameter("doi", params.getId());
+		} else if ("getdocuments".equals(function)) {
+			url.addParameter("keyword", params.getSearchTerms());
+		}
+
+		return url;
 	}
 }
