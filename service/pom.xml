@@ -19,5 +19,7 @@
 	<modules>
 		<module>../annotateservices</module>
 		<module>../webapp</module>
+		<module>../rdf</module>
+		<module>../wokservices</module>
 	</modules>
 </project>
