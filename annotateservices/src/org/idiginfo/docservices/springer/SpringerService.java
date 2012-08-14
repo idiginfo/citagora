@@ -3,7 +3,7 @@ package org.idiginfo.docservices.springer;
 import java.io.IOException;
 
 import org.apache.commons.io.IOUtils;
-import org.idiginfo.docservices.model.AnnotationService;
+import org.idiginfo.docservices.model.DocService;
 import org.idiginfo.docservices.model.ApiParams;
 import org.idiginfo.docservices.model.Document;
 import org.idiginfo.docservices.model.Documents;
@@ -22,7 +22,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 
-public class SpringerService implements AnnotationService {
+public class SpringerService implements DocService {
 
 	static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
 	static JsonParser parser = new JsonParser();

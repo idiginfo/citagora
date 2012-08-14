@@ -242,6 +242,11 @@ public class AnnotateMeta implements Document {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public String getGUID() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 
 }

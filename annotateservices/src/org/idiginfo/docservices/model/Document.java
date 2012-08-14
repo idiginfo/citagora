@@ -45,4 +45,6 @@ public interface Document {
 	public Annotation getAnnotation(int i);
 
 	public String getDoi();
+
+	public String getGUID();
 }

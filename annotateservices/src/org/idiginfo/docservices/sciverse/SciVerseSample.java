@@ -39,19 +39,16 @@ public class SciVerseSample {
 		String content;
 		try {
 			// AnnotateApiParams params = new AnnotateApiParams();
-			SciVerseUrl url = new SciVerseUrl("");
-			url.set(SciVerseApiParams.SEARCH_PARAM, "DOI:10.1016");
-			url.set(SciVerseApiParams.API_KEY_PARAM, "32044be7be3a652a32654afeae5bf4d1");
-			// "article/DOI:10.1016/j.jpsychires.2008.05.001");
-			// url.view = "META_ABS";
+			SciVerseUrl url = new SciVerseUrl("article/DOI:10.1016/j.jpsychires.2008.05.001");
+			//url.view = "META_ABS";
 			url.prepare();
 			System.out.println(url.build());
 			HttpRequest request = requestFactory.buildGetRequest(url);
 			HttpHeaders headers = new HttpHeaders();
-			headers.setAccept("application/json");
+			//headers.setAccept("application/json");
 			headers.set("X-ELS-APIKey", "32044be7be3a652a32654afeae5bf4d1");// griccardi
 			// headers.set("X-ELS-APIKey", "5135c5817a6d86b633013ee9e4d120b5");
-			headers.set("X-ELS-ResourceVersion", "XOCS");
+			//headers.set("X-ELS-ResourceVersion", "XOCS");
 			request.setHeaders(headers);
 			HttpResponse result = request.execute();
 			// HttpHeaders httpHeaders = result.getHeaders();

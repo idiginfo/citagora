@@ -4,8 +4,8 @@ import java.util.Date;
 
 public class BaseDocument implements Document {
 
-	String id;
-	String doi;
+	String id;// object uri
+	String doi; // BIBO.doi
 	Date date;
 	String name;
 	String owner;
@@ -28,6 +28,27 @@ public class BaseDocument implements Document {
 
 	String status;
 	String json;
+
+	public static String BASE_URI = "http://ids.idiginfo.org/";
+
+	public static String doiUri(String doi) {
+		if (doi == null)
+			return null;
+		if (doi.startsWith("doi:"))
+			return doi;
+		return "doi:" + doi;
+	}
+
+	@Override
+	public String getGUID() {
+		String uri = doiUri(doi);
+
+		if (uri != null)
+			return uri;
+		if (id == null)
+			return null;
+		return BASE_URI + id;
+	}
 
 	public String getId() {
 		return id;
@@ -70,7 +91,7 @@ public class BaseDocument implements Document {
 		this.type = type;
 	}
 
-	public BaseDocument getParent() {
+	public Document getParent() {
 		return parent;
 	}
 

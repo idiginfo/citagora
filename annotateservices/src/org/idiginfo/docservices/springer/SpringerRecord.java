@@ -232,4 +232,10 @@ public class SpringerRecord implements Document {
 	public void setCopyright(String copyright) {
 		this.copyright = copyright;
 	}
+
+	@Override
+	public String getGUID() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

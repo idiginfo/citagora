@@ -18,7 +18,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.idiginfo.docservices.annotate.AnnotateService;
 import org.idiginfo.docservices.model.Annotation;
-import org.idiginfo.docservices.model.AnnotationService;
+import org.idiginfo.docservices.model.DocService;
 import org.idiginfo.docservices.model.Document;
 import org.idiginfo.docservices.model.Documents;
 
@@ -38,9 +38,9 @@ public class GetAllAnnotations {
 		return;
 	}
 
-	AnnotationService service = new AnnotateService();
+	DocService service = new AnnotateService();
 	// output parameters
-	static final String OUTPUT_PREFIX = "c:/dev/annotateSampleFiles/partial_notes";
+	static final String OUTPUT_PREFIX = "c:/dev/annotateSampleFiles/proposal_notes";
 	// CSV output parameters
 	static final String CSV_FILE_NAME = OUTPUT_PREFIX + ".csv";
 	static final char SEPARATOR = ',';
@@ -54,8 +54,7 @@ public class GetAllAnnotations {
 	CellStyle hlink_style = null;
 	Font hlink_font = null;
 	// Context text file output parameters
-	static final String CONTEXT_FILE_NAME = OUTPUT_PREFIX
-			+ ".txt";
+	static final String CONTEXT_FILE_NAME = OUTPUT_PREFIX + ".txt";
 	PrintWriter contextPrinter = null;
 
 	String[] headers = { "title", "tags", "context", "url" };
@@ -64,10 +63,11 @@ public class GetAllAnnotations {
 	}
 
 	private void run() {
-		String documentUser = "drupal@msrc.fsu.edu";
+		String documentUser = "dleiva@fsu.edu";
+		// String documentUser = "drupal@msrc.fsu.edu";
 		System.out.println("Document user: " + documentUser);
 
-		String selectedUser = "drupal@msrc.fsu.edu";
+		String selectedUser =documentUser;
 		Documents documents = service.getDocuments(selectedUser);
 		System.out.println("number of documents " + documents.size());
 		try {
@@ -114,11 +114,14 @@ public class GetAllAnnotations {
 		for (int i = 0; i < documents.size(); i++) {
 			Document document = documents.getDocument(i);
 			Document annotations = service.getAnnotations(document);
-			if (annotations == null) continue;
+			if (annotations == null)
+				continue;
 			// print all annotations
 			int numAnnotations = annotations.getNumAnnotations();
-			if (numAnnotations > 0) numDocsWithNotes++;
-			if (numDocsWithNotes>2) break;
+			if (numAnnotations > 0)
+				numDocsWithNotes++;
+			if (numDocsWithNotes > 2)
+				break;
 			for (int j = 0; j < numAnnotations; j++) {
 				Annotation note = annotations.getAnnotation(j);
 				String context = note.getContext();

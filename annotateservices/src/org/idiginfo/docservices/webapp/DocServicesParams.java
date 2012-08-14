@@ -9,7 +9,7 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.idiginfo.docservices.AnnotationFactory;
+import org.idiginfo.docservices.ServiceFactory;
 import org.idiginfo.docservices.model.ApiParams;
 import org.idiginfo.docservices.model.BaseApiParams;
 
@@ -100,7 +100,7 @@ public class DocServicesParams extends BaseApiParams {
 	 */
 	public static ApiParams getApiServiceParams(String collection,
 			Map<String, List<String>> queryParams) {
-		ApiParams apiParams = AnnotationFactory.createApiParams(collection);
+		ApiParams apiParams = ServiceFactory.createApiParams(collection);
 		mapParams(apiParams, queryParams);
 		apiParams.setCollection(collection);
 		return apiParams;

@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.idiginfo.docservices.annotate.AnnotateApiParams;
 import org.idiginfo.docservices.annotate.AnnotateService;
-import org.idiginfo.docservices.model.AnnotationService;
+import org.idiginfo.docservices.model.DocService;
 import org.idiginfo.docservices.model.ApiParams;
 import org.idiginfo.docservices.model.BaseApiParams;
 import org.idiginfo.docservices.sciverse.SciVerseApiParams;
@@ -19,7 +19,7 @@ import org.idiginfo.docservices.springer.SpringerService;
  * @author griccardi
  * 
  */
-public class AnnotationFactory {
+public class ServiceFactory {
 
 	// Defined collections
 	public static String COLLECTION_ANNOTATE = "annotate";
@@ -29,16 +29,16 @@ public class AnnotationFactory {
 			COLLECTION_SPRINGER, COLLECTION_ELSEVIER };
 
 	// services is used to keep a copy of each service available for shared use.
-	static Map<String, AnnotationService> services;
+	static Map<String, DocService> services;
 
 	static void initializeServices() {
-		services = new HashMap<String, AnnotationService>();
-		services.put(AnnotationFactory.COLLECTION_ANNOTATE, AnnotationFactory
-				.createService(AnnotationFactory.COLLECTION_ANNOTATE));
-		services.put(AnnotationFactory.COLLECTION_SPRINGER, AnnotationFactory
-				.createService(AnnotationFactory.COLLECTION_SPRINGER));
-		services.put(AnnotationFactory.COLLECTION_ELSEVIER, AnnotationFactory
-				.createService(AnnotationFactory.COLLECTION_ELSEVIER));
+		services = new HashMap<String, DocService>();
+		services.put(ServiceFactory.COLLECTION_ANNOTATE, ServiceFactory
+				.createService(ServiceFactory.COLLECTION_ANNOTATE));
+		services.put(ServiceFactory.COLLECTION_SPRINGER, ServiceFactory
+				.createService(ServiceFactory.COLLECTION_SPRINGER));
+		services.put(ServiceFactory.COLLECTION_ELSEVIER, ServiceFactory
+				.createService(ServiceFactory.COLLECTION_ELSEVIER));
 	}
 
 	/**
@@ -49,7 +49,7 @@ public class AnnotationFactory {
 	 * @param collection
 	 * @return
 	 */
-	public static AnnotationService getSharedService(String collection) {
+	public static DocService getSharedService(String collection) {
 		if (services == null)
 			initializeServices();
 		return services.get(collection);
@@ -61,7 +61,7 @@ public class AnnotationFactory {
 	 * @param collection
 	 * @return
 	 */
-	public static AnnotationService createService(String collection) {
+	public static DocService createService(String collection) {
 		if (collection == null)
 			return null;
 		if (collection.equals(COLLECTION_ANNOTATE)) {

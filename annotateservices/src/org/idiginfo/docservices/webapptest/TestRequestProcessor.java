@@ -3,7 +3,7 @@ package org.idiginfo.docservices.webapptest;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import org.idiginfo.docservices.AnnotationFactory;
+import org.idiginfo.docservices.ServiceFactory;
 import org.idiginfo.docservices.webapp.RequestProcessor;
 import org.idiginfo.docservices.webapp.DocServicesParams;
 
@@ -28,7 +28,7 @@ public class TestRequestProcessor {
 		TestRequestProcessor tester = new TestRequestProcessor();
 		try {
 			DocServicesParams params = new DocServicesParams();
-			params.setCollection(AnnotationFactory.COLLECTION_ANNOTATE);
+			params.setCollection(ServiceFactory.COLLECTION_ANNOTATE);
 			params.setMethod(DocServicesParams.METHOD_GET_USERS);
 			// tester.run(params);
 			params.setMethod(DocServicesParams.METHOD_GET_DOCUMENT);

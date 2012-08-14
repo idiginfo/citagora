@@ -1,7 +1,7 @@
 package org.idiginfo.docservices.annotatetest;
 
 import org.idiginfo.docservices.annotate.AnnotateService;
-import org.idiginfo.docservices.model.AnnotationService;
+import org.idiginfo.docservices.model.DocService;
 import org.idiginfo.docservices.model.Document;
 import org.idiginfo.docservices.model.Documents;
 import org.idiginfo.docservices.model.Users;
@@ -15,7 +15,7 @@ import org.idiginfo.docservices.model.Users;
  */
 public class TestInterfaceServices {
 
-	static AnnotationService service = new AnnotateService();
+	static DocService service = new AnnotateService();
 
 	@SuppressWarnings("unused")
 	private static void run() {

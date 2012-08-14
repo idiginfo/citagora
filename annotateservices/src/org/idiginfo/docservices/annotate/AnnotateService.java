@@ -3,7 +3,7 @@ package org.idiginfo.docservices.annotate;
 import java.io.IOException;
 
 import org.apache.commons.io.IOUtils;
-import org.idiginfo.docservices.model.AnnotationService;
+import org.idiginfo.docservices.model.DocService;
 import org.idiginfo.docservices.model.ApiParams;
 import org.idiginfo.docservices.model.Document;
 import org.idiginfo.docservices.model.Documents;
@@ -20,7 +20,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 
-public class AnnotateService implements AnnotationService {
+public class AnnotateService implements DocService {
 
 	static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
 	static JsonParser parser = new JsonParser();
@@ -148,8 +148,7 @@ public class AnnotateService implements AnnotationService {
 	public Document getAnnotations(ApiParams params) {
 		if (!(params instanceof AnnotateApiParams))
 			return null;
-		AnnotateApiParams annotateParams = (AnnotateApiParams) params;
-		return getAnnotations(annotateParams.getId(), annotateParams.getDate());
+		return getAnnotations(params.getId(), params.getDate());
 	}
 
 	@Override

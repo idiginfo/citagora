@@ -1,6 +1,6 @@
 package org.idiginfo.docservices.model;
 
-public interface AnnotationService {
+public interface DocService {
 
 	public String format(String content);
 

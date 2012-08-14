@@ -2,8 +2,8 @@ package org.idiginfo.docservices.webapp;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.idiginfo.docservices.AnnotationFactory;
-import org.idiginfo.docservices.model.AnnotationService;
+import org.idiginfo.docservices.ServiceFactory;
+import org.idiginfo.docservices.model.DocService;
 import org.idiginfo.docservices.model.ApiParams;
 import org.idiginfo.docservices.model.Document;
 import org.idiginfo.docservices.model.Documents;
@@ -33,7 +33,7 @@ public class RequestProcessor {
 			return new Result(HttpServletResponse.SC_BAD_REQUEST,
 					"collection must be specified");
 		}
-		AnnotationService service = AnnotationFactory
+		DocService service = ServiceFactory
 				.getSharedService(collection);
 		if (service == null) {
 			return new Result(HttpServletResponse.SC_BAD_REQUEST, "collection "
@@ -42,7 +42,7 @@ public class RequestProcessor {
 		return getObjects(service, params);
 	}
 
-	public Object getObjects(AnnotationService service, ApiParams params) {
+	public Object getObjects(DocService service, ApiParams params) {
 		if (params==null) return null;
 		Result result = new Result();
 		if (params.getMethod() == null) {

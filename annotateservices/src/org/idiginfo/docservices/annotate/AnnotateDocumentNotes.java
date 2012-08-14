@@ -265,4 +265,10 @@ public class AnnotateDocumentNotes implements Document {
 		return null;
 	}
 
+	@Override
+	public String getGUID() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

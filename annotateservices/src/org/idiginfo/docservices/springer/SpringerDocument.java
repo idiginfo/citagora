@@ -5,11 +5,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.idiginfo.docservices.model.Annotation;
+import org.idiginfo.docservices.model.BaseDocument;
 import org.idiginfo.docservices.model.Document;
 
 import com.google.gson.annotations.SerializedName;
 
-public class SpringerDocument implements Document {
+public class SpringerDocument extends BaseDocument {
 
 	class FullTextRetrievalResponse {
 		@SerializedName("coredata")
@@ -199,6 +200,12 @@ public class SpringerDocument implements Document {
 
 	@Override
 	public String getDoi() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getGUID() {
 		// TODO Auto-generated method stub
 		return null;
 	}

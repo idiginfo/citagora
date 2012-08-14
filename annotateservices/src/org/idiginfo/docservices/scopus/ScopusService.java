@@ -1,12 +1,12 @@
 package org.idiginfo.docservices.scopus;
 
-import org.idiginfo.docservices.model.AnnotationService;
+import org.idiginfo.docservices.model.DocService;
 import org.idiginfo.docservices.model.ApiParams;
 import org.idiginfo.docservices.model.Document;
 import org.idiginfo.docservices.model.Documents;
 import org.idiginfo.docservices.model.Users;
 
-public class ScopusService implements AnnotationService {
+public class ScopusService implements DocService {
 
 	@Override
 	public String format(String content) {
