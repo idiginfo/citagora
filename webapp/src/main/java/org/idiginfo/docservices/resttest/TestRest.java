@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
-import org.idiginfo.docservices.AnnotationFactory;
+import org.idiginfo.docservices.ServiceFactory;
 import org.idiginfo.docservices.model.ApiParams;
 import org.idiginfo.docservices.webapp.DocServicesParams;
 import org.idiginfo.docservices.webapp.RequestProcessor;
@@ -21,10 +21,10 @@ public class TestRest {
 	RequestProcessor requestProcessor = new RequestProcessor();
 
 	String get(String collection) {
-		if (AnnotationFactory.COLLECTION_SPRINGER.equals(collection)) {
+		if (ServiceFactory.COLLECTION_SPRINGER.equals(collection)) {
 			return getSpringerQuery();
 		}
-		if (AnnotationFactory.COLLECTION_ANNOTATE.equals(collection)) {
+		if (ServiceFactory.COLLECTION_ANNOTATE.equals(collection)) {
 			return getAnnotate();
 		}
 		return null;
@@ -45,8 +45,8 @@ public class TestRest {
 		strings.add("2012-06-29");
 		queryParams.put(DocServicesParams.DATE_PARAM, strings);
 
-		ApiParams params = DocServicesParams.getApiServiceParams(AnnotationFactory.COLLECTION_ANNOTATE, queryParams);
-		params.setCollection(AnnotationFactory.COLLECTION_ANNOTATE);
+		ApiParams params = DocServicesParams.getApiServiceParams(ServiceFactory.COLLECTION_ANNOTATE, queryParams);
+		params.setCollection(ServiceFactory.COLLECTION_ANNOTATE);
 
 		RequestProcessor.Result result = requestProcessor
 				.processRequest(params);
@@ -65,7 +65,7 @@ public class TestRest {
 		queryParams.put(DocServicesParams.ID_PARAM, strings);
 
 		ApiParams params = DocServicesParams.getApiServiceParams(queryParams);
-		params.setCollection(AnnotationFactory.COLLECTION_SPRINGER);
+		params.setCollection(ServiceFactory.COLLECTION_SPRINGER);
 
 		RequestProcessor.Result result = requestProcessor
 				.processRequest(params);
@@ -83,7 +83,7 @@ public class TestRest {
 		queryParams.put("keyword", strings);
 
 		ApiParams params = DocServicesParams.getApiServiceParams(queryParams);
-		params.setCollection(AnnotationFactory.COLLECTION_SPRINGER);
+		params.setCollection(ServiceFactory.COLLECTION_SPRINGER);
 
 		RequestProcessor.Result result = requestProcessor
 				.processRequest(params);
@@ -91,7 +91,7 @@ public class TestRest {
 	}
 
 	static public void main(String[] args) throws Exception {
-		String body = new TestRest().get(AnnotationFactory.COLLECTION_SPRINGER);
+		String body = new TestRest().get(ServiceFactory.COLLECTION_SPRINGER);
 		FileWriter out = new FileWriter("c:/dev/api samples/springer.html");
 		out.write(body);
 		out.close();
