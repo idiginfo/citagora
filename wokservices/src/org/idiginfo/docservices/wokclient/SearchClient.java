@@ -195,6 +195,7 @@ public class SearchClient {
 		// use local WSDL
 		auth.createPort(AuthenticationClient.LOCAL_WSDL_URL);
 		String sid = auth.getSessionIdentifier();
+		System.out.println("Session id: " + sid);
 		auth.setSessionCookie();
 		/* end comment */
 		/*

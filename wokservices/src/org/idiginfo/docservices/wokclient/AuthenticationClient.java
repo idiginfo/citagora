@@ -49,25 +49,25 @@ public class AuthenticationClient {
 			 * comment start: now we have not an authentication account, so
 			 * comment out the following to use IP authentication
 			 */
-			// BindingProvider bp = (BindingProvider)port;
-			// Map<String, Object> context = bp.getRequestContext();
+			 BindingProvider bp = (BindingProvider)port;
+			 Map<String, Object> context = bp.getRequestContext();
 			/*
 			 * comment start: the next line of code has already been done for
 			 * this port in createPort() otherwise the SESSION_MAINTAIN_PROPERTY
 			 * needs to be set to Boolean.TRUE
 			 */
-			// context.put(
-			// javax.xml.ws.BindingProvider.SESSION_MAINTAIN_PROPERTY,
-			// Boolean.valueOf(true)
-			// );
+			 context.put(
+			 javax.xml.ws.BindingProvider.SESSION_MAINTAIN_PROPERTY,
+			 Boolean.valueOf(true)
+			 );
 			/* comment end */
-			//
-			// String username = "training";
-			// String password = "lapis";
-			// context.put(javax.xml.ws.BindingProvider.USERNAME_PROPERTY,
-			// username);
-			// context.put(javax.xml.ws.BindingProvider.PASSWORD_PROPERTY,
-			// password);
+
+			String username = "wsl";
+			String password = "serv!ce1";
+			context.put(javax.xml.ws.BindingProvider.USERNAME_PROPERTY,
+					username);
+			context.put(javax.xml.ws.BindingProvider.PASSWORD_PROPERTY,
+					password);
 			/*
 			 * comment start: make the call to the authenticate operation
 			 */
