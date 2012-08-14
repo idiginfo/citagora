@@ -1,7 +1,7 @@
 package org.idiginfo.docservices.rdf;
 
 import org.idiginfo.docservices.model.Document;
-import org.idiginfo.docservices.rdf.vocabularies.BiboVocabulary;
+import org.idiginfo.docservices.rdf.vocabulary.BIBO;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Resource;
@@ -16,8 +16,8 @@ public class MapAnnotation {
 		} else {
 			docResource = model.createResource(document.getId());
 		}
-		model.add(docResource, BiboVocabulary.authorList, document.getAuthors());
-		model.add(docResource, BiboVocabulary.doi, doi);
+		model.add(docResource, BIBO.authorList, document.getAuthors());
+		model.add(docResource, BIBO.doi, doi);
 		return model;
 	}
 }

@@ -1,4 +1,4 @@
-package org.idiginfo.docservices.rdf.vocabularies;
+package org.idiginfo.docservices.rdf.vocabulary;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
