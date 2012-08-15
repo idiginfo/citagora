@@ -109,4 +109,8 @@ public interface ApiParams {
 
 	public void setBook(String book);
 
+	public String getWithMeta();
+
+	public String getWithNotes();
+
 }

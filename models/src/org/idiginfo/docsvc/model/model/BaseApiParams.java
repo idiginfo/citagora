@@ -29,6 +29,24 @@ public class BaseApiParams implements ApiParams {
 	protected String book;
 	protected String name;
 	protected String sort;
+	protected String withNotes;
+	protected String withMeta;
+
+	public String getWithNotes() {
+		return withNotes;
+	}
+
+	public void setWithNotes(String withNotes) {
+		this.withNotes = withNotes;
+	}
+
+	public String getWithMeta() {
+		return withMeta;
+	}
+
+	public void setWithMeta(String withMeta) {
+		this.withMeta = withMeta;
+	}
 
 	@Override
 	public String getMethod() {

@@ -56,11 +56,8 @@ public class AnnotateService implements DocService {
 
 	@Override
 	public Document getDocument(ApiParams params) {
-		if (!(params instanceof AnnotateApiParams))
-			return null;
-		AnnotateApiParams annotateParams = (AnnotateApiParams) params;
-		return getDocument(annotateParams.getId(), annotateParams.getDate(),
-				annotateParams.withMeta, annotateParams.withNotes);
+		return getDocument(params.getId(), params.getDate(),
+				params.getWithMeta(), params.getWithNotes());
 	}
 
 	public AnnotateDocumentNotes getDocument(String code, String date) {
