@@ -2,8 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>org.idiginfo.docservices.rest</groupId>
-	<artifactId>webapp</artifactId>
+	<groupId>org.idiginfo.docsvc</groupId>
 	<packaging>war</packaging>
 
 	<name>app1</name>
@@ -61,8 +60,13 @@
 			<version>3.3</version>
 		</dependency>
 		<dependency>
-			<groupId>org.idiginfo.docservices.impl</groupId>
-			<artifactId>annotateservices</artifactId>
+			<groupId>org.idiginfo.docsvc</groupId>
+			<artifactId>models</artifactId>
+			<version>1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.idiginfo.docsvc</groupId>
+			<artifactId>views</artifactId>
 			<version>1</version>
 		</dependency>
 	</dependencies>
@@ -79,4 +83,5 @@
 		<version>1</version>
 		<relativePath>../service</relativePath>
 	</parent>
+	<artifactId>docsvc</artifactId>
 </project>
