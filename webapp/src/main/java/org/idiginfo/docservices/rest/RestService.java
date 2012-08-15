@@ -36,7 +36,7 @@ public class RestService {
 	}
 
 	@GET
-	@Path("citagora/")
+	@Path("/")
 	@Produces(MediaType.TEXT_HTML)
 	public Response get(@QueryParam("collection") String collection) {
 		MultivaluedMap<String, String> queryParams = uriInfo
@@ -46,13 +46,12 @@ public class RestService {
 		RequestProcessor.Result result = requestProcessor
 				.processRequest(params);
 		// return result.body as a Response object;
-		// creating and returning a Response object allows the charset to be specified
+		// creating and returning a Response object allows the charset to be
+		// specified
 		return Response
 				.status(result.statusCode)
 				.entity(result.body)
 				.header(HttpHeaders.CONTENT_TYPE,
 						MediaType.TEXT_HTML + "; charset=UTF-8").build();
-
 	}
-
 }

@@ -5,7 +5,7 @@
 <title>Test of annotate services</title>
 </head>
 <body>
-	<form action="api/rest/citagora/">
+	<form action="api/rest/">
 		Execute request <input type="submit" />
 		<p>
 			Select collection <select name="collection">
@@ -24,6 +24,14 @@
 					with annotations</option>
 			</select>
 		</p>
+		<p>
+			Select format <select name="format">
+				<option value="rdf">RDF</option>
+				<option value="html" selected="selected">HTML</option>
+				<option value="xls">XLS (Annotate collection
+					only)</option>
+			</select>
+		</p>
 		<p>Choose some parameters</p>
 		<p>
 			Code <input type="text" name="code" value="TZpwu9je" />
@@ -33,6 +41,9 @@
 		</p>
 		<p>
 			User <input type="text" name="apiAnnotateUser" />
+		</p>
+		<p>
+			Keywords <input type="text" name="keyword" />
 		</p>
 	</form>
 </body>

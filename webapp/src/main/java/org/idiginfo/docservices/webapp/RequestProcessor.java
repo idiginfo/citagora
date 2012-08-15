@@ -1,12 +1,11 @@
 package org.idiginfo.docservices.webapp;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response.Status;
 
 import org.idiginfo.docservices.ServiceFactory;
-import org.idiginfo.docservices.model.DocService;
 import org.idiginfo.docservices.model.ApiParams;
+import org.idiginfo.docservices.model.DocService;
 import org.idiginfo.docservices.model.Document;
 import org.idiginfo.docservices.model.Documents;
 import org.idiginfo.docservices.model.Users;

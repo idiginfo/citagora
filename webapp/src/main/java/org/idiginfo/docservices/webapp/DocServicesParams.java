@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.idiginfo.docservices.ServiceFactory;
 import org.idiginfo.docservices.model.ApiParams;
 import org.idiginfo.docservices.model.BaseApiParams;
@@ -56,7 +54,7 @@ public class DocServicesParams extends BaseApiParams {
 	public static String METHOD_GET_DOCUMENT = "getdocument";
 	public static String METHOD_GET_DOCUMENTS = "getdocuments";
 	public static String METHOD_GET_ANNOTATIONS = "getannotations";
-	
+
 	public static String FORMAT_RDF = "rdf";
 	public static String FORMAT_HTML = "html";
 	public static String FORMAT_XLS = "xls";
@@ -64,20 +62,6 @@ public class DocServicesParams extends BaseApiParams {
 
 	public DocServicesParams() {
 
-	}
-
-	/**
-	 * Unpack the request parameters
-	 * 
-	 * @param request
-	 */
-	@Deprecated
-	public DocServicesParams(HttpServletRequest request) {
-		method = request.getParameter(METHOD_PARAM);
-		id = request.getParameter(ID_PARAM);
-		date = request.getParameter(DATE_PARAM);
-		apiUser = request.getParameter(API_USER_PARAM);
-		owner = request.getParameter(OWNER_PARAM);
 	}
 
 	/**

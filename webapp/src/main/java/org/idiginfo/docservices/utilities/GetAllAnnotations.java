@@ -1,4 +1,4 @@
-package org.idiginfo.docservices.exploration;
+package org.idiginfo.docservices.utilities;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -11,7 +11,6 @@ import org.idiginfo.docservices.model.Annotation;
 import org.idiginfo.docservices.model.DocService;
 import org.idiginfo.docservices.model.Document;
 import org.idiginfo.docservices.model.Documents;
-import org.idiginfo.docservices.utilities.XlsAnnotationWriter;
 
 import au.com.bytecode.opencsv.CSVWriter;
 
