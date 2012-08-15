@@ -3,6 +3,9 @@ package org.idiginfo.docservices.springer;
 import java.io.IOException;
 
 import org.apache.commons.io.IOUtils;
+import org.idiginfo.docservices.model.ApiParams;
+import org.idiginfo.docservices.model.Document;
+import org.idiginfo.docservices.model.Documents;
 
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestFactory;
@@ -17,89 +20,36 @@ import com.google.gson.JsonParser;
 
 public class SpringerSample {
 
-	static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
-	static HttpRequestFactory requestFactory;
+	static SpringerService service = new SpringerService();
 
 	private static void run() {
-		requestFactory = HTTP_TRANSPORT
-				.createRequestFactory(new HttpRequestInitializer() {
-					public void initialize(HttpRequest request)
-							throws IOException {
-					}
-				});
 		testSpringerDocument();
 		testSpringerQuery();
 	}
 
 	public static String testSpringerDocument() {
-		String content;
-		try {
-			SpringerUrl url = new SpringerUrl("metadata", "json");
-			// url.view="META_ABS";
-			url.addParameter("doi", "10.1007/s11276-008-0131-4");
-			url.prepare();
-			System.out.println(url.build());
-			HttpRequest request = requestFactory.buildGetRequest(url);
-			HttpResponse result = request.execute();
-			content = IOUtils.toString(result.getContent());
-			// System.out.print(content);
-			Gson gson = new GsonBuilder().setPrettyPrinting().create();
-			JsonParser parser = new JsonParser();
-			JsonObject tree = parser.parse(content).getAsJsonObject();
-			System.out.println(gson.toJson(tree));
-
-		} catch (IOException e) {
-			e.printStackTrace();
-			return null;
-		}
-		if (SpringerUrl.isError(content)) {
-			System.err.println(content);
-			return null;
-		}
+		ApiParams params = new SpringerApiParams();
+		//params.setDoi("doi:10.1007/s11276-008-0131-4");
+		params.setId("doi:10.1007/s11276-008-0131-4");
+		Document document = service.getDocument(params);
+		// System.out.print(content);
 		return null;
 	}
 
 	public static String testSpringerQuery() {
 		String content;
-		try {
-			SpringerUrl url = new SpringerUrl("metadata", "json");
-			// url.view="META_ABS";
-			url.addParameter("title", "suicide");
-			url.prepare();
-			System.out.println(url.build());
-			HttpRequest request = requestFactory.buildGetRequest(url);
-			HttpResponse result = request.execute();
-			content = IOUtils.toString(result.getContent());
-			// System.out.print(content);
-			Gson gson = new GsonBuilder().setPrettyPrinting().create();
-			JsonParser parser = new JsonParser();
-			JsonObject tree = parser.parse(content).getAsJsonObject();
-			String json = gson.toJson(tree);
-			// System.out.println(json);
+		SpringerUrl url = new SpringerUrl("metadata", "json");
+		// url.view="META_ABS";
+		ApiParams params = new SpringerApiParams();
+		params.setKeyword("suicide");
 
-			SpringerResult springerResult = gson.fromJson(json,
-					SpringerResult.class);
-			SpringerRecord record = springerResult.records.get(1);
-			System.out.println("Id is: " + record.identifier);
-			System.out.println("Title is: " + record.title);
-			System.out.println("Pub name is: " + record.publicationName);
-			// System.out.println("num results "+springerResult.result.get(0).total);
-			System.out.println("num results "
-					+ springerResult.getResult().total);
-			for (int i = 0; i < springerResult.facets.size(); i++) {
-				SpringerResult.Facet facet = springerResult.getFacet(i);
-				System.out.println("Facet " + i + " '" + facet.name + "': "
-						+ facet.values.get(0).value + ": "
-						+ facet.values.get(0).count);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-			return null;
-		}
-		if (SpringerUrl.isError(content)) {
-			System.err.println(content);
-			return null;
-		}
+		Documents springerResult = service.getDocuments(params);
+		Document record = springerResult.get(0);
+		System.out.println("Id is: " + record.getId());
+		System.out.println("Title is: " + record.getTitle());
+		System.out.println("Pub name is: " + record.getName());
+		// System.out.println("num results "+springerResult.result.get(0).total);
+		System.out.println("num results " + springerResult.size());
 		return null;
 	}
 

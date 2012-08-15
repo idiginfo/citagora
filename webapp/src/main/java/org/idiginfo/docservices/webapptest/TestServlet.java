@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.core.Response;
 
 import org.idiginfo.docservices.webapp.RequestProcessor;
 import org.idiginfo.docservices.webapp.DocServicesParams;
@@ -51,9 +52,9 @@ public class TestServlet extends HttpServlet {
 		DocServicesParams params = new DocServicesParams(request);
 		RequestProcessor.Result result = requestProcessor
 				.processRequest(params);
-		if (result.statusCode != HttpServletResponse.SC_OK
-				|| result.statusCode != 0) {
-			response.sendError(result.statusCode, result.body);
+		if (result.statusCode != Response.Status.OK
+				&& result.statusCode.getStatusCode() != 0) {
+			response.sendError(result.statusCode.getStatusCode(), result.body);
 		}
 	}
 }

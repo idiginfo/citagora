@@ -69,7 +69,7 @@ public class SpringerService implements DocService {
 		SpringerApiParams params = new SpringerApiParams();
 		params.setId(id);
 		Documents documents = getSpringerDocuments("getdocument", params);
-		if (documents == null)
+		if (documents == null || documents.size() < 1)
 			return null;
 		return documents.get(0);
 	}
@@ -158,12 +158,6 @@ public class SpringerService implements DocService {
 	 */
 	protected SpringerUrl getSpringerUrl(String function, ApiParams params) {
 		SpringerUrl url = new SpringerUrl("metadata", "json");
-		if ("getdocument".equals(function)) {
-			url.addParameter("doi", params.getId());
-		} else if ("getdocuments".equals(function)) {
-			url.addParameter("keyword", params.getSearchTerms());
-		}
-
 		return url;
 	}
 }

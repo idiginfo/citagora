@@ -6,21 +6,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.CreationHelper;
-import org.apache.poi.ss.usermodel.Font;
-import org.apache.poi.ss.usermodel.Hyperlink;
-import org.apache.poi.ss.usermodel.IndexedColors;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.idiginfo.docservices.annotate.AnnotateService;
 import org.idiginfo.docservices.model.Annotation;
 import org.idiginfo.docservices.model.DocService;
 import org.idiginfo.docservices.model.Document;
 import org.idiginfo.docservices.model.Documents;
+import org.idiginfo.docservices.utilities.XlsAnnotationWriter;
 
 import au.com.bytecode.opencsv.CSVWriter;
 
@@ -38,6 +29,8 @@ public class GetAllAnnotations {
 		return;
 	}
 
+	XlsAnnotationWriter annotationWriter = new XlsAnnotationWriter();
+
 	DocService service = new AnnotateService();
 	// output parameters
 	static final String OUTPUT_PREFIX = "c:/dev/annotateSampleFiles/proposal_notes";
@@ -46,13 +39,7 @@ public class GetAllAnnotations {
 	static final char SEPARATOR = ',';
 	CSVWriter writer;
 	// XLS output parameters
-	static final String XLS_FILE_NAME = OUTPUT_PREFIX + "s.xls";
-	Workbook wb = null;
-	Sheet sheet = null;
-	short xlsRowNumber = 0;
-	CreationHelper createHelper = null;
-	CellStyle hlink_style = null;
-	Font hlink_font = null;
+	static final String XLS_FILE_NAME = OUTPUT_PREFIX + ".xls";
 	// Context text file output parameters
 	static final String CONTEXT_FILE_NAME = OUTPUT_PREFIX + ".txt";
 	PrintWriter contextPrinter = null;
@@ -63,11 +50,11 @@ public class GetAllAnnotations {
 	}
 
 	private void run() {
-		String documentUser = "dleiva@fsu.edu";
+		String documentUser = "diane.leiva@cci.fsu.edu";
 		// String documentUser = "drupal@msrc.fsu.edu";
 		System.out.println("Document user: " + documentUser);
 
-		String selectedUser =documentUser;
+		String selectedUser = documentUser;
 		Documents documents = service.getDocuments(selectedUser);
 		System.out.println("number of documents " + documents.size());
 		try {
@@ -75,14 +62,6 @@ public class GetAllAnnotations {
 			// CSV
 			writer = new CSVWriter(new FileWriter(CSV_FILE_NAME), SEPARATOR);
 			// XLS
-			wb = new HSSFWorkbook();
-			sheet = wb.createSheet("annotations");
-			createHelper = wb.getCreationHelper();
-			hlink_style = wb.createCellStyle();
-			hlink_font = wb.createFont();
-			hlink_font.setUnderline(Font.U_SINGLE);
-			hlink_font.setColor(IndexedColors.BLUE.getIndex());
-			hlink_style.setFont(hlink_font);
 			// Context text
 			contextPrinter = new PrintWriter(new File(CONTEXT_FILE_NAME));
 
@@ -94,7 +73,7 @@ public class GetAllAnnotations {
 			// finalize output objects
 			writer.close();
 			FileOutputStream outFile = new FileOutputStream(XLS_FILE_NAME);
-			wb.write(outFile);
+			annotationWriter.getWorkbook().write(outFile);
 			outFile.close();
 			contextPrinter.close();
 		} catch (IOException e) {
@@ -120,8 +99,6 @@ public class GetAllAnnotations {
 			int numAnnotations = annotations.getNumAnnotations();
 			if (numAnnotations > 0)
 				numDocsWithNotes++;
-			if (numDocsWithNotes > 2)
-				break;
 			for (int j = 0; j < numAnnotations; j++) {
 				Annotation note = annotations.getAnnotation(j);
 				String context = note.getContext();
@@ -143,25 +120,7 @@ public class GetAllAnnotations {
 
 	private void writeHeader(String[] headers) {
 		writer.writeNext(headers);
-		xlsAddRow(headers, null);
-	}
-
-	private void xlsAddRow(String[] values, String url) {
-		Row row = sheet.createRow(xlsRowNumber);
-		for (int i = 0; i < values.length; i++) {
-			Cell cell = row.createCell(i);
-			cell.setCellValue(values[i]);
-			if (i == 0) {// first cell
-				if (url != null) {
-					Hyperlink link = createHelper
-							.createHyperlink(Hyperlink.LINK_URL);
-					link.setAddress(url);
-					cell.setHyperlink(link);
-					cell.setCellStyle(hlink_style);
-				}
-			}
-		}
-		xlsRowNumber++;
+		annotationWriter.addHeaders(headers);
 	}
 
 	private void writeLine(Document document, Annotation note) {
@@ -174,7 +133,7 @@ public class GetAllAnnotations {
 		String url = note.getFullPageUrl();
 		fields[3] = url;
 		writer.writeNext(fields);
-		xlsAddRow(fields, url);
+		annotationWriter.addRow(fields, url);
 		contextPrinter.println(note.getContext());
 	}
 

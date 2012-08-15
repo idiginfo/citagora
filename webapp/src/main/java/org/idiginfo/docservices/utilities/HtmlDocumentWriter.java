@@ -1,4 +1,4 @@
-package org.idiginfo.docservices.webapp;
+package org.idiginfo.docservices.utilities;
 
 import java.util.Iterator;
 
@@ -7,6 +7,7 @@ import org.idiginfo.docservices.model.ApiParams;
 import org.idiginfo.docservices.model.Document;
 import org.idiginfo.docservices.model.Documents;
 import org.idiginfo.docservices.model.Users;
+import org.idiginfo.docservices.webapp.DocServicesParams;
 
 /**
  * Demonstration class to create an html page from a collection of documents
@@ -15,7 +16,7 @@ import org.idiginfo.docservices.model.Users;
  * @author griccardi
  * 
  */
-public class ResponseFormatter {
+public class HtmlDocumentWriter {
 	static final String CHARSET = "UTF-8";
 
 	public static String toHtml(Users users) {
@@ -92,7 +93,7 @@ public class ResponseFormatter {
 		return null;
 	}
 
-	static String toHtml(ApiParams params, Object objects) {
+	public static String toHtml(ApiParams params, Object objects) {
 		StringBuffer title = new StringBuffer();
 		StringBuffer body = new StringBuffer();
 		title.append("MSRC ").append(params.getCollection());
