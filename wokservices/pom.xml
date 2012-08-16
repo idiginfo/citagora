@@ -2,7 +2,6 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.idiginfo.docservices</groupId>
   <artifactId>wokservices</artifactId>
-  <version>1</version>
   <build>
     <sourceDirectory>src</sourceDirectory>
     <plugins>
@@ -23,4 +22,10 @@
   		<version>2.6.1</version>
   	</dependency>
   </dependencies>
+  <parent>
+  	<groupId>org.idiginfo.docservice</groupId>
+  	<artifactId>service</artifactId>
+  	<version>1</version>
+  	<relativePath>../service</relativePath>
+  </parent>
 </project>
