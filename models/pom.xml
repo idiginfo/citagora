@@ -78,7 +78,7 @@
 		</dependency>
 	</dependencies>
 	<parent>
-		<groupId>org.idiginfo.docservices</groupId>
+		<groupId>org.idiginfo.docservice</groupId>
 		<artifactId>service</artifactId>
 		<version>1</version>
 		<relativePath>../service</relativePath>

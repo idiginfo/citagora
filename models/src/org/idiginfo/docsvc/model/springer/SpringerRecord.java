@@ -235,7 +235,11 @@ public class SpringerRecord implements Document {
 
 	@Override
 	public String getGUID() {
-		// TODO Auto-generated method stub
-		return null;
+		if (doi != null) {
+			if (doi.startsWith("doi:"))
+				return doi;
+			return "doi:" + doi;
+		}
+		return "http://ids.idiginfo.org/" + getId();
 	}
 }
