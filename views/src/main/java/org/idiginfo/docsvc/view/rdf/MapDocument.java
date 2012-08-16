@@ -20,7 +20,7 @@ public class MapDocument {
 	 * @param document
 	 * @return
 	 */
-	Model addDocument(Model model, Document document) {
+	public Model addDocument(Model model, Document document) {
 		String guid = document.getGUID();
 		Resource docResource = model.createResource(guid);
 

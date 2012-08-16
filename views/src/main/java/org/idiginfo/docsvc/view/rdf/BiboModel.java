@@ -18,7 +18,7 @@ public class BiboModel {
 	// "http://purl.org/ontology/bibo/" -o c:\dev -n BiboVocabulary -a
 	// "http://purl.org/ontology/bibo/" --inference
 
-	Model createSample() {
+	public Model createSample() {
 		RIOT.init();// initialize the I/O tools
 
 		Model model = ModelFactory.createDefaultModel();

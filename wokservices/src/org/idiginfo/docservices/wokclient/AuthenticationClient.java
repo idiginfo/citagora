@@ -62,12 +62,12 @@ public class AuthenticationClient {
 			 );
 			/* comment end */
 
-			String username = "wsl";
-			String password = "serv!ce1";
-			context.put(javax.xml.ws.BindingProvider.USERNAME_PROPERTY,
-					username);
-			context.put(javax.xml.ws.BindingProvider.PASSWORD_PROPERTY,
-					password);
+			// String username = "wsl";
+			// String password = "serv!ce1";
+			// context.put(javax.xml.ws.BindingProvider.USERNAME_PROPERTY,
+			// username);
+			// context.put(javax.xml.ws.BindingProvider.PASSWORD_PROPERTY,
+			// password);
 			/*
 			 * comment start: make the call to the authenticate operation
 			 */
