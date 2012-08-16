@@ -2,7 +2,7 @@ package org.idiginfo.docsvc.controller.utilities;
 
 import java.util.Iterator;
 
-import org.idiginfo.docsvc.controller.webapp.DocServicesParams;
+import org.idiginfo.docsvc.controller.request.DocServicesParams;
 import org.idiginfo.docsvc.model.model.Annotation;
 import org.idiginfo.docsvc.model.model.ApiParams;
 import org.idiginfo.docsvc.model.model.Document;

@@ -1,4 +1,4 @@
-package org.idiginfo.docsvc.controller.webapp;
+package org.idiginfo.docsvc.controller.request;
 
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response.Status;
@@ -10,8 +10,12 @@ import org.idiginfo.docsvc.model.model.DocService;
 import org.idiginfo.docsvc.model.model.Document;
 import org.idiginfo.docsvc.model.model.Documents;
 import org.idiginfo.docsvc.model.model.Users;
+import org.idiginfo.docsvc.view.RdfWriter;
 
 public class RequestProcessor {
+
+	// output writers
+	RdfWriter rdfWriter = new RdfWriter();
 
 	public RequestProcessor() {
 	}
@@ -43,8 +47,8 @@ public class RequestProcessor {
 		}
 		DocService service = ServiceFactory.getSharedService(collection);
 		if (service == null) {
-			return new Result(Status.BAD_REQUEST, "collection "
-					+ collection + " is unknown");
+			return new Result(Status.BAD_REQUEST, "collection " + collection
+					+ " is unknown");
 		}
 		return getObjects(service, params);
 	}
@@ -84,6 +88,10 @@ public class RequestProcessor {
 
 	public Result processRequest(ApiParams params) {
 		Object objects = getObjects(params);
+		Documents documents = null;
+		if (objects instanceof Documents) {
+			documents = (Documents) objects;
+		}
 		String body = null;
 		String format = params.getFormat();
 		if (DocServicesParams.FORMAT_JSON.equals(format)) {
@@ -91,7 +99,9 @@ public class RequestProcessor {
 		} else if (DocServicesParams.FORMAT_XLS.equals(format)) {
 
 		} else if (DocServicesParams.FORMAT_RDF.equals(format)) {
-
+			RdfWriter rdfWriter = new RdfWriter();
+			body = rdfWriter.write(documents);
+			return new Result(Status.OK, body, "application/rdf+xml");
 		} else {
 			body = HtmlDocumentWriter.toHtml(params, objects);
 			if (body == null)

@@ -3,8 +3,8 @@ package org.idiginfo.docsvc.controller.webapptest;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import org.idiginfo.docsvc.controller.webapp.DocServicesParams;
-import org.idiginfo.docsvc.controller.webapp.RequestProcessor;
+import org.idiginfo.docsvc.controller.request.DocServicesParams;
+import org.idiginfo.docsvc.controller.request.RequestProcessor;
 import org.idiginfo.docsvc.model.ServiceFactory;
 
 public class TestRequestProcessor {

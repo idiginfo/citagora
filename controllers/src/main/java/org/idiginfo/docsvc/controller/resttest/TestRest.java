@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
-import org.idiginfo.docsvc.controller.webapp.DocServicesParams;
-import org.idiginfo.docsvc.controller.webapp.RequestProcessor;
+import org.idiginfo.docsvc.controller.request.DocServicesParams;
+import org.idiginfo.docsvc.controller.request.RequestProcessor;
 import org.idiginfo.docsvc.model.ServiceFactory;
 import org.idiginfo.docsvc.model.model.ApiParams;
 
@@ -18,6 +18,8 @@ import org.idiginfo.docsvc.model.model.ApiParams;
 
 public class TestRest {
 
+	static final String FILE_NAME = "c:/dev/api samples/springer2.rdf";
+//	static final String FILE_NAME = "c:/dev/api samples/springer.html";
 	RequestProcessor requestProcessor = new RequestProcessor();
 
 	String get(String collection) {
@@ -84,6 +86,7 @@ public class TestRest {
 
 		ApiParams params = DocServicesParams.getApiServiceParams(queryParams);
 		params.setCollection(ServiceFactory.COLLECTION_SPRINGER);
+		params.setFormat(DocServicesParams.FORMAT_RDF);
 
 		RequestProcessor.Result result = requestProcessor
 				.processRequest(params);
@@ -92,7 +95,7 @@ public class TestRest {
 
 	static public void main(String[] args) throws Exception {
 		String body = new TestRest().get(ServiceFactory.COLLECTION_SPRINGER);
-		FileWriter out = new FileWriter("c:/dev/api samples/springer.html");
+		FileWriter out = new FileWriter(FILE_NAME);
 		out.write(body);
 		out.close();
 		System.out.println(body);

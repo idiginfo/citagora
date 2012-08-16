@@ -1,4 +1,4 @@
-package org.idiginfo.docsvc.controller.webapp;
+package org.idiginfo.docsvc.controller.request;
 
 import java.lang.reflect.Field;
 import java.util.Iterator;

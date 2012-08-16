@@ -12,8 +12,8 @@ import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-import org.idiginfo.docsvc.controller.webapp.DocServicesParams;
-import org.idiginfo.docsvc.controller.webapp.RequestProcessor;
+import org.idiginfo.docsvc.controller.request.DocServicesParams;
+import org.idiginfo.docsvc.controller.request.RequestProcessor;
 import org.idiginfo.docsvc.model.model.ApiParams;
 
 /**
@@ -52,6 +52,6 @@ public class RestService {
 				.status(result.statusCode)
 				.entity(result.body)
 				.header(HttpHeaders.CONTENT_TYPE,
-						MediaType.TEXT_HTML + "; charset=UTF-8").build();
+						result.mimeType + "; charset=UTF-8").build();
 	}
 }
