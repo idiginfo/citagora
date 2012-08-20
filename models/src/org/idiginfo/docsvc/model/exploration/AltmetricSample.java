@@ -2,9 +2,9 @@ package org.idiginfo.docsvc.model.exploration;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Vector;
 
 import org.idiginfo.docsvc.model.altmetric.AltmetricApiParams;
+import org.idiginfo.docsvc.model.altmetric.AltmetricRecord;
 import org.idiginfo.docsvc.model.altmetric.AltmetricService;
 import org.idiginfo.docsvc.model.altmetric.AltmetricUrl;
 import org.idiginfo.docsvc.model.model.ApiParams;
@@ -18,41 +18,56 @@ public class AltmetricSample {
 	// http://api.altmetric.com/v1/citations/1d
 
 	private static void run() {
-		// testAltmetricDocument();
-		testAltmetricQuery();
+		// testAltmetricDocument("241939");
+		testDoiDocument("10.1038/news.2011.490");
+		testPmidDocument("21148220");
+		// testAltmetricQuery();
 	}
 
-	public static String testAltmetricDocument() {
-		ApiParams params = new AltmetricApiParams();
-		// params.setDoi("doi:10.1007/s11276-008-0131-4");
-		params.setId("doi:10.1007/s11276-008-0131-4");
-		Document document = service.getDocument(params);
-		// System.out.print(content);
+	public static String testAltmetricDocument(String altmetricId) {
+		AltmetricRecord document = service.getDetails(altmetricId);
+		printDocumentInfo(document);
 		return null;
+	}
+
+	public static String testDoiDocument(String doi) {
+		AltmetricRecord document = service.getDetailsByDoi(doi);
+		printDocumentInfo(document);
+		return null;
+	}
+
+	public static String testPmidDocument(String pmid) {
+		AltmetricRecord document = service.getDetailsByPmid(pmid);
+		printDocumentInfo(document);
+		return null;
+	}
+
+	static void printDocumentInfo(AltmetricRecord document) {
+		System.out.println("Id is: " + document.getId());
+		System.out.println("Title is: " + document.getTitle());
+		System.out.println("Pub name is: " + document.getName());
+		System.out.println("DOI is: " + document.getDoi());
+		System.out.println("PMID is: " + document.getNlmid());
+		System.out.println("Altmetric is: " + document.getAltmetricId());
 	}
 
 	public static String testAltmetricQuery() {
 		String content;
 		AltmetricUrl url = new AltmetricUrl();
-		//List<String> pathParts = Arrays.asList("", "v1", "citations", "1d");
+		// List<String> pathParts = Arrays.asList("", "v1", "citations", "1d");
 
-		//http://api.altmetric.com/v1/details/241939
+		// http://api.altmetric.com/v1/details/241939
 		List<String> pathParts = Arrays.asList("", "v1", "details", "241939");
 
 		url.setPathParts(pathParts);
 		ApiParams params = new AltmetricApiParams();
 		System.out.println(url.build());
-		Documents altmetricResult = service.getDocuments(params);
-		if (altmetricResult==null) {
+		AltmetricRecord record = (AltmetricRecord) service.getDocument(params);
+		if (record == null) {
 			System.err.println("Service request failed");
 			return null;
 		}
-		Document record = altmetricResult.get(0);
-		System.out.println("Id is: " + record.getId());
-		System.out.println("Title is: " + record.getTitle());
-		System.out.println("Pub name is: " + record.getName());
-		// System.out.println("num results "+AltmetricResult.result.get(0).total);
-		System.out.println("num results " + altmetricResult.size());
+		printDocumentInfo(record);
 		return null;
 	}
 

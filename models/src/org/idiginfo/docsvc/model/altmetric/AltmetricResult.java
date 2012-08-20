@@ -16,7 +16,7 @@ public class AltmetricResult {
 
 	Query query;
 	@SerializedName("results")
-	List<AltmetricDocument> results;
+	List<AltmetricRecord> results;
 	
 	transient Documents documents;
 

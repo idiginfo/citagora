@@ -19,10 +19,10 @@ public class AltmetricDocuments extends Vector<Document> implements Documents {
 	 * 
 	 * @param documents
 	 */
-	public AltmetricDocuments(List<AltmetricDocument> results) {
+	public AltmetricDocuments(List<AltmetricRecord> results) {
 		if (results == null)
 			return;
-		Iterator<AltmetricDocument> documents = results.iterator();
+		Iterator<AltmetricRecord> documents = results.iterator();
 		while (documents.hasNext()) {
 			add(documents.next());
 		}

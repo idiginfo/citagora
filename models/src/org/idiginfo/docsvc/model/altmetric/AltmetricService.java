@@ -1,5 +1,6 @@
 package org.idiginfo.docsvc.model.altmetric;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -49,6 +50,45 @@ public class AltmetricService implements DocService {
 		return null;
 	}
 
+	public AltmetricResult getCitations(String timespan) {
+		return null;
+	}
+
+	public AltmetricRecord getDetailsByDoi(String doi) {
+		String altmetricId = getAltmetricIdByDoi(doi);
+		return getDetails(altmetricId);
+	}
+
+	public AltmetricRecord getDetailsByPmid(String pmid) {
+		String altmetricId = getAltmetricIdByPmid(pmid);
+		return getDetails(altmetricId);
+	}
+
+	public AltmetricRecord getDetails(String altmetricId) {
+		AltmetricApiParams params = new AltmetricApiParams();
+		params.setCollection(AltmetricApiParams.DETAILS_COLLECTION);
+		params.setId(altmetricId);
+		return (AltmetricRecord) getDocument(params);
+	}
+
+	public String getAltmetricIdByDoi(String doi) {
+		AltmetricApiParams params = new AltmetricApiParams();
+		params.setCollection(AltmetricApiParams.DOI_COLLECTION);
+		params.setId(doi);
+		AltmetricRecord document = (AltmetricRecord) getDocument(params);
+		return document.getAltmetricId();
+	}
+
+	public String getAltmetricIdByPmid(String pmid) {
+		AltmetricApiParams params = new AltmetricApiParams();
+		params.setCollection(AltmetricApiParams.PMID_COLLECTION);
+		params.setId(pmid);
+		AltmetricRecord document = (AltmetricRecord) getDocument(params);
+		System.out.println("For Pmid: " + pmid + " Altmetric id: "
+				+ document.getAltmetricId());
+		return document.getAltmetricId();
+	}
+
 	@Override
 	public Users getUsers(ApiParams params) {
 		// TODO Auto-generated method stub
@@ -57,7 +97,14 @@ public class AltmetricService implements DocService {
 
 	@Override
 	public Document getDocument(ApiParams params) {
-		return getDocument(params.getId(), params.getDate());
+		if (!(params instanceof AltmetricApiParams)) {
+			return null; // TODO exception here
+		}
+
+		String content = queryService("getdocument",
+				(AltmetricApiParams) params);
+		AltmetricRecord result = gson.fromJson(content, AltmetricRecord.class);
+		return result;
 	}
 
 	@Override
@@ -114,22 +161,25 @@ public class AltmetricService implements DocService {
 	}
 
 	private Documents getAltmetricDocuments(String function, ApiParams params) {
-		String content = queryService(function, params);
+		if (!(params instanceof AltmetricApiParams)) {
+			return null; // TODO exception here
+		}
+		String content = queryService(function, (AltmetricApiParams) params);
 		AltmetricResult result = gson.fromJson(content, AltmetricResult.class);
 		if (result == null)
 			return null;
 		return result.getDocuments();
 	}
 
-	private String queryService(String function, ApiParams params) {
+	private String queryService(String function, AltmetricApiParams params) {
 		try {
 			String content;
 			// TODO add other functions
-			AltmetricUrl url = new AltmetricUrl(function, params);
+			AltmetricUrl url = new AltmetricUrl(params);
 			if ("getdocument".equals(function)) {
-				//TODO add getdocument
+				// TODO add getdocument
 			} else if ("getdocuments".equals(function)) {
-				//url.addParameter("keyword", params.getSearchTerms());
+				// url.addParameter("keyword", params.getSearchTerms());
 			}
 			url.prepare();
 			System.out.println(url.build());
@@ -145,6 +195,10 @@ public class AltmetricService implements DocService {
 			JsonObject tree = parser.parse(content).getAsJsonObject();
 			content = gson.toJson(tree);
 			result.disconnect();
+			FileWriter out = new FileWriter(
+					"c:/dev/api samples/altmetric_details_201135.json");
+			out.write(content);
+			out.close();
 			return content;
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -9,14 +9,120 @@ import javax.xml.ws.ServiceMode;
 import org.idiginfo.docsvc.model.model.Annotation;
 import org.idiginfo.docsvc.model.model.Document;
 
+import com.google.gson.JsonElement;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Class 
+ * Class
+ * 
  * @author griccardi
- *
+ * 
  */
 public class AltmetricRecord implements Document {
+
+	@SerializedName("_id")
+	String altId;// place for altmetricId with collection 'details'
+	String title;
+	String doi;
+	String nlmid;
+	@SerializedName("arxiv_id")
+	String I;
+	@SerializedName("ads_id")
+	String adsId;
+	String[] tq;
+	@SerializedName("altmetric_jid")
+	String altmetricJid;
+	String[] issns;
+	String journal;
+	Cohort cohorts;
+	@SerializedName("altmetric_id")
+	String altmetricId;
+	String schema;
+	@SerializedName("is_oa")
+	String isOA;
+	// fields for cited_by_XXX
+	@SerializedName("cited_by_fbwalls")
+	String[] citedByFBWalls;
+	@SerializedName("cited_by_fbwalls_count")
+	Integer citedByFBWallsCount;
+	@SerializedName("cited_by_feeds")
+	String[] citedByFeeds;
+	@SerializedName("cited_by_feeds_count")
+	Integer citedByFeedsCount;
+	@SerializedName("cited_by_gplus")
+	String[] citedByGPlus;
+	@SerializedName("cited_by_gplus_count")
+	Integer citedByGPlusCount;
+	@SerializedName("cited_by_posts")
+	String[] citedByPosts;
+	@SerializedName("cited_by_posts_count")
+	Integer citedByPostsCount;
+	@SerializedName("cited_by_rdts")
+	String[] citedByRdts;
+	@SerializedName("cited_by_rdts_count")
+	Integer citedByRdtsCount;
+	// This field may contain a list of pairs (index, value) instead of a list
+	// of strings
+	@SerializedName("cited_by_tweeters")
+	JsonElement citedByTweeters;
+	@SerializedName("cited_by_tweeters_count")
+	Integer citedByTweetersCount;
+	@SerializedName("cited_by_accounts")
+	String[] citedByAccounts;
+	@SerializedName("cited_by_accounts_count")
+	Integer citedByAccountsCount;
+	Context context;
+	Double score;
+	JsonElement history;
+	String url;
+	@SerializedName("added_on")
+	Integer addedOn;
+	@SerializedName("published_on")
+	String publishedOn;
+	String[] subjects;
+	String[] scopusSubjects;
+	@SerializedName("last_updated")
+	Integer lastUpdated;
+	@SerializedName("readers_count")
+	Integer readersCount;
+	Reader readers;
+	Image images;
+	@SerializedName("details_url")
+	String detailsUrl;
+
+	class Cohort {
+		Integer sci;
+		Integer pub;
+		Integer com;
+		Integer doc;
+	}
+
+	class Context {
+		Journal journal;
+		Journal all;
+	}
+
+	class Journal {
+		Integer count;
+		Integer rank;
+		Double pct;
+	}
+
+	class History {
+
+	}
+
+	class Reader {
+		Integer mendeley;
+		Integer connotea;
+		Integer citeulike;
+	}
+
+	class Image {
+		String small;
+		String medium;
+		String large;
+	}
 
 	public String getTitle() {
 		return title;
@@ -83,7 +189,9 @@ public class AltmetricRecord implements Document {
 	}
 
 	public String getAltmetricId() {
+		if (altmetricId!=null && altmetricId.length()>0)
 		return altmetricId;
+		return altId;
 	}
 
 	public void setAltmetricId(String altmetricId) {
@@ -162,12 +270,8 @@ public class AltmetricRecord implements Document {
 		this.citedByAccountsCount = citedByAccountsCount;
 	}
 
-	public List<Context> getContexts() {
-		return contexts;
-	}
-
-	public void setContexts(List<Context> contexts) {
-		this.contexts = contexts;
+	public Context getContext() {
+		return context;
 	}
 
 	public Double getScore() {
@@ -178,12 +282,8 @@ public class AltmetricRecord implements Document {
 		this.score = score;
 	}
 
-	public List<History> getHistory() {
+	public JsonElement getHistory() {
 		return history;
-	}
-
-	public void setHistory(List<History> history) {
-		this.history = history;
 	}
 
 	public String getUrl() {
@@ -202,11 +302,11 @@ public class AltmetricRecord implements Document {
 		this.addedOn = addedOn;
 	}
 
-	public Integer getPublishedOn() {
+	public String getPublishedOn() {
 		return publishedOn;
 	}
 
-	public void setPublishedOn(Integer publishedOn) {
+	public void setPublishedOn(String publishedOn) {
 		this.publishedOn = publishedOn;
 	}
 
@@ -242,21 +342,15 @@ public class AltmetricRecord implements Document {
 		this.readersCount = readersCount;
 	}
 
-	public List<Reader> getReaders() {
+	public Reader getReaders() {
 		return readers;
 	}
 
-	public void setReaders(List<Reader> readers) {
-		this.readers = readers;
-	}
 
-	public List<Image> getImages() {
+	public Image getImages() {
 		return images;
 	}
 
-	public void setImages(List<Image> images) {
-		this.images = images;
-	}
 
 	public String getDetailsUrl() {
 		return detailsUrl;
@@ -264,88 +358,6 @@ public class AltmetricRecord implements Document {
 
 	public void setDetailsUrl(String detailsUrl) {
 		this.detailsUrl = detailsUrl;
-	}
-
-	String title;
-	String doi;
-	String nlmid;
-	String[] tq;
-	@SerializedName("altmetric_jid")
-	String altmetricJid;
-	String[] issns;
-	String journal;
-	Cohort cohorts;
-	@SerializedName("altmetric_id")
-	String altmetricId;
-	String schema;
-	@SerializedName("is_oa")
-	String isOA;
-	@SerializedName("cited_by_fbwalls_count")
-	Integer citedByFBWallsCount;
-	@SerializedName("cited_by_feeds_count")
-	Integer citedByFeedsCount;
-	@SerializedName("cited_by_gplus_count")
-	Integer citedByGPlusCount;
-	@SerializedName("cited_by_posts_count")
-	Integer citedByPostsCount;
-	@SerializedName("cited_by_rdts_count")
-	Integer citedByRdtsCount;
-	@SerializedName("cited_by_tweeters_count")
-	Integer citedByTweetersCount;
-	@SerializedName("cited_by_accounts_count")
-	Integer citedByAccountsCount;
-	@SerializedName("context")
-	List<Context> contexts;
-	Double score;
-	List<History> history;
-	String url;
-	@SerializedName("added_on")
-	Integer addedOn;
-	@SerializedName("published_on")
-	Integer publishedOn;
-	String[] subjects;
-	String[] scopusSubjects;
-	@SerializedName("last_updated")
-	Integer lastUpdated;
-	@SerializedName("readers_count")
-	Integer readersCount;
-	List<Reader> readers;
-	List<Image> images;
-	@SerializedName("details_url")
-	String detailsUrl;
-
-	class Cohort {
-		Integer sci;
-		Integer pub;
-		Integer com;
-		Integer doc;
-	}
-
-	class Context {
-		List<Journal> journal;
-		List<Journal> all;
-	}
-
-	class Journal {
-		Integer count;
-		Integer rank;
-		Double pct;
-	}
-
-	class History {
-
-	}
-
-	class Reader {
-		Integer mendeley;
-		Integer connotea;
-		Integer citeulike;
-	}
-
-	class Image {
-		String small;
-		String medium;
-		String large;
 	}
 
 	@Override
@@ -367,7 +379,7 @@ public class AltmetricRecord implements Document {
 
 	@Override
 	public String getDate() {
-		if (publishedOn != null){
+		if (publishedOn != null) {
 			return dateFormatter.format(publishedOn);
 		}
 		return null;

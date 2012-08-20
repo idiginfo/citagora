@@ -26,19 +26,23 @@ public class AltmetricUrl extends GenericUrl {
 		setScheme("http");
 	}
 
-	public AltmetricUrl(ApiParams params) {
-		this();
-		List<String> pathParts = Arrays.asList("", "v1", "citations", "1d");
-		setPathParts(pathParts);
-		// TODO Auto-generated constructor stub
-	}
-
-	public AltmetricUrl(String function, ApiParams params) {
+	public AltmetricUrl(AltmetricApiParams params) {
 		this();
 		// List<String> pathParts = Arrays.asList("", "v1", "citations", "1d");
-		List<String> pathParts = Arrays.asList("", "v1", "details", "241939");
-		setPathParts(pathParts);
-		// TODO Auto-generated constructor stub
+		// List<String> pathParts = Arrays.asList("", "v1", "details",
+		// "241939");201135
+		String collection = params.getCollection();
+		if (AltmetricApiParams.CITATION_COLLECTION.equals(collection)) {
+			// get all citations by timeframe
+			String timeframe = params.getTimeframe();
+			List<String> pathParts = Arrays.asList("",
+					AltmetricApiParams.API_VERSION, collection, timeframe);
+		} else {// get single document by id
+			String id = params.getId();
+			List<String> pathParts = Arrays.asList("",
+					AltmetricApiParams.API_VERSION, collection, id);
+			setPathParts(pathParts);
+		}
 	}
 
 	@Key("key")
