@@ -247,6 +247,11 @@ public class AnnotateMeta implements Document {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public String getSource() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 
 }

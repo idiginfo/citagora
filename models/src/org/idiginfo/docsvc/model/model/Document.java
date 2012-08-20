@@ -6,6 +6,8 @@ public interface Document {
 
 	public String getId();
 
+	public String getSource();
+
 	public void setId(String id);
 
 	public String getDate();

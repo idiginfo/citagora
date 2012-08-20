@@ -6,6 +6,11 @@ import org.idiginfo.docsvc.model.model.Annotation;
 import org.idiginfo.docsvc.model.model.Document;
 import org.apache.commons.lang.StringUtils;
 
+/**
+ * Class to map Spring json object to Document
+ * @author griccardi
+ *
+ */
 public class SpringerRecord implements Document {
 	String identifier;
 	String title;
@@ -22,7 +27,7 @@ public class SpringerRecord implements Document {
 	String url;
 	String copyright;
 
-	class Creator {
+	static class Creator {
 		String creator;
 
 		public String toString() {
@@ -241,5 +246,11 @@ public class SpringerRecord implements Document {
 			return "doi:" + doi;
 		}
 		return "http://ids.idiginfo.org/" + getId();
+	}
+
+	@Override
+	public String getSource() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

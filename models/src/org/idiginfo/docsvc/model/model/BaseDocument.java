@@ -265,4 +265,9 @@ public class BaseDocument implements Document {
 	public void setDoi(String doi) {
 		this.doi = doi;
 	}
+
+	@Override
+	public String getSource() {
+		return "default";
+	}
 }

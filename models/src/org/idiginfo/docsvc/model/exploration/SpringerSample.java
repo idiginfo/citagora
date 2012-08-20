@@ -1,25 +1,11 @@
 package org.idiginfo.docsvc.model.exploration;
 
-import java.io.IOException;
-
-import org.apache.commons.io.IOUtils;
 import org.idiginfo.docsvc.model.model.ApiParams;
 import org.idiginfo.docsvc.model.model.Document;
 import org.idiginfo.docsvc.model.model.Documents;
 import org.idiginfo.docsvc.model.springer.SpringerApiParams;
 import org.idiginfo.docsvc.model.springer.SpringerService;
 import org.idiginfo.docsvc.model.springer.SpringerUrl;
-
-import com.google.api.client.http.HttpRequest;
-import com.google.api.client.http.HttpRequestFactory;
-import com.google.api.client.http.HttpRequestInitializer;
-import com.google.api.client.http.HttpResponse;
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 public class SpringerSample {
 

@@ -6,6 +6,16 @@ import org.idiginfo.docsvc.model.model.Documents;
 
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Class to map Spring result json document
+ * 
+ * Note that although this class has a set of SpringerRecord (implements Documents) 
+ * it must create a more generic List<Document> to use for the Documents interface.
+ * See method SpringerDocuments(records)
+ * 
+ * @author griccardi
+ * 
+ */
 public class SpringerResult {
 
 	String query;
@@ -14,7 +24,8 @@ public class SpringerResult {
 	Result[] results;
 	List<SpringerRecord> records;
 	List<Facet> facets;
-	Documents documents;
+
+	transient Documents documents;
 
 	Documents getDocuments() {
 		if (documents != null)

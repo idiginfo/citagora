@@ -185,4 +185,10 @@ public class ScopusDocument implements Document {
 		return null;
 	}
 
+	@Override
+	public String getSource() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
