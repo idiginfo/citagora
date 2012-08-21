@@ -189,8 +189,8 @@ public class AltmetricRecord implements Document {
 	}
 
 	public String getAltmetricId() {
-		if (altmetricId!=null && altmetricId.length()>0)
-		return altmetricId;
+		if (altmetricId != null && altmetricId.length() > 0)
+			return altmetricId;
 		return altId;
 	}
 
@@ -346,11 +346,9 @@ public class AltmetricRecord implements Document {
 		return readers;
 	}
 
-
 	public Image getImages() {
 		return images;
 	}
-
 
 	public String getDetailsUrl() {
 		return detailsUrl;
