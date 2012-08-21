@@ -3,13 +3,13 @@ package org.idiginfo.docsvc.controller.request;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response.Status;
 
-import org.idiginfo.docsvc.controller.utilities.HtmlDocumentWriter;
 import org.idiginfo.docsvc.model.ServiceFactory;
 import org.idiginfo.docsvc.model.model.ApiParams;
 import org.idiginfo.docsvc.model.model.DocService;
 import org.idiginfo.docsvc.model.model.Document;
 import org.idiginfo.docsvc.model.model.Documents;
 import org.idiginfo.docsvc.model.model.Users;
+import org.idiginfo.docsvc.view.HtmlDocumentWriter;
 import org.idiginfo.docsvc.view.RdfWriter;
 
 public class RequestProcessor {

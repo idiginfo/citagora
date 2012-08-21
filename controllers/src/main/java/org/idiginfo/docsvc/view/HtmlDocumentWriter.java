@@ -1,4 +1,4 @@
-package org.idiginfo.docsvc.controller.utilities;
+package org.idiginfo.docsvc.view;
 
 import java.util.Iterator;
 
@@ -30,6 +30,8 @@ public class HtmlDocumentWriter {
 	}
 
 	public static String toHtml(Document document) {
+		if (document == null)
+			return "";
 		StringBuffer out = new StringBuffer();
 		out.append("<p><b>Identifier:</b> ").append(document.getId())
 				.append("</p>");
