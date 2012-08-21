@@ -2,6 +2,7 @@ package org.idiginfo.docsvc.view.rdf;
 
 import org.idiginfo.docsvc.model.model.Document;
 import org.idiginfo.docsvc.view.rdf.vocabulary.BIBO;
+import org.idiginfo.docsvc.view.rdf.vocabulary.DublinCore;
 import org.idiginfo.docsvc.view.rdf.vocabulary.RdfUtilities;
 
 import com.hp.hpl.jena.rdf.model.Model;
@@ -26,6 +27,7 @@ public class MapDocument {
 
 		RdfUtilities.addProperty(model, docResource, BIBO.authorList,
 				document.getAuthors());
+		RdfUtilities.addProperty(model, docResource, DublinCore.title, document.getTitle());
 		RdfUtilities.addProperty(model, docResource, BIBO.doi, document.getDoi());
 		return model;
 	}
