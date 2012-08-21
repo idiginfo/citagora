@@ -233,15 +233,14 @@ public class SearchClient {
 		desc_isshp.setCollection("WOS");
 		desc_isshp.setEdition("ISSHP");
 		_search_queryParameters.getEditions().add(desc_sci);
-		_search_queryParameters.getEditions().add(desc_ssci);
-		_search_queryParameters.getEditions().add(desc_ahci);
-		_search_queryParameters.getEditions().add(desc_ic);
-		_search_queryParameters.getEditions().add(desc_ccr);
-		_search_queryParameters.getEditions().add(desc_istp);
-		_search_queryParameters.getEditions().add(desc_ssci);
-		_search_queryParameters.setQueryLanguage("en");
-		_search_queryParameters
-				.setUserQuery("AD=(NATL TAIWAN UNIV SAME CHILUNG)");
+		// _search_queryParameters.getEditions().add(desc_ssci);
+		// _search_queryParameters.getEditions().add(desc_ahci);
+		// _search_queryParameters.getEditions().add(desc_ic);
+		// _search_queryParameters.getEditions().add(desc_ccr);
+		// //_search_queryParameters.getEditions().add(desc_istp);
+		// _search_queryParameters.getEditions().add(desc_ssci);
+		// _search_queryParameters.setQueryLanguage("en");
+		_search_queryParameters.setUserQuery("AD=(suicide)");
 		TimeSpan timeSpan = new TimeSpan();
 		timeSpan.setBegin("1900-01-01");
 		timeSpan.setEnd("2009-12-31");
