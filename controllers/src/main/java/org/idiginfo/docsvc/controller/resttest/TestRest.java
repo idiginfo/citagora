@@ -18,7 +18,8 @@ import org.idiginfo.docsvc.model.model.ApiParams;
 
 public class TestRest {
 
-	static final String FILE_NAME = "c:/dev/api samples/springer2.rdf";
+	static final String FILE_NAME = "c:/dev/api samples/annotate.rdf";
+	//static final String FILE_NAME = "c:/dev/api samples/springer2.rdf";
 //	static final String FILE_NAME = "c:/dev/api samples/springer.html";
 	RequestProcessor requestProcessor = new RequestProcessor();
 
@@ -40,15 +41,16 @@ public class TestRest {
 		queryParams.put(DocServicesParams.METHOD_PARAM, strings);
 
 		strings = new Vector<String>();
-		strings.add("TZpwu9je");
+		strings.add("sJZefHkg6");
 		queryParams.put(DocServicesParams.ID_PARAM, strings);
 
 		strings = new Vector<String>();
-		strings.add("2012-06-29");
+		strings.add("2012-03-27");
 		queryParams.put(DocServicesParams.DATE_PARAM, strings);
 
 		ApiParams params = DocServicesParams.getApiServiceParams(ServiceFactory.COLLECTION_ANNOTATE, queryParams);
 		params.setCollection(ServiceFactory.COLLECTION_ANNOTATE);
+		params.setFormat(DocServicesParams.FORMAT_HTML);
 
 		RequestProcessor.Result result = requestProcessor
 				.processRequest(params);
@@ -94,7 +96,8 @@ public class TestRest {
 	}
 
 	static public void main(String[] args) throws Exception {
-		String body = new TestRest().get(ServiceFactory.COLLECTION_SPRINGER);
+		//String body = new TestRest().get(ServiceFactory.COLLECTION_SPRINGER);
+		String body = new TestRest().get(ServiceFactory.COLLECTION_ANNOTATE);
 		FileWriter out = new FileWriter(FILE_NAME);
 		out.write(body);
 		out.close();

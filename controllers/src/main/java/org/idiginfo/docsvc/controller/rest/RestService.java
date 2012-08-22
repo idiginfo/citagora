@@ -30,13 +30,8 @@ public class RestService {
 
 	RequestProcessor requestProcessor = new RequestProcessor();
 
-	@GET
-	public String hello() {
-		return "you are in the rest service";
-	}
 
 	@GET
-	@Path("/")
 	@Produces(MediaType.TEXT_HTML)
 	public Response get(@QueryParam("collection") String collection) {
 		MultivaluedMap<String, String> queryParams = uriInfo
