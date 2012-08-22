@@ -19,6 +19,8 @@ import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
 import com.thomsonreuters.wokmws.cxf.auth.WOKMWSAuthenticate;
 import com.thomsonreuters.wokmws.cxf.auth.WOKMWSAuthenticateService;
 
+
+
 public class AuthenticationClient {
 	public static String REMOTE_WSDL_URL = "http://search.isiknowledge.com/esti/wokmws/ws/WOKMWSAuthenticate?wsdl";
 	public static URL LOCAL_WSDL_URL = WOKMWSAuthenticateService.WSDL_LOCATION;
@@ -75,7 +77,7 @@ public class AuthenticationClient {
 			session_identifier = port.authenticate();
 		} catch (Exception e) {
 			// Unexpected error while calling the authenticate operation.
-			// ¡- finish your exception handling,
+			// finish your exception handling,
 			// we are simply printing the stack trace and rethrowing the
 			// exception
 			e.printStackTrace();
@@ -126,7 +128,7 @@ public class AuthenticationClient {
 			port.closeSession();
 		} catch (Exception e) {
 			// Unexpected error
-			// ¡- finish your exception handling,
+			// finish your exception handling,
 			// we are simply printing the stack trace and rethrowing the
 			// exception
 			e.printStackTrace();
@@ -176,7 +178,7 @@ public class AuthenticationClient {
 			http.setClient(httpClientPolicy);
 		} catch (Exception e) {
 			// Unexpected error while calling the authenticate service.
-			// ¡- finish your exception handling,
+			// finish your exception handling,
 			// we are simply printing the stack trace and rethrowing the
 			// exception
 			e.printStackTrace();
@@ -209,7 +211,7 @@ public class AuthenticationClient {
 		} catch (Exception e) {
 			// Unexpected error while calling the authenticate service.
 
-			// ¡- finish your exception handling,
+			// finish your exception handling,
 			// we are simply printing the stack trace and rethrowing the
 			// exception
 			e.printStackTrace();
@@ -239,7 +241,7 @@ public class AuthenticationClient {
 				}
 			} catch (MalformedURLException e) {
 				// Unexpected error
-				// ¡- finish your exception handling,
+				// finish your exception handling,
 				// we are simply printing the stack trace and rethrowing the
 				// exception
 				e.printStackTrace();
