@@ -21,7 +21,7 @@ public class RdfWriter implements ObjectWriter {
 	}
 
 	@Override
-	public String write(Document document) {
+	public String writeDocument(Document document) {
 		Model model = ModelFactory.createDefaultModel();
 		MapDocument mapDocument = new MapDocument();
 		model = mapDocument.addDocument(model, document);
@@ -29,7 +29,7 @@ public class RdfWriter implements ObjectWriter {
 	}
 
 	@Override
-	public String write(Documents documents) {
+	public String writeDocuments(Documents documents) {
 		Model model = ModelFactory.createDefaultModel();
 		MapDocuments mapDocuments = new MapDocuments();
 		model = mapDocuments.addDocuments(model, documents);
@@ -37,15 +37,26 @@ public class RdfWriter implements ObjectWriter {
 	}
 
 	private String writeModel(Model model) {
+		return writeModel(model, "RDF/XML");
 		//return writeModel(model, "RDF/XML");
-		//return writeModel(model, "RDF/XML");
-		return writeModel(model, "Turtle");
+		//return writeModel(model, "Turtle");
 	}
 
 	private String writeModel(Model model, String version) {
 		StringWriter out = new StringWriter();
 		model.write(out, version);
 		return out.toString();
+	}
+
+	@Override
+	public String write(Object objects) {
+		if (objects instanceof Documents){
+			return writeDocuments((Documents) objects);
+		}
+		if (objects instanceof Document){
+			return writeDocument((Document) objects);
+		}
+		return null;
 	}
 
 }

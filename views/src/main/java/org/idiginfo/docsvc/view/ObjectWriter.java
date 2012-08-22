@@ -4,6 +4,7 @@ import org.idiginfo.docsvc.model.model.*;
 
 public interface ObjectWriter {
 
-	public String write(Document document);
-	public String write(Documents documents);
+	public String writeDocument(Document document);
+	public String writeDocuments(Documents documents);
+	public String write(Object objects);
 }

@@ -6,13 +6,19 @@ import org.idiginfo.docsvc.model.model.Documents;
 public class JsonWriter implements ObjectWriter {
 
 	@Override
-	public String write(Document document) {
+	public String writeDocument(Document document) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String write(Documents documents) {
+	public String writeDocuments(Documents documents) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String write(Object objects) {
 		// TODO Auto-generated method stub
 		return null;
 	}

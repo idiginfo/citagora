@@ -88,10 +88,6 @@ public class RequestProcessor {
 
 	public Result processRequest(ApiParams params) {
 		Object objects = getObjects(params);
-		Documents documents = null;
-		if (objects instanceof Documents) {
-			documents = (Documents) objects;
-		}
 		String body = null;
 		String format = params.getFormat();
 		if (DocServicesParams.FORMAT_JSON.equals(format)) {
@@ -100,7 +96,7 @@ public class RequestProcessor {
 
 		} else if (DocServicesParams.FORMAT_RDF.equals(format)) {
 			RdfWriter rdfWriter = new RdfWriter();
-			body = rdfWriter.write(documents);
+			body = rdfWriter.write(objects);
 			return new Result(Status.OK, body, "application/rdf+xml");
 		} else {
 			body = HtmlDocumentWriter.toHtml(params, objects);
