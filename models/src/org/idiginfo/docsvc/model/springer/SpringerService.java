@@ -55,7 +55,7 @@ public class SpringerService implements DocService {
 
 	@Override
 	public Document getDocument(ApiParams params) {
-		return getDocument(params.getId(), params.getDate());
+		return getSpringerDocument(params);
 	}
 
 	@Override
@@ -68,10 +68,7 @@ public class SpringerService implements DocService {
 			boolean withNotes) {
 		SpringerApiParams params = new SpringerApiParams();
 		params.setId(id);
-		Documents documents = getSpringerDocuments("getdocument", params);
-		if (documents == null || documents.size() < 1)
-			return null;
-		return documents.get(0);
+		return getSpringerDocument(params);
 	}
 
 	@Override
@@ -109,6 +106,12 @@ public class SpringerService implements DocService {
 	public Document getAnnotations(String code, String date) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	private Document getSpringerDocument(ApiParams params) {
+		String content = queryService("getdocument", params);
+		SpringerRecord result = gson.fromJson(content, SpringerRecord.class);
+		return result;
 	}
 
 	private Documents getSpringerDocuments(String function, ApiParams params) {

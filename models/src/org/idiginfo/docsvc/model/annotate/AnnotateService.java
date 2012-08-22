@@ -35,6 +35,8 @@ public class AnnotateService implements DocService {
 
 	public String format(String content) {
 		String formattedContent;
+		if (content == null)
+			return null;
 		try {
 			JsonElement tree = parser.parse(content);
 			formattedContent = gson.toJson(tree);
@@ -80,6 +82,7 @@ public class AnnotateService implements DocService {
 		params.setWithMeta(withMeta);
 		params.setWithNotes(withNotes);
 		content = queryService("listNotes.php", params);
+		System.out.println("result of annotate query: " + content);
 		content = format(content);
 		// System.out.println(content);
 		// map to AnnotateDocuments
@@ -94,8 +97,8 @@ public class AnnotateService implements DocService {
 			return null;
 		AnnotateApiParams annotateParams = (AnnotateApiParams) params;
 
-		return getDocuments(annotateParams.getApiUser(), annotateParams.withMeta,
-				annotateParams.withNotes);
+		return getDocuments(annotateParams.getApiUser(),
+				annotateParams.withMeta, annotateParams.withNotes);
 	}
 
 	public AnnotateDocuments getDocuments(String user) {
@@ -152,8 +155,7 @@ public class AnnotateService implements DocService {
 	public AnnotateDocumentNotes getAnnotations(Document document) {
 		if (document == null || !(document instanceof AnnotateDocument))
 			return null;
-		return getAnnotations(((AnnotateDocument) document).getCode(),
-				document.getDate());
+		return getAnnotations(document.getId(), document.getDate());
 	}
 
 	public AnnotateDocumentNotes getAnnotations(String code, String date) {
@@ -185,7 +187,7 @@ public class AnnotateService implements DocService {
 		try {
 			AnnotateUrl url = new AnnotateUrl(function, annotateParams);
 			url.prepare();
-			// System.out.println(url.build());
+			System.out.println(url.build());
 			HttpRequest request = requestFactory.buildGetRequest(url);
 			request.setConnectTimeout(CONNECT_TIMEOUT);
 			HttpResponse result = request.execute();

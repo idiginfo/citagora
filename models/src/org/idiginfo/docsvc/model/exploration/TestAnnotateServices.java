@@ -58,14 +58,16 @@ public class TestAnnotateServices {
 				+ documents.getDocument(0).getName());
 		System.out.println("code of first document: "
 				+ documents.getDocument(0).getId());
+		System.out.println("date of first document: "
+				+ documents.getDocument(0).getDate());
 		System.out.println("number of documents " + documents.size());
 		Document selectedDocument = documents.getDocument(1);
 		System.out.println("Selected document: " + selectedDocument.getId());
 
 		AnnotateDocumentNotes documentNotes = service
-				.getNotes(selectedDocument);// selectedDocument.getCode());
-		if (documentNotes == null) {
-			System.out.println("No notes for document");
+				.getAnnotations("sJZefHkg","2012-03-27");// selectedDocument.getCode());
+		if (documentNotes == null || documentNotes.notes == null) {
+			System.out.println("No notes for document "+documentNotes.getId());
 		} else {
 			System.out
 					.println("Number of notes: " + documentNotes.notes.length);

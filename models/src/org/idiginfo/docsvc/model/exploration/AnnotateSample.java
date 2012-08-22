@@ -53,7 +53,10 @@ public class AnnotateSample {
 		Document selectedDocument = documents.getDocument(1);
 		System.out.println("Selected document: " + selectedDocument.getId());
 		AnnotateDocumentNotes documentNotes = testNotes(selectedDocument);// selectedDocument.getCode());
-		System.out.println("Number of notes: " + documentNotes.notes.length);
+		if (documentNotes != null && documentNotes.notes!=null) {
+			System.out
+					.println("Number of notes: " + documentNotes.notes.length);
+		}
 		System.out.println("Name of document: " + documentNotes.meta.getName());
 	}
 
