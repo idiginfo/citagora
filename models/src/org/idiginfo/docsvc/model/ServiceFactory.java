@@ -3,6 +3,7 @@ package org.idiginfo.docsvc.model;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.idiginfo.docsvc.model.altmetric.AltmetricService;
 import org.idiginfo.docsvc.model.annotate.AnnotateApiParams;
 import org.idiginfo.docsvc.model.annotate.AnnotateService;
 import org.idiginfo.docsvc.model.model.ApiParams;
@@ -14,7 +15,9 @@ import org.idiginfo.docsvc.model.springer.SpringerApiParams;
 import org.idiginfo.docsvc.model.springer.SpringerService;
 
 /**
- * Class that creates objects that implement the annotation interfaces
+ * Class that creates objects that implement the annotation interfaces We may
+ * want to replace this static strategy with a dynamic service registration, as
+ * with JDBC
  * 
  * @author griccardi
  * 
@@ -25,6 +28,7 @@ public class ServiceFactory {
 	public static String COLLECTION_ANNOTATE = "annotate";
 	public static String COLLECTION_SPRINGER = "springer";
 	public static String COLLECTION_ELSEVIER = "elsevier";
+	public static String COLLECTION_ALTMETRIC = "altmetric";
 	public static String[] COLLECTIONS = { COLLECTION_ANNOTATE,
 			COLLECTION_SPRINGER, COLLECTION_ELSEVIER };
 
@@ -39,6 +43,8 @@ public class ServiceFactory {
 				.createService(ServiceFactory.COLLECTION_SPRINGER));
 		services.put(ServiceFactory.COLLECTION_ELSEVIER, ServiceFactory
 				.createService(ServiceFactory.COLLECTION_ELSEVIER));
+		services.put(ServiceFactory.COLLECTION_ALTMETRIC, ServiceFactory
+				.createService(ServiceFactory.COLLECTION_ALTMETRIC));
 	}
 
 	/**
@@ -72,6 +78,9 @@ public class ServiceFactory {
 		}
 		if (collection.equals(COLLECTION_ELSEVIER)) {
 			return new SciVerseService();
+		}
+		if (collection.equals(COLLECTION_ALTMETRIC)) {
+			return new AltmetricService();
 		}
 		return null;
 	}

@@ -95,12 +95,19 @@ public class AltmetricService implements DocService {
 		return null;
 	}
 
+	/**
+	 * Get document from Altmetric service Check first for presence of doi, then
+	 * pmcid in params If not present, send parameters to service
+	 */
 	@Override
 	public Document getDocument(ApiParams params) {
-		if (!(params instanceof AltmetricApiParams)) {
-			return null; // TODO exception here
+		if (params.getDoi() != null) {
+			return getDetailsByDoi(params.getDoi());
 		}
-
+		if (params instanceof AltmetricApiParams
+				&& ((AltmetricApiParams) params).getPmcid() != null) {
+			return getDetailsByPmid(((AltmetricApiParams) params).getPmcid());
+		}
 		String content = queryService("getdocument",
 				(AltmetricApiParams) params);
 		AltmetricRecord result = gson.fromJson(content, AltmetricRecord.class);

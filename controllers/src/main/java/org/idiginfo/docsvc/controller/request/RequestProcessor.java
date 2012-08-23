@@ -10,6 +10,7 @@ import org.idiginfo.docsvc.model.model.Document;
 import org.idiginfo.docsvc.model.model.Documents;
 import org.idiginfo.docsvc.model.model.Users;
 import org.idiginfo.docsvc.view.HtmlDocumentWriter;
+import org.idiginfo.docsvc.view.JsonWriter;
 import org.idiginfo.docsvc.view.RdfWriter;
 
 public class RequestProcessor {
@@ -91,7 +92,9 @@ public class RequestProcessor {
 		String body = null;
 		String format = params.getFormat();
 		if (DocServicesParams.FORMAT_JSON.equals(format)) {
-
+			JsonWriter jsonWriter = new JsonWriter();
+			body = jsonWriter.write(objects);
+			return new Result(Status.OK, body, "application/json");
 		} else if (DocServicesParams.FORMAT_XLS.equals(format)) {
 
 		} else if (DocServicesParams.FORMAT_RDF.equals(format)) {

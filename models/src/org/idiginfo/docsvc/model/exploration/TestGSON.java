@@ -39,15 +39,16 @@ public class TestGSON {
 		try {
 
 			BufferedReader br = new BufferedReader(new FileReader(
-					"c:/dev/api samples/altmetric_citation.json"));
+			// "c:/dev/api samples/altmetric_citation.json"));
+					"c:/dev/api samples/microsoft search.json"));
 
-			// JsonParser parser = new JsonParser();
-			//
-			// JsonObject tree = parser.parse(br).getAsJsonObject();
-			// System.out.println(gson.toJson(tree));
-			AltmetricResult result = gson.fromJson(br, AltmetricResult.class);
-			Query query = result.getQuery();
-			System.out.println(query.numResults);
+			JsonParser parser = new JsonParser();
+
+			JsonObject tree = parser.parse(br).getAsJsonObject();
+			System.out.println(gson.toJson(tree));
+			// result = gson.fromJson(br);
+			// Query query = result.getQuery();
+			// System.out.println(query.numResults);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
