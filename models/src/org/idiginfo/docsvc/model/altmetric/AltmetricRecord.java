@@ -477,4 +477,76 @@ public class AltmetricRecord implements Document {
 		// TODO Auto-generated method stub
 		return doi;
 	}
+
+	@Override
+	public String getCopyright() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getIsbn() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getIssn() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getPublicationName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getPublisher() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getVolume() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setCopyright(String copyright) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setIsbn(String isbn) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setIssn(String issn) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setPublicationName(String name) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setPublisher(String publisher) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setVolume(String volume) {
+		// TODO Auto-generated method stub
+		
+	}
 }

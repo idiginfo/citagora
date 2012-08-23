@@ -4,49 +4,77 @@ import java.util.Date;
 
 public interface Document {
 
-	public String getId();
+	public Annotation getAnnotation(int i);
 
-	public String getSource();
+	public Annotation[] getAnnotations();
 
-	public void setId(String id);
+	public String getAuthors();
+
+	public String getCopyright();
 
 	public String getDate();
 
 	public Date getDateObject();
 
-	public void setDate(Date date);
-
-	public String getName();
-
-	public void setName(String name);
-
-	public String getOwner();
-
-	public void setOwner(String owner);
-
-	public String getType();
-
-	public void setType(String type);
-
-	public Document getParent();
-
-	public void setParent(Document parent);
-
-	public Annotation[] getAnnotations();
-
-	public String getTitle();
-
-	public void setTitle(String title);
-
-	public String getAuthors();
-
-	public void setAuthors(String authors);
-
-	public int getNumAnnotations();
-
-	public Annotation getAnnotation(int i);
-
 	public String getDoi();
 
 	public String getGUID();
+
+	public String getId();
+
+	public String getIsbn();
+
+	public String getIssn();
+
+	public String getName();
+
+	public int getNumAnnotations();
+
+	public String getOwner();
+
+	public Document getParent();
+
+	public String getPublicationName();
+
+	public String getPublisher();
+
+	public String getSource();
+
+	public String getTitle();
+
+	public String getType();
+
+	public String getUrl();
+
+	public String getVolume();
+
+	public void setAuthors(String authors);
+
+	public void setCopyright(String copyright);
+
+	public void setDate(Date date);
+
+	public void setId(String id);
+
+	public void setIsbn(String isbn);
+
+	public void setIssn(String issn);
+
+	public void setName(String name);
+
+	public void setOwner(String owner);
+
+	public void setParent(Document parent);
+
+	public void setPublicationName(String name);
+
+	public void setPublisher(String publisher);
+
+	public void setTitle(String title);
+
+	public void setType(String type);
+
+	public void setUrl(String url);
+
+	public void setVolume(String volume);
 }
