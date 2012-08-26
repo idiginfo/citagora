@@ -2,9 +2,6 @@ package org.idiginfo.docsvc.model.altmetric;
 
 import java.text.DateFormat;
 import java.util.Date;
-import java.util.List;
-
-import javax.xml.ws.ServiceMode;
 
 import org.idiginfo.docsvc.model.model.Annotation;
 import org.idiginfo.docsvc.model.model.Document;

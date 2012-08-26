@@ -2,8 +2,6 @@ package org.idiginfo.docsvc.model.altmetric;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.idiginfo.docsvc.model.model.ApiParams;

@@ -8,8 +8,6 @@ import org.idiginfo.docsvc.model.altmetric.AltmetricRecord;
 import org.idiginfo.docsvc.model.altmetric.AltmetricService;
 import org.idiginfo.docsvc.model.altmetric.AltmetricUrl;
 import org.idiginfo.docsvc.model.model.ApiParams;
-import org.idiginfo.docsvc.model.model.Document;
-import org.idiginfo.docsvc.model.model.Documents;
 
 public class AltmetricSample {
 
@@ -52,7 +50,7 @@ public class AltmetricSample {
 	}
 
 	public static String testAltmetricQuery() {
-		String content;
+		// String content;
 		AltmetricUrl url = new AltmetricUrl();
 		// List<String> pathParts = Arrays.asList("", "v1", "citations", "1d");
 

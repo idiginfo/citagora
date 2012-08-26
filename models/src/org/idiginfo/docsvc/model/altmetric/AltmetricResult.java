@@ -3,7 +3,6 @@ package org.idiginfo.docsvc.model.altmetric;
 import java.util.List;
 
 import org.idiginfo.docsvc.model.model.Documents;
-import org.idiginfo.docsvc.model.springer.SpringerDocuments;
 
 import com.google.gson.annotations.SerializedName;
 

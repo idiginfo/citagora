@@ -18,16 +18,16 @@ public class SpringerSample {
 
 	public static String testSpringerDocument() {
 		ApiParams params = new SpringerApiParams();
-		//params.setDoi("doi:10.1007/s11276-008-0131-4");
+		// params.setDoi("doi:10.1007/s11276-008-0131-4");
 		params.setId("doi:10.1007/s11276-008-0131-4");
 		Document document = service.getDocument(params);
-		// System.out.print(content);
+		System.out.print(document.getId());
 		return null;
 	}
 
 	public static String testSpringerQuery() {
-		String content;
-		SpringerUrl url = new SpringerUrl("metadata", "json");
+		// String content;
+		// SpringerUrl url = new SpringerUrl("metadata", "json");
 		// url.view="META_ABS";
 		ApiParams params = new SpringerApiParams();
 		params.setKeyword("suicide");

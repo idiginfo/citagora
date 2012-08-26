@@ -1,13 +1,11 @@
 package org.idiginfo.docsvc.model.exploration;
 
-import java.io.FileWriter;
 import java.io.IOException;
 
 import org.apache.commons.io.IOUtils;
 import org.idiginfo.docsvc.model.scopus.ScopusDocument;
 import org.idiginfo.docsvc.model.scopus.ScopusUrl;
 
-import com.google.api.client.http.HttpHeaders;
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestFactory;
 import com.google.api.client.http.HttpRequestInitializer;

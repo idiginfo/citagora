@@ -3,8 +3,6 @@ package org.idiginfo.docsvc.model.altmetric;
 import java.util.Arrays;
 import java.util.List;
 
-import org.idiginfo.docsvc.model.model.ApiParams;
-
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.util.Key;
 
@@ -37,6 +35,7 @@ public class AltmetricUrl extends GenericUrl {
 			String timeframe = params.getTimeframe();
 			List<String> pathParts = Arrays.asList("",
 					AltmetricApiParams.API_VERSION, collection, timeframe);
+			setPathParts(pathParts);
 		} else {// get single document by id
 			String id = params.getId();
 			List<String> pathParts = Arrays.asList("",

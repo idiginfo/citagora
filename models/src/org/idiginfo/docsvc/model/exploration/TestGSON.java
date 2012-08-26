@@ -2,21 +2,17 @@ package org.idiginfo.docsvc.model.exploration;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.Map.Entry;
-import java.util.Set;
 
-import org.idiginfo.docsvc.model.altmetric.AltmetricResult;
-import org.idiginfo.docsvc.model.altmetric.AltmetricResult.Query;
-
-import com.google.gson.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 public class TestGSON {
 
 	public static void main(String[] args) {
-		TestJsonObject obj = new TestJsonObject();
+		//TestJsonObject obj = new TestJsonObject();
 
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
