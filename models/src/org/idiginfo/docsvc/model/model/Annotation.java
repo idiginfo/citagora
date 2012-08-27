@@ -1,6 +1,6 @@
 package org.idiginfo.docsvc.model.model;
 
-import org.idiginfo.docsvc.model.annotate.AnnotateNote;
+import org.idiginfo.docsvc.svcapi.annotate.AnnotateNote;
 
 public interface Annotation {
 
