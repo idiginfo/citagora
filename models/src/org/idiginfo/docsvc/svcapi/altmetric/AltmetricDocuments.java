@@ -22,10 +22,7 @@ public class AltmetricDocuments extends Vector<Document> implements Documents {
 	public AltmetricDocuments(List<AltmetricRecord> results) {
 		if (results == null)
 			return;
-		Iterator<AltmetricRecord> documents = results.iterator();
-		while (documents.hasNext()) {
-			add(documents.next());
-		}
+		addAll(results);
 	}
 
 	public Document getDocument(int i) {
