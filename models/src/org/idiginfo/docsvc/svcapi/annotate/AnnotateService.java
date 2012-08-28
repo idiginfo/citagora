@@ -1,8 +1,9 @@
 package org.idiginfo.docsvc.svcapi.annotate;
 
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 
-import org.apache.commons.io.IOUtils;
 import org.idiginfo.docsvc.model.model.ApiParams;
 import org.idiginfo.docsvc.model.model.DocService;
 import org.idiginfo.docsvc.model.model.Document;
@@ -50,7 +51,7 @@ public class AnnotateService implements DocService {
 		if (params != null && !(params instanceof AnnotateApiParams))
 			return null;
 		AnnotateApiParams annotateParams = (AnnotateApiParams) params;
-		String content = queryService("listUsers.php", annotateParams);
+		JsonElement content = queryService("listUsers.php", annotateParams);
 		// map to AnnotateUsers
 		AnnotateUsers users = gson.fromJson(content, AnnotateUsers.class);
 		return users;
@@ -74,7 +75,7 @@ public class AnnotateService implements DocService {
 
 	public AnnotateDocumentNotes getDocument(String code, String date,
 			boolean withMeta, boolean withNotes) {
-		String content;
+		JsonElement content;
 		AnnotateApiParams params = new AnnotateApiParams();
 		params.setId(code);
 		params.setDate(date);
@@ -82,8 +83,8 @@ public class AnnotateService implements DocService {
 		params.setWithMeta(withMeta);
 		params.setWithNotes(withNotes);
 		content = queryService("listNotes.php", params);
-		System.out.println("result of annotate query: " + content);
-		content = format(content);
+		// System.out.println("result of annotate query: " + content);
+		// content = format(content);
 		// System.out.println(content);
 		// map to AnnotateDocuments
 		AnnotateDocumentNotes document = gson.fromJson(content,
@@ -113,7 +114,7 @@ public class AnnotateService implements DocService {
 
 	public AnnotateDocuments getDocuments(String user, boolean withMeta,
 			boolean withNotes) {
-		String content;
+		JsonElement content;
 		AnnotateApiParams params = new AnnotateApiParams();
 		params.setOwner(user);
 		params.setWithMeta(withMeta);
@@ -161,7 +162,7 @@ public class AnnotateService implements DocService {
 	public AnnotateDocumentNotes getAnnotations(String code, String date) {
 		if (code == null || date == null)
 			return null;
-		String content;
+		JsonElement content;
 		AnnotateApiParams params = new AnnotateApiParams();
 		params.setId(code);
 		params.setDate(date);// doesn't work without date
@@ -179,11 +180,10 @@ public class AnnotateService implements DocService {
 	 * @param function
 	 * @return
 	 */
-	private String queryService(String function,
+	private JsonElement queryService(String function,
 			AnnotateApiParams annotateParams) {
 		if (function == null)
 			return null;
-		String content;
 		try {
 			AnnotateUrl url = new AnnotateUrl(function, annotateParams);
 			url.prepare();
@@ -191,13 +191,15 @@ public class AnnotateService implements DocService {
 			HttpRequest request = requestFactory.buildGetRequest(url);
 			request.setConnectTimeout(CONNECT_TIMEOUT);
 			HttpResponse result = request.execute();
-			content = IOUtils.toString(result.getContent());
+			Reader reader = new InputStreamReader(result.getContent(),"UTF-8");
+			JsonParser parser = new JsonParser();
+			JsonElement json = parser.parse(reader);
 			result.disconnect();
-			if (AnnotateUrl.isError(content)) {
-				System.err.println(content);
+			if (AnnotateUrl.isError(json)) {
+				System.err.println(json);
 				return null;
 			}
-			return content;
+			return json;
 		} catch (IOException e) {
 			e.printStackTrace();
 			return null;

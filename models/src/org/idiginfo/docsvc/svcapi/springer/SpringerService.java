@@ -1,8 +1,9 @@
 package org.idiginfo.docsvc.svcapi.springer;
 
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 
-import org.apache.commons.io.IOUtils;
 import org.idiginfo.docsvc.model.model.ApiParams;
 import org.idiginfo.docsvc.model.model.DocService;
 import org.idiginfo.docsvc.model.model.Document;
@@ -18,7 +19,6 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 
@@ -109,22 +109,21 @@ public class SpringerService implements DocService {
 	}
 
 	private Document getSpringerDocument(ApiParams params) {
-		String content = queryService("getdocument", params);
+		JsonElement content = queryService("getdocument", params);
 		SpringerRecord result = gson.fromJson(content, SpringerRecord.class);
 		return result;
 	}
 
 	private Documents getSpringerDocuments(String function, ApiParams params) {
-		String content = queryService(function, params);
+		JsonElement content = queryService(function, params);
 		SpringerResult result = gson.fromJson(content, SpringerResult.class);
 		if (result == null)
 			return null;
 		return result.getDocuments();
 	}
 
-	private String queryService(String function, ApiParams params) {
+	private JsonElement queryService(String function, ApiParams params) {
 		try {
-			String content;
 			// TODO add other functions
 			SpringerUrl url = getSpringerUrl(function, params);
 			if ("getdocument".equals(function)) {
@@ -137,16 +136,15 @@ public class SpringerService implements DocService {
 			HttpRequest request = requestFactory.buildGetRequest(url);
 			request.setConnectTimeout(CONNECT_TIMEOUT);
 			HttpResponse result = request.execute();
-			content = IOUtils.toString(result.getContent(), "UTF-8");
+			Reader reader = new InputStreamReader(result.getContent(), "UTF-8");
 			JsonParser parser = new JsonParser();
-			JsonObject tree = parser.parse(content).getAsJsonObject();
-			content = gson.toJson(tree);
+			JsonElement json = parser.parse(reader);
 			result.disconnect();
-			if (SpringerUrl.isError(content)) {
-				System.err.println(content);
+			if (SpringerUrl.isError(json)) {
+				System.err.println(json);
 				return null;
 			}
-			return content;
+			return json;
 		} catch (IOException e) {
 			e.printStackTrace();
 			return null;

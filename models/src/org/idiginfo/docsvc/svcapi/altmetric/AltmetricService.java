@@ -2,8 +2,9 @@ package org.idiginfo.docsvc.svcapi.altmetric;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 
-import org.apache.commons.io.IOUtils;
 import org.idiginfo.docsvc.model.model.ApiParams;
 import org.idiginfo.docsvc.model.model.DocService;
 import org.idiginfo.docsvc.model.model.Document;
@@ -19,7 +20,6 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 
@@ -106,7 +106,7 @@ public class AltmetricService implements DocService {
 				&& ((AltmetricApiParams) params).getPmcid() != null) {
 			return getDetailsByPmid(((AltmetricApiParams) params).getPmcid());
 		}
-		String content = queryService("getdocument",
+		JsonElement content = queryService("getdocument",
 				(AltmetricApiParams) params);
 		AltmetricRecord result = gson.fromJson(content, AltmetricRecord.class);
 		return result;
@@ -169,14 +169,15 @@ public class AltmetricService implements DocService {
 		if (!(params instanceof AltmetricApiParams)) {
 			return null; // TODO exception here
 		}
-		String content = queryService(function, (AltmetricApiParams) params);
+		JsonElement content = queryService(function,
+				(AltmetricApiParams) params);
 		AltmetricResult result = gson.fromJson(content, AltmetricResult.class);
 		if (result == null)
 			return null;
 		return result.getDocuments();
 	}
 
-	private String queryService(String function, AltmetricApiParams params) {
+	private JsonElement queryService(String function, AltmetricApiParams params) {
 		try {
 			String content;
 			// TODO add other functions
@@ -191,20 +192,22 @@ public class AltmetricService implements DocService {
 			HttpRequest request = requestFactory.buildGetRequest(url);
 			request.setConnectTimeout(CONNECT_TIMEOUT);
 			HttpResponse result = request.execute();
-			content = IOUtils.toString(result.getContent(), "UTF-8");
-			if (AltmetricUrl.isError(content)) {
-				System.err.println(content);
+			Reader reader = new InputStreamReader(result.getContent(), "UTF-8");
+			JsonParser parser = new JsonParser();
+			JsonElement json = parser.parse(reader);
+			if (AltmetricUrl.isError(json)) {
+				System.err.println(AltmetricUrl.getMessage(json));
 				return null;
 			}
-			JsonParser parser = new JsonParser();
-			JsonObject tree = parser.parse(content).getAsJsonObject();
-			content = gson.toJson(tree);
+
+			content = gson.toJson(json);
 			result.disconnect();
+			reader.close();
 			FileWriter out = new FileWriter(
 					"c:/dev/api samples/altmetric_details_201135.json");
 			out.write(content);
 			out.close();
-			return content;
+			return json;
 		} catch (IOException e) {
 			e.printStackTrace();
 			return null;
