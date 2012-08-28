@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.util.Key;
+import com.google.gson.JsonElement;
 
 public class AltmetricUrl extends GenericUrl {
 
@@ -75,6 +76,20 @@ public class AltmetricUrl extends GenericUrl {
 
 	public void setApiKey(String apiKey) {
 		this.apiKey = apiKey;
+	}
+
+	public static boolean isError(JsonElement json) {
+		// TODO Auto-generated method stub
+		if (json == null)
+			return true;
+		return false;
+	}
+
+	public static String getMessage(JsonElement json) {
+		// TODO Auto-generated method stub
+		if (json == null)
+			return "no json objects found";
+		return null;
 	}
 
 }

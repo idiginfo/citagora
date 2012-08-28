@@ -9,6 +9,7 @@ import org.apache.commons.codec.binary.Base64;
 
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.util.Key;
+import com.google.gson.JsonElement;
 
 public class AnnotateUrl extends GenericUrl {
 
@@ -242,6 +243,12 @@ public class AnnotateUrl extends GenericUrl {
 
 	public void setParentFolder(String parentFolder) {
 		this.parentFolder = parentFolder;
+	}
+
+	public static boolean isError(JsonElement json) {
+		// TODO Auto-generated method stub
+		if (json==null) return true;
+		return false;
 	}
 
 }

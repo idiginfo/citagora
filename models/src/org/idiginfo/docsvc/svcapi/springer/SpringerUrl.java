@@ -2,6 +2,7 @@ package org.idiginfo.docsvc.svcapi.springer;
 
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.util.Key;
+import com.google.gson.JsonElement;
 
 public class SpringerUrl extends GenericUrl {
 
@@ -67,7 +68,8 @@ public class SpringerUrl extends GenericUrl {
 	}
 
 	protected void mapParams(SpringerApiParams params) {
-		if (params == null) return;
+		if (params == null)
+			return;
 		// TODO finish method
 	}
 
@@ -77,6 +79,13 @@ public class SpringerUrl extends GenericUrl {
 
 	public void setApiKey(String apiKey) {
 		this.apiKey = apiKey;
+	}
+
+	public static boolean isError(JsonElement json) {
+		if (json == null)
+			return true;
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
