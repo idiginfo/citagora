@@ -3,16 +3,16 @@ package org.idiginfo.docsvc.model;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.idiginfo.docsvc.model.altmetric.AltmetricService;
-import org.idiginfo.docsvc.model.annotate.AnnotateApiParams;
-import org.idiginfo.docsvc.model.annotate.AnnotateService;
 import org.idiginfo.docsvc.model.model.ApiParams;
 import org.idiginfo.docsvc.model.model.BaseApiParams;
 import org.idiginfo.docsvc.model.model.DocService;
-import org.idiginfo.docsvc.model.sciverse.SciVerseApiParams;
-import org.idiginfo.docsvc.model.sciverse.SciVerseService;
-import org.idiginfo.docsvc.model.springer.SpringerApiParams;
-import org.idiginfo.docsvc.model.springer.SpringerService;
+import org.idiginfo.docsvc.svcapi.altmetric.AltmetricService;
+import org.idiginfo.docsvc.svcapi.annotate.AnnotateApiParams;
+import org.idiginfo.docsvc.svcapi.annotate.AnnotateService;
+import org.idiginfo.docsvc.svcapi.sciverse.SciVerseApiParams;
+import org.idiginfo.docsvc.svcapi.sciverse.SciVerseService;
+import org.idiginfo.docsvc.svcapi.springer.SpringerApiParams;
+import org.idiginfo.docsvc.svcapi.springer.SpringerService;
 
 /**
  * Class that creates objects that implement the annotation interfaces We may
