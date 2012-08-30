@@ -1,4 +1,4 @@
-package org.idiginfo.docsvc.svcapi.mas;
+package org.idiginfo.docsvc.svcapi.mas.svc;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,6 +10,8 @@ import org.idiginfo.docsvc.model.model.DocService;
 import org.idiginfo.docsvc.model.model.Document;
 import org.idiginfo.docsvc.model.model.Documents;
 import org.idiginfo.docsvc.model.model.Users;
+import org.idiginfo.docsvc.svcapi.mas.model.MasResponse;
+import org.idiginfo.docsvc.svcapi.mas.model.MasResponseObject;
 
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestFactory;

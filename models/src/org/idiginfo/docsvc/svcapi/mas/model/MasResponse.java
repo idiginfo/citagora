@@ -1,4 +1,6 @@
-package org.idiginfo.docsvc.svcapi.mas;
+package org.idiginfo.docsvc.svcapi.mas.model;
+
+import org.idiginfo.docsvc.svcapi.mas.svc.MasApiParams;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;

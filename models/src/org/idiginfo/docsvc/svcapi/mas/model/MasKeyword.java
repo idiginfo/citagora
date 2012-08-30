@@ -1,47 +1,42 @@
-package org.idiginfo.docsvc.svcapi.mas;
+package org.idiginfo.docsvc.svcapi.mas.model;
 
 import com.google.gson.annotations.SerializedName;
 
-
 /**
- * <p>Java class for Domain complex type.
+ * <p>Java class for Keyword complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="Domain">
+ * &lt;complexType name="Keyword">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="CitationCount" type="{http://www.w3.org/2001/XMLSchema}unsignedInt" minOccurs="0"/>
- *         &lt;element name="DomainID" type="{http://www.w3.org/2001/XMLSchema}unsignedInt" minOccurs="0"/>
+ *         &lt;element name="ID" type="{http://www.w3.org/2001/XMLSchema}unsignedInt" minOccurs="0"/>
  *         &lt;element name="Name" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="PublicationCount" type="{http://www.w3.org/2001/XMLSchema}unsignedInt" minOccurs="0"/>
- *         &lt;element name="SubDomainID" type="{http://www.w3.org/2001/XMLSchema}unsignedInt" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
- * </pre> 
+ * </pre>
+ * 
  * 
  */
-public class MasDomain
+public class MasKeyword
 {
-
     @SerializedName("CitationCount")
     protected Long citationCount;
     
-    @SerializedName("DomainID")
-    protected Long domainID;
+    @SerializedName("ID")
+    protected Long iD;
     
     @SerializedName("Name")
     protected String name;
-    
+
     @SerializedName("PublicationCount")
     protected Long publicationCount;
-    
-    @SerializedName("SubDomainID")
-    protected Long subDomainID;
 
 	public Long getCitationCount() {
 		return citationCount;
@@ -51,12 +46,12 @@ public class MasDomain
 		this.citationCount = citationCount;
 	}
 
-	public Long getDomainID() {
-		return domainID;
+	public Long getiD() {
+		return iD;
 	}
 
-	public void setDomainID(Long domainID) {
-		this.domainID = domainID;
+	public void setiD(Long iD) {
+		this.iD = iD;
 	}
 
 	public String getName() {
@@ -75,13 +70,5 @@ public class MasDomain
 		this.publicationCount = publicationCount;
 	}
 
-	public Long getSubDomainID() {
-		return subDomainID;
-	}
-
-	public void setSubDomainID(Long subDomainID) {
-		this.subDomainID = subDomainID;
-	}
     
-
 }

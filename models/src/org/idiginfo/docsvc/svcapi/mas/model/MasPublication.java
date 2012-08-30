@@ -1,4 +1,4 @@
-package org.idiginfo.docsvc.svcapi.mas;
+package org.idiginfo.docsvc.svcapi.mas.model;
 
 import java.util.Date;
 import java.util.List;
@@ -74,7 +74,7 @@ public class MasPublication implements Document
     protected String title;
     
     @SerializedName("Type")
-    protected MasPublicationType type;
+    protected String type;
 
     @SerializedName("Year")
     protected Integer year;
@@ -167,13 +167,9 @@ public class MasPublication implements Document
 		this.title = title;
 	}
 
+	@Override
 	public String getType() {
-		//TODO fix this
-		return null;
-	}
-
-	public void setType(MasPublicationType type) {
-		this.type = type;
+		return type;
 	}
 
 	public Integer getYear() {
@@ -372,7 +368,7 @@ public class MasPublication implements Document
 
 	@Override
 	public void setType(String type) {
-		// TODO Auto-generated method stub
+		this.type=type;
 		
 	}
 

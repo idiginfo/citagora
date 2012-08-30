@@ -1,4 +1,4 @@
-package org.idiginfo.docsvc.svcapi.mas;
+package org.idiginfo.docsvc.svcapi.mas.svc;
 
 import org.idiginfo.docsvc.model.model.ApiParams;
 import org.idiginfo.docsvc.model.model.BaseApiParams;

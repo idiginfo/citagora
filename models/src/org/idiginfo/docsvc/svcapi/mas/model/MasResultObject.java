@@ -1,4 +1,4 @@
-package org.idiginfo.docsvc.svcapi.mas;
+package org.idiginfo.docsvc.svcapi.mas.model;
 
 import java.util.List;
 
