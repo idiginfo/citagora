@@ -48,11 +48,11 @@ public class MasUrl extends GenericUrl {
 
 	// result parameter fields
 	@Key("ResultObjects")
-	String resultObjects = "publication";
+	String resultObjects = "Publication";
 	@Key("ReferenceType")
 	String referenceType;
 	@Key("PublicationContent")
-	String publicationContent;
+	String publicationContent="Keyword";
 	@Key("OrderBy")
 	String orderBy;
 	@Key("YearStart")
@@ -79,7 +79,11 @@ public class MasUrl extends GenericUrl {
 		if (params.getId() != null) {
 			publicationId = 15038153;// params.getId();
 		}
-		// TODO Auto-generated constructor stub
+		if (params.getKeyword()!=null){
+			//fulltextQuery = params.getKeyword();
+			keywordID = 40686;
+			resultObjects="Publication";
+		}
 	}
 
 	/**

@@ -18,6 +18,7 @@ import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.common.util.concurrent.Service;
+import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
@@ -29,7 +30,15 @@ public class MasService implements DocService {
 	static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
 	static JsonParser parser = new JsonParser();
 	static final int CONNECT_TIMEOUT = 200000;
-	Gson gson = new GsonBuilder().setPrettyPrinting().create();
+	static GsonBuilder gsonBuilder = createGsonBuilder();
+	Gson gson = gsonBuilder.create();
+
+	private static GsonBuilder createGsonBuilder() {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();
+		gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE);
+		return gsonBuilder;
+	}
 
 	private static HttpRequestFactory requestFactory = HTTP_TRANSPORT
 			.createRequestFactory(new HttpRequestInitializer() {
@@ -52,8 +61,21 @@ public class MasService implements DocService {
 	public String getResult(String doi) {
 		MasApiParams params = new MasApiParams();
 		params.setId(doi);
+		MasResponse response = getResponse(params);
+		// printResponse(response);
+		return gson.toJson(response);
+	}
+
+	public MasResponse getResponse(MasApiParams params) {
 		JsonElement json = queryService("getdocument", params);
-		return gson.toJson(json);
+		MasResponse response = gson.fromJson(json, MasResponse.class);
+		return response;
+	}
+
+	private void printResponse(MasResponse response) {
+		MasResponseObject object = response.getResultObject();
+		System.out.println(object.getResultCode());
+
 	}
 
 	@Override
@@ -109,9 +131,10 @@ public class MasService implements DocService {
 				System.err.println(MasResponse.getMessage(json));
 				return null;
 			}
-
-			content = gson.toJson(json);
 			result.disconnect();
+
+			// print the response into a file
+			content = gson.toJson(json);
 			reader.close();
 			FileWriter out = new FileWriter(
 					"c:/dev/api samples/Mas_details.json");

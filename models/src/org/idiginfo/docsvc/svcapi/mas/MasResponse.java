@@ -2,6 +2,7 @@ package org.idiginfo.docsvc.svcapi.mas;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.annotations.SerializedName;
 
 /**
  * Class to unmarshall the result of an MAS service call
@@ -10,6 +11,7 @@ import com.google.gson.JsonObject;
  * 
  */
 public class MasResponse {
+	@SerializedName("d")
 	MasResponseObject d;
 
 	public MasResponseObject getD() {
@@ -20,12 +22,12 @@ public class MasResponse {
 		return d;
 	}
 
-	static int getResultCode(JsonElement response) {
+	public static int getResultCode(JsonElement response) {
 		// test structure of the response
 		if (response == null || !response.isJsonObject())
 			return MasApiParams.UNKNOWN_ERROR_CODE;
 		JsonElement jsonElement = response.getAsJsonObject().get("d");
-		if (jsonElement == null || jsonElement.isJsonObject()) {
+		if (jsonElement == null || !jsonElement.isJsonObject()) {
 			return MasApiParams.UNKNOWN_ERROR_CODE;
 		}
 		JsonObject jsonObject = jsonElement.getAsJsonObject();
@@ -37,7 +39,7 @@ public class MasResponse {
 
 	public static boolean isError(JsonElement response) {
 		int resultCode = getResultCode(response);
-		return resultCode == 0;
+		return resultCode != 0;
 	}
 
 	public static String getMessage(JsonElement response) {

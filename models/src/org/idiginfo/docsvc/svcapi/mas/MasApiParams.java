@@ -9,7 +9,7 @@ public class MasApiParams extends BaseApiParams {
 	// "http://academic.research.microsoft.com";
 	// + API_VERSION + "/";;
 	public static final String API_KEY = "349bdedd-f3c6-4939-97a2-032141aeb565";
-	public static final String SOURCE = "altmetric.com";
+	public static final String SOURCE = "academic.research.microsoft.com";
 	public static final String API_HOST = "academic.research.microsoft.com";
 	public static final String API_SERVICE = "json.svc";
 	public static final String API_SEARCH = "search";

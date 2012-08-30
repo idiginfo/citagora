@@ -1,8 +1,11 @@
 package org.idiginfo.docsvc.svcapi.mas;
 
+import java.util.Date;
 import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
+import org.idiginfo.docsvc.model.model.Annotation;
+import org.idiginfo.docsvc.model.model.Document;
 /**
  * <p>Java class for Publication complex type.
  * 
@@ -34,7 +37,7 @@ import com.google.gson.annotations.SerializedName;
  * 
  * 
  */
-public class MasPublication
+public class MasPublication implements Document
 {
 
     @SerializedName("Abstract")
@@ -164,8 +167,9 @@ public class MasPublication
 		this.title = title;
 	}
 
-	public MasPublicationType getType() {
-		return type;
+	public String getType() {
+		//TODO fix this
+		return null;
 	}
 
 	public void setType(MasPublicationType type) {
@@ -178,6 +182,210 @@ public class MasPublication
 
 	public void setYear(Integer year) {
 		this.year = year;
+	}
+
+	@Override
+	public Annotation getAnnotation(int i) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Annotation[] getAnnotations() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getAuthors() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getCopyright() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getDate() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Date getDateObject() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getDoi() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getGUID() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getIsbn() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getIssn() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getNumAnnotations() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public String getOwner() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Document getParent() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getPublicationName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getPublisher() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getSource() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getUrl() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getVolume() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setAuthors(String authors) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setCopyright(String copyright) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setDate(Date date) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setId(String id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setIsbn(String isbn) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setIssn(String issn) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setName(String name) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setOwner(String owner) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setParent(Document parent) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setPublicationName(String name) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setPublisher(String publisher) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setType(String type) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setUrl(String url) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setVolume(String volume) {
+		// TODO Auto-generated method stub
+		
 	}
 
     
