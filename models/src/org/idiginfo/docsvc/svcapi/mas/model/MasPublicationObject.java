@@ -1,15 +1,16 @@
 package org.idiginfo.docsvc.svcapi.mas.model;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
 import java.util.Vector;
 
 import org.idiginfo.docsvc.model.model.Document;
 import org.idiginfo.docsvc.model.model.Documents;
 
 public class MasPublicationObject extends Vector<Document> implements Documents {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	MasPublicationObject(MasResultObject<MasPublication> objects) {
 		addAll(objects.result);
 	}

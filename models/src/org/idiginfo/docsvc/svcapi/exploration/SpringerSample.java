@@ -5,7 +5,6 @@ import org.idiginfo.docsvc.model.model.Document;
 import org.idiginfo.docsvc.model.model.Documents;
 import org.idiginfo.docsvc.svcapi.springer.SpringerApiParams;
 import org.idiginfo.docsvc.svcapi.springer.SpringerService;
-import org.idiginfo.docsvc.svcapi.springer.SpringerUrl;
 
 public class SpringerSample {
 

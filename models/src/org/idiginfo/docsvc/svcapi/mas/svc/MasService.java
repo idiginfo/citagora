@@ -19,7 +19,6 @@ import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.common.util.concurrent.Service;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -74,6 +73,7 @@ public class MasService implements DocService {
 		return response;
 	}
 
+	@SuppressWarnings("unused")
 	private void printResponse(MasResponse response) {
 		MasResponseObject object = response.getResultObject();
 		System.out.println(object.getResultCode());

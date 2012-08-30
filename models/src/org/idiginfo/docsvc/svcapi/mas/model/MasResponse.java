@@ -7,7 +7,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Class to unmarshall the result of an MAS service call
+ * Class to unmarshal the result of an MAS service call
  * 
  * @author griccardi
  * 

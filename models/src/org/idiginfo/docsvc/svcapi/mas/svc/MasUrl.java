@@ -5,8 +5,6 @@ import java.util.List;
 
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.util.Key;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 
 public class MasUrl extends GenericUrl {
 	// http://academic.research.microsoft.com/json.svc/search

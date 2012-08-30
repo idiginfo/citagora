@@ -2,16 +2,11 @@ package org.idiginfo.docsvc.svcapi.mas.utility;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
-import java.util.Arrays;
-import java.util.List;
 
-import org.idiginfo.docsvc.model.model.ApiParams;
 import org.idiginfo.docsvc.svcapi.mas.model.MasResponse;
 import org.idiginfo.docsvc.svcapi.mas.model.MasResponseObject;
 import org.idiginfo.docsvc.svcapi.mas.svc.MasApiParams;
 import org.idiginfo.docsvc.svcapi.mas.svc.MasService;
-import org.idiginfo.docsvc.svcapi.mas.svc.MasUrl;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
@@ -43,6 +38,7 @@ public class MasSample {
 		return result;
 	}
 
+	@SuppressWarnings("unused")
 	public static String testMasFile(String filename) {
 		FileReader in;
 		try {
