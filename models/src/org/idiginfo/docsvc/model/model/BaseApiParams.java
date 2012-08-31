@@ -1,36 +1,73 @@
 package org.idiginfo.docsvc.model.model;
 
+import java.lang.reflect.Field;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import com.google.api.client.http.GenericUrl;
+
 public class BaseApiParams implements ApiParams {
-	protected String method;
-	protected String collection; // the source collection
-	protected String format;
-	protected String id;
-	protected String date;
-	protected String apiUser;
-	protected String owner;
-	protected String keyword;
+	public String method;
+	public String collection; // the source collection
+	public String format;
+	public String id;
+	public String date;
+	public String apiUser;
+	public String owner;
+	public String keyword;
 	// From A.nnotate API
-	protected String apiRequestTime;
+	public String apiRequestTime;
 	// From Springer API
-	protected String constraint;
-	protected String doi;
-	protected String subject;
-	protected String pub;
-	protected String year;
-	protected String country;
-	protected String isbn;
-	protected String issn;
-	protected String openaccess;
-	protected String type;
-	protected String imageType;
-	protected String title;
-	protected String orgname;
-	protected String journal;
-	protected String book;
-	protected String name;
-	protected String sort;
-	protected String withNotes;
-	protected String withMeta;
+	public String constraint;
+	public String doi;
+	public String subject;
+	public String pub;
+	public String year;
+	public String country;
+	public String isbn;
+	public String issn;
+	public String openaccess;
+	public String type;
+	public String imageType;
+	public String title;
+	public String orgname;
+	public String journal;
+	public String book;
+	public String name;
+	public String sort;
+	public String withNotes;
+	public String withMeta;
+
+	/**
+	 * Use reflection methods to set fields of an ApiParam object from an HTTP
+	 * parameter map
+	 * 
+	 * @param toUrl
+	 * @param queryParams
+	 */
+	public void mapFields(GenericUrl toUrl) {
+		Class<? extends GenericUrl> toClass = toUrl.getClass();
+		Class<? extends BaseApiParams> fromClass = getClass();
+		// iterate through all parameters and set fields as possible
+		Field[] keySet = fromClass.getFields();
+		for (int i = 0; i < keySet.length; i++) {
+			try {
+				keySet[i].setAccessible(true);
+				String key = keySet[i].getName();
+				Object value = keySet[i].get(this);
+				// use reflection to set field
+				Field field = toClass.getDeclaredField(key);
+				field.setAccessible(true);
+				field.set(toUrl, value);
+			} catch (NoSuchFieldException | SecurityException
+					| IllegalArgumentException | IllegalAccessException e) {
+				// System.out.println(e.getMessage());
+				// e.printStackTrace();// no such field or not allowed
+			}
+		}
+	}
 
 	public String getWithNotes() {
 		return withNotes;
