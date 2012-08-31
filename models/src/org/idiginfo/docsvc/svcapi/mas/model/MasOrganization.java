@@ -2,8 +2,6 @@ package org.idiginfo.docsvc.svcapi.mas.model;
 
 import java.util.List;
 
-import com.google.gson.annotations.SerializedName;
-
 /**
  * <p>Java class for Organization complex type.
  * 
@@ -33,25 +31,18 @@ import com.google.gson.annotations.SerializedName;
 public class MasOrganization
 {
 
-    @SerializedName("AuthorCount")
 	protected Long authorCount;
     
-    @SerializedName("CitationCount")
     protected Long citationCount;
     
-    @SerializedName("HomepageURL")
     protected String homepageURL;
     
-    @SerializedName("ID")
     protected Long iD;
     
-    @SerializedName("Name")
     protected String name;
     
-    @SerializedName("PublicationCount")
     protected Long publicationCount;
     
-    @SerializedName("ResearchInterestDomain")
     protected List<MasDomain> researchInterestDomain;
 
 	public Long getAuthorCount() {

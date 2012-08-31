@@ -2,8 +2,6 @@ package org.idiginfo.docsvc.svcapi.mas.model;
 
 import java.util.Date;
 
-import com.google.gson.annotations.SerializedName;
-
 /**
  * <p>Java class for CFPInfo complex type.
  * 
@@ -15,6 +13,7 @@ import com.google.gson.annotations.SerializedName;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="AbstractSubmissionDate" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
+ *         &lt;element name="AgendaUrl" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="City" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="ConferenceEndDate" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
  *         &lt;element name="ConferenceStartDate" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
@@ -35,31 +34,24 @@ import com.google.gson.annotations.SerializedName;
 public class MasCFPInfo
 {
 
-    @SerializedName("AbstractSubmissionDate")
     protected Date abstractSubmissionDate;
 	
-    @SerializedName("City")
+	protected String agendaURL;
+	
 	protected String city;
 	
-	@SerializedName("ConferenceEndDate")
 	protected Date conferenceEndDate;
 	
-	@SerializedName("ConferenceStartDate")
 	protected Date conferenceStartDate;
 	
-	@SerializedName("Country")
 	protected String country;
 	
-	@SerializedName("FinalVersionDate")
 	protected Date finalVersionDate;
 	
-	@SerializedName("HomepageURL")
 	protected String homepageURL;
 	
-	@SerializedName("PaperSubmissionDate")
 	protected Date paperSubmissionDate;
 	
-	@SerializedName("ResultNotificationDate")
 	protected Date resultNotificationDate;
 
 	public Date getAbstractSubmissionDate() {
@@ -68,6 +60,14 @@ public class MasCFPInfo
 
 	public void setAbstractSubmissionDate(Date abstractSubmissionDate) {
 		this.abstractSubmissionDate = abstractSubmissionDate;
+	}
+
+ 	public String getAgendaURL() {
+		return agendaURL;
+	}
+
+	public void setAgendaURL(String agendaURL) {
+		this.agendaURL = agendaURL;
 	}
 
 	public String getCity() {

@@ -2,8 +2,6 @@ package org.idiginfo.docsvc.svcapi.mas.model;
 
 import java.util.List;
 
-import com.google.gson.annotations.SerializedName;
-
 /**
  * <p>Java class for Author complex type.
  * 
@@ -38,43 +36,30 @@ import com.google.gson.annotations.SerializedName;
 public class MasAuthor
 {
 
-    @SerializedName("Affiliation")
     protected MasOrganization affiliation;
     
-    @SerializedName("CitationCount")
     protected Long citationCount;
     
-    @SerializedName("DisplayPhotoURL")
     protected String displayPhotoURL;
     
-    @SerializedName("FirstName")
     protected String firstName;
     
-    @SerializedName("GIndex")
     protected Long gIndex;
     
-    @SerializedName("HIndex")
     protected Long hIndex;
     
-    @SerializedName("HomepageURL")
     protected String homepageURL;
     
-    @SerializedName("ID")
     protected Long iD;
     
-    @SerializedName("LastName")
     protected String lastName;
     
-    @SerializedName("MiddleName")
     protected String middleName;
     
-    @SerializedName("NativeName")
     protected String nativeName;
     
-    @SerializedName("PublicationCount")
     protected Long publicationCount;
     
-    @SerializedName("ResearchInterestDomain")
     protected List<MasDomain> researchInterestDomain;
 
 	public MasOrganization getAffiliation() {

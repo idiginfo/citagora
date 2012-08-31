@@ -2,8 +2,6 @@ package org.idiginfo.docsvc.svcapi.mas.model;
 
 import java.util.List;
 
-import com.google.gson.annotations.SerializedName;
-
 /**
  * <p>Java class for Journal complex type.
  * 
@@ -35,34 +33,24 @@ import com.google.gson.annotations.SerializedName;
 public class MasJournal
 {
 
-    @SerializedName("CitationCount")
     protected Long citationCount;
 
-    @SerializedName("EndYear")
     protected Integer endYear;
     
-    @SerializedName("FullName")
     protected String fullName;
     
-    @SerializedName("HomepageURL")
     protected String homepageURL;
     
-    @SerializedName("ID")
     protected Long iD;
     
-    @SerializedName("ISSN")
     protected String iSSN;
     
-    @SerializedName("PublicationCount")
     protected Long publicationCount;
     
-    @SerializedName("ResearchInterestDomain")
     protected List<MasDomain> researchInterestDomain;
     
-    @SerializedName("ShortName")
     protected String shortName;
     
-    @SerializedName("StartYear")
     protected Integer startYear;
 
 	public Long getCitationCount() {
