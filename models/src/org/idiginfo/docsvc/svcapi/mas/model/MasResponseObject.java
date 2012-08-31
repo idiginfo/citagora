@@ -10,7 +10,7 @@ public class MasResponseObject {
 	Integer resultCode;
 	String version;
 
-	public MasResultObject<MasPublication> publication;
+	MasResultObject<MasPublication> publication;
 	MasResultObject<MasAuthor> author;
 	MasResultObject<MasConference> conference;
 	MasResultObject<MasJournal> journal;
@@ -22,6 +22,42 @@ public class MasResponseObject {
 		if (resultCode == null)
 			return MasApiParams.UNKNOWN_ERROR_CODE; // problem with response
 		return resultCode;
+	}
+
+	public String getResponseType() {
+		return responseType;
+	}
+
+	public String getVersion() {
+		return version;
+	}
+
+	public MasResultObject<MasPublication> getPublication() {
+		return publication;
+	}
+
+	public MasResultObject<MasAuthor> getAuthor() {
+		return author;
+	}
+
+	public MasResultObject<MasConference> getConference() {
+		return conference;
+	}
+
+	public MasResultObject<MasJournal> getJournal() {
+		return journal;
+	}
+
+	public MasResultObject<MasOrganization> getOrganization() {
+		return organization;
+	}
+
+	public MasResultObject<MasDomain> getDomain() {
+		return domain;
+	}
+
+	public MasResultObject<MasKeyword> getKeyword() {
+		return keyword;
 	}
 
 }

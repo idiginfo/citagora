@@ -62,7 +62,7 @@ public class MasSample {
 		System.out.println("result is: "
 				+ MasApiParams.RESPONSE_CODE_MESSAGES[object.getResultCode()]);
 		System.out.println("number of pubs: "
-				+ object.publication.result.size());
+				+ object.getPublication().result.size());
 	}
 
 	public static String testPmidDocument(String pmid) {

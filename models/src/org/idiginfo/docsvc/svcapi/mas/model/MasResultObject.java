@@ -13,4 +13,24 @@ public class MasResultObject<T> {
 	Integer totalItem;
 	public List<T> result;
 
+	public String getResponseType() {
+		return responseType;
+	}
+
+	public Integer getEndIdx() {
+		return endIdx;
+	}
+
+	public Integer getStartIdx() {
+		return startIdx;
+	}
+
+	public Integer getTotalItem() {
+		return totalItem;
+	}
+
+	public List<T> getResult() {
+		return result;
+	}
+
 }

@@ -3,6 +3,8 @@ package org.idiginfo.docsvc.svcapi.mas.svc;
 import java.util.Arrays;
 import java.util.List;
 
+import org.idiginfo.docsvc.model.model.BaseApiParams;
+
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.util.Key;
 
@@ -12,55 +14,55 @@ public class MasUrl extends GenericUrl {
 	// http://academic.research.microsoft.com/json.svc/search
 	// ?AppId=Your_AppID&FullTextQuery=data+mining&ResultObjects=publication
 	// &PublicationContent=title,author&StartIdx=1&EndIdx=1
-	String version;
+	public String version;
 	@Key("AppId")
-	String apiKey = MasApiParams.API_KEY;
+	public String apiKey = MasApiParams.API_KEY;
 
 	// id fields
 	@Key("PublicationID")
-	Integer publicationId;
+	public Integer publicationId;
 	@Key("AuthorID")
-	Integer authorID;
+	public Integer authorID;
 	@Key("ConferenceID")
-	Integer conferenceID;
+	public Integer conferenceID;
 	@Key("JournalID")
-	Integer journalID;
+	public Integer journalID;
 	@Key("OrganizationID")
-	Integer organizationID;
+	public Integer organizationID;
 	@Key("TopDomainID")
-	Integer topDomainID;
+	public Integer topDomainID;
 	@Key("KeywordID")
-	Integer keywordID;
+	public Integer keywordID;
 
 	// query fields
 	@Key("TitleQuery")
-	String titleQuery;
+	public String titleQuery;
 	@Key("AuthorQuery")
-	String authorQuery;
+	public String authorQuery;
 	@Key("ConferenceQuery")
-	String conferenceQuery;
+	public String conferenceQuery;
 	@Key("JournalQuery")
-	String journalQuery;
+	public String journalQuery;
 	@Key("FulltextQuery")
-	String fulltextQuery;
+	public String fulltextQuery;
 
 	// result parameter fields
 	@Key("ResultObjects")
-	String resultObjects = "Publication";
+	public String resultObjects = "Publication";
 	@Key("ReferenceType")
-	String referenceType;
+	public String referenceType;
 	@Key("PublicationContent")
-	String publicationContent="Keyword";
+	public String publicationContent="Keyword";
 	@Key("OrderBy")
-	String orderBy;
+	public String orderBy;
 	@Key("YearStart")
-	Integer yearStart;
+	public Integer yearStart;
 	@Key("YearEnd")
-	Integer yearEnd;
+	public Integer yearEnd;
 	@Key("StartIdx")
-	Integer startIdx = 1;
+	public Integer startIdx = 1;
 	@Key("EndIdx")
-	Integer endIdx = 10;
+	public Integer endIdx = 10;
 
 	public MasUrl() {
 		super();
@@ -72,16 +74,9 @@ public class MasUrl extends GenericUrl {
 		setPathParts(pathParts);
 	}
 
-	public MasUrl(MasApiParams params) {
+	public MasUrl(BaseApiParams params) {
 		this();
-		if (params.getId() != null) {
-			publicationId = 15038153;// params.getId();
-		}
-		if (params.getKeyword()!=null){
-			//fulltextQuery = params.getKeyword();
-			keywordID = 40686;
-			resultObjects="Publication";
-		}
+		params.mapFields(this);
 	}
 
 	/**
@@ -98,11 +93,6 @@ public class MasUrl extends GenericUrl {
 		return false;
 	}
 
-	protected void mapParams(MasApiParams params) {
-		if (params == null)
-			return;
-		// TODO finish method
-	}
 
 	public String getApiKey() {
 		return apiKey;

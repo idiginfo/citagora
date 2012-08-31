@@ -4,12 +4,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.List;
 
 import org.idiginfo.docsvc.model.model.ApiParams;
 import org.idiginfo.docsvc.model.model.DocService;
 import org.idiginfo.docsvc.model.model.Document;
 import org.idiginfo.docsvc.model.model.Documents;
 import org.idiginfo.docsvc.model.model.Users;
+import org.idiginfo.docsvc.svcapi.mas.model.MasKeyword;
 import org.idiginfo.docsvc.svcapi.mas.model.MasResponse;
 import org.idiginfo.docsvc.svcapi.mas.model.MasResponseObject;
 
@@ -184,4 +186,37 @@ public class MasService implements DocService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+	/** 
+	 * Get a block of keywords for a publication
+	 * @param publicationId
+	 * @param start
+	 * @param end
+	 * @return
+	 *TODO make this a generic method
+	 */
+	public List<MasKeyword> getKeywords(Integer publicationId, int start,
+			int end) {
+		MasApiParams params = new MasApiParams();
+		params.setPublicationId(publicationId);
+		params.setPublicationContent("Keyword");
+		params.setStartIdx(start);
+		params.setEndIdx(end);
+		MasResponse response = getResponse(params);
+		return response.getD().getKeyword().getResult();
+	}
+	
+	public <T> List<T> getResult(Integer publicationId, int start,
+			int end) {
+		//TODO this doesn't work
+		MasApiParams params = new MasApiParams();
+		params.setPublicationId(publicationId);
+		params.setPublicationContent("Keyword");
+		params.setStartIdx(start);
+		params.setEndIdx(end);
+		MasResponse response = getResponse(params);
+		return null; // response.getD().getKeyword().getResult();
+	}
+
 }

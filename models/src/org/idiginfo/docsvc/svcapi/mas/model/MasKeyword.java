@@ -46,7 +46,7 @@ public class MasKeyword
 		this.citationCount = citationCount;
 	}
 
-	public Long getiD() {
+	public Long getId() {
 		return iD;
 	}
 
