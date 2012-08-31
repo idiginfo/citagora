@@ -51,16 +51,16 @@ public class BaseApiParams implements ApiParams {
 		Class<? extends GenericUrl> toClass = toUrl.getClass();
 		Class<? extends BaseApiParams> fromClass = getClass();
 		// iterate through all parameters and set fields as possible
-		Field[] keySet = fromClass.getFields();
-		for (int i = 0; i < keySet.length; i++) {
+		Field[] fieldSet = toClass.getDeclaredFields();
+		for (int i = 0; i < fieldSet.length; i++) {
 			try {
-				keySet[i].setAccessible(true);
-				String key = keySet[i].getName();
-				Object value = keySet[i].get(this);
+				Field toField = fieldSet[i];
+				toField.setAccessible(true);
+				String key = toField.getName();
 				// use reflection to set field
-				Field field = toClass.getDeclaredField(key);
-				field.setAccessible(true);
-				field.set(toUrl, value);
+				Field fromField = fromClass.getDeclaredField(key);
+				fromField.setAccessible(true);
+				toField.set(toUrl, fromField.get(this));
 			} catch (NoSuchFieldException | SecurityException
 					| IllegalArgumentException | IllegalAccessException e) {
 				// System.out.println(e.getMessage());
