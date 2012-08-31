@@ -42,7 +42,8 @@ public class MasApiParams extends BaseApiParams {
 	public Integer conferenceID;
 	public Integer journalID;
 	public Integer organizationID;
-	public Integer topDomainID;
+	public Integer domainID;
+	public Integer subdomainID;
 	public Integer keywordID;
 
 	// query fields
@@ -61,6 +62,8 @@ public class MasApiParams extends BaseApiParams {
 	public Integer yearEnd;
 	public Integer startIdx = 1;
 	public Integer endIdx = 10;
+	public String authorRelationshipType;
+	public String suggestionType;
 
 	public MasApiParams(ApiParams apiParams) {
 		if (apiParams == null)
@@ -114,12 +117,20 @@ public class MasApiParams extends BaseApiParams {
 		this.organizationID = organizationID;
 	}
 
-	public Integer getTopDomainID() {
-		return topDomainID;
+	public Integer getDomainID() {
+		return domainID;
 	}
 
-	public void setTopDomainID(Integer topDomainID) {
-		this.topDomainID = topDomainID;
+	public void setDomainID(Integer domainID) {
+		this.domainID = domainID;
+	}
+
+	public Integer getSubdomainID() {
+		return subdomainID;
+	}
+
+	public void setSubdomainID(Integer subdomainID) {
+		this.subdomainID = subdomainID;
 	}
 
 	public Integer getKeywordID() {
@@ -232,6 +243,22 @@ public class MasApiParams extends BaseApiParams {
 
 	public void setEndIdx(Integer endIdx) {
 		this.endIdx = endIdx;
+	}
+
+	public String getSuggestionType() {
+		return suggestionType;
+	}
+
+	public void setSuggestionType(String suggestionType) {
+		this.suggestionType = suggestionType;
+	}
+
+	public String getAuthorRelationshipType() {
+		return authorRelationshipType;
+	}
+
+	public void setAuthorRelationshipType(String authorRelationshipType) {
+		this.authorRelationshipType = authorRelationshipType;
 	}
 
 }
