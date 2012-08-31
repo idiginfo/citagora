@@ -44,7 +44,7 @@ public class GetAllAnnotations {
 	static final String CONTEXT_FILE_NAME = OUTPUT_PREFIX + ".txt";
 	PrintWriter contextPrinter = null;
 
-	String[] headers = { "title", "tags", "context", "url" };
+	String[] headers = { "title", "subject", "context", "url" };
 
 	public GetAllAnnotations() {
 	}
@@ -124,11 +124,12 @@ public class GetAllAnnotations {
 	}
 
 	private void writeLine(Document document, Annotation note) {
-		// String[] headers = { "title", "tags", "context", "url"};
-
+		// String[] headers = { "title", "subject", "context", "url"};
+		if (note.getTags() != null && note.getTags().length() > 0)
+			return;
 		String[] fields = new String[9];
 		fields[0] = document.getTitle();
-		fields[1] = note.getTags();
+		fields[1] = note.getSubject();
 		fields[2] = note.getContext();
 		String url = note.getFullPageUrl();
 		fields[3] = url;
@@ -136,5 +137,4 @@ public class GetAllAnnotations {
 		annotationWriter.addRow(fields, url);
 		contextPrinter.println(note.getContext());
 	}
-
 }
