@@ -1,4 +1,4 @@
-package org.idiginfo.docsvc.svcapi.annotate;
+package org.idiginfo.docsvc.svcapi.annotate.svc;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -8,6 +8,10 @@ import org.idiginfo.docsvc.model.model.ApiParams;
 import org.idiginfo.docsvc.model.model.DocService;
 import org.idiginfo.docsvc.model.model.Document;
 import org.idiginfo.docsvc.model.model.Documents;
+import org.idiginfo.docsvc.svcapi.annotate.model.AnnotateDocument;
+import org.idiginfo.docsvc.svcapi.annotate.model.AnnotateDocumentNotes;
+import org.idiginfo.docsvc.svcapi.annotate.model.AnnotateDocuments;
+import org.idiginfo.docsvc.svcapi.annotate.model.AnnotateUsers;
 
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestFactory;

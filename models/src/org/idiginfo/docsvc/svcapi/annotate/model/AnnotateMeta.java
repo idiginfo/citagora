@@ -1,4 +1,4 @@
-package org.idiginfo.docsvc.svcapi.annotate;
+package org.idiginfo.docsvc.svcapi.annotate.model;
 
 import java.util.Date;
 
