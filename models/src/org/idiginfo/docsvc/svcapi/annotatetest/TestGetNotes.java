@@ -7,7 +7,7 @@ import java.io.PrintWriter;
 
 import org.idiginfo.docsvc.model.model.Annotation;
 import org.idiginfo.docsvc.model.model.Document;
-import org.idiginfo.docsvc.svcapi.annotate.AnnotateService;
+import org.idiginfo.docsvc.svcapi.annotate.svc.AnnotateService;
 
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestFactory;

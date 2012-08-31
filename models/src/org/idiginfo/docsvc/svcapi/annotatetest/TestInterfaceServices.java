@@ -4,7 +4,7 @@ import org.idiginfo.docsvc.model.model.DocService;
 import org.idiginfo.docsvc.model.model.Document;
 import org.idiginfo.docsvc.model.model.Documents;
 import org.idiginfo.docsvc.model.model.Users;
-import org.idiginfo.docsvc.svcapi.annotate.AnnotateService;
+import org.idiginfo.docsvc.svcapi.annotate.svc.AnnotateService;
 
 /**
  * Test of a few features of the a.nnotate service and the java package that we

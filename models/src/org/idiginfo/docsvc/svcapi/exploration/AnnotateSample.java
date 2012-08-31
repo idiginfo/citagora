@@ -5,12 +5,12 @@ import java.io.IOException;
 
 import org.apache.commons.io.IOUtils;
 import org.idiginfo.docsvc.model.model.Document;
-import org.idiginfo.docsvc.svcapi.annotate.AnnotateApiParams;
-import org.idiginfo.docsvc.svcapi.annotate.AnnotateDocument;
-import org.idiginfo.docsvc.svcapi.annotate.AnnotateDocumentNotes;
-import org.idiginfo.docsvc.svcapi.annotate.AnnotateDocuments;
-import org.idiginfo.docsvc.svcapi.annotate.AnnotateUrl;
-import org.idiginfo.docsvc.svcapi.annotate.AnnotateUsers;
+import org.idiginfo.docsvc.svcapi.annotate.model.AnnotateDocument;
+import org.idiginfo.docsvc.svcapi.annotate.model.AnnotateDocumentNotes;
+import org.idiginfo.docsvc.svcapi.annotate.model.AnnotateDocuments;
+import org.idiginfo.docsvc.svcapi.annotate.model.AnnotateUsers;
+import org.idiginfo.docsvc.svcapi.annotate.svc.AnnotateApiParams;
+import org.idiginfo.docsvc.svcapi.annotate.svc.AnnotateUrl;
 
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestFactory;

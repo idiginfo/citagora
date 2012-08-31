@@ -1,7 +1,7 @@
 package org.idiginfo.docsvc.svcapi.scopus;
 
 import org.idiginfo.docsvc.model.model.Annotation;
-import org.idiginfo.docsvc.svcapi.annotate.AnnotateNote;
+import org.idiginfo.docsvc.svcapi.annotate.model.AnnotateNote;
 
 public class ScopusAnnotation implements Annotation {
 

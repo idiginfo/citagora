@@ -1,11 +1,11 @@
 package org.idiginfo.docsvc.svcapi.annotatetest;
 
 import org.idiginfo.docsvc.model.model.Document;
-import org.idiginfo.docsvc.svcapi.annotate.AnnotateDocument;
-import org.idiginfo.docsvc.svcapi.annotate.AnnotateDocumentNotes;
-import org.idiginfo.docsvc.svcapi.annotate.AnnotateDocuments;
-import org.idiginfo.docsvc.svcapi.annotate.AnnotateService;
-import org.idiginfo.docsvc.svcapi.annotate.AnnotateUsers;
+import org.idiginfo.docsvc.svcapi.annotate.model.AnnotateDocument;
+import org.idiginfo.docsvc.svcapi.annotate.model.AnnotateDocumentNotes;
+import org.idiginfo.docsvc.svcapi.annotate.model.AnnotateDocuments;
+import org.idiginfo.docsvc.svcapi.annotate.model.AnnotateUsers;
+import org.idiginfo.docsvc.svcapi.annotate.svc.AnnotateService;
 
 /**
  * Test of a few features of the a.nnotate service and the java package that we

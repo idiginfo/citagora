@@ -10,7 +10,7 @@ import org.idiginfo.docsvc.model.model.Annotation;
 import org.idiginfo.docsvc.model.model.DocService;
 import org.idiginfo.docsvc.model.model.Document;
 import org.idiginfo.docsvc.model.model.Documents;
-import org.idiginfo.docsvc.svcapi.annotate.AnnotateService;
+import org.idiginfo.docsvc.svcapi.annotate.svc.AnnotateService;
 import org.idiginfo.docsvc.view.XlsAnnotationWriter;
 
 import au.com.bytecode.opencsv.CSVWriter;
