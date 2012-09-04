@@ -83,7 +83,7 @@ public class KeywordUtilities {
 	public List<MasKeyword> getKeywords(String keyword, int start, int end) {
 		MasApiParams params = new MasApiParams();
 		params.setFulltextQuery(keyword);
-		params.setPublicationContent("Keyword");
+		//params.setPublicationContent("Keyword");
 		params.setStartIdx(start);
 		params.setEndIdx(end);
 		params.setResultObjects("Keyword");
