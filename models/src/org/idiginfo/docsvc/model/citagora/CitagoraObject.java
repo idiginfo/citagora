@@ -1,6 +1,7 @@
 package org.idiginfo.docsvc.model.citagora;
 
 import java.util.Date;
+import java.util.List;
 
 public interface CitagoraObject {
 	String getType();
@@ -20,4 +21,6 @@ public interface CitagoraObject {
 	CitagoraAgent getGenerator(); // same as wasAttributedTo?
 
 	Date getGenerated();
+
+	List<Annotation> getAnnotations();
 }

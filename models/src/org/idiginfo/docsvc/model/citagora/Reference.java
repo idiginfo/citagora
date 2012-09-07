@@ -23,10 +23,6 @@ public interface Reference extends CitagoraObject {
 
 	String getDoi();
 
-	CitagoraAgent wasAttributedTo();
-
-	Date generatedAtTime();
-
 	Reference isPartOf();
 
 	List<Author> getAuthorList();
@@ -34,4 +30,16 @@ public interface Reference extends CitagoraObject {
 	List<Reference> getCitationList();
 
 	List<String> getSeeAlso();
+
+	List<CitagoraDocument> getCitagoraDocuments();
+
+	List<Annotation> getAnnotations();
+
+	Double getOverallRating();
+
+	Double getReadabilityRating();
+
+	Double getAccuracyRating();
+
+	Double getOriginalityRating();
 }
