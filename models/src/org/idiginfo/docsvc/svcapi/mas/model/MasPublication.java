@@ -2,7 +2,6 @@ package org.idiginfo.docsvc.svcapi.mas.model;
 
 import java.util.Date;
 import java.util.List;
-import com.google.gson.annotations.SerializedName;
 
 import org.idiginfo.docsvc.model.model.Annotation;
 import org.idiginfo.docsvc.model.model.Document;
@@ -18,6 +17,7 @@ import org.idiginfo.docsvc.model.model.Document;
  *       &lt;sequence>
  *         &lt;element name="Abstract" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="Author" type="{http://research.microsoft.com}ArrayOfAuthor" minOccurs="0"/>
+ *         &lt;element name="CitationContext" type="{http://schemas.microsoft.com/2003/10/Serialization/Arrays}ArrayOfstring" minOccurs="0"/>
  *         &lt;element name="CitationCount" type="{http://www.w3.org/2001/XMLSchema}unsignedInt" minOccurs="0"/>
  *         &lt;element name="Conference" type="{http://research.microsoft.com}Conference" minOccurs="0"/>
  *         &lt;element name="DOI" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
@@ -40,43 +40,32 @@ import org.idiginfo.docsvc.model.model.Document;
 public class MasPublication implements Document
 {
 
-    @SerializedName("Abstract")
     protected String _abstract;
     
-    @SerializedName("Author")
     protected List<MasAuthor> author;
     
-    @SerializedName("CitationCount")
-    protected Long citationCount;
+    protected List<String> citationContext;
     
-    @SerializedName("Conference")
+	protected Long citationCount;
+    
     protected MasConference conference;
     
-    @SerializedName("DOI")
     protected String dOI;
     
-    @SerializedName("FullVersionURL")
     protected List<String> fullVersionURL;
     
-    @SerializedName("ID")
     protected Long iD;
     
-    @SerializedName("Journal")
     protected MasJournal journal;
     
-    @SerializedName("Keyword")
     protected List<MasKeyword> keyword;
     
-    @SerializedName("ReferenceCount")
     protected Long referenceCount;
     
-    @SerializedName("Title")
     protected String title;
     
-    @SerializedName("Type")
     protected String type;
 
-    @SerializedName("Year")
     protected Integer year;
 
 	public String get_abstract() {
@@ -93,6 +82,14 @@ public class MasPublication implements Document
 
 	public void setAuthor(List<MasAuthor> author) {
 		this.author = author;
+	}
+
+    public List<String> getCitationContext() {
+		return citationContext;
+	}
+
+	public void setCitationContext(List<String> citationContext) {
+		this.citationContext = citationContext;
 	}
 
 	public Long getCitationCount() {

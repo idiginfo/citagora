@@ -1,8 +1,5 @@
 package org.idiginfo.docsvc.svcapi.mas.model;
 
-import com.google.gson.annotations.SerializedName;
-
-
 /**
  * <p>Java class for Domain complex type.
  * 
@@ -28,19 +25,14 @@ import com.google.gson.annotations.SerializedName;
 public class MasDomain
 {
 
-    @SerializedName("CitationCount")
     protected Long citationCount;
     
-    @SerializedName("DomainID")
     protected Long domainID;
     
-    @SerializedName("Name")
     protected String name;
     
-    @SerializedName("PublicationCount")
     protected Long publicationCount;
     
-    @SerializedName("SubDomainID")
     protected Long subDomainID;
 
 	public Long getCitationCount() {

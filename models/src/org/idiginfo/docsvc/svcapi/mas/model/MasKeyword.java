@@ -1,7 +1,5 @@
 package org.idiginfo.docsvc.svcapi.mas.model;
 
-import com.google.gson.annotations.SerializedName;
-
 /**
  * <p>Java class for Keyword complex type.
  * 
@@ -26,16 +24,12 @@ import com.google.gson.annotations.SerializedName;
  */
 public class MasKeyword
 {
-    @SerializedName("CitationCount")
     protected Long citationCount;
     
-    @SerializedName("ID")
     protected Long iD;
     
-    @SerializedName("Name")
     protected String name;
 
-    @SerializedName("PublicationCount")
     protected Long publicationCount;
 
 	public Long getCitationCount() {
