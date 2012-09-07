@@ -2,12 +2,13 @@ package org.idiginfo.docsvc.svcapi.citagora;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Vector;
 
 import org.idiginfo.docsvc.model.citagora.Annotation;
 import org.idiginfo.docsvc.model.citagora.CitagoraAgent;
 import org.idiginfo.docsvc.model.citagora.CitagoraObject;
 
-public  class CitagoraObjectImpl implements CitagoraObject {
+public abstract class CitagoraObjectImpl implements CitagoraObject {
 
 	String type;
 	String id;
@@ -93,6 +94,16 @@ public  class CitagoraObjectImpl implements CitagoraObject {
 	}
 
 	public List<Annotation> getAnnotations() {
+		if (annotations == null) {
+			annotations = new Vector<Annotation>();
+		}
 		return annotations;
+	}
+
+	public void addAnnotation(Annotation annotation) {
+		if (annotations == null) {
+			annotations = new Vector<Annotation>();
+		}
+		annotations.add(annotation);
 	}
 }

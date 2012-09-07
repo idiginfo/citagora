@@ -18,7 +18,7 @@ public class CommentImpl extends AnnotationImpl implements Comment {
 
 	Integer rating;
 
-	CitagoraDocument reviews;
+	transient CitagoraDocument reviews;
 
 	List<Comment> replies;
 

@@ -5,6 +5,8 @@ import java.util.List;
 
 public interface Reference extends CitagoraObject {
 
+	String TYPE = "bibo:Document";
+
 	String getSource();
 
 	String getAbstract();

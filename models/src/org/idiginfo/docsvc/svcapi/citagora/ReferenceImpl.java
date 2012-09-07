@@ -2,15 +2,13 @@ package org.idiginfo.docsvc.svcapi.citagora;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Vector;
 
-import org.idiginfo.docsvc.model.citagora.Annotation;
 import org.idiginfo.docsvc.model.citagora.Author;
-import org.idiginfo.docsvc.model.citagora.CitagoraAgent;
 import org.idiginfo.docsvc.model.citagora.CitagoraDocument;
 import org.idiginfo.docsvc.model.citagora.Reference;
 
 public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
-	String source;
 
 	String abstractText; // 'abstract' is a Java keyword
 
@@ -28,30 +26,19 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
 
 	String doi;
 
-	CitagoraAgent wasAttributedTo;
-
-	Date generatedAtTime;
-
 	Reference isPartOf;
 
 	List<Author> authorList;
-
 	List<Reference> citationList;
 
 	List<String> seeAlso;
 
-	List<CitagoraDocument> citagoraDocuments;
-
-	List<Annotation> annotations;
+	transient List<CitagoraDocument> citagoraDocuments;
 
 	Double overallRating;
 
-	public String getSource() {
-		return source;
-	}
-
-	public void setSource(String source) {
-		this.source = source;
+	public ReferenceImpl() {
+		type = Reference.TYPE;
 	}
 
 	public String getAbstract() {
@@ -119,11 +106,11 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
 	}
 
 	public Date getGeneratedAtTime() {
-		return generatedAtTime;
+		return generated;
 	}
 
 	public void setGeneratedAtTime(Date generatedAtTime) {
-		this.generatedAtTime = generatedAtTime;
+		this.generated = generatedAtTime;
 	}
 
 	public Reference getIsPartOf() {
@@ -154,24 +141,12 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
 		return seeAlso;
 	}
 
-	public void setSeeAlso(List<String> seeAlso) {
-		this.seeAlso = seeAlso;
-	}
-
 	public List<CitagoraDocument> getCitagoraDocuments() {
 		return citagoraDocuments;
 	}
 
 	public void setCitagoraDocuments(List<CitagoraDocument> citagoraDocuments) {
 		this.citagoraDocuments = citagoraDocuments;
-	}
-
-	public List<Annotation> getAnnotations() {
-		return annotations;
-	}
-
-	public void setAnnotations(List<Annotation> annotations) {
-		this.annotations = annotations;
 	}
 
 	public Double getOverallRating() {
@@ -204,6 +179,20 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
 	public Double getOriginalityRating() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public void addCitagoraDocument(CitagoraDocument document) {
+		if (citagoraDocuments == null) {
+			citagoraDocuments = new Vector<CitagoraDocument>();
+		}
+		citagoraDocuments.add(document);
+	}
+
+	public void addSeeAlso(String link) {
+		if (seeAlso == null) {
+			seeAlso = new Vector<String>();
+		}
+		seeAlso.add(link);
 	}
 
 }

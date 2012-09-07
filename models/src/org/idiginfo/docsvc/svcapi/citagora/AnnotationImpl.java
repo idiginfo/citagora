@@ -3,16 +3,22 @@ package org.idiginfo.docsvc.svcapi.citagora;
 import java.util.Date;
 
 import org.idiginfo.docsvc.model.citagora.Annotation;
+import org.idiginfo.docsvc.model.citagora.AnnotationBody;
 import org.idiginfo.docsvc.model.citagora.CitagoraObject;
 import org.idiginfo.docsvc.model.citagora.Person;
 
 public class AnnotationImpl extends CitagoraObjectImpl implements Annotation {
 
-	CitagoraObject target;
-	String characterEncoding;
-	String chars;
+	transient CitagoraObject target;
 	Person annotator;
 	Date annotated;
+	AnnotationBody body;
+	String modelVersion;
+
+	public AnnotationImpl() {
+		body = new AnnotationBodyImpl();
+		setType(Annotation.TYPE);
+	}
 
 	public CitagoraObject getTarget() {
 		return target;
@@ -23,19 +29,19 @@ public class AnnotationImpl extends CitagoraObjectImpl implements Annotation {
 	}
 
 	public String getCharacterEncoding() {
-		return characterEncoding;
+		return body.getCharacterEncoding();
 	}
 
 	public void setCharacterEncoding(String characterEncoding) {
-		this.characterEncoding = characterEncoding;
+		// TODO
 	}
 
 	public String getChars() {
-		return chars;
+		return body.getChars();
 	}
 
 	public void setChars(String chars) {
-		this.chars = chars;
+		// TODO this.chars = chars;
 	}
 
 	public Person getAnnotator() {
@@ -52,5 +58,21 @@ public class AnnotationImpl extends CitagoraObjectImpl implements Annotation {
 
 	public void setAnnotated(Date annotated) {
 		this.annotated = annotated;
+	}
+
+	public AnnotationBody getBody() {
+		return body;
+	}
+
+	public void setBody(AnnotationBody body) {
+		this.body = body;
+	}
+
+	public String getModelVersion() {
+		return modelVersion;
+	}
+
+	public void setModelVersion(String modelVersion) {
+		this.modelVersion = modelVersion;
 	}
 }

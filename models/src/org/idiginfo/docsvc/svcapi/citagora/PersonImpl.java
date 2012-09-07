@@ -11,6 +11,14 @@ public class PersonImpl implements Person {
 	String account;
 	String homePage;
 
+	public PersonImpl() {
+
+	}
+
+	public String getId() {
+		return "http://citagora.com/users/" + accountName;
+	}
+
 	public String getType() {
 		return type;
 	}
