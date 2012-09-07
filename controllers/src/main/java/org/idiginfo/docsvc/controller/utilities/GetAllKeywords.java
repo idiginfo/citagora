@@ -1,25 +1,17 @@
 package org.idiginfo.docsvc.controller.utilities;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 
-import org.idiginfo.docsvc.model.model.Annotation;
 import org.idiginfo.docsvc.model.model.DocService;
-import org.idiginfo.docsvc.model.model.Document;
-import org.idiginfo.docsvc.model.model.Documents;
 import org.idiginfo.docsvc.svcapi.annotate.svc.AnnotateService;
 import org.idiginfo.docsvc.svcapi.mas.model.MasKeyword;
 import org.idiginfo.docsvc.svcapi.mas.utility.KeywordUtilities;
 import org.idiginfo.docsvc.view.XlsAnnotationWriter;
-
-import com.google.gson.annotations.SerializedName;
 
 import au.com.bytecode.opencsv.CSVWriter;
 
@@ -99,8 +91,8 @@ public class GetAllKeywords {
 	 * @param documents
 	 */
 	private void writeKeywords(KeywordUtilities keywordUtilities) {
-		int numDocsWithNotes = 0;
-		int numNotesProcessed = 0;
+		// int numDocsWithNotes = 0;
+		// int numNotesProcessed = 0;
 		Map<Long, MasKeyword> keywordMap = keywordUtilities.getKeywordMap();
 		Collection<MasKeyword> keywordObjects = keywordMap.values();
 		Iterator<MasKeyword> keyIterator = keywordObjects.iterator();
