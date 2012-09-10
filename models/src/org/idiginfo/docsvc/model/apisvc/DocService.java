@@ -1,4 +1,4 @@
-package org.idiginfo.docsvc.model.model;
+package org.idiginfo.docsvc.model.apisvc;
 
 public interface DocService {
 

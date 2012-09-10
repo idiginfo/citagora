@@ -9,8 +9,10 @@ import java.util.List;
 public interface Comment extends Annotation {
 	// type is oaf:annotation
 	
-	public static final String TYPE = "oaf:annotation";
-	
+	// inherits TYPE and COLLECTION from Annotation
+	// public static final String TYPE = "oaf:annotation";
+	// static final String COLLECTION = "annotation";
+
 	RatingType getRatingType();
 
 	Person getReviewer();

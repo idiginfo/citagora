@@ -1,6 +1,6 @@
 package org.idiginfo.docsvc.svcapi.scopus;
 
-import org.idiginfo.docsvc.model.model.BaseApiParams;
+import org.idiginfo.docsvc.model.apisvc.BaseApiParams;
 
 public class ScopusApiParams extends BaseApiParams {
 

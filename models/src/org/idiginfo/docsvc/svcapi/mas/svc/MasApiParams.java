@@ -1,7 +1,7 @@
 package org.idiginfo.docsvc.svcapi.mas.svc;
 
-import org.idiginfo.docsvc.model.model.ApiParams;
-import org.idiginfo.docsvc.model.model.BaseApiParams;
+import org.idiginfo.docsvc.model.apisvc.ApiParams;
+import org.idiginfo.docsvc.model.apisvc.BaseApiParams;
 
 import com.google.api.client.util.Key;
 

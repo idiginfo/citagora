@@ -12,6 +12,11 @@ public class CitagoraAgentImpl extends PersonImpl implements CitagoraAgent {
 	// List<Annotation> tags;
 	transient List<Reference> references;
 
+	public CitagoraAgentImpl() {
+		setType(CitagoraAgent.TYPE);
+		//initId();
+	}
+
 	// List<Annotation> annotations;
 	public List<CitagoraDocument> getDocuments() {
 		return documents;

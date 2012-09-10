@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 
 public interface CitagoraObject {
+
+	public static final String NAMESPACE = "http://citagora.org/";
 	String getType();
 
 	String getId();

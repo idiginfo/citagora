@@ -4,9 +4,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.idiginfo.docsvc.model.model.Annotation;
-import org.idiginfo.docsvc.model.model.BaseDocument;
-import org.idiginfo.docsvc.model.model.Document;
+import org.idiginfo.docsvc.model.apisvc.Annotation;
+import org.idiginfo.docsvc.model.apisvc.BaseDocument;
+import org.idiginfo.docsvc.model.apisvc.Document;
 
 import com.google.gson.annotations.SerializedName;
 

@@ -1,4 +1,4 @@
-package org.idiginfo.docsvc.model.model;
+package org.idiginfo.docsvc.model.apisvc;
 
 import org.idiginfo.docsvc.svcapi.annotate.model.AnnotateNote;
 

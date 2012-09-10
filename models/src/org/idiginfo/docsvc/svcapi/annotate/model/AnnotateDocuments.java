@@ -3,8 +3,8 @@ package org.idiginfo.docsvc.svcapi.annotate.model;
 import java.util.List;
 import java.util.Vector;
 
-import org.idiginfo.docsvc.model.model.Document;
-import org.idiginfo.docsvc.model.model.Documents;
+import org.idiginfo.docsvc.model.apisvc.Document;
+import org.idiginfo.docsvc.model.apisvc.Documents;
 
 public class AnnotateDocuments extends Vector<Document> implements
 		List<Document>, Documents {

@@ -2,7 +2,7 @@ package org.idiginfo.docsvc.svcapi.altmetric;
 
 import java.util.List;
 
-import org.idiginfo.docsvc.model.model.Documents;
+import org.idiginfo.docsvc.model.apisvc.Documents;
 
 import com.google.gson.annotations.SerializedName;
 

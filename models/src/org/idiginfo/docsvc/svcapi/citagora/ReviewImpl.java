@@ -14,6 +14,8 @@ public class ReviewImpl extends CitagoraObjectImpl implements Review {
 
 	public ReviewImpl() {
 		setType(Review.TYPE);
+		setCollection(Review.COLLECTION);
+		initId();
 	}
 
 	// CitagoraDocument documentReviewed; // same as getTarget

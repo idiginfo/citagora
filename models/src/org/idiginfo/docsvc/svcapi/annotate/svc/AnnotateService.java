@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 
-import org.idiginfo.docsvc.model.model.ApiParams;
-import org.idiginfo.docsvc.model.model.DocService;
-import org.idiginfo.docsvc.model.model.Document;
-import org.idiginfo.docsvc.model.model.Documents;
+import org.idiginfo.docsvc.model.apisvc.ApiParams;
+import org.idiginfo.docsvc.model.apisvc.DocService;
+import org.idiginfo.docsvc.model.apisvc.Document;
+import org.idiginfo.docsvc.model.apisvc.Documents;
 import org.idiginfo.docsvc.svcapi.annotate.model.AnnotateDocument;
 import org.idiginfo.docsvc.svcapi.annotate.model.AnnotateDocumentNotes;
 import org.idiginfo.docsvc.svcapi.annotate.model.AnnotateDocuments;

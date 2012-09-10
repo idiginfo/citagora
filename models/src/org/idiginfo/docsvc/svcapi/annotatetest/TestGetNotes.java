@@ -5,8 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import org.idiginfo.docsvc.model.model.Annotation;
-import org.idiginfo.docsvc.model.model.Document;
+import org.idiginfo.docsvc.model.apisvc.Annotation;
+import org.idiginfo.docsvc.model.apisvc.Document;
 import org.idiginfo.docsvc.svcapi.annotate.svc.AnnotateService;
 
 import com.google.api.client.http.HttpRequest;

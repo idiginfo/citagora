@@ -18,6 +18,8 @@ public class AnnotationImpl extends CitagoraObjectImpl implements Annotation {
 	public AnnotationImpl() {
 		body = new AnnotationBodyImpl();
 		setType(Annotation.TYPE);
+		setCollection(Annotation.COLLECTION);
+		initId();
 	}
 
 	public CitagoraObject getTarget() {

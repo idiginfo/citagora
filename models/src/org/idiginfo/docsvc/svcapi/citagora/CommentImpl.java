@@ -21,6 +21,12 @@ public class CommentImpl extends AnnotationImpl implements Comment {
 	transient CitagoraDocument reviews;
 
 	List<Comment> replies;
+	
+	public CommentImpl() {
+		setType(Comment.TYPE);
+		setCollection(Comment.COLLECTION);
+		initId();
+	}
 
 	public String getType() {
 		return Comment.TYPE;

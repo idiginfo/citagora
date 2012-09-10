@@ -3,7 +3,7 @@ package org.idiginfo.docsvc.svcapi.exploration;
 import java.util.Arrays;
 import java.util.List;
 
-import org.idiginfo.docsvc.model.model.ApiParams;
+import org.idiginfo.docsvc.model.apisvc.ApiParams;
 import org.idiginfo.docsvc.svcapi.altmetric.AltmetricApiParams;
 import org.idiginfo.docsvc.svcapi.altmetric.AltmetricRecord;
 import org.idiginfo.docsvc.svcapi.altmetric.AltmetricService;

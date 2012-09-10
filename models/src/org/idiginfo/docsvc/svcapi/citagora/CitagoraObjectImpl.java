@@ -10,8 +10,11 @@ import org.idiginfo.docsvc.model.citagora.CitagoraObject;
 
 public abstract class CitagoraObjectImpl implements CitagoraObject {
 
+	static int objectId = 0;
+	transient int myId = objectId++;
+	transient String myCollection;
 	String type;
-	String id;
+	String id = null;
 	String uri;
 	String wasAttributedTo;
 	Date created;
@@ -21,6 +24,14 @@ public abstract class CitagoraObjectImpl implements CitagoraObject {
 	Date generated;
 	List<Annotation> annotations;
 
+	public String getCollecton() {
+		return myCollection;
+	}
+
+	void setCollection(String collection) {
+		myCollection = collection;
+	}
+
 	public String getType() {
 		return type;
 	}
@@ -29,7 +40,19 @@ public abstract class CitagoraObjectImpl implements CitagoraObject {
 		this.type = type;
 	}
 
+	public static String makeId(String collection, int myId) {
+		String id = CitagoraObject.NAMESPACE + collection + "/" + myId;
+		return id;
+	}
+
+	public void initId() {
+		id = makeId(myCollection, myId);
+	}
+
 	public String getId() {
+		if (id == null) {
+			initId();
+		}
 		return id;
 	}
 

@@ -5,11 +5,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 
-import org.idiginfo.docsvc.model.model.ApiParams;
-import org.idiginfo.docsvc.model.model.DocService;
-import org.idiginfo.docsvc.model.model.Document;
-import org.idiginfo.docsvc.model.model.Documents;
-import org.idiginfo.docsvc.model.model.Users;
+import org.idiginfo.docsvc.model.apisvc.ApiParams;
+import org.idiginfo.docsvc.model.apisvc.DocService;
+import org.idiginfo.docsvc.model.apisvc.Document;
+import org.idiginfo.docsvc.model.apisvc.Documents;
+import org.idiginfo.docsvc.model.apisvc.Users;
 
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestFactory;

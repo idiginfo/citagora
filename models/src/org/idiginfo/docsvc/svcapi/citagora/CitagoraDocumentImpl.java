@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Vector;
 
 import org.idiginfo.docsvc.model.citagora.Annotation;
+import org.idiginfo.docsvc.model.citagora.AnnotationBody;
 import org.idiginfo.docsvc.model.citagora.CitagoraDocument;
 import org.idiginfo.docsvc.model.citagora.Reference;
 import org.idiginfo.docsvc.model.citagora.Review;
@@ -16,6 +17,8 @@ public class CitagoraDocumentImpl extends CitagoraObjectImpl implements
 
 	public CitagoraDocumentImpl() {
 		setType(CitagoraDocument.TYPE);
+		setCollection(CitagoraDocument.COLLECTION);
+		initId();
 	}
 
 	@Override

@@ -1,9 +1,9 @@
 package org.idiginfo.docsvc.svcapi.annotatetest;
 
-import org.idiginfo.docsvc.model.model.DocService;
-import org.idiginfo.docsvc.model.model.Document;
-import org.idiginfo.docsvc.model.model.Documents;
-import org.idiginfo.docsvc.model.model.Users;
+import org.idiginfo.docsvc.model.apisvc.DocService;
+import org.idiginfo.docsvc.model.apisvc.Document;
+import org.idiginfo.docsvc.model.apisvc.Documents;
+import org.idiginfo.docsvc.model.apisvc.Users;
 import org.idiginfo.docsvc.svcapi.annotate.svc.AnnotateService;
 
 /**

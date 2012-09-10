@@ -1,6 +1,6 @@
 package org.idiginfo.docsvc.svcapi.springer;
 
-import org.idiginfo.docsvc.model.model.Annotation;
+import org.idiginfo.docsvc.model.apisvc.Annotation;
 import org.idiginfo.docsvc.svcapi.annotate.model.AnnotateNote;
 
 public class SpringerAnnotation implements Annotation{

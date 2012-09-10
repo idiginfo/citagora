@@ -2,8 +2,8 @@ package org.idiginfo.docsvc.svcapi.springer;
 
 import java.util.Date;
 
-import org.idiginfo.docsvc.model.model.Annotation;
-import org.idiginfo.docsvc.model.model.Document;
+import org.idiginfo.docsvc.model.apisvc.Annotation;
+import org.idiginfo.docsvc.model.apisvc.Document;
 import org.apache.commons.lang.StringUtils;
 
 /**

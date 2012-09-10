@@ -6,11 +6,11 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.List;
 
-import org.idiginfo.docsvc.model.model.ApiParams;
-import org.idiginfo.docsvc.model.model.DocService;
-import org.idiginfo.docsvc.model.model.Document;
-import org.idiginfo.docsvc.model.model.Documents;
-import org.idiginfo.docsvc.model.model.Users;
+import org.idiginfo.docsvc.model.apisvc.ApiParams;
+import org.idiginfo.docsvc.model.apisvc.DocService;
+import org.idiginfo.docsvc.model.apisvc.Document;
+import org.idiginfo.docsvc.model.apisvc.Documents;
+import org.idiginfo.docsvc.model.apisvc.Users;
 import org.idiginfo.docsvc.svcapi.mas.model.MasKeyword;
 import org.idiginfo.docsvc.svcapi.mas.model.MasResponse;
 import org.idiginfo.docsvc.svcapi.mas.model.MasResponseObject;

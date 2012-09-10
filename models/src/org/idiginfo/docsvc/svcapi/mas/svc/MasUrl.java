@@ -3,7 +3,7 @@ package org.idiginfo.docsvc.svcapi.mas.svc;
 import java.util.Arrays;
 import java.util.List;
 
-import org.idiginfo.docsvc.model.model.BaseApiParams;
+import org.idiginfo.docsvc.model.apisvc.BaseApiParams;
 
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.util.Key;

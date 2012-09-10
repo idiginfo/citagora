@@ -4,7 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import org.apache.commons.io.IOUtils;
-import org.idiginfo.docsvc.model.model.Document;
+import org.idiginfo.docsvc.model.apisvc.Document;
 import org.idiginfo.docsvc.svcapi.annotate.model.AnnotateDocument;
 import org.idiginfo.docsvc.svcapi.annotate.model.AnnotateDocumentNotes;
 import org.idiginfo.docsvc.svcapi.annotate.model.AnnotateDocuments;

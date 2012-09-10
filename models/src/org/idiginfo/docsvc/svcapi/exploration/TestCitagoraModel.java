@@ -1,18 +1,15 @@
 package org.idiginfo.docsvc.svcapi.exploration;
 
-import java.sql.Date;
 import java.util.GregorianCalendar;
 
-import org.idiginfo.docsvc.model.citagora.CitagoraAgent;
 import org.idiginfo.docsvc.model.citagora.RatingType;
 import org.idiginfo.docsvc.svcapi.citagora.AnnotationBodyImpl;
 import org.idiginfo.docsvc.svcapi.citagora.CitagoraAgentImpl;
 import org.idiginfo.docsvc.svcapi.citagora.CitagoraDocumentImpl;
 import org.idiginfo.docsvc.svcapi.citagora.PersonImpl;
 import org.idiginfo.docsvc.svcapi.citagora.ReferenceImpl;
-import org.idiginfo.docsvc.svcapi.citagora.TagImpl;
-
 import org.idiginfo.docsvc.svcapi.citagora.ReviewImpl;
+import org.idiginfo.docsvc.svcapi.citagora.TagImpl;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -30,7 +27,7 @@ public class TestCitagoraModel {
 
 	private void run() {
 		CitagoraDocumentImpl document = new CitagoraDocumentImpl();
-		document.setId("http://citagora.com/documents/123456");
+		//document.setId("http://citagora.com/documents/123456");
 		document.setSource("http://example.com/article");
 		document.setRights("http://www.nlm.nih.gov/databases/license/license.html");
 		// first review
@@ -77,9 +74,27 @@ public class TestCitagoraModel {
 		// Reference
 		ReferenceImpl reference = new ReferenceImpl();
 		document.setIsAbout(reference);
+		reference.setLanguage("English");
 		reference.addCitagoraDocument(document);
 		reference
 				.addSeeAlso("another link that also provides some information about this article");
+		reference.setUri("http://example.com/article");
+		reference.setTitle("Some Journal Article");
+		reference.setSubject("some keyword");
+		
+		reference.setShortTitle("Short Article");
+		reference.setAbstract("This is an abstract for a journal article. This article discusses something very important. This is an example.");
+		reference.setDoi("doi id");
+		reference.setId("doi:doi id");
+		reference.setPmid("pmid number");
+		// note identifier is multi-valued
+		// <dcterms:identifier>pmid:pmid number</dcterms:identifier>
+
+		reference.setPublisher("a publisher as plain text");
+		reference.setVolume("6");
+		reference.setPageStart(8);
+		reference.setPageEnd(8);
+		reference.setPages("234 - 343");
 
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		String string = gson.toJson(document);

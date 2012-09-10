@@ -3,7 +3,7 @@ package org.idiginfo.docsvc.svcapi.annotate.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.idiginfo.docsvc.model.model.Users;
+import org.idiginfo.docsvc.model.apisvc.Users;
 
 public class AnnotateUsers implements Users {
 

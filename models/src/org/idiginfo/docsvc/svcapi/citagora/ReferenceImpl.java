@@ -11,34 +11,31 @@ import org.idiginfo.docsvc.model.citagora.Reference;
 public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
 
 	String abstractText; // 'abstract' is a Java keyword
-
 	String title;
-
+	String subject;
+	String language;
 	Integer pageStart;
-
 	Integer pageEnd;
-
 	String volume;
-
 	Date issued;
-
 	String pmid;
-
 	String doi;
-
 	Reference isPartOf;
-
 	List<Author> authorList;
 	List<Reference> citationList;
-
 	List<String> seeAlso;
+	String shortTitle;
+	String publisher;
+	String pages;
 
 	transient List<CitagoraDocument> citagoraDocuments;
 
 	Double overallRating;
-
+	
 	public ReferenceImpl() {
 		type = Reference.TYPE;
+		setCollection(Reference.COLLECTION);
+		initId();
 	}
 
 	public String getAbstract() {
@@ -193,6 +190,55 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
 			seeAlso = new Vector<String>();
 		}
 		seeAlso.add(link);
+	}
+
+	public String getAbstractText() {
+		return abstractText;
+	}
+
+	public void setAbstractText(String abstractText) {
+		this.abstractText = abstractText;
+	}
+
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+
+	public void setSubject(String string) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public String getSubject() {
+		return subject;
+	}
+
+	public String getShortTitle() {
+		return shortTitle;
+	}
+
+	public void setShortTitle(String shortTitle) {
+		this.shortTitle = shortTitle;
+	}
+
+	public String getPublisher() {
+		return publisher;
+	}
+
+	public void setPublisher(String publisher) {
+		this.publisher = publisher;
+	}
+
+	public String getPages() {
+		return pages;
+	}
+
+	public void setPages(String pages) {
+		this.pages = pages;
 	}
 
 }

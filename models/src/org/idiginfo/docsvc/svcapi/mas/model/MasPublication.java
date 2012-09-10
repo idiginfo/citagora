@@ -3,8 +3,8 @@ package org.idiginfo.docsvc.svcapi.mas.model;
 import java.util.Date;
 import java.util.List;
 
-import org.idiginfo.docsvc.model.model.Annotation;
-import org.idiginfo.docsvc.model.model.Document;
+import org.idiginfo.docsvc.model.apisvc.Annotation;
+import org.idiginfo.docsvc.model.apisvc.Document;
 /**
  * <p>Java class for Publication complex type.
  * 

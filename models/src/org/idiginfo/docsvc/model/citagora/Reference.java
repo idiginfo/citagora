@@ -6,8 +6,11 @@ import java.util.List;
 public interface Reference extends CitagoraObject {
 
 	String TYPE = "bibo:Document";
+	String COLLECTION = "reference";
 
 	String getSource();
+
+	String getLanguage();
 
 	String getAbstract();
 
@@ -16,6 +19,8 @@ public interface Reference extends CitagoraObject {
 	Integer getPageStart();
 
 	Integer getPageEnd();
+
+	String getPages();
 
 	String getVolume();
 
@@ -44,4 +49,12 @@ public interface Reference extends CitagoraObject {
 	Double getAccuracyRating();
 
 	Double getOriginalityRating();
+
+	String getAbstractText();
+
+	String getSubject();
+
+	String getShortTitle();
+
+	String getPublisher();
 }

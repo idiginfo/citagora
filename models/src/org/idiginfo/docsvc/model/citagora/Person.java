@@ -1,6 +1,9 @@
 package org.idiginfo.docsvc.model.citagora;
 
-public interface Person  {
+public interface Person {
+
+	static final String TYPE = "citagora:person";
+	static final String COLLECTION = "person";
 
 	String getType();
 

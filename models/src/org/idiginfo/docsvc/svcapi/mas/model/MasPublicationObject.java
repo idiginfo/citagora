@@ -2,8 +2,8 @@ package org.idiginfo.docsvc.svcapi.mas.model;
 
 import java.util.Vector;
 
-import org.idiginfo.docsvc.model.model.Document;
-import org.idiginfo.docsvc.model.model.Documents;
+import org.idiginfo.docsvc.model.apisvc.Document;
+import org.idiginfo.docsvc.model.apisvc.Documents;
 
 public class MasPublicationObject extends Vector<Document> implements Documents {
 	/**

@@ -2,9 +2,16 @@ package org.idiginfo.docsvc.svcapi.citagora;
 
 import org.idiginfo.docsvc.model.citagora.AnnotationBody;
 
-public class AnnotationBodyImpl implements AnnotationBody {
+public class AnnotationBodyImpl extends CitagoraObjectImpl implements
+		AnnotationBody {
 
 	public static final String TYPE = "od:nbody";
+
+	public AnnotationBodyImpl() {
+		setType(AnnotationBody.TYPE);
+		setCollection(AnnotationBody.COLLECTION);
+		initId();
+	}
 
 	String characterEncoding;
 

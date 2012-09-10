@@ -3,9 +3,9 @@ package org.idiginfo.docsvc.model;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.idiginfo.docsvc.model.model.ApiParams;
-import org.idiginfo.docsvc.model.model.BaseApiParams;
-import org.idiginfo.docsvc.model.model.DocService;
+import org.idiginfo.docsvc.model.apisvc.ApiParams;
+import org.idiginfo.docsvc.model.apisvc.BaseApiParams;
+import org.idiginfo.docsvc.model.apisvc.DocService;
 import org.idiginfo.docsvc.svcapi.altmetric.AltmetricService;
 import org.idiginfo.docsvc.svcapi.annotate.svc.AnnotateApiParams;
 import org.idiginfo.docsvc.svcapi.annotate.svc.AnnotateService;

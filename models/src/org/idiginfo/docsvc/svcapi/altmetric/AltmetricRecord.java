@@ -3,8 +3,8 @@ package org.idiginfo.docsvc.svcapi.altmetric;
 import java.text.DateFormat;
 import java.util.Date;
 
-import org.idiginfo.docsvc.model.model.Annotation;
-import org.idiginfo.docsvc.model.model.Document;
+import org.idiginfo.docsvc.model.apisvc.Annotation;
+import org.idiginfo.docsvc.model.apisvc.Document;
 
 import com.google.gson.JsonElement;
 import com.google.gson.annotations.SerializedName;

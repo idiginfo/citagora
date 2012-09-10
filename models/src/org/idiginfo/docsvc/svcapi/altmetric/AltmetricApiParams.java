@@ -1,7 +1,7 @@
 package org.idiginfo.docsvc.svcapi.altmetric;
 
-import org.idiginfo.docsvc.model.model.ApiParams;
-import org.idiginfo.docsvc.model.model.BaseApiParams;
+import org.idiginfo.docsvc.model.apisvc.ApiParams;
+import org.idiginfo.docsvc.model.apisvc.BaseApiParams;
 
 public class AltmetricApiParams extends BaseApiParams {
 

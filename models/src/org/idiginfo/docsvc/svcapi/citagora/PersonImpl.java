@@ -3,7 +3,10 @@ package org.idiginfo.docsvc.svcapi.citagora;
 import org.idiginfo.docsvc.model.citagora.Person;
 
 public class PersonImpl implements Person {
+	static int objectId = 0;
+	String id;
 	String type;
+	transient int myId = objectId++;
 	String givenName;
 	String familyName;
 	String name;
@@ -12,11 +15,12 @@ public class PersonImpl implements Person {
 	String homePage;
 
 	public PersonImpl() {
-
+		setType(Person.TYPE);
+		id = CitagoraObjectImpl.makeId(type, myId);
 	}
 
 	public String getId() {
-		return "http://citagora.com/users/" + accountName;
+		return id;
 	}
 
 	public String getType() {

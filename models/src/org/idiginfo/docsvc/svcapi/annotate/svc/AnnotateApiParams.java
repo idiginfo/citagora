@@ -1,6 +1,6 @@
 package org.idiginfo.docsvc.svcapi.annotate.svc;
 
-import org.idiginfo.docsvc.model.model.BaseApiParams;
+import org.idiginfo.docsvc.model.apisvc.BaseApiParams;
 
 /**
  * Class that helps manage HTTP parameters for the a.nnotate service

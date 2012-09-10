@@ -4,8 +4,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
-import org.idiginfo.docsvc.model.model.Document;
-import org.idiginfo.docsvc.model.model.Documents;
+import org.idiginfo.docsvc.model.apisvc.Document;
+import org.idiginfo.docsvc.model.apisvc.Documents;
 
 public class SpringerDocuments extends Vector<Document> implements Documents {
 

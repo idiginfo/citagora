@@ -1,4 +1,4 @@
-package org.idiginfo.docsvc.model.model;
+package org.idiginfo.docsvc.model.apisvc;
 
 import java.lang.reflect.Field;
 import java.util.Iterator;

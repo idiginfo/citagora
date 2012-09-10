@@ -1,6 +1,6 @@
 package org.idiginfo.docsvc.svcapi.annotatetest;
 
-import org.idiginfo.docsvc.model.model.Document;
+import org.idiginfo.docsvc.model.apisvc.Document;
 import org.idiginfo.docsvc.svcapi.annotate.model.AnnotateDocument;
 import org.idiginfo.docsvc.svcapi.annotate.model.AnnotateDocumentNotes;
 import org.idiginfo.docsvc.svcapi.annotate.model.AnnotateDocuments;

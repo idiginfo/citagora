@@ -1,6 +1,6 @@
 package org.idiginfo.docsvc.svcapi.sciverse;
 
-import org.idiginfo.docsvc.model.model.BaseApiParams;
+import org.idiginfo.docsvc.model.apisvc.BaseApiParams;
 
 public class SciVerseApiParams extends BaseApiParams {
 

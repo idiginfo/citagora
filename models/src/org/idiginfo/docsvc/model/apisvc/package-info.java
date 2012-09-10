@@ -5,4 +5,4 @@
  * @author griccardi
  *
  */
-package org.idiginfo.docsvc.model.model;
+package org.idiginfo.docsvc.model.apisvc;
