@@ -275,4 +275,22 @@ public class SciVerseDocument implements Document {
 		
 	}
 
+	@Override
+	public Integer getPageStart() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Integer getPageEnd() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getPages() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

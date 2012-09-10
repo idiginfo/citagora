@@ -48,6 +48,12 @@ public interface Document {
 
 	public String getVolume();
 
+	public Integer getPageStart();
+
+	public Integer getPageEnd();
+
+	public String getPages();
+
 	public void setAuthors(String authors);
 
 	public void setCopyright(String copyright);

@@ -15,7 +15,7 @@ public class BaseDocument implements Document {
 	String title;
 	String created;
 	String tags;
-	Integer pages;
+	String pages;
 	String srcext;
 	String srcname;
 	String srcsize;
@@ -142,11 +142,11 @@ public class BaseDocument implements Document {
 		this.tags = tags;
 	}
 
-	public Integer getPages() {
+	public String getPages() {
 		return pages;
 	}
 
-	public void setPages(Integer pages) {
+	public void setPages(String pages) {
 		this.pages = pages;
 	}
 
@@ -360,5 +360,17 @@ public class BaseDocument implements Document {
 
 	public void setCopyright(String copyright) {
 		this.copyright = copyright;
+	}
+
+	@Override
+	public Integer getPageStart() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Integer getPageEnd() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

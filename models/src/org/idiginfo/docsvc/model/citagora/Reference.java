@@ -5,56 +5,60 @@ import java.util.List;
 
 public interface Reference extends CitagoraObject {
 
-	String TYPE = "bibo:Document";
-	String COLLECTION = "reference";
+	public String TYPE = "bibo:Document";
+	public String COLLECTION = "reference";
 
-	String getSource();
+	public String getSource();
 
-	String getLanguage();
+	public String getLanguage();
 
-	String getAbstract();
+	public String getAbstract();
 
-	String getTitle();
+	public String getTitle();
 
-	Integer getPageStart();
+	public Integer getPageStart();
 
-	Integer getPageEnd();
+	public Integer getPageEnd();
 
-	String getPages();
+	public String getPages();
 
-	String getVolume();
+	public String getVolume();
 
-	Date getIssued();
+	public Date getIssued();
 
-	String getPmid();
+	public String getPmid();
 
-	String getDoi();
+	public String getDoi();
 
-	Reference isPartOf();
+	public Reference isPartOf();
 
-	List<Author> getAuthorList();
+	public List<Author> getAuthorList();
 
-	List<Reference> getCitationList();
+	public List<Reference> getCitationList();
 
-	List<String> getSeeAlso();
+	public List<String> getSeeAlso();
 
-	List<CitagoraDocument> getCitagoraDocuments();
+	public List<CitagoraDocument> getCitagoraDocuments();
 
-	List<Annotation> getAnnotations();
+	public List<Annotation> getAnnotations();
 
-	Double getOverallRating();
+	public Double getOverallRating();
 
-	Double getReadabilityRating();
+	public Double getReadabilityRating();
 
-	Double getAccuracyRating();
+	public Double getAccuracyRating();
 
-	Double getOriginalityRating();
+	public Double getOriginalityRating();
 
-	String getAbstractText();
+	public String getAbstractText();
 
-	String getSubject();
+	public String getSubject();
 
-	String getShortTitle();
+	public String getShortTitle();
 
-	String getPublisher();
+	public String getPublisher();
+
+	public void setId(String id);
+
+	public void setTitle(String title);
 }

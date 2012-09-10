@@ -23,7 +23,7 @@ public class SpringerRecord implements Document {
 	String publicationDate;
 	String volume;
 	String number;
-	String startingPage;
+	Integer startingPage;
 	String url;
 	String copyright;
 
@@ -214,11 +214,11 @@ public class SpringerRecord implements Document {
 		this.number = number;
 	}
 
-	public String getStartingPage() {
+	public Integer getStartingPage() {
 		return startingPage;
 	}
 
-	public void setStartingPage(String startingPage) {
+	public void setStartingPage(Integer startingPage) {
 		this.startingPage = startingPage;
 	}
 
@@ -250,6 +250,23 @@ public class SpringerRecord implements Document {
 
 	@Override
 	public String getSource() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Integer getPageStart() {
+				return startingPage;
+	}
+
+	@Override
+	public Integer getPageEnd() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getPages() {
 		// TODO Auto-generated method stub
 		return null;
 	}
