@@ -4,9 +4,11 @@ import java.io.StringWriter;
 
 import org.idiginfo.docsvc.model.apisvc.Document;
 import org.idiginfo.docsvc.model.apisvc.Documents;
+import org.idiginfo.docsvc.model.citagora.CitagoraDocument;
 import org.idiginfo.docsvc.view.rdf.BiboModel;
 import org.idiginfo.docsvc.view.rdf.MapDocument;
 import org.idiginfo.docsvc.view.rdf.MapDocuments;
+import org.idiginfo.docsvc.view.rdf.citagora.MapCitagoraObject;
 import org.openjena.riot.RIOT;
 
 import com.hp.hpl.jena.rdf.model.Model;
@@ -18,6 +20,13 @@ public class RdfWriter implements ObjectWriter {
 
 	static {
 		RIOT.init();// initialize the I/O tools
+	}
+
+	public static String writeCitagoraDocument(CitagoraDocument document) {
+		MapCitagoraObject mapper = new MapCitagoraObject();
+		mapper.addCitagoraDocument(document);
+		Model model = mapper.getModel();
+		return null;
 	}
 
 	@Override
@@ -38,8 +47,8 @@ public class RdfWriter implements ObjectWriter {
 
 	private String writeModel(Model model) {
 		return writeModel(model, "RDF/XML");
-		//return writeModel(model, "RDF/XML");
-		//return writeModel(model, "Turtle");
+		// return writeModel(model, "RDF/XML");
+		// return writeModel(model, "Turtle");
 	}
 
 	private String writeModel(Model model, String version) {
@@ -50,10 +59,10 @@ public class RdfWriter implements ObjectWriter {
 
 	@Override
 	public String write(Object objects) {
-		if (objects instanceof Documents){
+		if (objects instanceof Documents) {
 			return writeDocuments((Documents) objects);
 		}
-		if (objects instanceof Document){
+		if (objects instanceof Document) {
 			return writeDocument((Document) objects);
 		}
 		return null;
