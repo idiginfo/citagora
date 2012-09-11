@@ -1,7 +1,7 @@
 package org.idiginfo.docsvc.view;
 
-import org.idiginfo.docsvc.model.model.Document;
-import org.idiginfo.docsvc.model.model.Documents;
+import org.idiginfo.docsvc.model.apisvc.Document;
+import org.idiginfo.docsvc.model.apisvc.Documents;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

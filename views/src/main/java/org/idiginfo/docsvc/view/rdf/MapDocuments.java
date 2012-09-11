@@ -2,8 +2,8 @@ package org.idiginfo.docsvc.view.rdf;
 
 import java.util.Iterator;
 
-import org.idiginfo.docsvc.model.model.Document;
-import org.idiginfo.docsvc.model.model.Documents;
+import org.idiginfo.docsvc.model.apisvc.Document;
+import org.idiginfo.docsvc.model.apisvc.Documents;
 
 import com.hp.hpl.jena.rdf.model.Model;
 
