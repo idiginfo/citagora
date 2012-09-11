@@ -2,11 +2,11 @@ package org.idiginfo.docsvc.view;
 
 import java.util.Iterator;
 
-import org.idiginfo.docsvc.model.model.Annotation;
-import org.idiginfo.docsvc.model.model.ApiParams;
-import org.idiginfo.docsvc.model.model.Document;
-import org.idiginfo.docsvc.model.model.Documents;
-import org.idiginfo.docsvc.model.model.Users;
+import org.idiginfo.docsvc.model.apisvc.Annotation;
+import org.idiginfo.docsvc.model.apisvc.ApiParams;
+import org.idiginfo.docsvc.model.apisvc.Document;
+import org.idiginfo.docsvc.model.apisvc.Documents;
+import org.idiginfo.docsvc.model.apisvc.Users;
 
 /**
  * Demonstration class to create an html page from a collection of documents

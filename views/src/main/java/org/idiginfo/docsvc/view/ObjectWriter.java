@@ -1,6 +1,6 @@
 package org.idiginfo.docsvc.view;
 
-import org.idiginfo.docsvc.model.model.*;
+import org.idiginfo.docsvc.model.apisvc.*;
 
 public interface ObjectWriter {
 

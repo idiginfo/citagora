@@ -1,6 +1,6 @@
 package org.idiginfo.docsvc.view.rdf;
 
-import org.idiginfo.docsvc.model.model.Document;
+import org.idiginfo.docsvc.model.apisvc.Document;
 import org.idiginfo.docsvc.view.rdf.vocabulary.BIBO;
 import org.idiginfo.docsvc.view.rdf.vocabulary.RdfUtilities;
 

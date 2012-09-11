@@ -2,8 +2,8 @@ package org.idiginfo.docsvc.view;
 
 import java.io.StringWriter;
 
-import org.idiginfo.docsvc.model.model.Document;
-import org.idiginfo.docsvc.model.model.Documents;
+import org.idiginfo.docsvc.model.apisvc.Document;
+import org.idiginfo.docsvc.model.apisvc.Documents;
 import org.idiginfo.docsvc.view.rdf.BiboModel;
 import org.idiginfo.docsvc.view.rdf.MapDocument;
 import org.idiginfo.docsvc.view.rdf.MapDocuments;
