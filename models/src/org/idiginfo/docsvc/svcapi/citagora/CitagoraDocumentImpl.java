@@ -22,9 +22,9 @@ public class CitagoraDocumentImpl extends CitagoraObjectImpl implements
 	}
 
 	@Override
-	public List<Annotation> getRatings() {
+	public List<Review> getRatings() {
 		// TODO Auto-generated method stub
-		return null;
+		return reviews;
 	}
 
 	@Override
