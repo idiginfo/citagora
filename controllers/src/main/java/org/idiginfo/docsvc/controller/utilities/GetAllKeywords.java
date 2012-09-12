@@ -7,7 +7,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.idiginfo.docsvc.model.model.DocService;
+import org.idiginfo.docsvc.model.apisvc.DocService;
 import org.idiginfo.docsvc.svcapi.annotate.svc.AnnotateService;
 import org.idiginfo.docsvc.svcapi.mas.model.MasKeyword;
 import org.idiginfo.docsvc.svcapi.mas.utility.KeywordUtilities;

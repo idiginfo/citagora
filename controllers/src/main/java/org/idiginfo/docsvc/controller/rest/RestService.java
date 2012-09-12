@@ -14,7 +14,7 @@ import javax.ws.rs.core.UriInfo;
 
 import org.idiginfo.docsvc.controller.request.DocServicesParams;
 import org.idiginfo.docsvc.controller.request.RequestProcessor;
-import org.idiginfo.docsvc.model.model.ApiParams;
+import org.idiginfo.docsvc.model.apisvc.ApiParams;
 
 /**
  * Hello world!

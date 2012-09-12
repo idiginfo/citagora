@@ -7,8 +7,8 @@ import java.util.Map;
 import java.util.Set;
 
 import org.idiginfo.docsvc.model.ServiceFactory;
-import org.idiginfo.docsvc.model.model.ApiParams;
-import org.idiginfo.docsvc.model.model.BaseApiParams;
+import org.idiginfo.docsvc.model.apisvc.ApiParams;
+import org.idiginfo.docsvc.model.apisvc.BaseApiParams;
 
 public class DocServicesParams extends BaseApiParams {
 	// request params for use in service requests to the
