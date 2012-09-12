@@ -11,6 +11,6 @@
         </dependent-module>
         <property name="java-output-path" value="/controllers/target/classes"/>
         <property name="component.exclusion.patterns"/>
-        <property name="context-root" value="webapp"/>
+        <property name="context-root" value="docsvc"/>
     </wb-module>
 </project-modules>
