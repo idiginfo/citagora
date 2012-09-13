@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <faceted-project>
-  <runtime name="jdk1.7.0_05"/>
+  <runtime name="jdk1.7.0_07"/>
   <fixed facet="jpt.jpa"/>
   <fixed facet="java"/>
   <installed facet="java" version="1.7"/>
