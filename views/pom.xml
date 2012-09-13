@@ -6,7 +6,7 @@
 	<artifactId>views</artifactId>
 	<packaging>jar</packaging>
 
-	<name>rdf</name>
+	<name>views</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
