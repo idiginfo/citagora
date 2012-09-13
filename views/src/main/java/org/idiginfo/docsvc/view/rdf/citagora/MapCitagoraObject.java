@@ -3,15 +3,21 @@ package org.idiginfo.docsvc.view.rdf.citagora;
 import java.util.Iterator;
 import java.util.List;
 
-import org.idiginfo.docsvc.model.apisvc.Document;
 import org.idiginfo.docsvc.model.citagora.*;
-import org.idiginfo.docsvc.view.rdf.vocabulary.RdfUtilities;
+import org.idiginfo.docsvc.view.rdf.vocabulary.*;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.Resource;
+import com.hp.hpl.jena.reasoner.Reasoner;
+import com.hp.hpl.jena.sparql.pfunction.library.str;
+import com.hp.hpl.jena.sparql.vocabulary.FOAF;
+import com.hp.hpl.jena.vocabulary.DC;
 import com.hp.hpl.jena.vocabulary.DCTerms;
+import com.hp.hpl.jena.vocabulary.OWL;
+import com.hp.hpl.jena.vocabulary.OWL2;
+import com.hp.hpl.jena.vocabulary.RDF;
 
 /**
  * Tools for mapping from CitagoraObject to/from RDF
@@ -41,14 +47,16 @@ public class MapCitagoraObject {
 		from.getClass();
 		if (from instanceof CitagoraDocument)
 			return addCitagoraDocument((CitagoraDocument) from);
-		if (from instanceof Comment) {
+		if (from instanceof Comment) 
 			return addComment((Comment) from);
-		}
-		if (from instanceof Annotation) {
+		if (from instanceof Tag) 
+			return addTag((Tag) from);
+		if (from instanceof Annotation)
 			return addAnnotation((Annotation) from);
-		}
-		// TODO add rest of the methods
-		// Person
+		if (from instanceof Person)
+			return addPerson((Person) from);
+		if (from instanceof AnnotationBody)
+			return addCitagoraAnnotationBody((AnnotationBody) from);
 		// Annotation
 		return null;
 	}
@@ -56,8 +64,6 @@ public class MapCitagoraObject {
 	/**
 	 * Add CitagoraObject (parent class) fields to the resource
 	 * 
-	 * @param resource
-	 *            RDF resource for the object
 	 * @param from
 	 *            the object to be mapped
 	 */
@@ -66,153 +72,196 @@ public class MapCitagoraObject {
 		String uri = from.getId();
 		Resource resource = RdfUtilities.getOrAddResource(model, uri);
 
-		// TODO replace 'null' by correct property
 		// add properties of CitagoraObject
 		RdfUtilities.addProperty(model, resource, DCTerms.type, from.getType());
-		RdfUtilities.addProperty(model, resource, null, from.getId());
+		RdfUtilities.addProperty(model, resource, DCTerms.identifier, from.getId());
 
-		RdfUtilities.addProperty(model, resource, null, from.getUri());
-		RdfUtilities.addProperty(model, resource, null,
+		RdfUtilities.addProperty(model, resource, BIBO.uri, from.getUri());
+		RdfUtilities.addProperty(model, resource, DCTerms.creator,
 				from.getWasAttributedTo());
-		RdfUtilities.addProperty(model, resource, null, from.getCreated());
-		RdfUtilities.addProperty(model, resource, null, from.getSource());
-		RdfUtilities.addProperty(model, resource, null, from.getRights());
+		RdfUtilities.addProperty(model, resource, DCTerms.created, from.getCreated());
+		RdfUtilities.addProperty(model, resource, DCTerms.source, from.getSource());
+		RdfUtilities.addProperty(model, resource, DCTerms.rights, from.getRights());
 		Resource generator = addPerson(from.getGenerator());
-		// TODO create relationship
-		RdfUtilities.addProperty(model, resource, null, from.getGenerated());
-		addObjects(resource, null, from.getAnnotations());
+		RdfUtilities.addProperty(model, resource, OAF.generator, generator);
+		RdfUtilities.addProperty(model, resource, DCTerms.dateSubmitted, from.getGenerated());
+		addObjects(resource, BIBO.annotates, from.getAnnotations());
+		
 		return resource;
 	}
 
 	public Resource addCitagoraDocument(CitagoraDocument from) {
-		// add parent class object and its properties properties
-
+		// add parent class object and its properties
 		Resource resource = addCitagoraObject(from);
-		// Reference getIsAbout();
 		Resource isAbout = addReference(from.getIsAbout());
 		RdfUtilities.addProperty(model, resource, null, isAbout);
 		// add CitagoraDocument properties
-		addObjects(resource, null, from.getReviews());
-		addObjects(resource, null, from.getTags());
-		addObjects(resource, null, from.getComments());
+		addObjects(resource, RdfReview.rating, from.getReviews());
+		addObjects(resource, RdfReview.rating, from.getTags());
+		addObjects(resource, RdfReview.hasComment, from.getComments());
 		return resource;
 	}
 
 	private Resource addAnnotation(Annotation from) {
 		Resource resource = addCitagoraObject(from);
 
-		// TODO Auto-generated method stub
-		Resource target = addCitagoraDocument((CitagoraDocument) from
-				.getTarget());
+		Resource target = addCitagoraDocument((CitagoraDocument) 
+				from.getTarget());
 		RdfUtilities.addProperty(model, resource, null, target);
-		// TODO person!
 		Resource person = addPerson(from.getAnnotator());
-		RdfUtilities.addProperty(model, resource, null, person);
+		RdfUtilities.addProperty(model, resource, DCTerms.creator, person);
 
-		RdfUtilities.addProperty(model, resource, null, from.getAnnotated());
-		// TODO body! RdfUtilities.addProperty(model, resource, null,
-		// from.getBody());
-		RdfUtilities.addProperty(model, resource, null, from.getModelVersion());
+		RdfUtilities.addProperty(model, resource, DCTerms.dateSubmitted, 
+				from.getAnnotated());
+		Resource body = add(from.getBody());
+		RdfUtilities.addProperty(model, resource, Content.bytes, body);
+		RdfUtilities.addProperty(model, resource, DCTerms.source, 
+				from.getModelVersion());
 		// if annotation is a comment add additional fields
 		return resource;
 	}
 
-	Resource addComment(Comment from) {
-
+	private Resource addComment(Comment from) {
 		Resource resource = addAnnotation(from);
-		// RatingType getRatingType();
-		// Person getReviewer();
-		// Integer getRating();
-		// CitagoraDocument getReviews();
-		// List<Comment> getReplies();
 
+		Resource ratingType = (Resource) from.getRatingType(); 
+		RdfUtilities.addProperty(model, resource, RdfReview.type, ratingType);
+		Resource reviewer = addPerson(from.getReviewer());
+		RdfUtilities.addProperty(model, resource, RdfReview.reviewer, reviewer);
+		RdfUtilities.addProperty(model, resource, RdfReview.rating, 
+				from.getRating().toString());
+		Resource reviews = (Resource) from.getReviews();
+		RdfUtilities.addProperty(model, resource, RdfReview.hasReview, reviews);
+		Resource replys = (Resource) from.getReplies();
+		RdfUtilities.addProperty(model, resource, RdfReview.hasFeedback, replys);
 		return resource;
 	}
 
 	private Resource addPerson(Person from) {
 		String uri = null;// TODO get uri of person
 		Resource resource = RdfUtilities.getOrAddResource(model, uri);
-		// mapCitagoraObject(this);
-		// getType()
-		// getGivenName()
-		// getFamilyName()
-		// getName()
-		// getAccountName()
-		// getAccount()
-		// getHomePage()
 
+		RdfUtilities.addProperty(model, resource, FOAF.title, 
+				from.getType());
+		RdfUtilities.addProperty(model, resource, FOAF.givenname, 
+				from.getGivenName());
+		RdfUtilities.addProperty(model, resource, FOAF.family_name, 
+				from.getFamilyName());
+		RdfUtilities.addProperty(model, resource, FOAF.name, 
+				from.getName());
+		RdfUtilities.addProperty(model, resource, FOAF.accountName, 
+				from.getAccountName());
+		RdfUtilities.addProperty(model, resource, FOAF.holdsAccount, 
+				from.getAccount());
+		RdfUtilities.addProperty(model, resource, FOAF.homepage, 
+				from.getHomePage());
+
+		return resource;
+	}
+
+	private Resource addReview(Review from) {
+		Resource resource = addReview(from);
+		RdfUtilities.addProperty(model, resource, RdfReview.type, 
+				from.getRatingType());
+		Resource reviewer = (Resource) from.getReviewer();
+		RdfUtilities.addProperty(model, resource, RdfReview.reviewer, reviewer);
+		RdfUtilities.addProperty(model, resource, RdfReview.rating, 
+				from.getRating().toString());
+		RdfUtilities.addProperty(model, resource, RdfReview.totalVotes, 
+				from.getTotalVotes().toString());
+		Resource reviewed = addCitagoraDocument((CitagoraDocument)
+				from.getDocumentReviewed());
+		RdfUtilities.addProperty(model, resource, null, reviewed);
+
+		return resource;
+	}
+
+	private Resource addCitagoraAnnotationBody(AnnotationBody from) {
+		Resource resource = addCitagoraAnnotationBody(from);
+		
+		RdfUtilities.addProperty(model, resource, Content.characterEncoding, 
+				from.getCharacterEncoding());
+		RdfUtilities.addProperty(model, resource, Content.chars, from.getChars());
+		
+		return resource;
+	}
+
+	public Resource addCitagoraAgent(CitagoraAgent from) {
+		Resource resource = addCitagoraAgent(from);
+		addPerson(from);
 		// getDocuments() Don't do this one!
-		// getReferences()
-		// getAnnotations()
-		// getComments()
-		// getTags()
-		return null;
-	}
+		Resource reference = (Resource) from.getReferences();
+		RdfUtilities.addProperty(model, resource, null, reference);
+		Resource annotations = (Resource) from.getAnnotations();
+		RdfUtilities.addProperty(model, resource, null, annotations);
+		Resource comments = (Resource) from.getComments();
+		RdfUtilities.addProperty(model, resource, null, comments);
+		Resource tags = (Resource) from.getTags();
+		RdfUtilities.addProperty(model, resource, null, tags);
 
-	private Resource addReview(Review next) {
-		// TODO Auto-generated method stub
-		// mapCitagoraObject(this);
-		// getRatingType()
-		// getReviewer()
-		// getRating()
-		// getTotalVotes()
-		// getDocumentReviewed()
-
-		return null;
-	}
-
-	public void addCitagoraAnnotationBody() {
-		// mapCitagoraObject(this);
-		// getCharacterEncoding()
-		// getChars()
-
-	}
-
-	public void addCitagoraAgent(CitagoraAgent from) {
-
+		return resource;
 	}
 
 	public Resource addAuthor(Author from) {
+		Resource resource = addAuthor(from);
 		addPerson(from);
-		// getRferences()
-		return null;
+		Resource reference = (Resource) from.getReferences();
+		RdfUtilities.addProperty(model, resource, null, reference);
+
+		return resource;
 	}
 
 	public Resource addReference(Reference from) {
-		// mapCitagoraObject(this);
-		// getSource()
-		// getAbstract()
-		// getTitle()
-		// getPageStart()
-		// getPageEnd()
-		// getVolume()
-		// getIssued()
-		// getPmid()
-		// getDoi()
-		// isPartOf()
-		// getAuthorList()
-		// getCitationList()
-		// getSeeAlso()
-		// getCitagoraDocuments()
-		// getOverallRatings()
-		// getReadabilityRating()
-		// getAccuracyRating()
-		// getOriginalityRating()
-		return null;
+		Resource resource = add(from);
+		RdfUtilities.addProperty(model, resource, null, from.getSource());
+		RdfUtilities.addProperty(model, resource, DCTerms.abstract_, from.getAbstract());
+		RdfUtilities.addProperty(model, resource, DCTerms.title, from.getTitle());
+		RdfUtilities.addProperty(model, resource, BIBO.pageStart, 
+				from.getPageStart().toString());
+		RdfUtilities.addProperty(model, resource, BIBO.pageEnd, 
+				from.getPageEnd().toString());
+		RdfUtilities.addProperty(model, resource, BIBO.volume, from.getVolume());
+		RdfUtilities.addProperty(model, resource, BIBO.issue, from.getIssued());
+		RdfUtilities.addProperty(model, resource, BIBO.pmid, from.getPmid());
+		RdfUtilities.addProperty(model, resource, BIBO.doi, from.getDoi());
+		Resource isPartOf = (Resource) from.isPartOf();
+		RdfUtilities.addProperty(model, resource, DCTerms.isPartOf, isPartOf);
+		Resource authorList = (Resource) from.getAuthorList();
+		RdfUtilities.addProperty(model, resource, BIBO.authorList, authorList);
+		Resource citationList = (Resource) from.getCitationList();
+		RdfUtilities.addProperty(model, resource, null, citationList);
+		Resource seeAlso = (Resource) from.getSeeAlso();
+		RdfUtilities.addProperty(model, resource, DCTerms.references, seeAlso);
+		RdfUtilities.addProperty(model, resource, RdfReview.rating,  
+				from.getOverallRating().toString());
+		RdfUtilities.addProperty(model, resource, RdfReview.rating, 
+				from.getReadabilityRating().toString());
+		Resource citagoraDocuments = (Resource) from.getCitagoraDocuments();
+		RdfUtilities.addProperty(model, resource, RdfReview.rating, 
+				citagoraDocuments);
+		RdfUtilities.addProperty(model, resource, RdfReview.rating,
+				from.getAccuracyRating().toString());
+		RdfUtilities.addProperty(model, resource, RdfReview.rating, 
+				from.getOriginalityRating().toString());
+		return resource;
 
 	}
 
-	public Resource addRatingType(RatingType from) {
-		//
-		// getUri()
-		return null;
+	public Resource addRatingType(RatingType from, String type) {
+		Resource resource = add(from);
+		RdfUtilities.addProperty(model, resource, null, RatingType.getUri(type));
+		
+		return resource;
 
 	}
 
 	public Resource addTag(Tag from) {
-		// mapCitagoraObject(this);
-		// getDocumentTagged()
-		return null;
+		Resource resource = add(from);
+		Resource tagged = addCitagoraDocument((CitagoraDocument) 
+				from.getDocumentTagged());
+		RdfUtilities.addProperty(model, resource, null, tagged);
+		
+		return resource;
 	}
 
 	public Model getModel() {
