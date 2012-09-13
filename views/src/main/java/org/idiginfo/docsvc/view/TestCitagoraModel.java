@@ -32,7 +32,7 @@ public class TestCitagoraModel {
 	 */
 	public static void main(String[] args) {
 		TestCitagoraModel tester = new TestCitagoraModel();
-		// tester.createCitagoraDocument();
+		tester.createCitagoraDocument();
 		tester.testSpringDocument();
 	}
 

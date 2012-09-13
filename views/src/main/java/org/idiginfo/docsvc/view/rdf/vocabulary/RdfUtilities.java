@@ -9,31 +9,24 @@ import com.hp.hpl.jena.rdf.model.Resource;
 
 public class RdfUtilities {
 
-	public static Resource getOrAddResource(Model model, String uri) {
-		Resource resource = model.getResource(uri);
-		if (resource == null)
-			resource = model.createResource(uri);
-		return resource;
-	}
+    public static Resource getOrAddResource(Model model, String uri) {
+	Resource resource = model.getResource(uri);
+	if (resource == null)
+	    resource = model.createResource(uri);
+	return resource;
+    }
 
-	public static void addProperty(Model model, Resource r, Property p,
-			String value) {
-		if (value == null || value.equals(""))
-			return;
-		model.add(r, p, value);
-	}
+    public static void addProperty(Model model, Resource r, Property p,
+	    String value) {
+	if (value == null || value.equals(""))
+	    return;
+	model.add(r, p, (String) value);
+    }
 
-	public static void addProperty(Model model, Resource r, Property p,
-			Date value) {
-		if (value == null || value.equals(""))
-			return;
-		model.add(r, p, value.toString());
-	}
-
-	public static void addProperty(Model model, Resource resource,
-			Property relationship, Resource value) {
-		if (value == null)
-			return;
-		model.add(resource, relationship, value);
-	}
+    public static void addProperty(Model model, Resource resource,
+	    Property relationship, Resource value) {
+	if (value == null)
+	    return;
+	model.add(resource, relationship, value);
+    }
 }

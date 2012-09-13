@@ -8,5 +8,7 @@ public interface AnnotationBody {
 	String getCharacterEncoding();
 
 	String getChars();
+	
+	String getUri();
 
 }

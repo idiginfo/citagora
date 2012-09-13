@@ -1,25 +1,28 @@
 package org.idiginfo.docsvc.model.citagora;
 
 import java.util.List;
+
 /**
  * Interface for Citagora Comment node
+ * 
  * @author griccardi
- *
+ * 
  */
 public interface Comment extends Annotation {
-	// type is oaf:annotation
-	
-	// inherits TYPE and COLLECTION from Annotation
-	// public static final String TYPE = "oaf:annotation";
-	// static final String COLLECTION = "annotation";
+    // type is oaf:annotation
 
-	RatingType getRatingType();
+    // inherits TYPE and COLLECTION from Annotation
+    // public static final String TYPE = "oaf:annotation";
+    // static final String COLLECTION = "annotation";
 
-	Person getReviewer();
+    RatingType getRatingType();
 
-	Integer getRating();
+    Person getReviewer();
 
-	CitagoraDocument getReviews();
+    Integer getRating();
 
-	List<Comment> getReplies();
+    // TODO check this method
+    CitagoraDocument getReviews();
+
+    List<Comment> getReplies();
 }
