@@ -48,10 +48,10 @@ public class SciVerseSample {
 			System.out.println(url.build());
 			HttpRequest request = requestFactory.buildGetRequest(url);
 			HttpHeaders headers = new HttpHeaders();
-			// headers.setAccept("application/json");
+			headers.setAccept("application/json");
 			headers.set("X-ELS-APIKey", "32044be7be3a652a32654afeae5bf4d1");// griccardi
 			// headers.set("X-ELS-APIKey", "5135c5817a6d86b633013ee9e4d120b5");
-			// headers.set("X-ELS-ResourceVersion", "XOCS");
+			headers.set("X-ELS-ResourceVersion", "XOCS");
 			request.setHeaders(headers);
 			HttpResponse result = request.execute();
 			// HttpHeaders httpHeaders = result.getHeaders();

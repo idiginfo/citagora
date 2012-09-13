@@ -5,8 +5,6 @@
 	<groupId>org.idiginfo.docsvc</groupId>
 	<packaging>war</packaging>
 
-	<name>app1</name>
-	<url>http://maven.apache.org</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -15,9 +13,9 @@
 		<plugins>
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
-				<version>2.1.1</version>
+				<version>2.2</version>
 				<configuration>
-					<warName>webapp</warName>
+					<warName>docsvc</warName>
 					<dependentWarExcludes>WEB-INF/web.xml,**/**.class</dependentWarExcludes>
 					<webResources>
 						<resource>

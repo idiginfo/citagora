@@ -109,9 +109,12 @@ public class SpringerService implements DocService {
 	}
 
 	private Document getSpringerDocument(ApiParams params) {
+		// TODO must make a SpringerResult and then extract a SpringerRecord
 		JsonElement content = queryService("getdocument", params);
-		SpringerRecord result = gson.fromJson(content, SpringerRecord.class);
-		return result;
+		SpringerResult result = gson.fromJson(content, SpringerResult.class);
+		Documents documents = result.getDocuments();
+		if (documents==null||documents.size()<1) return null;
+		return documents.get(0);
 	}
 
 	private Documents getSpringerDocuments(String function, ApiParams params) {

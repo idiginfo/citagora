@@ -8,8 +8,9 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * Class to map Spring json object to Document
+ * 
  * @author griccardi
- *
+ * 
  */
 public class SpringerRecord implements Document {
 	String identifier;
@@ -37,7 +38,7 @@ public class SpringerRecord implements Document {
 
 	@Override
 	public String getId() {
-		return doi;
+		return "doi:" + doi;
 	}
 
 	@Override
@@ -256,7 +257,7 @@ public class SpringerRecord implements Document {
 
 	@Override
 	public Integer getPageStart() {
-				return startingPage;
+		return startingPage;
 	}
 
 	@Override
