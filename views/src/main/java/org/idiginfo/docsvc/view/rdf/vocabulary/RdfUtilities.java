@@ -29,4 +29,8 @@ public class RdfUtilities {
 	    return;
 	model.add(resource, relationship, value);
     }
+
+    public static Resource getResource(Model model, String uri) {
+	return model.getResource(uri);
+    }
 }

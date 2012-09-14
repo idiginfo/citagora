@@ -16,9 +16,12 @@ import org.idiginfo.docsvc.model.citagora.RatingType;
 import org.idiginfo.docsvc.model.citagora.Reference;
 import org.idiginfo.docsvc.model.citagora.Review;
 import org.idiginfo.docsvc.model.citagora.Tag;
+import org.idiginfo.docsvc.model.citagora.UriObject;
 import org.idiginfo.docsvc.view.rdf.vocabulary.BIBO;
+import org.idiginfo.docsvc.view.rdf.vocabulary.Citagora;
 import org.idiginfo.docsvc.view.rdf.vocabulary.Content;
 import org.idiginfo.docsvc.view.rdf.vocabulary.OAF;
+import org.idiginfo.docsvc.view.rdf.vocabulary.Provenance;
 import org.idiginfo.docsvc.view.rdf.vocabulary.RdfReview;
 import org.idiginfo.docsvc.view.rdf.vocabulary.RdfUtilities;
 
@@ -28,6 +31,7 @@ import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.sparql.vocabulary.FOAF;
 import com.hp.hpl.jena.vocabulary.DCTerms;
+import com.hp.hpl.jena.vocabulary.RDF;
 
 /**
  * Tools for mapping from CitagoraObject to/from RDF
@@ -41,11 +45,23 @@ public class MapCitagoraObject {
 
     public MapCitagoraObject() {
 	model = ModelFactory.createDefaultModel();
-	//model.
+	initPrefixes();
     }
 
     public MapCitagoraObject(Model model) {
 	this.model = model;
+	initPrefixes();
+    }
+
+    public void initPrefixes() {
+	model.setNsPrefix("dcterms", DCTerms.NS);
+	model.setNsPrefix("bibo", BIBO.NS);
+	model.setNsPrefix("cnt", Content.NS);
+	model.setNsPrefix("oaf", OAF.NS);
+	model.setNsPrefix("prov", Provenance.NS);
+	model.setNsPrefix("rev", RdfReview.NS);
+	model.setNsPrefix("foaf", FOAF.NS);
+	model.setNsPrefix("cit", Citagora.NS);
     }
 
     /**
@@ -54,9 +70,14 @@ public class MapCitagoraObject {
      * @param from
      * @return
      */
-    public Resource add(Object from) {
+    public Resource add(UriObject from) {
 	if (from == null)
 	    return null;
+	String uri = from.getUri();
+	Resource resource = model.getResource(from.getUri());
+	if (resource.hasProperty(RDF.type)) // already added this object to
+					    // the model
+	    return resource;
 	from.getClass();
 	if (from instanceof CitagoraDocument)
 	    return addCitagoraDocument((CitagoraDocument) from);
@@ -74,7 +95,10 @@ public class MapCitagoraObject {
 	    return addReview((Review) from);
 	if (from instanceof RatingType)
 	    return addRatingType((RatingType) from);
-	// Annotation
+	if (from instanceof Reference)
+	    return addReference((Reference) from);
+	System.err.println("Type not recognized: "
+		+ from.getClass().getCanonicalName());
 	return null;
     }
 
@@ -87,10 +111,10 @@ public class MapCitagoraObject {
     public Resource addCitagoraObject(CitagoraObject from) {
 	// create resource in the model for this object
 	String uri = from.getId();
-	Resource resource = RdfUtilities.getOrAddResource(model, uri);
+	Resource resource = model.getResource(uri);
 
 	// add properties of CitagoraObject
-	addProperty(resource, DCTerms.type, from.getType());
+	addProperty(resource, RDF.type, getCitagoraType(from.getType()));
 	addProperty(resource, DCTerms.identifier, from.getId());
 	addProperty(resource, BIBO.uri, from.getUri());
 	addProperty(resource, DCTerms.creator, from.getWasAttributedTo());
@@ -99,7 +123,6 @@ public class MapCitagoraObject {
 	addProperty(resource, DCTerms.rights, from.getRights());
 	addObject(resource, OAF.generator, from.getGenerator());
 	addProperty(resource, DCTerms.dateSubmitted, from.getGenerated());
-	addObjects(resource, BIBO.annotates, from.getAnnotations());
 
 	return resource;
     }
@@ -109,18 +132,19 @@ public class MapCitagoraObject {
 	Resource resource = addCitagoraObject(from);
 
 	// add CitagoraDocument properties
-	addObject(resource, null, from.getIsAbout());
+	addObject(resource, DCTerms.source, from.getIsAbout());
 	addObjects(resource, RdfReview.rating, from.getReviews());
-	addObjects(resource, RdfReview.rating, from.getTags());
-	addObjects(resource, RdfReview.hasComment, from.getComments());
+	addObjects(resource, Citagora.hasTag, from.getTags());
+	addObjects(resource, Citagora.hasComment, from.getComments());
 	return resource;
     }
 
     private Resource addAnnotation(Annotation from) {
 	Resource resource = addCitagoraObject(from);
+	addObject(resource, OAF.hasTarget, from.getTarget());
 	addObject(resource, DCTerms.creator, from.getAnnotator());
 	addProperty(resource, DCTerms.dateSubmitted, from.getAnnotated());
-	addObject(resource, Content.bytes, from.getBody());
+	addObject(resource, OAF.hasBody, from.getBody());
 	addProperty(resource, DCTerms.source, from.getModelVersion());
 	return resource;
     }
@@ -131,20 +155,17 @@ public class MapCitagoraObject {
 	addObject(resource, RdfReview.type, from.getRatingType());
 	addObject(resource, RdfReview.reviewer, from.getReviewer());
 	addProperty(resource, RdfReview.rating, from.getRating());
-	// TODO check type of getReviews
-	Resource reviews = (Resource) from.getReviews();
-	// addProperty( resource, RdfReview.hasReview,
-	// reviews);
 
 	addObjects(resource, null, from.getReplies());
 	return resource;
     }
 
     private Resource addPerson(Person from) {
-	String uri = null;// TODO get uri of person
-	Resource resource = RdfUtilities.getOrAddResource(model, uri);
+	String uri = from.getUri();// TODO get uri of person
+	Resource resource = model.getResource(uri);
 
-	addProperty(resource, FOAF.title, from.getType());
+	addProperty(resource, RDF.type, getCitagoraType(from.getType()));
+	// addProperty(resource, FOAF.title, from.getTitle());
 	addProperty(resource, FOAF.givenname, from.getGivenName());
 	addProperty(resource, FOAF.family_name, from.getFamilyName());
 	addProperty(resource, FOAF.name, from.getName());
@@ -168,12 +189,12 @@ public class MapCitagoraObject {
 
     private Resource addCitagoraAnnotationBody(AnnotationBody from) {
 	String uri = from.getUri();
-	Resource resource = RdfUtilities.getOrAddResource(model, uri);
+	Resource resource = model.getResource(uri);
 
+	addProperty(resource, RDF.type, getCitagoraType(from.getType()));
 	addProperty(resource, Content.characterEncoding,
 		from.getCharacterEncoding());
 	addProperty(resource, Content.chars, from.getChars());
-
 	return resource;
     }
 
@@ -184,7 +205,7 @@ public class MapCitagoraObject {
 
     public Resource addAuthor(Author from) {
 	Resource resource = addPerson(from);
-	addObject(resource, null, from.getReferences());
+	addObjects(resource, null, from.getReferences());
 
 	return resource;
     }
@@ -204,10 +225,10 @@ public class MapCitagoraObject {
 	addObject(resource, DCTerms.isPartOf, from.isPartOf());
 	addObjects(resource, BIBO.authorList, from.getAuthorList());
 	addObjects(resource, null, from.getCitationList());
-	addObjects(resource, DCTerms.references, from.getSeeAlso());
+	addProperties(resource, DCTerms.references, from.getSeeAlso());
 	addProperty(resource, RdfReview.rating, from.getOverallRating());
 	addProperty(resource, RdfReview.rating, from.getReadabilityRating());
-	addObject(resource, RdfReview.rating, from.getCitagoraDocuments());
+	addObjects(resource, RdfReview.rating, from.getCitagoraDocuments());
 	addProperty(resource, RdfReview.rating, from.getAccuracyRating());
 	addProperty(resource, RdfReview.rating, from.getOriginalityRating());
 	return resource;
@@ -216,7 +237,8 @@ public class MapCitagoraObject {
 
     public Resource addRatingType(RatingType from) {
 	String uri = null;// from.getUri(type);
-	Resource resource = RdfUtilities.getOrAddResource(model, uri);
+	Resource resource = model.getResource(uri);
+	addProperty(resource, RDF.type, getCitagoraType(from.getType()));
 
 	addProperty(resource, null, "");// RatingType.getUri(type));
 	return resource;
@@ -245,12 +267,12 @@ public class MapCitagoraObject {
 	    return;
 	Iterator<?> iterator = targets.iterator();
 	while (iterator.hasNext()) {
-	    addObject(resource, relationship, iterator.next());
+	    addObject(resource, relationship, (UriObject) iterator.next());
 	}
     }
 
     private void addObject(Resource resource, Property relationship,
-	    Object target) {
+	    UriObject target) {
 	Resource targetResource = add(target);
 	RdfUtilities.addProperty(model, resource, relationship, targetResource);
 
@@ -295,4 +317,21 @@ public class MapCitagoraObject {
 
     }
 
+    private String getCitagoraType(String type) {
+	if (CitagoraDocument.TYPE.equals(type))
+	    return Citagora.documentType;
+	if (Tag.TYPE.equals(type))
+	    return Citagora.tagType;
+	if (Comment.TYPE.equals(type))
+	    return Citagora.commentType;
+	if (Person.TYPE.equals(type))
+	    return FOAF.Person.getURI();
+	if (CitagoraAgent.TYPE.equals(type))
+	    return Citagora.agentType;
+	if (Author.TYPE.equals(type))
+	    return FOAF.Person.getURI();
+	if (AnnotationBody.TYPE.equals(type))
+	    return Content.ContentAsText.getURI();
+	return type;
+    }
 }
