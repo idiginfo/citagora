@@ -21,8 +21,5 @@ public interface Comment extends Annotation {
 
     Integer getRating();
 
-    // TODO check this method
-    CitagoraDocument getReviews();
-
     List<Comment> getReplies();
 }

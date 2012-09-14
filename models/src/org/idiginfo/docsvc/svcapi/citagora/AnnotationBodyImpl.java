@@ -1,65 +1,72 @@
 package org.idiginfo.docsvc.svcapi.citagora;
 
 import org.idiginfo.docsvc.model.citagora.AnnotationBody;
+import org.idiginfo.docsvc.model.citagora.CitagoraObject;
 
-public class AnnotationBodyImpl  implements
-		AnnotationBody {
+public class AnnotationBodyImpl implements AnnotationBody {
 
-	public static final String TYPE = "od:nbody";
-	String type;
-	String id;
+    static int objectId = 0;
+    transient int myId = objectId++;
+    transient String myCollection = AnnotationBody.COLLECTION;
 
-	public String getType() {
-	    return type;
-	}
+    String type;
+    String id;
+    String uri;
+    String characterEncoding;
+    String chars;
 
-	public void setType(String type) {
-	    this.type = type;
-	}
+    public AnnotationBodyImpl() {
+	setType(AnnotationBody.TYPE);
+	// setCollection(AnnotationBody.COLLECTION);
+	initId();
+    }
 
-	public String getId() {
-	    return id;
-	}
+    public String getType() {
+	return type;
+    }
 
-	public void setId(String id) {
-	    this.id = id;
-	}
+    public static String makeId(String collection, int myId) {
+	String id = CitagoraObject.NAMESPACE + collection + "/" + myId;
+	return id;
+    }
 
-	public AnnotationBodyImpl() {
-		setType(AnnotationBody.TYPE);
-		//setCollection(AnnotationBody.COLLECTION);
-		initId();
-	}
+    public void initId() {
+	id = makeId(myCollection, myId);
+	if (uri == null)
+	    uri = id;
+    }
 
-	private void initId() {
-	    id = "urn:body id";
-	    
-	}
+    public void setType(String type) {
+	this.type = type;
+    }
 
-	String characterEncoding;
+    public String getId() {
+	return id;
+    }
 
-	String chars;
+    public void setId(String id) {
+	this.id = id;
+    }
 
-	public String getCharacterEncoding() {
-		return characterEncoding;
-	}
+    public String getCharacterEncoding() {
+	return characterEncoding;
+    }
 
-	public void setCharacterEncoding(String characterEncoding) {
-		this.characterEncoding = characterEncoding;
-	}
+    public void setCharacterEncoding(String characterEncoding) {
+	this.characterEncoding = characterEncoding;
+    }
 
-	public String getChars() {
-		return chars;
-	}
+    public String getChars() {
+	return chars;
+    }
 
-	public void setChars(String chars) {
-		this.chars = chars;
-	}
+    public void setChars(String chars) {
+	this.chars = chars;
+    }
 
-	@Override
-	public String getUri() {
-	    // TODO Auto-generated method stub
-	    return id;
-	}
+    @Override
+    public String getUri() {
+	return uri;
+    }
 
 }

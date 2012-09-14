@@ -3,7 +3,7 @@ package org.idiginfo.docsvc.model.citagora;
 import java.util.Date;
 import java.util.List;
 
-public interface CitagoraObject {
+public interface CitagoraObject extends UriObject {
 
 	public static final String NAMESPACE = "http://citagora.org/";
 	String getType();

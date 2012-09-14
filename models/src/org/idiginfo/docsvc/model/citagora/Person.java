@@ -1,6 +1,6 @@
 package org.idiginfo.docsvc.model.citagora;
 
-public interface Person {
+public interface Person extends UriObject {
 
 	static final String TYPE = "citagora:person";
 	static final String COLLECTION = "person";

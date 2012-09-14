@@ -2,17 +2,25 @@ package org.idiginfo.docsvc.model.citagora;
 
 import java.util.List;
 
+import javax.xml.stream.events.Comment;
+
+import org.idiginfo.docsvc.svcapi.citagora.TagImpl;
+
 public interface CitagoraDocument extends CitagoraObject {
-	static final String TYPE = "http://citagora.com/rdf#Document";
-	static final String COLLECTION = "document";
+    static final String TYPE = "http://citagora.com/rdf#Document";
+    static final String COLLECTION = "document";
 
-	List<Review> getRatings();
+    List<Review> getRatings();
 
-	List<Annotation> getTags();
+    List<Tag> getTags();
 
-	List<Annotation> getComments();
+    List<Comment> getComments();
 
-	Reference getIsAbout();
+    Reference getIsAbout();
 
-	List<Review> getReviews();
+    List<Review> getReviews();
+
+    void addComment(Comment comment);
+
+    void addTag(Tag tag);
 }

@@ -20,6 +20,7 @@ public class SciVerseUrl extends GenericUrl {
 	@Key
 	String date;
 	@Key
+	public
 	String view;
 	@Key
 	String field;

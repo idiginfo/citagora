@@ -12,63 +12,53 @@ import org.idiginfo.docsvc.model.citagora.RatingType;
 @Entity(name = "comments")
 public class CommentImpl extends AnnotationImpl implements Comment {
 
-	RatingType ratingType;
+    RatingType ratingType;
 
-	Person reviewer;
+    Person reviewer;
 
-	Integer rating;
+    Integer rating;
 
-	transient CitagoraDocument reviews;
+    List<Comment> replies;
 
-	List<Comment> replies;
-	
-	public CommentImpl() {
-		setType(Comment.TYPE);
-		setCollection(Comment.COLLECTION);
-		initId();
-	}
+    public CommentImpl() {
+	setType(Comment.TYPE);
+	setCollection(Comment.COLLECTION);
+	initId();
+    }
 
-	public String getType() {
-		return Comment.TYPE;
-	}
+    public String getType() {
+	return Comment.TYPE;
+    }
 
-	public RatingType getRatingType() {
-		return ratingType;
-	}
+    public RatingType getRatingType() {
+	return ratingType;
+    }
 
-	public void setRatingType(RatingType ratingType) {
-		this.ratingType = ratingType;
-	}
+    public void setRatingType(RatingType ratingType) {
+	this.ratingType = ratingType;
+    }
 
-	public Person getReviewer() {
-		return reviewer;
-	}
+    public Person getReviewer() {
+	return reviewer;
+    }
 
-	public void setReviewer(Person reviewer) {
-		this.reviewer = reviewer;
-	}
+    public void setReviewer(Person reviewer) {
+	this.reviewer = reviewer;
+    }
 
-	public Integer getRating() {
-		return rating;
-	}
+    public Integer getRating() {
+	return rating;
+    }
 
-	public void setRating(Integer rating) {
-		this.rating = rating;
-	}
+    public void setRating(Integer rating) {
+	this.rating = rating;
+    }
 
-	public CitagoraDocument getReviews() {
-		return reviews;
-	}
+    public List<Comment> getReplies() {
+	return replies;
+    }
 
-	public void setReviews(CitagoraDocument reviews) {
-		this.reviews = reviews;
-	}
-
-	public List<Comment> getReplies() {
-		return replies;
-	}
-
-	public void setReplies(List<Comment> replies) {
-		this.replies = replies;
-	}
+    public void setReplies(List<Comment> replies) {
+	this.replies = replies;
+    }
 }

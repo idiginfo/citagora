@@ -3,79 +3,83 @@ package org.idiginfo.docsvc.svcapi.citagora;
 import org.idiginfo.docsvc.model.citagora.Person;
 
 public class PersonImpl implements Person {
-	static int objectId = 0;
-	String id;
-	String type;
-	transient int myId = objectId++;
-	String givenName;
-	String familyName;
-	String name;
-	String accountName;
-	String account;
-	String homePage;
+    static int objectId = 0;
+    String id;
+    String type;
+    transient int myId = objectId++;
+    String givenName;
+    String familyName;
+    String name;
+    String accountName;
+    String account;
+    String homePage;
 
-	public PersonImpl() {
-		setType(Person.TYPE);
-		id = CitagoraObjectImpl.makeId(type, myId);
-	}
+    public String getUri() {
+	return id;
+    }
 
-	public String getId() {
-		return id;
-	}
+    public PersonImpl() {
+	setType(Person.TYPE);
+	id = CitagoraObjectImpl.makeId(type, myId);
+    }
 
-	public String getType() {
-		return type;
-	}
+    public String getId() {
+	return id;
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    public String getType() {
+	return type;
+    }
 
-	public String getGivenName() {
-		return givenName;
-	}
+    public void setType(String type) {
+	this.type = type;
+    }
 
-	public void setGivenName(String givenName) {
-		this.givenName = givenName;
-	}
+    public String getGivenName() {
+	return givenName;
+    }
 
-	public String getFamilyName() {
-		return familyName;
-	}
+    public void setGivenName(String givenName) {
+	this.givenName = givenName;
+    }
 
-	public void setFamilyName(String familyName) {
-		this.familyName = familyName;
-	}
+    public String getFamilyName() {
+	return familyName;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setFamilyName(String familyName) {
+	this.familyName = familyName;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+	return name;
+    }
 
-	public String getAccountName() {
-		return accountName;
-	}
+    public void setName(String name) {
+	this.name = name;
+    }
 
-	public void setAccountName(String accountName) {
-		this.accountName = accountName;
-	}
+    public String getAccountName() {
+	return accountName;
+    }
 
-	public String getAccount() {
-		return account;
-	}
+    public void setAccountName(String accountName) {
+	this.accountName = accountName;
+    }
 
-	public void setAccount(String account) {
-		this.account = account;
-	}
+    public String getAccount() {
+	return account;
+    }
 
-	public String getHomePage() {
-		return homePage;
-	}
+    public void setAccount(String account) {
+	this.account = account;
+    }
 
-	public void setHomePage(String homePage) {
-		this.homePage = homePage;
-	}
+    public String getHomePage() {
+	return homePage;
+    }
+
+    public void setHomePage(String homePage) {
+	this.homePage = homePage;
+    }
 }
