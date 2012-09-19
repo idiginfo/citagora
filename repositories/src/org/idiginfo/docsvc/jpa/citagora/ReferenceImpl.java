@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Vector;
 
 import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -17,12 +18,10 @@ import org.idiginfo.docsvc.model.citagora.Author;
 import org.idiginfo.docsvc.model.citagora.CitagoraAgent;
 import org.idiginfo.docsvc.model.citagora.CitagoraDocument;
 import org.idiginfo.docsvc.model.citagora.Reference;
-import org.idiginfo.docsvc.svcapi.citagora.AuthorImpl;
-import org.idiginfo.docsvc.svcapi.citagora.CitagoraDocumentImpl;
-import org.idiginfo.docsvc.svcapi.citagora.CitagoraObjectImpl;
-import org.idiginfo.docsvc.svcapi.citagora.ReferenceImpl;
+
 
 @Entity(name = "references")
+@DiscriminatorValue(value="reference")
 public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
 
     String abstractText; // 'abstract' is a Java keyword

@@ -3,26 +3,44 @@ package org.idiginfo.docsvc.jpa.citagora;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.idiginfo.docsvc.model.citagora.Person;
-import org.idiginfo.docsvc.svcapi.citagora.CitagoraObjectImpl;
 
-@Entity(name="people")
+@Entity(name = "people")
 public class PersonImpl implements Person {
-    static int objectId = 0;
-    String id;
-    String type;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     transient int myId = objectId++;
+    String type;
+    String uri;
+
     String givenName;
     String familyName;
     String name;
     String accountName;
     String account;
     String homePage;
+    @Temporal(TemporalType.TIMESTAMP)
     Date created;
+    @Temporal(TemporalType.TIMESTAMP)
     Date updated;
+
+    // Non-persistent members
+    @Transient
+    transient static int objectId = 0;
+    @Id
+    @Transient
+    transient String myCollection;
+    @Transient
+    String id = null;
 
     /**
      * Perform operations required before persisting an object
@@ -30,7 +48,8 @@ public class PersonImpl implements Person {
     @PrePersist
     protected void onCreate() {
 	updated = new Date();
-	// created may not be the database timestamp. It may be set by the creator
+	// created may not be the database timestamp. It may be set by the
+	// creator
 	if (created == null)
 	    created = updated;
 

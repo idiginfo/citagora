@@ -7,9 +7,7 @@ import javax.persistence.ManyToOne;
 import org.idiginfo.docsvc.model.citagora.CitagoraDocument;
 import org.idiginfo.docsvc.model.citagora.Person;
 import org.idiginfo.docsvc.model.citagora.Review;
-import org.idiginfo.docsvc.svcapi.citagora.CitagoraDocumentImpl;
-import org.idiginfo.docsvc.svcapi.citagora.CitagoraObjectImpl;
-import org.idiginfo.docsvc.svcapi.citagora.PersonImpl;
+
 
 @Entity(name="reviews")
 public class ReviewImpl extends CitagoraObjectImpl implements Review {

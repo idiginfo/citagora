@@ -6,6 +6,8 @@ import java.util.Vector;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,11 +25,10 @@ import javax.persistence.Transient;
 import org.idiginfo.docsvc.model.citagora.Annotation;
 import org.idiginfo.docsvc.model.citagora.CitagoraAgent;
 import org.idiginfo.docsvc.model.citagora.CitagoraObject;
-import org.idiginfo.docsvc.svcapi.citagora.AnnotationImpl;
-import org.idiginfo.docsvc.svcapi.citagora.CitagoraAgentImpl;
 
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(discriminatorType = DiscriminatorType.STRING, name = "citagoraType")
 public abstract class CitagoraObjectImpl implements CitagoraObject {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -48,7 +49,8 @@ public abstract class CitagoraObjectImpl implements CitagoraObject {
     // TODO still need to decide whether there is a set of annotations, or only
     // tags and comments
     // This property will not work for existing implementation, as is
-    @OneToMany(mappedBy = "target", targetEntity = AnnotationImpl.class, cascade = CascadeType.PERSIST)
+  //  @OneToMany(mappedBy = "target", targetEntity = AnnotationImpl.class, cascade = CascadeType.PERSIST)
+    @Transient
     List<Annotation> annotations;
 
     // Non-persistent members

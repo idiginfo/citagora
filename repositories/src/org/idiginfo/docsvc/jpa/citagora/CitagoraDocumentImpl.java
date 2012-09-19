@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Vector;
 
 import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -17,13 +18,9 @@ import org.idiginfo.docsvc.model.citagora.CitagoraDocument;
 import org.idiginfo.docsvc.model.citagora.Reference;
 import org.idiginfo.docsvc.model.citagora.Review;
 import org.idiginfo.docsvc.model.citagora.Tag;
-import org.idiginfo.docsvc.svcapi.citagora.CitagoraObjectImpl;
-import org.idiginfo.docsvc.svcapi.citagora.CommentImpl;
-import org.idiginfo.docsvc.svcapi.citagora.ReferenceImpl;
-import org.idiginfo.docsvc.svcapi.citagora.ReviewImpl;
-import org.idiginfo.docsvc.svcapi.citagora.TagImpl;
 
 @Entity(name = "citagora_documents")
+@DiscriminatorValue(value="citagoraDocument")
 public class CitagoraDocumentImpl extends CitagoraObjectImpl implements
 	CitagoraDocument {
 

@@ -8,9 +8,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 import org.idiginfo.docsvc.model.citagora.*;
-import org.idiginfo.docsvc.svcapi.citagora.CitagoraDocumentImpl;
-import org.idiginfo.docsvc.svcapi.citagora.PersonImpl;
-import org.idiginfo.docsvc.svcapi.citagora.ReferenceImpl;
 
 @Entity(name = "agents")
 public class CitagoraAgentImpl extends PersonImpl implements CitagoraAgent {

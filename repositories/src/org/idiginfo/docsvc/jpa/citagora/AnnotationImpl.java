@@ -3,26 +3,25 @@ package org.idiginfo.docsvc.jpa.citagora;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import org.idiginfo.docsvc.model.citagora.Annotation;
 import org.idiginfo.docsvc.model.citagora.AnnotationBody;
+import org.idiginfo.docsvc.model.citagora.CitagoraDocument;
 import org.idiginfo.docsvc.model.citagora.CitagoraObject;
 import org.idiginfo.docsvc.model.citagora.Person;
-import org.idiginfo.docsvc.svcapi.citagora.AnnotationBodyImpl;
-import org.idiginfo.docsvc.svcapi.citagora.CitagoraObjectImpl;
 
 @Entity(name = "annotations")
-public class AnnotationImpl extends CitagoraObjectImpl implements Annotation {
+abstract public class AnnotationImpl extends CitagoraObjectImpl implements
+	Annotation {
 
-    @ManyToOne(targetEntity = CitagoraObjectImpl.class, cascade = CascadeType.PERSIST)
-    // target is transient because it is the inverse of a non-transient
-    // relationship (json serialization)
-    transient CitagoraObjectImpl target;
-    @OneToMany(targetEntity = Person.class, cascade = CascadeType.PERSIST)
+    @ManyToOne(targetEntity = PersonImpl.class, cascade = CascadeType.PERSIST)
     Person annotator;
     @Embedded
     AnnotationBodyImpl body;
@@ -35,20 +34,12 @@ public class AnnotationImpl extends CitagoraObjectImpl implements Annotation {
 	initId();
     }
 
-    public CitagoraObject getTarget() {
-	return target;
-    }
-
-    public void setTarget(CitagoraObject target) {
-	this.target = target;
-    }
-
     public String getCharacterEncoding() {
 	return body.getCharacterEncoding();
     }
 
     public void setCharacterEncoding(String characterEncoding) {
-	// TODO
+	body.setCharacterEncoding(characterEncoding);
     }
 
     public String getChars() {
@@ -56,7 +47,7 @@ public class AnnotationImpl extends CitagoraObjectImpl implements Annotation {
     }
 
     public void setChars(String chars) {
-	// TODO this.chars = chars;
+	body.setChars(chars);
     }
 
     public Person getAnnotator() {

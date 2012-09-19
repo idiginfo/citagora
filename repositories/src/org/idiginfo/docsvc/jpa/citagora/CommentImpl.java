@@ -3,30 +3,32 @@ package org.idiginfo.docsvc.jpa.citagora;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Embedded;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.idiginfo.docsvc.model.citagora.CitagoraDocument;
+import org.idiginfo.docsvc.model.citagora.CitagoraObject;
 import org.idiginfo.docsvc.model.citagora.Comment;
 import org.idiginfo.docsvc.model.citagora.Person;
-import org.idiginfo.docsvc.model.citagora.RatingType;
 import org.idiginfo.docsvc.model.citagora.Reply;
-import org.idiginfo.docsvc.svcapi.citagora.AnnotationImpl;
-import org.idiginfo.docsvc.svcapi.citagora.PersonImpl;
 
 @Entity(name = "comments")
+@DiscriminatorValue(value = "citagoraDocument")
 public class CommentImpl extends AnnotationImpl implements Comment {
 
-    @Embedded
-    RatingTypeImpl ratingType;
+    String ratingType;
+
+    @ManyToOne(targetEntity = CitagoraDocumentImpl.class)
+    transient CitagoraDocument target;
 
     @ManyToOne(targetEntity = PersonImpl.class, cascade = CascadeType.PERSIST)
     Person reviewer;
 
     Integer rating;
 
-    @OneToMany(mappedBy = "", targetEntity = ReplyImpl.class, cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "target", targetEntity = ReplyImpl.class, cascade = CascadeType.PERSIST)
     List<Reply> replies;
 
     public CommentImpl() {
@@ -39,12 +41,12 @@ public class CommentImpl extends AnnotationImpl implements Comment {
 	return Comment.TYPE;
     }
 
-    public RatingType getRatingType() {
+    public String getRatingType() {
 	return ratingType;
     }
 
-    public void setRatingType(RatingType ratingType) {
-	this.ratingType = (RatingTypeImpl) ratingType;
+    public void setRatingType(String ratingType) {
+	this.ratingType = ratingType;
     }
 
     public Person getReviewer() {
@@ -64,8 +66,12 @@ public class CommentImpl extends AnnotationImpl implements Comment {
     }
 
     public List<Reply> getReplies() {
-        return replies;
+	return replies;
     }
 
- 
+    @Override
+    public CitagoraObject getTarget() {
+	return target;
+    }
+
 }

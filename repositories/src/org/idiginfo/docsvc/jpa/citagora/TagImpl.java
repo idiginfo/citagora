@@ -1,15 +1,30 @@
 package org.idiginfo.docsvc.jpa.citagora;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 import org.idiginfo.docsvc.model.citagora.CitagoraDocument;
+import org.idiginfo.docsvc.model.citagora.CitagoraObject;
 import org.idiginfo.docsvc.model.citagora.Tag;
-import org.idiginfo.docsvc.svcapi.citagora.AnnotationImpl;
 
 @Entity(name = "tags")
+@DiscriminatorValue(value="tag")
 public class TagImpl extends AnnotationImpl implements Tag {
 
+    public CitagoraDocument getTarget() {
+        return target;
+    }
+
+    public void setTarget(CitagoraDocument target) {
+        this.target = target;
+    }
+
     public static final String TYPE = "oax:tag";
+
+    @ManyToOne(targetEntity = CitagoraDocumentImpl.class)
+    transient CitagoraDocument target;
 
     public TagImpl() {
 	type = Tag.TYPE;

@@ -1,33 +1,19 @@
 package org.idiginfo.docsvc.jpa.citagora;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Embedded;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
+import org.idiginfo.docsvc.model.citagora.CitagoraObject;
 import org.idiginfo.docsvc.model.citagora.Comment;
-import org.idiginfo.docsvc.model.citagora.Person;
-import org.idiginfo.docsvc.model.citagora.RatingType;
 import org.idiginfo.docsvc.model.citagora.Reply;
-import org.idiginfo.docsvc.svcapi.citagora.AnnotationImpl;
-import org.idiginfo.docsvc.svcapi.citagora.PersonImpl;
 
-@Entity(name = "reply")
-public class ReplyImpl extends AnnotationImpl implements Reply {
+@Entity(name = "replies")
+@DiscriminatorValue(value="reply")
+public class ReplyImpl extends CommentImpl implements Reply {
 
-    @Embedded
-    RatingTypeImpl ratingType;
-
-    @ManyToOne(targetEntity = PersonImpl.class, cascade = CascadeType.PERSIST)
-    Person reviewer;
-
-    Integer rating;
-
-    @OneToMany(mappedBy = "", targetEntity = ReplyImpl.class, cascade = CascadeType.PERSIST)
-    List<Reply> replies;
+    @ManyToOne(targetEntity = CommentImpl.class)
+    transient Comment target;
 
     public ReplyImpl() {
 	setType(Comment.TYPE);
@@ -39,31 +25,12 @@ public class ReplyImpl extends AnnotationImpl implements Reply {
 	return Comment.TYPE;
     }
 
-    public RatingType getRatingType() {
-	return ratingType;
+    public CitagoraObject getTarget() {
+	return target;
     }
 
-    public void setRatingType(RatingType ratingType) {
-	this.ratingType = (RatingTypeImpl) ratingType;
+    public void setTarget(Comment target) {
+	this.target = target;
     }
 
-    public Person getReviewer() {
-	return reviewer;
-    }
-
-    public void setReviewer(Person reviewer) {
-	this.reviewer = reviewer;
-    }
-
-    public Integer getRating() {
-	return rating;
-    }
-
-    public void setRating(Integer rating) {
-	this.rating = rating;
-    }
-
-    public List<Reply> getReplies() {
-	return replies;
-    }
 }
