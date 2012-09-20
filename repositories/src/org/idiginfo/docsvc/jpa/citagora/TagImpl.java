@@ -10,21 +10,21 @@ import org.idiginfo.docsvc.model.citagora.CitagoraObject;
 import org.idiginfo.docsvc.model.citagora.Tag;
 
 @Entity(name = "tags")
-@DiscriminatorValue(value="tag")
+@DiscriminatorValue(value = "tag")
 public class TagImpl extends AnnotationImpl implements Tag {
-
-    public CitagoraDocument getTarget() {
-        return target;
-    }
-
-    public void setTarget(CitagoraDocument target) {
-        this.target = target;
-    }
 
     public static final String TYPE = "oax:tag";
 
     @ManyToOne(targetEntity = CitagoraDocumentImpl.class)
-    transient CitagoraDocument target;
+    CitagoraDocument target;
+
+    public CitagoraDocument getTarget() {
+	return target;
+    }
+
+    public void setTarget(CitagoraDocument target) {
+	this.target = target;
+    }
 
     public TagImpl() {
 	type = Tag.TYPE;

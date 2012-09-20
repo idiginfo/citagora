@@ -17,7 +17,7 @@ public class ReviewImpl extends CitagoraObjectImpl implements Review {
     @ManyToOne(targetEntity = PersonImpl.class, cascade = CascadeType.PERSIST)
     Person reviewer;
     @ManyToOne(targetEntity = CitagoraDocumentImpl.class, cascade = CascadeType.PERSIST)
-    transient CitagoraDocument documentReviwed;
+    CitagoraDocument documentReviwed;
 
     public ReviewImpl() {
 	setType(Review.TYPE);

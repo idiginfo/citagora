@@ -13,11 +13,11 @@ import org.idiginfo.docsvc.model.citagora.*;
 public class CitagoraAgentImpl extends PersonImpl implements CitagoraAgent {
 
     @OneToMany(mappedBy = "generator", targetEntity = CitagoraDocumentImpl.class, cascade = CascadeType.PERSIST)
-    transient List<CitagoraDocument> documents;
+    List<CitagoraDocument> documents;
     // List<Annotation> comments;
     // List<Annotation> tags;
     @OneToMany(mappedBy = "contributedBy", targetEntity = ReferenceImpl.class, cascade = CascadeType.PERSIST)
-    transient List<Reference> references;
+    List<Reference> references;
 
     public CitagoraAgentImpl() {
 	setType(CitagoraAgent.TYPE);

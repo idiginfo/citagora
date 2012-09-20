@@ -18,7 +18,7 @@ import org.idiginfo.docsvc.model.citagora.Person;
 public class PersonImpl implements Person {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    transient int myId = objectId++;
+    int myId = objectId++;
     String type;
     String uri;
 
@@ -36,7 +36,6 @@ public class PersonImpl implements Person {
     // Non-persistent members
     @Transient
     transient static int objectId = 0;
-    @Id
     @Transient
     transient String myCollection;
     @Transient

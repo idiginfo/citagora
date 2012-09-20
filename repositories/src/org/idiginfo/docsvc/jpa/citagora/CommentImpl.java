@@ -21,7 +21,7 @@ public class CommentImpl extends AnnotationImpl implements Comment {
     String ratingType;
 
     @ManyToOne(targetEntity = CitagoraDocumentImpl.class)
-    transient CitagoraDocument target;
+    CitagoraDocument target;
 
     @ManyToOne(targetEntity = PersonImpl.class, cascade = CascadeType.PERSIST)
     Person reviewer;

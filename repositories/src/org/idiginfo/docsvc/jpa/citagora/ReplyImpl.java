@@ -9,11 +9,11 @@ import org.idiginfo.docsvc.model.citagora.Comment;
 import org.idiginfo.docsvc.model.citagora.Reply;
 
 @Entity(name = "replies")
-@DiscriminatorValue(value="reply")
+@DiscriminatorValue(value = "reply")
 public class ReplyImpl extends CommentImpl implements Reply {
 
     @ManyToOne(targetEntity = CommentImpl.class)
-    transient Comment target;
+    Comment target;
 
     public ReplyImpl() {
 	setType(Comment.TYPE);

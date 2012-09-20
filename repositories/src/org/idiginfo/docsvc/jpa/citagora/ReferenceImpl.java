@@ -13,6 +13,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.idiginfo.docsvc.model.citagora.Author;
 import org.idiginfo.docsvc.model.citagora.CitagoraAgent;
@@ -31,6 +33,7 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
     Integer pageStart;
     Integer pageEnd;
     String volume;
+    @Temporal(TemporalType.TIMESTAMP)
     Date issued;
     String pmid;
     String doi;
@@ -65,7 +68,7 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
     String pages;
 
     @ManyToOne(targetEntity = CitagoraDocumentImpl.class, cascade = CascadeType.PERSIST)
-    transient List<CitagoraDocument> citagoraDocuments;
+    List<CitagoraDocument> citagoraDocuments;
 
     Double overallRating;
 

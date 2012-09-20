@@ -26,13 +26,14 @@ import org.idiginfo.docsvc.model.citagora.Annotation;
 import org.idiginfo.docsvc.model.citagora.CitagoraAgent;
 import org.idiginfo.docsvc.model.citagora.CitagoraObject;
 
-@Entity
+@Entity(name="citagoraobjects")
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(discriminatorType = DiscriminatorType.STRING, name = "citagoraType")
-public abstract class CitagoraObjectImpl implements CitagoraObject {
+public class CitagoraObjectImpl implements CitagoraObject {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    transient Integer myId = objectId++;
+    
+    Integer myId;
     String type;
     String uri;
     String wasAttributedTo;
@@ -49,14 +50,14 @@ public abstract class CitagoraObjectImpl implements CitagoraObject {
     // TODO still need to decide whether there is a set of annotations, or only
     // tags and comments
     // This property will not work for existing implementation, as is
-  //  @OneToMany(mappedBy = "target", targetEntity = AnnotationImpl.class, cascade = CascadeType.PERSIST)
+    // @OneToMany(mappedBy = "target", targetEntity = AnnotationImpl.class,
+    // cascade = CascadeType.PERSIST)
     @Transient
     List<Annotation> annotations;
 
     // Non-persistent members
     @Transient
     transient static int objectId = 0;
-    @Id
     @Transient
     transient String myCollection;
     @Transient
