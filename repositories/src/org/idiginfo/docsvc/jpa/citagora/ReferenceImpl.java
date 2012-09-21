@@ -1,6 +1,5 @@
 package org.idiginfo.docsvc.jpa.citagora;
 
-import java.lang.annotation.Target;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
@@ -52,7 +51,7 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
     @JoinTable(name = "reference_authors")
     List<Author> authorList;
  
-    @ManyToMany(targetEntity = ReferenceImpl.class)
+    @ManyToMany(targetEntity = ReferenceImpl.class, cascade = CascadeType.PERSIST)
     @JoinTable(name = "reference_citations")
     List<Reference> isCitedBy;
     @ManyToMany(mappedBy = "isCitedBy", targetEntity = ReferenceImpl.class, cascade = CascadeType.PERSIST)
@@ -60,7 +59,7 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
 
     List<String> seeAlso;
 
-    @ManyToOne(targetEntity = PersonImpl.class)
+    @ManyToOne(targetEntity = PersonImpl.class, cascade = CascadeType.PERSIST)
     CitagoraAgent contributedBy;
     
     String shortTitle;

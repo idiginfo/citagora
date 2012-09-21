@@ -4,8 +4,9 @@ import java.util.List;
 import java.util.Vector;
 
 import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -18,10 +19,11 @@ import org.idiginfo.docsvc.model.citagora.Tag;
 
 @Entity
 @Table(schema="citagora", name = "citagora_documents")
+@DiscriminatorValue(value="document")
 public class CitagoraDocumentImpl extends CitagoraObjectImpl implements
 		CitagoraDocument {
 
-	@ManyToOne(targetEntity = ReferenceImpl.class)
+	@ManyToOne(targetEntity = ReferenceImpl.class, cascade = CascadeType.PERSIST,fetch=FetchType.LAZY)
 	Reference isAbout;
 
 	@OneToMany(mappedBy = "documentReviwed", targetEntity = ReviewImpl.class, cascade = CascadeType.PERSIST)
