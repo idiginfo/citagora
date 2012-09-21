@@ -22,7 +22,7 @@ import org.idiginfo.docsvc.model.citagora.CitagoraDocument;
 import org.idiginfo.docsvc.model.citagora.Reference;
 
 
-@Entity(name = "references")
+@Entity(name = "citagora_references")
 @DiscriminatorValue(value="reference")
 public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
 
@@ -46,9 +46,9 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
     List<Reference> contains;
     
     @OneToMany(mappedBy = "isAbout", targetEntity = CitagoraDocumentImpl.class, cascade = CascadeType.PERSIST)
-    List<CitagoraDocument> citagoraDocument;
+    List<CitagoraDocument> citagoraDocuments;
 
-    @ManyToMany(targetEntity = AuthorImpl.class, cascade = CascadeType.PERSIST)
+    @ManyToMany(targetEntity = PersonImpl.class, cascade = CascadeType.PERSIST)
     @JoinTable(name = "reference_authors")
     List<Author> authorList;
  
@@ -60,22 +60,19 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
 
     List<String> seeAlso;
 
-    @ManyToOne(targetEntity = CitagoraDocumentImpl.class)
+    @ManyToOne(targetEntity = PersonImpl.class)
     CitagoraAgent contributedBy;
     
     String shortTitle;
     String publisher;
     String pages;
 
-    @ManyToOne(targetEntity = CitagoraDocumentImpl.class, cascade = CascadeType.PERSIST)
-    List<CitagoraDocument> citagoraDocuments;
-
     Double overallRating;
 
     public ReferenceImpl() {
 	type = Reference.TYPE;
 	setCollection(Reference.COLLECTION);
-	initId();
+	//initId();
     }
 
     public String getAbstract() {
@@ -280,5 +277,11 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
     public void setPages(String pages) {
 	this.pages = pages;
     }
+
+	@Override
+	public void setId(String id) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

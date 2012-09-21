@@ -3,21 +3,17 @@ package org.idiginfo.docsvc.jpa.citagora;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Transient;
+import javax.persistence.Table;
 
 import org.idiginfo.docsvc.model.citagora.Annotation;
 import org.idiginfo.docsvc.model.citagora.AnnotationBody;
-import org.idiginfo.docsvc.model.citagora.CitagoraDocument;
-import org.idiginfo.docsvc.model.citagora.CitagoraObject;
 import org.idiginfo.docsvc.model.citagora.Person;
 
-@Entity(name = "annotations")
+@Entity
+@Table(name = "annotations", schema = "citagora")
 abstract public class AnnotationImpl extends CitagoraObjectImpl implements
 	Annotation {
 
@@ -27,11 +23,12 @@ abstract public class AnnotationImpl extends CitagoraObjectImpl implements
     AnnotationBodyImpl body;
     String modelVersion;
 
+
     public AnnotationImpl() {
 	body = new AnnotationBodyImpl();
 	setType(Annotation.TYPE);
 	setCollection(Annotation.COLLECTION);
-	initId();
+	// initId();
     }
 
     public String getCharacterEncoding() {

@@ -1,6 +1,7 @@
 package org.idiginfo.docsvc.jpa.citagora;
 
 import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
@@ -10,6 +11,7 @@ import org.idiginfo.docsvc.model.citagora.Review;
 
 
 @Entity(name="reviews")
+@DiscriminatorValue(value = "review")
 public class ReviewImpl extends CitagoraObjectImpl implements Review {
     String ratingType; // constant citagora:ratingType
     Integer rating;
@@ -22,7 +24,7 @@ public class ReviewImpl extends CitagoraObjectImpl implements Review {
     public ReviewImpl() {
 	setType(Review.TYPE);
 	setCollection(Review.COLLECTION);
-	initId();
+	//initId();
     }
 
     // CitagoraDocument documentReviewed; // same as getTarget

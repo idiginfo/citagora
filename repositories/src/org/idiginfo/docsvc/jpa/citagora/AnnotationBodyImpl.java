@@ -28,7 +28,7 @@ public class AnnotationBodyImpl implements AnnotationBody {
     public AnnotationBodyImpl() {
 	setType(AnnotationBody.TYPE);
 	// setCollection(AnnotationBody.COLLECTION);
-	initId();
+	//initId();
     }
 
     public String getType() {

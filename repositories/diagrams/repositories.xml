@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><entities>
 	<entity>
-		<entity-name>org.idiginfo.docsvc.jpa.citagora.CommentImpl</entity-name>
+		<entity-name>org.idiginfo.docsvc.jpa.citagora.ReplyImpl</entity-name>
 		<entity-width>120</entity-width>
 		<entity-height>30</entity-height>
 		<entity-X-Coordinate>50</entity-X-Coordinate>
-		<entity-Y-Coordinate>50</entity-Y-Coordinate>
+		<entity-Y-Coordinate>318</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>
@@ -22,39 +22,6 @@
 	</entity>
 
 	<entity>
-		<entity-name>org.idiginfo.docsvc.jpa.citagora.CitagoraAgentImpl</entity-name>
-		<entity-width>120</entity-width>
-		<entity-height>90</entity-height>
-		<entity-X-Coordinate>270</entity-X-Coordinate>
-		<entity-Y-Coordinate>100</entity-Y-Coordinate>
-		<primary-collapsed>false</primary-collapsed>
-		<relation-collapsed>false</relation-collapsed>
-		<basic-collapsed>false</basic-collapsed>
-	</entity>
-
-	<entity>
-		<entity-name>org.idiginfo.docsvc.jpa.citagora.TagImpl</entity-name>
-		<entity-width>120</entity-width>
-		<entity-height>70</entity-height>
-		<entity-X-Coordinate>710</entity-X-Coordinate>
-		<entity-Y-Coordinate>100</entity-Y-Coordinate>
-		<primary-collapsed>false</primary-collapsed>
-		<relation-collapsed>false</relation-collapsed>
-		<basic-collapsed>false</basic-collapsed>
-	</entity>
-
-	<entity>
-		<entity-name>org.idiginfo.docsvc.jpa.citagora.AuthorImpl</entity-name>
-		<entity-width>120</entity-width>
-		<entity-height>30</entity-height>
-		<entity-X-Coordinate>710</entity-X-Coordinate>
-		<entity-Y-Coordinate>270</entity-Y-Coordinate>
-		<primary-collapsed>false</primary-collapsed>
-		<relation-collapsed>false</relation-collapsed>
-		<basic-collapsed>false</basic-collapsed>
-	</entity>
-
-	<entity>
 		<entity-name>org.idiginfo.docsvc.jpa.citagora.CitagoraObjectImpl</entity-name>
 		<entity-width>120</entity-width>
 		<entity-height>30</entity-height>
@@ -66,22 +33,33 @@
 	</entity>
 
 	<entity>
-		<entity-name>org.idiginfo.docsvc.jpa.citagora.PersonImpl</entity-name>
+		<entity-name>org.idiginfo.docsvc.jpa.citagora.CommentImpl</entity-name>
 		<entity-width>120</entity-width>
 		<entity-height>30</entity-height>
-		<entity-X-Coordinate>270</entity-X-Coordinate>
-		<entity-Y-Coordinate>290</entity-Y-Coordinate>
+		<entity-X-Coordinate>50</entity-X-Coordinate>
+		<entity-Y-Coordinate>50</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>
 	</entity>
 
 	<entity>
-		<entity-name>org.idiginfo.docsvc.jpa.citagora.ReplyImpl</entity-name>
+		<entity-name>org.idiginfo.docsvc.jpa.citagora.ReviewImpl</entity-name>
 		<entity-width>120</entity-width>
 		<entity-height>30</entity-height>
 		<entity-X-Coordinate>50</entity-X-Coordinate>
-		<entity-Y-Coordinate>318</entity-Y-Coordinate>
+		<entity-Y-Coordinate>718</entity-Y-Coordinate>
+		<primary-collapsed>false</primary-collapsed>
+		<relation-collapsed>false</relation-collapsed>
+		<basic-collapsed>false</basic-collapsed>
+	</entity>
+
+	<entity>
+		<entity-name>org.idiginfo.docsvc.jpa.citagora.PersonImpl</entity-name>
+		<entity-width>120</entity-width>
+		<entity-height>30</entity-height>
+		<entity-X-Coordinate>270</entity-X-Coordinate>
+		<entity-Y-Coordinate>290</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>
@@ -110,11 +88,11 @@
 	</entity>
 
 	<entity>
-		<entity-name>org.idiginfo.docsvc.jpa.citagora.ReviewImpl</entity-name>
+		<entity-name>org.idiginfo.docsvc.jpa.citagora.TagImpl</entity-name>
 		<entity-width>120</entity-width>
-		<entity-height>30</entity-height>
-		<entity-X-Coordinate>50</entity-X-Coordinate>
-		<entity-Y-Coordinate>718</entity-Y-Coordinate>
+		<entity-height>70</entity-height>
+		<entity-X-Coordinate>710</entity-X-Coordinate>
+		<entity-Y-Coordinate>100</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>

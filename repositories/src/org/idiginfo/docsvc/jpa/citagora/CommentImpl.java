@@ -15,7 +15,7 @@ import org.idiginfo.docsvc.model.citagora.Person;
 import org.idiginfo.docsvc.model.citagora.Reply;
 
 @Entity(name = "comments")
-@DiscriminatorValue(value = "citagoraDocument")
+@DiscriminatorValue(value = "comment")
 public class CommentImpl extends AnnotationImpl implements Comment {
 
     String ratingType;
@@ -28,13 +28,13 @@ public class CommentImpl extends AnnotationImpl implements Comment {
 
     Integer rating;
 
-    @OneToMany(mappedBy = "target", targetEntity = ReplyImpl.class, cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "replyTarget", targetEntity = ReplyImpl.class, cascade = CascadeType.PERSIST)
     List<Reply> replies;
 
     public CommentImpl() {
 	setType(Comment.TYPE);
 	setCollection(Comment.COLLECTION);
-	initId();
+	//initId();
     }
 
     public String getType() {

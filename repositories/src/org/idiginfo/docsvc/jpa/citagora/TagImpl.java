@@ -29,7 +29,7 @@ public class TagImpl extends AnnotationImpl implements Tag {
     public TagImpl() {
 	type = Tag.TYPE;
 	setCollection(Tag.COLLECTION);
-	initId();
+	//initId();
     }
 
     @Override

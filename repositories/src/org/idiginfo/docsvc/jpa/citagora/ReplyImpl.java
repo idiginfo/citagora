@@ -13,12 +13,12 @@ import org.idiginfo.docsvc.model.citagora.Reply;
 public class ReplyImpl extends CommentImpl implements Reply {
 
     @ManyToOne(targetEntity = CommentImpl.class)
-    Comment target;
+    Comment replyTarget;
 
     public ReplyImpl() {
 	setType(Comment.TYPE);
 	setCollection(Comment.COLLECTION);
-	initId();
+	//initId();
     }
 
     public String getType() {
@@ -30,7 +30,7 @@ public class ReplyImpl extends CommentImpl implements Reply {
     }
 
     public void setTarget(Comment target) {
-	this.target = target;
+	this.replyTarget = target;
     }
 
 }
