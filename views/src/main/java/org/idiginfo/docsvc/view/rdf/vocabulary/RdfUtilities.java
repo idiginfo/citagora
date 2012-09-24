@@ -6,6 +6,8 @@ import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.Resource;
+import com.hp.hpl.jena.rdf.model.Statement;
+import com.hp.hpl.jena.rdf.model.StmtIterator;
 
 public class RdfUtilities {
 
@@ -32,5 +34,17 @@ public class RdfUtilities {
 
     public static Resource getResource(Model model, String uri) {
 	return model.getResource(uri);
+    }
+
+    public static String getProperties(Resource resource) {
+	StringBuffer out = new StringBuffer();
+	out.append(resource.getURI()).append(": ");
+	StmtIterator properties = resource.listProperties();
+	while (properties.hasNext()) {
+	    Statement stmt = properties.next();
+	    Property predicate = stmt.getPredicate();
+	    out.append(predicate.getLocalName()).append(" ");
+	}
+	return out.toString();
     }
 }

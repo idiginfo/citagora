@@ -29,6 +29,8 @@ import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.Resource;
+import com.hp.hpl.jena.rdf.model.Statement;
+import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.sparql.vocabulary.FOAF;
 import com.hp.hpl.jena.vocabulary.DCTerms;
 import com.hp.hpl.jena.vocabulary.RDF;
@@ -74,7 +76,9 @@ public class MapCitagoraObject {
 	if (from == null)
 	    return null;
 	String uri = from.getUri();
-	Resource resource = model.getResource(from.getUri());
+	if (uri == null || uri.length() == 0)
+	    return null;
+	Resource resource = model.getResource(uri);
 	if (resource.hasProperty(RDF.type)) // already added this object to
 					    // the model
 	    return resource;
@@ -110,7 +114,7 @@ public class MapCitagoraObject {
      */
     public Resource addCitagoraObject(CitagoraObject from) {
 	// create resource in the model for this object
-	String uri = from.getId();
+	String uri = from.getUri();
 	Resource resource = model.getResource(uri);
 
 	// add properties of CitagoraObject
@@ -123,7 +127,6 @@ public class MapCitagoraObject {
 	addProperty(resource, DCTerms.rights, from.getRights());
 	addObject(resource, OAF.generator, from.getGenerator());
 	addProperty(resource, DCTerms.dateSubmitted, from.getGenerated());
-
 	return resource;
     }
 
@@ -152,7 +155,7 @@ public class MapCitagoraObject {
     private Resource addComment(Comment from) {
 	Resource resource = addAnnotation(from);
 
-	addObject(resource, RdfReview.type, from.getRatingType());
+	addProperty(resource, RdfReview.type, from.getRatingType());
 	addObject(resource, RdfReview.reviewer, from.getReviewer());
 	addProperty(resource, RdfReview.rating, from.getRating());
 
@@ -205,7 +208,7 @@ public class MapCitagoraObject {
 
     public Resource addAuthor(Author from) {
 	Resource resource = addPerson(from);
-	addObjects(resource, null, from.getReferences());
+	addObjects(resource, null, from.getAuthorReferences());
 
 	return resource;
     }
