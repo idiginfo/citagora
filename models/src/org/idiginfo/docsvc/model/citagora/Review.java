@@ -13,4 +13,14 @@ public interface Review extends CitagoraObject {
 	CitagoraDocument getDocumentReviewed(); // same as getTarget
 
 	Integer getTotalVotes();
+
+	void setDocumentReviewed(CitagoraDocument document);
+
+	void setRatingType(String uri);
+
+	void setRating(int i);
+
+	void setReviewer(Person person);
+
+	void setTotalVotes(int i);
 }

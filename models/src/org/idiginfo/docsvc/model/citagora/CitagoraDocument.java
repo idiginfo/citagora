@@ -4,8 +4,6 @@ import java.util.List;
 
 import javax.xml.stream.events.Comment;
 
-import org.idiginfo.docsvc.svcapi.citagora.TagImpl;
-
 public interface CitagoraDocument extends CitagoraObject {
     static final String TYPE = "http://citagora.com/rdf#Document";
     static final String COLLECTION = "document";
@@ -23,4 +21,12 @@ public interface CitagoraDocument extends CitagoraObject {
     void addComment(Comment comment);
 
     void addTag(Tag tag);
+
+    void setSource(String string);
+
+    void setRights(String string);
+
+    void addReview(Review review);
+
+    void setIsAbout(Reference reference);
 }
