@@ -20,9 +20,8 @@ import org.idiginfo.docsvc.model.citagora.CitagoraAgent;
 import org.idiginfo.docsvc.model.citagora.CitagoraDocument;
 import org.idiginfo.docsvc.model.citagora.Reference;
 
-
 @Entity(name = "citagora_references")
-@DiscriminatorValue(value="reference")
+@DiscriminatorValue(value = "reference")
 public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
 
     String abstractText; // 'abstract' is a Java keyword
@@ -36,21 +35,21 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
     Date issued;
     String pmid;
     String doi;
-    
+
     @ManyToOne(targetEntity = ReferenceImpl.class, cascade = CascadeType.PERSIST)
-    @JoinColumn(name="isPartOf")
+    @JoinColumn(name = "isPartOf")
     Reference isPartOf;
-    
+
     @OneToMany(mappedBy = "isPartOf", targetEntity = ReferenceImpl.class, cascade = CascadeType.PERSIST)
     List<Reference> contains;
-    
+
     @OneToMany(mappedBy = "isAbout", targetEntity = CitagoraDocumentImpl.class, cascade = CascadeType.PERSIST)
     List<CitagoraDocument> citagoraDocuments;
 
     @ManyToMany(targetEntity = PersonImpl.class, cascade = CascadeType.PERSIST)
     @JoinTable(name = "reference_authors")
     List<Author> authorList;
- 
+
     @ManyToMany(targetEntity = ReferenceImpl.class, cascade = CascadeType.PERSIST)
     @JoinTable(name = "reference_citations")
     List<Reference> isCitedBy;
@@ -61,7 +60,7 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
 
     @ManyToOne(targetEntity = PersonImpl.class, cascade = CascadeType.PERSIST)
     CitagoraAgent contributedBy;
-    
+
     String shortTitle;
     String publisher;
     String pages;
@@ -71,7 +70,7 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
     public ReferenceImpl() {
 	type = Reference.TYPE;
 	setCollection(Reference.COLLECTION);
-	//initId();
+	// initId();
     }
 
     public String getAbstract() {
@@ -102,7 +101,7 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
 	return pageEnd;
     }
 
-    public void setPageEnd(Integer pageEnd) {
+    public void setPageEnd(int pageEnd) {
 	this.pageEnd = pageEnd;
     }
 
@@ -277,10 +276,22 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
 	this.pages = pages;
     }
 
-	@Override
-	public void setId(String id) {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void setId(String id) {
+	// TODO Auto-generated method stub
+
+    }
+
+    public List<Reference> getContains() {
+	return contains;
+    }
+
+    public List<Reference> getIsCitedBy() {
+	return isCitedBy;
+    }
+
+    public CitagoraAgent getContributedBy() {
+	return contributedBy;
+    }
 
 }

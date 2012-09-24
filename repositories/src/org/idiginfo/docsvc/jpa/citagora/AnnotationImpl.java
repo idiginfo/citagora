@@ -23,7 +23,6 @@ abstract public class AnnotationImpl extends CitagoraObjectImpl implements
     AnnotationBodyImpl body;
     String modelVersion;
 
-
     public AnnotationImpl() {
 	body = new AnnotationBodyImpl();
 	setType(Annotation.TYPE);

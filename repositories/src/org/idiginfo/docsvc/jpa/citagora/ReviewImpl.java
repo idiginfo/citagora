@@ -32,7 +32,7 @@ public class ReviewImpl extends CitagoraObjectImpl implements Review {
 	return rating;
     }
 
-    public void setRating(Integer rating) {
+    public void setRating(int rating) {
 	this.rating = rating;
     }
 

@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
+import javax.persistence.PostPersist;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -74,6 +75,18 @@ public abstract class CitagoraObjectImpl implements CitagoraObject {
     }
 
     /**
+     * after the object has been inserted, update the uri field with the new
+     * value of myId
+     */
+    @PostPersist
+    protected void afterCreate() {
+	if (uri == null) {
+	    String id = makeId(myCollection, myId);
+	    uri = id;
+	}
+    }
+
+    /**
      * Perform operations required before updating an object
      */
     @PreUpdate
@@ -111,7 +124,7 @@ public abstract class CitagoraObjectImpl implements CitagoraObject {
      * public void setId(String id) { this.id = id; }
      */
     public String getUri() {
-	return getId();
+	return uri;
     }
 
     public void setUri(String uri) {
@@ -183,6 +196,6 @@ public abstract class CitagoraObjectImpl implements CitagoraObject {
     @Override
     public String getId() {
 	// TODO Auto-generated method stub
-	return null;
+	return uri;
     }
 }

@@ -74,6 +74,19 @@ public class PersonImpl implements Person, CitagoraAgent, Author {
 	setType(type);
     }
 
+    public PersonImpl(Class subclass) {
+	this();
+	if (Author.class.isInstance(subclass)) {
+	    isAuthor = true;
+	}
+	if (CitagoraAgent.class.isInstance(subclass)) {
+	    isAuthor = true;
+	}
+	if (Person.class.isInstance(subclass)) {
+	    isPerson = true;
+	}
+    }
+
     public static Person createCitagoraAgent() {
 	return new PersonImpl(CitagoraAgent.TYPE);
     }
@@ -182,7 +195,7 @@ public class PersonImpl implements Person, CitagoraAgent, Author {
 	return isAuthor;
     }
 
-    public void setIsAuthor(Boolean isAuthor) {
+    public void setIsAuthor(boolean isAuthor) {
 	this.isAuthor = isAuthor;
     }
 
@@ -190,7 +203,7 @@ public class PersonImpl implements Person, CitagoraAgent, Author {
 	return isAgent;
     }
 
-    public void setIsAgent(Boolean isAgent) {
+    public void setIsAgent(boolean isAgent) {
 	this.isAgent = isAgent;
     }
 
@@ -198,7 +211,7 @@ public class PersonImpl implements Person, CitagoraAgent, Author {
 	return isPerson;
     }
 
-    public void setIsPerson(Boolean isPerson) {
+    public void setIsPerson(boolean isPerson) {
 	this.isPerson = isPerson;
     }
 
