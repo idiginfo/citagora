@@ -1,8 +1,9 @@
-package org.idiginfo.docsvc.mapping;
+package org.idiginfo.docsvc.model.mapping;
 
 import org.idiginfo.docsvc.model.apisvc.Document;
+import org.idiginfo.docsvc.model.citagora.CitagoraFactory;
 import org.idiginfo.docsvc.model.citagora.Reference;
-import org.idiginfo.docsvc.svcapi.citagora.ReferenceImpl;
+
 
 /**
  * Class to map objects between model.apisvc.Document and
@@ -11,10 +12,10 @@ import org.idiginfo.docsvc.svcapi.citagora.ReferenceImpl;
  * @author griccardi
  * 
  */
-public class DocumentReference {
+public class MapDocumentToReference {
 
 	public Reference map(Document fromDocument) {
-		ReferenceImpl toReference = new ReferenceImpl();
+		Reference toReference = CitagoraFactory.getFactory().createReference();
 		// TODO change to Reference toReference
 		toReference.setSource(fromDocument.getSource());
 		toReference.setId(fromDocument.getId());
