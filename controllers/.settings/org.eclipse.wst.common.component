@@ -9,6 +9,9 @@
         <dependent-module archiveName="views-1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/views/views">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="repositories-1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/repositories/repositories">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="java-output-path" value="/controllers/target/classes"/>
         <property name="component.exclusion.patterns"/>
         <property name="context-root" value="docsvc"/>

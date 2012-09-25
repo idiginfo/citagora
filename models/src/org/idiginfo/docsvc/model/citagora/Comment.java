@@ -15,11 +15,11 @@ public interface Comment extends Annotation {
     // public static final String TYPE = "oaf:annotation";
     // static final String COLLECTION = "annotation";
 
-    RatingType getRatingType();
+    String getRatingType();
 
     Person getReviewer();
 
     Integer getRating();
 
-    List<Comment> getReplies();
+    List<Reply> getReplies();
 }

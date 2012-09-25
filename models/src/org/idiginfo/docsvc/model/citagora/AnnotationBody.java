@@ -11,4 +11,8 @@ public interface AnnotationBody extends UriObject {
 	
 	String getUri();
 
+	void setChars(String string);
+
+	void setCharacterEncoding(String string);
+
 }

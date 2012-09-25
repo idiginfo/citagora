@@ -61,4 +61,36 @@ public interface Reference extends CitagoraObject {
 	public void setId(String id);
 
 	public void setTitle(String title);
+
+	public void setSource(String source);
+
+	public void setPageStart(Integer pageStart);
+
+	public void setVolume(String volume);
+
+	public void setIssued(Date dateObject);
+
+	public void setDoi(String doi);
+
+	public void addCitagoraDocument(CitagoraDocument document);
+
+	public void setLanguage(String string);
+
+	public void addSeeAlso(String string);
+
+	public void setUri(String string);
+
+	public void setSubject(String string);
+
+	public void setShortTitle(String string);
+
+	public void setAbstract(String string);
+
+	public void setPmid(String string);
+
+	public void setPublisher(String string);
+
+	public void setPageEnd(int i);
+
+	public void setPages(String string);
 }
