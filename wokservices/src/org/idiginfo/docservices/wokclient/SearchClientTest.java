@@ -1,7 +1,5 @@
 package org.idiginfo.docservices.wokclient;
 
-import java.io.File;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
 

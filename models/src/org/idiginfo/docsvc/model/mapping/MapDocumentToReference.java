@@ -4,7 +4,6 @@ import org.idiginfo.docsvc.model.apisvc.Document;
 import org.idiginfo.docsvc.model.citagora.CitagoraFactory;
 import org.idiginfo.docsvc.model.citagora.Reference;
 
-
 /**
  * Class to map objects between model.apisvc.Document and
  * model.citagora.Reference
@@ -14,17 +13,18 @@ import org.idiginfo.docsvc.model.citagora.Reference;
  */
 public class MapDocumentToReference {
 
-	public Reference map(Document fromDocument) {
-		Reference toReference = CitagoraFactory.getFactory().createReference();
-		// TODO change to Reference toReference
-		toReference.setSource(fromDocument.getSource());
-		toReference.setId(fromDocument.getId());
-		toReference.setTitle(fromDocument.getTitle());
-		toReference.setPageStart(fromDocument.getPageStart());
-		toReference.setVolume(fromDocument.getVolume());
-		toReference.setIssued(fromDocument.getDateObject());
-		toReference.setDoi(fromDocument.getDoi());
+    public Reference map(Document fromDocument) {
+	CitagoraFactory factory = CitagoraFactory.getFactory();
+	Reference toReference = factory.createReference();
+	// TODO change to Reference toReference
+	toReference.setSource(fromDocument.getSource());
+	toReference.setId(fromDocument.getId());
+	toReference.setTitle(fromDocument.getTitle());
+	toReference.setPageStart(fromDocument.getPageStart());
+	toReference.setVolume(fromDocument.getVolume());
+	toReference.setIssued(fromDocument.getDateObject());
+	toReference.setDoi(fromDocument.getDoi());
 
-		return toReference;
-	}
+	return toReference;
+    }
 }

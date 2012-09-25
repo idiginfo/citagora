@@ -54,5 +54,6 @@ public abstract class CitagoraFactory {
 
     public abstract Tag createTag(int key);
 
+    public abstract Person createPerson(Class subclass);
 
 }

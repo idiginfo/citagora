@@ -127,6 +127,7 @@ public class MapCitagoraObject {
 	addProperty(resource, DCTerms.rights, from.getRights());
 	addObject(resource, OAF.generator, from.getGenerator());
 	addProperty(resource, DCTerms.dateSubmitted, from.getGenerated());
+	System.out.println("object: "+RdfUtilities.getProperties(resource));
 	return resource;
     }
 
@@ -139,6 +140,8 @@ public class MapCitagoraObject {
 	addObjects(resource, RdfReview.rating, from.getReviews());
 	addObjects(resource, Citagora.hasTag, from.getTags());
 	addObjects(resource, Citagora.hasComment, from.getComments());
+	System.out.println("document: "+RdfUtilities.getProperties(resource));
+
 	return resource;
     }
 

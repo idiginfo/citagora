@@ -18,6 +18,7 @@ import org.idiginfo.docsvc.model.apisvc.Document;
 import org.idiginfo.docsvc.model.citagora.CitagoraDocument;
 import org.idiginfo.docsvc.model.citagora.RatingType;
 import org.idiginfo.docsvc.model.citagora.Reference;
+import org.idiginfo.docsvc.model.mapping.MapDocumentToReference;
 import org.idiginfo.docsvc.svcapi.springer.SpringerApiParams;
 import org.idiginfo.docsvc.svcapi.springer.SpringerService;
 
@@ -132,7 +133,7 @@ public class TestCitagoraPersistence {
 	Document document = service.getDocument(params);
 	System.out.println(document.getId());
 
-	DocumentReference documentMapper = new DocumentReference();
+	MapDocumentToReference documentMapper = new MapDocumentToReference();
 	Reference reference = documentMapper.map(document);
 	return reference;
 
