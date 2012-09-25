@@ -17,16 +17,21 @@ import com.hp.hpl.jena.vocabulary.DCTerms;
 public class MapDocument {
 
 	/**
-	 * Add the document to the model
+	 * Add apisvc document object to the model, using Document
+	 *  GUID as URI to create Resource; add document fields as
+	 *  Object of RFD Statements, with corresponding Vocabulary 
+	 *  as Predicate.
 	 * 
 	 * @param model
 	 * @param document
-	 * @return
+	 * 
+	 * @return model
 	 */
 	public Model addDocument(Model model, Document document) {
+		// create resource in the model for this object
 		String guid = document.getGUID();
 		Resource docResource = model.createResource(guid);
-
+		// add properties of DocumentObject
 		RdfUtilities.addProperty(model, docResource, BIBO.authorList,
 				document.getAuthors());
 		RdfUtilities.addProperty(model, docResource, BIBO.doi,
