@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Vector;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -31,41 +32,47 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
     Integer pageStart;
     Integer pageEnd;
     String volume;
+    String biboType;
     @Temporal(TemporalType.TIMESTAMP)
     Date issued;
+    @Column(unique = true)
     String pmid;
+    @Column(unique = true)
     String doi;
 
-    @ManyToOne(targetEntity = ReferenceImpl.class, cascade = CascadeType.PERSIST)
+    @ManyToOne(targetEntity = ReferenceImpl.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "isPartOf")
     Reference isPartOf;
 
-    @OneToMany(mappedBy = "isPartOf", targetEntity = ReferenceImpl.class, cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "isPartOf", targetEntity = ReferenceImpl.class, cascade = CascadeType.ALL)
     List<Reference> contains;
 
-    @OneToMany(mappedBy = "isAbout", targetEntity = CitagoraDocumentImpl.class, cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "isAbout", targetEntity = CitagoraDocumentImpl.class, cascade = CascadeType.ALL)
     List<CitagoraDocument> citagoraDocuments;
 
-    @ManyToMany(targetEntity = PersonImpl.class, cascade = CascadeType.PERSIST)
+    @ManyToMany(targetEntity = PersonImpl.class, cascade = CascadeType.ALL)
     @JoinTable(name = "reference_authors")
     List<Author> authorList;
 
-    @ManyToMany(targetEntity = ReferenceImpl.class, cascade = CascadeType.PERSIST)
+    @ManyToMany(targetEntity = ReferenceImpl.class, cascade = CascadeType.ALL)
     @JoinTable(name = "reference_citations")
     List<Reference> isCitedBy;
-    @ManyToMany(mappedBy = "isCitedBy", targetEntity = ReferenceImpl.class, cascade = CascadeType.PERSIST)
+    @ManyToMany(mappedBy = "isCitedBy", targetEntity = ReferenceImpl.class, cascade = CascadeType.ALL)
     List<Reference> citationList;
 
     List<String> seeAlso;
 
-    @ManyToOne(targetEntity = PersonImpl.class, cascade = CascadeType.PERSIST)
+    @ManyToOne(targetEntity = PersonImpl.class, cascade = CascadeType.ALL)
     CitagoraAgent contributedBy;
 
     String shortTitle;
     String publisher;
     String pages;
 
+    Double readabilityRating;
     Double overallRating;
+    Double accuracyRating;
+    Double originalityRating;
 
     public ReferenceImpl() {
 	type = Reference.TYPE;
@@ -153,32 +160,28 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
 	this.isPartOf = isPartOf;
     }
 
-    public List<Author> getAuthorList() {
+    public List<Author> getAuthors() {
+	if (authorList == null)
+	    authorList = new Vector<Author>();
 	return authorList;
     }
 
-    public void setAuthorList(List<Author> authorList) {
-	this.authorList = authorList;
-    }
-
     public List<Reference> getCitationList() {
+	if (citationList == null)
+	    citationList = new Vector<Reference>();
 	return citationList;
     }
 
-    public void setCitationList(List<Reference> citationList) {
-	this.citationList = citationList;
-    }
-
     public List<String> getSeeAlso() {
+	if (seeAlso == null)
+	    seeAlso = new Vector<String>();
 	return seeAlso;
     }
 
     public List<CitagoraDocument> getCitagoraDocuments() {
+	if (citagoraDocuments == null)
+	    citagoraDocuments = new Vector<CitagoraDocument>();
 	return citagoraDocuments;
-    }
-
-    public void setCitagoraDocuments(List<CitagoraDocument> citagoraDocuments) {
-	this.citagoraDocuments = citagoraDocuments;
     }
 
     public Double getOverallRating() {
@@ -191,40 +194,35 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
 
     @Override
     public Reference isPartOf() {
-	// TODO Auto-generated method stub
-	return null;
+	return isPartOf;
     }
 
     @Override
     public Double getReadabilityRating() {
-	// TODO Auto-generated method stub
-	return null;
+	return readabilityRating;
     }
 
     @Override
     public Double getAccuracyRating() {
-	// TODO Auto-generated method stub
-	return null;
+	return accuracyRating;
     }
 
     @Override
     public Double getOriginalityRating() {
-	// TODO Auto-generated method stub
-	return null;
+	return originalityRating;
     }
 
     public void addCitagoraDocument(CitagoraDocument document) {
-	if (citagoraDocuments == null) {
-	    citagoraDocuments = new Vector<CitagoraDocument>();
-	}
-	citagoraDocuments.add(document);
+	if (document == null)
+	    return;
+	getCitagoraDocuments().add(document);
+	document.setIsAbout(this);
     }
 
     public void addSeeAlso(String link) {
-	if (seeAlso == null) {
-	    seeAlso = new Vector<String>();
-	}
-	seeAlso.add(link);
+	if (link == null)
+	    return;
+	getSeeAlso().add(link);
     }
 
     public String getAbstractText() {
@@ -243,9 +241,8 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
 	this.language = language;
     }
 
-    public void setSubject(String string) {
-	// TODO Auto-generated method stub
-
+    public void setSubject(String subject) {
+	this.subject = subject;
     }
 
     public String getSubject() {
@@ -277,21 +274,93 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
     }
 
     @Override
-    public void setId(String id) {
-	// TODO Auto-generated method stub
-
-    }
-
     public List<Reference> getContains() {
+	if (contains == null)
+	    contains = new Vector<Reference>();
 	return contains;
     }
 
+    @Override
     public List<Reference> getIsCitedBy() {
+	if (isCitedBy == null)
+	    isCitedBy = new Vector<Reference>();
 	return isCitedBy;
     }
 
+    @Override
     public CitagoraAgent getContributedBy() {
 	return contributedBy;
+    }
+
+    @Override
+    public String getBiboType() {
+	return biboType;
+    }
+
+    @Override
+    public void setBiboType(String biboType) {
+	this.biboType = biboType;
+    }
+
+    @Override
+    public void setContributedBy(CitagoraAgent contributedBy) {
+	this.contributedBy = contributedBy;
+    }
+
+    @Override
+    public void addAuthor(Author author) {
+	if (author == null || getAuthors().contains(author))
+	    return;
+	author.addAuthorReference(this);// work done in inverse
+    }
+
+    @Override
+    public void addCitation(Reference citation) {
+	if (citation == null || getCitationList().contains(citation))
+	    return;
+	citation.addCitation(this);// work done in inverse
+    }
+
+    @Override
+    public void setOverallRating(double rating) {
+	this.overallRating = rating;
+    }
+
+    @Override
+    public void setReadabilityRating(double rating) {
+	readabilityRating = rating;
+    }
+
+    @Override
+    public void setAccuracyRating(double rating) {
+	accuracyRating = rating;
+    }
+
+    @Override
+    public void setOriginalityRating(double rating) {
+	originalityRating = rating;
+    }
+
+    public List<Author> getAuthorList() {
+	if (authorList == null)
+	    authorList = new Vector<Author>();
+	return authorList;
+    }
+
+    public void setPageEnd(Integer pageEnd) {
+	this.pageEnd = pageEnd;
+    }
+
+    public void setReadabilityRating(Double readabilityRating) {
+	this.readabilityRating = readabilityRating;
+    }
+
+    public void setAccuracyRating(Double accuracyRating) {
+	this.accuracyRating = accuracyRating;
+    }
+
+    public void setOriginalityRating(Double originalityRating) {
+	this.originalityRating = originalityRating;
     }
 
 }

@@ -16,9 +16,9 @@ public class ReviewImpl extends CitagoraObjectImpl implements Review {
     String ratingType; // constant citagora:ratingType
     Integer rating;
     Integer totalVotes;
-    @ManyToOne(targetEntity = PersonImpl.class, cascade = CascadeType.PERSIST)
+    @ManyToOne(targetEntity = PersonImpl.class, cascade = CascadeType.ALL)
     Person reviewer;
-    @ManyToOne(targetEntity = CitagoraDocumentImpl.class, cascade = CascadeType.PERSIST)
+    @ManyToOne(targetEntity = CitagoraDocumentImpl.class, cascade = CascadeType.ALL)
     CitagoraDocument documentReviwed;
 
     public ReviewImpl() {

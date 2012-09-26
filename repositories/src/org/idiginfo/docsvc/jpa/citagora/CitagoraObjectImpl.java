@@ -27,7 +27,7 @@ import org.idiginfo.docsvc.model.citagora.CitagoraObject;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "citagora_objects")
-public abstract class CitagoraObjectImpl implements CitagoraObject {
+public class CitagoraObjectImpl implements CitagoraObject {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     Integer myId;
@@ -40,7 +40,7 @@ public abstract class CitagoraObjectImpl implements CitagoraObject {
     Date updated;
     String source;
     String rights;
-    @ManyToOne(targetEntity = PersonImpl.class, cascade = CascadeType.PERSIST)
+    @ManyToOne(targetEntity = PersonImpl.class, cascade = CascadeType.ALL)
     CitagoraAgent generator;
     @Temporal(TemporalType.TIMESTAMP)
     Date generated;
@@ -48,7 +48,7 @@ public abstract class CitagoraObjectImpl implements CitagoraObject {
     // tags and comments
     // This property will not work for existing implementation, as is
     // @OneToMany(mappedBy = "target", targetEntity = AnnotationImpl.class,
-    // cascade = CascadeType.PERSIST)
+    // cascade = CascadeType.ALL)
     @Transient
     List<Annotation> annotations;
 
@@ -115,15 +115,9 @@ public abstract class CitagoraObjectImpl implements CitagoraObject {
 	return id;
     }
 
-    /*
-     * public void initId() { id = makeId(myCollection, myId); if (uri == null)
-     * uri = id; }
-     * 
-     * public String getId() { if (id == null) { // initId(); } return id; }
-     * 
-     * public void setId(String id) { this.id = id; }
-     */
     public String getUri() {
+	if (uri == null && myId != null)
+	    uri = makeId(myCollection, myId);
 	return uri;
     }
 
@@ -187,10 +181,10 @@ public abstract class CitagoraObjectImpl implements CitagoraObject {
     }
 
     public void addAnnotation(Annotation annotation) {
-	if (annotations == null) {
-	    annotations = new Vector<Annotation>();
-	}
-	annotations.add(annotation);
+	if (annotation == null)
+	    return;
+	getAnnotations().add(annotation);
+	annotation.setTarget(this);
     }
 
     @Override

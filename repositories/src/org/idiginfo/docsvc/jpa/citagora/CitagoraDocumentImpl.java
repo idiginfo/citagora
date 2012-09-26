@@ -10,9 +10,9 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.xml.stream.events.Comment;
 
 import org.idiginfo.docsvc.model.citagora.CitagoraDocument;
+import org.idiginfo.docsvc.model.citagora.Comment;
 import org.idiginfo.docsvc.model.citagora.Reference;
 import org.idiginfo.docsvc.model.citagora.Review;
 import org.idiginfo.docsvc.model.citagora.Tag;
@@ -23,14 +23,14 @@ import org.idiginfo.docsvc.model.citagora.Tag;
 public class CitagoraDocumentImpl extends CitagoraObjectImpl implements
 	CitagoraDocument {
 
-    @ManyToOne(targetEntity = ReferenceImpl.class, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = ReferenceImpl.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     Reference isAbout;
 
-    @OneToMany(mappedBy = "documentReviwed", targetEntity = ReviewImpl.class, cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "documentReviwed", targetEntity = ReviewImpl.class, cascade = CascadeType.ALL)
     List<Review> reviews;
-    @OneToMany(mappedBy = "target", targetEntity = TagImpl.class, cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "target", targetEntity = TagImpl.class, cascade = CascadeType.ALL)
     List<Tag> tags;
-    @OneToMany(mappedBy = "target", targetEntity = CommentImpl.class, cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "target", targetEntity = CommentImpl.class, cascade = CascadeType.ALL)
     List<Comment> comments;
 
     public CitagoraDocumentImpl() {
@@ -40,20 +40,16 @@ public class CitagoraDocumentImpl extends CitagoraObjectImpl implements
     }
 
     @Override
-    public List<Review> getRatings() {
-	// TODO Auto-generated method stub
-	return reviews;
-    }
-
-    @Override
     public List<Tag> getTags() {
-	// TODO Auto-generated method stub
+	if (tags == null)
+	    tags = new Vector<Tag>();
 	return tags;
     }
 
     @Override
     public List<Comment> getComments() {
-	// TODO Auto-generated method stub
+	if (comments == null)
+	    comments = new Vector<Comment>();
 	return comments;
     }
 
@@ -72,23 +68,25 @@ public class CitagoraDocumentImpl extends CitagoraObjectImpl implements
     }
 
     public void addReview(Review review) {
-	if (reviews == null) {
-	    reviews = new Vector<Review>();
-	}
-	reviews.add(review);
+	if (review == null)
+	    return;
+	getReviews().add(review);
+	review.setDocumentReviewed(this);
     }
 
     @Override
     public void addTag(Tag tag) {
-	if (tags == null)
-	    tags = new Vector<Tag>();
-	tags.add(tag);
+	if (tag == null)
+	    return;
+	getTags().add(tag);
+	tag.setTarget(this);
     }
 
     @Override
     public void addComment(Comment comment) {
-	if (comments == null)
-	    comments = new Vector<Comment>();
-	comments.add(comment);
+	if (comment == null)
+	    return;
+	getComments().add(comment);
+	comment.setTarget(this);
     }
 }
