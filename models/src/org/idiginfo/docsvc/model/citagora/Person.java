@@ -9,20 +9,40 @@ public interface Person extends UriObject {
 
     String getGivenName();
 
+    void setGivenName(String string);
+
     String getFamilyName();
+
+    void setFamilyName(String string);
 
     String getName();
 
+    void setName(String string);
+
     String getAccountName();
+
+    void setAccountName(String name);
 
     String getAccount();
 
+    void setAccount(String string);
+
     String getHomePage();
 
-    void setAccountName(String string);
+    void setHomePage(String string);
+
+    Boolean getIsAuthor();
 
     void setIsAuthor(boolean isAuthor);
 
+    Boolean getIsAgent();
+
     void setIsAgent(boolean isAgent);
+
+    Boolean getIsPerson();
+
+    void setIsPerson(boolean isPerson);
+
+    void setPersonType(String string);
 
 }

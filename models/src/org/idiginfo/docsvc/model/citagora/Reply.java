@@ -1,6 +1,5 @@
 package org.idiginfo.docsvc.model.citagora;
 
-import java.util.List;
 
 /**
  * Interface for Citagora Comment node

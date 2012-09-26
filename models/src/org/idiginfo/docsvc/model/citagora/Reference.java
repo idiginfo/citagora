@@ -5,92 +5,119 @@ import java.util.List;
 
 public interface Reference extends CitagoraObject {
 
-	public String TYPE = "bibo:Document";
-	public String COLLECTION = "reference";
+    public String TYPE = "bibo:Document";
+    public String COLLECTION = "reference";
 
-	public String getSource();
+    public String getUri();
 
-	public String getLanguage();
+    public void setUri(String string);
 
-	public String getAbstract();
+    public String getSource();
 
-	public String getTitle();
+    public void setSource(String source);
 
-	public Integer getPageStart();
+    public String getLanguage();
 
-	public Integer getPageEnd();
+    public void setLanguage(String string);
 
-	public String getPages();
+    public String getAbstract();
 
-	public String getVolume();
+    public void setAbstract(String string);
 
-	public Date getIssued();
+    public String getTitle();
 
-	public String getPmid();
+    public void setTitle(String title);
 
-	public String getDoi();
+    public Integer getPageStart();
 
-	public Reference isPartOf();
+    public void setPageStart(Integer pageStart);
 
-	public List<Author> getAuthorList();
+    public Integer getPageEnd();
 
-	public List<Reference> getCitationList();
+    void setPageEnd(int end);
 
-	public List<String> getSeeAlso();
+    public String getPages();
 
-	public List<CitagoraDocument> getCitagoraDocuments();
+    void setPages(String pages);
 
-	public List<Annotation> getAnnotations();
+    public String getVolume();
 
-	public Double getOverallRating();
+    public void setVolume(String volume);
 
-	public Double getReadabilityRating();
+    public Date getIssued();
 
-	public Double getAccuracyRating();
+    public void setIssued(Date dateObject);
 
-	public Double getOriginalityRating();
+    public String getPmid();
 
-	public String getAbstractText();
+    void setPmid(String pmid);
 
-	public String getSubject();
+    public String getDoi();
 
-	public String getShortTitle();
+    public void setDoi(String doi);
 
-	public String getPublisher();
+    public Reference isPartOf();
 
-	public void setId(String id);
+    void setIsPartOf(Reference reference);
 
-	public void setTitle(String title);
+    public List<Author> getAuthors();
 
-	public void setSource(String source);
+    void addAuthor(Author author);
 
-	public void setPageStart(Integer pageStart);
+    public List<Reference> getCitationList();
 
-	public void setVolume(String volume);
+    void addCitation(Reference citation);
 
-	public void setIssued(Date dateObject);
+    public List<String> getSeeAlso();
 
-	public void setDoi(String doi);
+    void addSeeAlso(String seeAlso);
 
-	public void addCitagoraDocument(CitagoraDocument document);
+    public List<CitagoraDocument> getCitagoraDocuments();
 
-	public void setLanguage(String string);
+    public void addCitagoraDocument(CitagoraDocument document);
 
-	public void addSeeAlso(String string);
+    public Double getOverallRating();
 
-	public void setUri(String string);
+    void setOverallRating(double rating);
 
-	public void setSubject(String string);
+    public Double getReadabilityRating();
 
-	public void setShortTitle(String string);
+    void setReadabilityRating(double rating);
 
-	public void setAbstract(String string);
+    public Double getAccuracyRating();
 
-	public void setPmid(String string);
+    void setAccuracyRating(double rating);
 
-	public void setPublisher(String string);
+    public Double getOriginalityRating();
 
-	public void setPageEnd(int i);
+    void setOriginalityRating(double rating);
 
-	public void setPages(String string);
+    public String getAbstractText();
+
+    public void setAbstractText(String string);
+
+    public String getSubject();
+
+    public void setSubject(String string);
+
+    public String getShortTitle();
+
+    public void setShortTitle(String string);
+
+    public String getPublisher();
+
+    public void setPublisher(String string);
+
+    public void setBiboType(String string);
+
+    public String getBiboType();
+
+    List<Reference> getContains();
+
+    CitagoraAgent getContributedBy();
+
+    void setContributedBy(CitagoraAgent contributedBy);
+
+    List<Reference> getIsCitedBy();
+
 }

@@ -3,16 +3,35 @@ package org.idiginfo.docsvc.model.citagora;
 import java.util.Date;
 
 public interface Annotation extends CitagoraObject {
-	static final String TYPE = "oa:annotation";
-	static final String COLLECTION = "annotation";
+    static final String TYPE = "oa:annotation";
+    static final String COLLECTION = "annotation";
 
-	CitagoraObject getTarget(); 
+    CitagoraObject getTarget();
 
-	AnnotationBody getBody();
+    void setTarget(CitagoraObject target);
 
-	Person getAnnotator(); // same as wasAttributedTo?
+    // AnnotationBody getBody();
 
-	Date getAnnotated();
+    Person getAnnotator(); // same as wasAttributedTo?
 
-	String getModelVersion();
+    Date getAnnotated();
+
+    void setAnnotated(Date time);
+
+    String getModelVersion();
+
+    void setModelVersion(String version);
+
+    void setAnnotator(Person commentor);
+
+    String getCharacterEncoding();
+
+    void setCharacterEncoding(String string);
+
+    String getChars();
+
+    void setChars(String string);
+
+    AnnotationBody getBody();
+
 }
