@@ -363,4 +363,8 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
 	this.originalityRating = originalityRating;
     }
 
+    public Integer getMyId() {
+	return myId;
+    }
+
 }

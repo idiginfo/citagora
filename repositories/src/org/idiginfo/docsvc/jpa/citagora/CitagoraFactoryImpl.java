@@ -251,7 +251,11 @@ public class CitagoraFactoryImpl extends CitagoraFactory {
 	    localTransaction = true;
 	    t.begin();
 	}
-	em.merge(obj);
+	if (em.contains(obj)) {
+	    em.merge(obj);
+	}else {
+	    em.persist(obj);
+	}
 	if (localTransaction) {
 	    try {
 		t.commit();
@@ -274,6 +278,24 @@ public class CitagoraFactoryImpl extends CitagoraFactory {
 	} catch (PersistenceException e) {
 	    return false;
 	}
+    }
+
+    @Override
+    public void refresh(Object obj) {
+	try {
+	    getEntityManager().refresh(obj);
+	} catch (Exception e) {
+	    e.printStackTrace(System.err);
+	}
+    }
+    @Override
+    public void flush(){
+	try {
+	    getEntityManager().flush();
+	} catch (Exception e) {
+	    e.printStackTrace(System.err);
+	}
+	
     }
 
 }

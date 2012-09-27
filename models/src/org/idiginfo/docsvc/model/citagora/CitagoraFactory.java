@@ -72,4 +72,8 @@ public abstract class CitagoraFactory {
     public abstract Person findPerson(int key);
 
     public abstract CitagoraObject findCitagoraObject(int key);
+
+    public abstract void refresh(Object obj);
+
+    public abstract void flush() ;
 }

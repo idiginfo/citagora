@@ -10,12 +10,12 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import org.idiginfo.docsvc.jpa.citagora.CitagoraFactoryImpl;
+import org.idiginfo.docsvc.jpa.citagora.ReferenceImpl;
 import org.idiginfo.docsvc.model.apisvc.ApiParams;
 import org.idiginfo.docsvc.model.apisvc.Document;
 import org.idiginfo.docsvc.model.citagora.CitagoraAgent;
 import org.idiginfo.docsvc.model.citagora.CitagoraDocument;
 import org.idiginfo.docsvc.model.citagora.CitagoraFactory;
-import org.idiginfo.docsvc.model.citagora.CitagoraObject;
 import org.idiginfo.docsvc.model.citagora.Comment;
 import org.idiginfo.docsvc.model.citagora.Person;
 import org.idiginfo.docsvc.model.citagora.RatingType;
@@ -33,7 +33,7 @@ import com.hp.hpl.jena.rdf.model.Model;
 
 public class TestCitagoraPersistence {
 
-    CitagoraFactory factory = new CitagoraFactoryImpl();
+    CitagoraFactoryImpl factory = new CitagoraFactoryImpl();
 
     /**
      * @param args
@@ -49,14 +49,30 @@ public class TestCitagoraPersistence {
 	doc = createCitagoraDocument();
 	// doc = (CitagoraDocument) factory.findCitagoraObject(12);
 
-	// Reference ref = testSpringerDocument();
+	Reference ref = null;
+	String requestDoi = "doi:10.1007/s11276-008-0131-4";
+
+	//ref = getSpringerDocument(requestDoi);
+	// ref.setUri(null);
+	// ref.setDoi(ref.getDoi() + ":new2");
+	EntityManager em = factory.getEntityManager();
+	System.out.println("Contains before persist: " + em.contains(doc)
+		+ " uri: " + doc.getUri());
+
 	// ref.setLanguage("French");
-	factory.openTransaction();
-	factory.merge(doc);
+	// factory.openTransaction();
+	//factory.merge(doc);
 	// factory.merge(ref);
-	factory.commitTransaction();
-	EntityManager em = ((CitagoraFactoryImpl) factory).getEntityManager();
-	em.refresh(doc);
+	System.out.println("Contains after persist: " + em.contains(doc)
+		+ " uri: " + doc.getUri());
+	// factory.flush();
+	System.out.println("Contains after flush: " + em.contains(doc)
+		+ "uri: " + doc.getUri());
+
+	// factory.commitTransaction();
+	System.out.println("Contains after commit: " + em.contains(doc)
+		+ " uri: " + doc.getUri());
+	// factory.refresh(doc);
 	String rdf = writeCitagora(doc, null);
 	FileWriter out;
 	try {
@@ -72,65 +88,88 @@ public class TestCitagoraPersistence {
 	// System.out.println(doc2.getClass().getName());
     }
 
+    void printInfo(String objName, String objUri) {
+	System.out.println("+++Object " + objName + " : " + objUri);
+    }
+
     private CitagoraDocument createCitagoraDocument() {
 	// document.setId("http://citagora.com/documents/123456");
 	Date nov2011 = new GregorianCalendar(2011, 11, 11).getTime();
 	Date june2012 = new GregorianCalendar(2012, 6, 12).getTime();
 
-	Person docgenerator = factory.createPerson();
+	//factory.openTransaction();
+
+	CitagoraAgent docgenerator = (CitagoraAgent) factory
+		.createPerson(CitagoraAgent.class);
+	factory.merge(docgenerator);
 	docgenerator.setAccountName("CitagoraSoftwareAgent");
 	docgenerator.setAccount("http://citagora.com/softwareAgent");
 	docgenerator.setPersonType("SoftwareAgent");
 
 	CitagoraDocument document = factory.createCitagoraDocument();
+	System.out.println("doc uri: " + document.getUri());
+	factory.merge(document);
+	// factory.commitTransaction();
+	System.out.println("doc uri: " + document.getUri());
+	System.out.println("contains? "
+		+ factory.getEntityManager().contains(document));
+	// factory.refresh(document);
 	document.setSource("http://example.com/article");
 	document.setRights("http://www.nlm.nih.gov/databases/license/license.html");
 	document.setCreated(nov2011);
 	document.setGenerated(nov2011);
-	document.setGenerator((CitagoraAgent) docgenerator);
+	docgenerator.addAgentDocument(document);
 	// TODO what is this?
 	// document.setRatingType("http://purl.org/ontology/bibo/AcademicArticle");
 	document.setWasAttributedTo("http://citagora.com/softwareAgent");
 
 	Person reviewer = factory.createPerson();
+	factory.merge(reviewer);
 	reviewer.setAccountName("a_user_foaf");
 
 	// first review
-	Review review = factory.createReview();
-	document.addReview(review);
+	Review review1 = factory.createReview();
+	factory.merge(review1);
+	document.addReview(review1);
 	// review.setDocumentReviewed(document);
-	review.setRatingType(RatingType.getUri("overall"));
-	review.setRating(4);
-	review.setReviewer(reviewer);
+	review1.setRatingType(RatingType.getUri("overall"));
+	review1.setRating(4);
+	reviewer.addAgentReview(review1);
+	// review.setReviewer(reviewer);
 
 	// second review
-	review = factory.createReview();
-	document.addReview(review);
+	Review review2 = factory.createReview();
+	factory.merge(review2);
+	document.addReview(review2);
 	// review.setDocumentReviewed(document);
-	review.setRatingType(RatingType.getUri("accuracy"));
-	review.setTotalVotes(50);
-	review.setRating(4);
+	review2.setRatingType(RatingType.getUri("accuracy"));
+	review2.setTotalVotes(50);
+	review2.setRating(4);
 
 	// third review
-	review = factory.createReview();
-	 document.addReview(review);
-	//review.setDocumentReviewed(document);
-	review.setRatingType(RatingType.getUri("originality"));
-	review.setTotalVotes(10);
-	review.setRating(3);
+	Review review3 = factory.createReview();
+	factory.merge(review3);
+	document.addReview(review3);
+	// review.setDocumentReviewed(document);
+	review3.setRatingType(RatingType.getUri("originality"));
+	review3.setTotalVotes(10);
+	review3.setRating(3);
 
 	Person annotator = factory.createPerson();
+	factory.merge(annotator);
 	annotator.setAccountName("registered_annotator");
 	Person generator = factory.createCitagoraAgent();
 	generator.setAccountName("http://citagora.com/annotator");
 
 	// tag
 	Tag tag = factory.createTag();
+	factory.merge(tag);
 	document.addTag(tag);
-	//tag.setTarget(document);
+	// tag.setTarget(document);
 	tag.setChars("actual tag");
 	tag.setCharacterEncoding("UTF-8");
-	tag.setAnnotator(annotator);
+	// annotator.addAgentTag(tag);
+	// tag.setAnnotator(annotator);
 	tag.setAnnotated(june2012);
 	tag.setGenerator((CitagoraAgent) generator);
 	tag.setGenerated(june2012);
@@ -138,8 +177,9 @@ public class TestCitagoraPersistence {
 
 	// Reference
 	Reference reference = factory.createReference();
-	 document.setIsAbout(reference);
-	//reference.setLanguage("English");
+	factory.merge(reference);
+	reference.addCitagoraDocument(document);
+	// reference.setLanguage("English");
 	reference.addCitagoraDocument(document);
 	reference
 		.addSeeAlso("another link that also provides some information about this article");
@@ -150,9 +190,9 @@ public class TestCitagoraPersistence {
 	reference.setShortTitle("Short Article");
 	reference
 		.setAbstract("This is an abstract for a journal article. This article discusses something very important. This is an example.");
-	reference.setDoi("doi id");
-	reference.setUri("doi:doi id");
-	reference.setPmid("pmid number");
+	reference.setUri("doi:doi id:"+((ReferenceImpl)reference).getMyId());
+	reference.setDoi(reference.getUri());
+	reference.setPmid("pmid number"+((ReferenceImpl)reference).getMyId());
 	reference.setPublisher("a publisher as plain text");
 	reference.setVolume("6");
 	reference.setPageStart(8);
@@ -161,6 +201,7 @@ public class TestCitagoraPersistence {
 
 	// commentor
 	Person commentor = factory.createPerson();
+	factory.merge(commentor);
 	commentor.setAccount("CommentorOne");
 	commentor.setAccountName("CommOne");
 	commentor.setFamilyName("One");
@@ -171,22 +212,25 @@ public class TestCitagoraPersistence {
 
 	// comment
 	Comment comment = factory.createComment();
-	// document.addComment(comment);
-	comment.setTarget(document);
+	factory.merge(comment);
+	document.addComment(comment);
+	// comment.setTarget(document);
 	comment.setAnnotated(new GregorianCalendar(2012, 01, 01).getTime());
-	comment.setAnnotator(commentor);
+	// commentor.addAgentComment(comment);
+	// comment.setAnnotator(commentor);
 	comment.setCharacterEncoding("UTF-8");
 	comment.setChars("string being commented upon");
 	comment.setCommentType("content critique");
 	comment.setCreated(new GregorianCalendar(2012, 02, 02).getTime());
 	comment.setGenerated(new GregorianCalendar(2012, 02, 02).getTime());
-	comment.setGenerator((CitagoraAgent) commentor);
+	commentor.addAgentComment(comment);
+	// comment.setGenerator((CitagoraAgent) commentor);
 	comment.setRating(4);
-	comment.setAnnotator(annotator);
+	// comment.setAnnotator(annotator);
 	comment.setModelVersion("0.1");
 	comment.setRights("notate");
 	comment.setSource("comment source");
-	comment.setUri("comment uri");
+	// comment.setUri("comment uri");
 	comment.setCommentType(RatingType.getUri("readability"));
 	comment.setWasAttributedTo("hearsay");
 
@@ -210,32 +254,50 @@ public class TestCitagoraPersistence {
 	reply.setCommentType("comment critique");
 	reply.setCreated(new GregorianCalendar(2012, 03, 03).getTime());
 	reply.setGenerated(new GregorianCalendar(2012, 03, 03).getTime());
-	reply.setGenerator((CitagoraAgent) replier);
+	replier.addAgentComment(reply);
+	// reply.setGenerator((CitagoraAgent) replier);
 	reply.setRating(2);
-	reply.setAnnotator(replier);
+	// reply.setAnnotator(replier);
 	reply.setModelVersion("0.1");
 	reply.setRights("notate");
 	reply.setSource("reply source");
-	reply.setUri("reply uri");
+	// reply.setUri("reply uri");
 	reply.setCommentType(RatingType.getUri("readability"));
 	reply.setWasAttributedTo("hearsay");
+
+	//factory.commitTransaction();
+
+	printInfo("docgenerator", docgenerator.getUri());
+	printInfo("document", document.getUri());
+	printInfo("reviewer", reviewer.getUri());
+	printInfo("review1", review1.getUri());
+	printInfo("review2", review2.getUri());
+	printInfo("review3", review3.getUri());
+	printInfo("annotator", annotator.getUri());
+	printInfo("tag", tag.getUri());
+	printInfo("commentor", commentor.getUri());
+	printInfo("reference", reference.getUri());
+	printInfo("comment", comment.getUri());
+	printInfo("replier", replier.getUri());
+	printInfo("reply", reply.getUri());
 
 	return document;
 
     }
 
-    Reference testSpringerDocument() {
+    Reference getSpringerDocument(String requestDoi) {
+	List<Reference> references = CitagoraFactory.getFactory()
+		.findReferences(requestDoi);
+	// references = null;
+	if (references != null && references.size() > 0)
+	    return references.get(0);
 	SpringerService service = new SpringerService();
 	ApiParams params = new SpringerApiParams();
 	// params.setDoi("doi:10.1007/s11276-008-0131-4");
-	params.setId("doi:10.1007/s11276-008-0131-4");
+	params.setId(requestDoi);
 	Document document = service.getDocument(params);
 	System.out.println(document.getId());
 
-	List<Reference> references = CitagoraFactory.getFactory()
-		.findReferences(document.getDoi());
-	if (references != null && references.size() > 0)
-	    return references.get(0);
 	MapDocumentToReference documentMapper = new MapDocumentToReference();
 	Reference reference = documentMapper.map(document);
 	return reference;

@@ -20,9 +20,11 @@ import javax.persistence.Transient;
 import org.idiginfo.docsvc.model.citagora.Author;
 import org.idiginfo.docsvc.model.citagora.CitagoraAgent;
 import org.idiginfo.docsvc.model.citagora.CitagoraDocument;
+import org.idiginfo.docsvc.model.citagora.CitagoraObject;
 import org.idiginfo.docsvc.model.citagora.Comment;
 import org.idiginfo.docsvc.model.citagora.Person;
 import org.idiginfo.docsvc.model.citagora.Reference;
+import org.idiginfo.docsvc.model.citagora.Review;
 import org.idiginfo.docsvc.model.citagora.Tag;
 
 @Entity(name = "people")
@@ -60,6 +62,8 @@ public class PersonImpl implements Person, CitagoraAgent, Author {
     List<Tag> agentTags;
     @OneToMany(mappedBy = "contributedBy", targetEntity = ReferenceImpl.class, cascade = CascadeType.ALL)
     List<Reference> agentReferences;
+    @OneToMany(mappedBy = "reviewer", targetEntity = ReviewImpl.class)
+    List<Review> agentReviews;
 
     // Non-persistent members
     @Transient
@@ -71,10 +75,11 @@ public class PersonImpl implements Person, CitagoraAgent, Author {
 
     public PersonImpl() {
 	setPersonType(Person.TYPE);
-	// id = CitagoraObjectImpl.makeId(type, myId);
+	myCollection = Person.COLLECTION;
     }
 
     public PersonImpl(String type) {
+	this();
 	setPersonType(type);
     }
 
@@ -109,6 +114,7 @@ public class PersonImpl implements Person, CitagoraAgent, Author {
 	// creator
 	if (created == null)
 	    created = updated;
+	getUri();// make sure uri is not null
     }
 
     /**
@@ -119,12 +125,19 @@ public class PersonImpl implements Person, CitagoraAgent, Author {
 	updated = new Date();
     }
 
-    public String getUri() {
-	return id;
-    }
+    public static String makeId(String collection, int myId) {
+ 	String id = CitagoraObject.NAMESPACE + collection + "/" + myId;
+ 	return id;
+     }
+
+     public String getUri() {
+ 	if (uri == null && myId != null)
+ 	    uri = makeId(myCollection, myId);
+ 	return uri;
+     }
 
     public String getId() {
-	return id;
+	return getUri();
     }
 
     // private void setMyId(Integer id) {
@@ -308,6 +321,19 @@ public class PersonImpl implements Person, CitagoraAgent, Author {
 	    return;
 	getAgentReferences().add(reference);
 	reference.setContributedBy(this);
+    }
+
+    public List<Review> getAgentReviews() {
+	if (agentReviews == null)
+	    agentReviews = new Vector<Review>();
+	return agentReviews;
+    }
+
+    public void addAgentReview(Review review) {
+	if (review == null)
+	    return;
+	getAgentReviews().add(review);
+	review.setReviewer(this);
     }
 
 }

@@ -13,8 +13,6 @@ import org.idiginfo.docsvc.model.citagora.Tag;
 @DiscriminatorValue(value = "tag")
 public class TagImpl extends AnnotationImpl implements Tag {
 
-    public static final String TYPE = "oax:tag";
-
     @ManyToOne(targetEntity = CitagoraDocumentImpl.class, cascade = CascadeType.ALL)
     CitagoraDocument target;
 

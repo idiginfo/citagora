@@ -22,6 +22,7 @@ import javax.persistence.Transient;
 
 import org.idiginfo.docsvc.model.citagora.Annotation;
 import org.idiginfo.docsvc.model.citagora.CitagoraAgent;
+import org.idiginfo.docsvc.model.citagora.CitagoraFactory;
 import org.idiginfo.docsvc.model.citagora.CitagoraObject;
 
 @Entity
@@ -63,6 +64,7 @@ public class CitagoraObjectImpl implements CitagoraObject {
 
     /**
      * Perform operations required before persisting an object
+     * myId is set before this method is called and so the URI can be created here
      */
     @PrePersist
     protected void onCreate() {
@@ -71,7 +73,7 @@ public class CitagoraObjectImpl implements CitagoraObject {
 	// creator
 	if (created == null)
 	    created = updated;
-
+	getUri();
     }
 
     /**
@@ -80,10 +82,7 @@ public class CitagoraObjectImpl implements CitagoraObject {
      */
     @PostPersist
     protected void afterCreate() {
-	if (uri == null) {
-	    String id = makeId(myCollection, myId);
-	    uri = id;
-	}
+	//getUri();
     }
 
     /**
