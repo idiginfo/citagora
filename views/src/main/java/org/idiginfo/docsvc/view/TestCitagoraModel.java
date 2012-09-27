@@ -106,9 +106,8 @@ public class TestCitagoraModel {
 	Tag tag = factory.createTag();
 	document.addTag(tag);
 	tag.setTarget(document);
-	AnnotationBody body = tag.getBody();
-	body.setChars("actual tag");
-	body.setCharacterEncoding("UTF-8");
+	tag.setChars("actual tag");
+	tag.setCharacterEncoding("UTF-8");
 	Person annotator = factory.createPerson();
 	annotator.setAccountName("registered_annotator");
 	tag.setAnnotator(annotator);
@@ -126,7 +125,7 @@ public class TestCitagoraModel {
 	reference.addCitagoraDocument(document);
 	reference
 		.addSeeAlso("another link that also provides some information about this article");
-	reference.setUri("http://example.com/article");
+	reference.setSource("http://example.com/article");
 	reference.setTitle("Some Journal Article");
 	reference.setSubject("some keyword");
 
@@ -134,7 +133,7 @@ public class TestCitagoraModel {
 	reference
 		.setAbstract("This is an abstract for a journal article. This article discusses something very important. This is an example.");
 	reference.setDoi("doi id");
-	reference.setId("doi:doi id");
+	reference.setUri("doi:doi id");
 	reference.setPmid("pmid number");
 	// note identifier is multi-valued
 	// <dcterms:identifier>pmid:pmid number</dcterms:identifier>

@@ -5,8 +5,11 @@ import java.util.List;
 public interface CitagoraAgent extends Person {
 	String TYPE = "citagora:agent";
 	List<CitagoraDocument> getAgentDocuments();
-	List<Annotation> getAgentComments();
-	List<Annotation> getAgentTags();
+	void addAgentDocument(CitagoraDocument document);
+	List<Comment> getAgentComments();
+	void addAgentComment(Comment document);
+	List<Tag> getAgentTags();
+	void addAgentTag(Tag document);
 	List<Reference> getAgentReferences();
-	List<Annotation> getAgentAnnotations();
+	void addAgentReference(Reference document);
 }

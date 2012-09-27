@@ -1,8 +1,10 @@
 package org.idiginfo.docsvc.jpa.citagora;
 
 import java.util.List;
+import java.util.Vector;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -18,35 +20,36 @@ import org.idiginfo.docsvc.model.citagora.Reply;
 @DiscriminatorValue(value = "comment")
 public class CommentImpl extends AnnotationImpl implements Comment {
 
-    String ratingType;
+    @Column(name = "ratingType")
+    String commentType;
 
-    @ManyToOne(targetEntity = CitagoraDocumentImpl.class)
+    @ManyToOne(targetEntity = CitagoraDocumentImpl.class, cascade = CascadeType.ALL)
     CitagoraDocument target;
 
-    @ManyToOne(targetEntity = PersonImpl.class, cascade = CascadeType.PERSIST)
+    @ManyToOne(targetEntity = PersonImpl.class, cascade = CascadeType.ALL)
     Person reviewer;
 
     Integer rating;
 
-    @OneToMany(mappedBy = "replyTarget", targetEntity = ReplyImpl.class, cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "replyTarget", targetEntity = ReplyImpl.class, cascade = CascadeType.ALL)
     List<Reply> replies;
 
     public CommentImpl() {
 	setType(Comment.TYPE);
 	setCollection(Comment.COLLECTION);
-	//initId();
+	// initId();
     }
 
     public String getType() {
 	return Comment.TYPE;
     }
 
-    public String getRatingType() {
-	return ratingType;
+    public String getCommentType() {
+	return commentType;
     }
 
-    public void setRatingType(String ratingType) {
-	this.ratingType = ratingType;
+    public void setCommentType(String commentType) {
+	this.commentType = commentType;
     }
 
     public Person getReviewer() {
@@ -66,12 +69,28 @@ public class CommentImpl extends AnnotationImpl implements Comment {
     }
 
     public List<Reply> getReplies() {
+	if (replies == null)
+	    replies = new Vector<Reply>();
 	return replies;
     }
 
     @Override
     public CitagoraObject getTarget() {
 	return target;
+    }
+
+    @Override
+    public void setTarget(CitagoraObject target) {
+	if (target instanceof CitagoraDocument)
+	    this.target = (CitagoraDocument) target;
+    }
+
+    @Override
+    public void addReply(Reply reply) {
+	if (reply == null)
+	    return;
+	getReplies().add(reply);
+	reply.setTarget(this);
     }
 
 }

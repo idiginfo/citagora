@@ -158,8 +158,8 @@ public class MapCitagoraObject {
     private Resource addComment(Comment from) {
 	Resource resource = addAnnotation(from);
 
-	addProperty(resource, RdfReview.type, from.getRatingType());
-	addObject(resource, RdfReview.reviewer, from.getReviewer());
+	addProperty(resource, RdfReview.type, from.getCommentType());
+	addObject(resource, RdfReview.reviewer, from.getAnnotator());
 	addProperty(resource, RdfReview.rating, from.getRating());
 
 	addObjects(resource, null, from.getReplies());
@@ -229,7 +229,7 @@ public class MapCitagoraObject {
 	addProperty(resource, BIBO.pmid, from.getPmid());
 	addProperty(resource, BIBO.doi, from.getDoi());
 	addObject(resource, DCTerms.isPartOf, from.isPartOf());
-	addObjects(resource, BIBO.authorList, from.getAuthorList());
+	addObjects(resource, BIBO.authorList, from.getAuthors());
 	addObjects(resource, null, from.getCitationList());
 	addProperties(resource, DCTerms.references, from.getSeeAlso());
 	addProperty(resource, RdfReview.rating, from.getOverallRating());

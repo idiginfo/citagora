@@ -1,28 +1,55 @@
 package org.idiginfo.docsvc.model.citagora;
 
+import java.util.List;
+
 public interface Person extends UriObject {
 
     static final String TYPE = "citagora:person";
     static final String COLLECTION = "person";
 
-    String getType();
-
-    String getGivenName();
-
-    String getFamilyName();
-
-    String getName();
+    String getAccount();
 
     String getAccountName();
 
-    String getAccount();
+    String getFamilyName();
+
+    String getGivenName();
 
     String getHomePage();
 
-    void setAccountName(String string);
+    Boolean getIsAgent();
 
-    void setIsAuthor(boolean isAuthor);
+    Boolean getIsAuthor();
+
+    Boolean getIsPerson();
+
+    String getName();
+
+    String getType();
+
+    void setAccount(String string);
+
+    void setAccountName(String name);
+
+    void setFamilyName(String string);
+
+    void setGivenName(String string);
+
+    void setHomePage(String string);
 
     void setIsAgent(boolean isAgent);
 
+    void setIsAuthor(boolean isAuthor);
+
+    void setIsPerson(boolean isPerson);
+
+    void setName(String string);
+
+    void setPersonType(String string);
+
+    void addAgentReview(Review review);
+
+    List<Review> getAgentReviews();
+
+    void addAgentComment(Comment comment);
 }

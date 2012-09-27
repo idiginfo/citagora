@@ -22,12 +22,13 @@ import javax.persistence.Transient;
 
 import org.idiginfo.docsvc.model.citagora.Annotation;
 import org.idiginfo.docsvc.model.citagora.CitagoraAgent;
+import org.idiginfo.docsvc.model.citagora.CitagoraFactory;
 import org.idiginfo.docsvc.model.citagora.CitagoraObject;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "citagora_objects")
-public abstract class CitagoraObjectImpl implements CitagoraObject {
+public class CitagoraObjectImpl implements CitagoraObject {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     Integer myId;
@@ -40,7 +41,7 @@ public abstract class CitagoraObjectImpl implements CitagoraObject {
     Date updated;
     String source;
     String rights;
-    @ManyToOne(targetEntity = PersonImpl.class, cascade = CascadeType.PERSIST)
+    @ManyToOne(targetEntity = PersonImpl.class, cascade = CascadeType.ALL)
     CitagoraAgent generator;
     @Temporal(TemporalType.TIMESTAMP)
     Date generated;
@@ -48,7 +49,7 @@ public abstract class CitagoraObjectImpl implements CitagoraObject {
     // tags and comments
     // This property will not work for existing implementation, as is
     // @OneToMany(mappedBy = "target", targetEntity = AnnotationImpl.class,
-    // cascade = CascadeType.PERSIST)
+    // cascade = CascadeType.ALL)
     @Transient
     List<Annotation> annotations;
 
@@ -62,7 +63,8 @@ public abstract class CitagoraObjectImpl implements CitagoraObject {
     // String id = null;
 
     /**
-     * Perform operations required before persisting an object
+     * Perform operations required before persisting an object myId is set
+     * before this method is called and so the URI can be created here
      */
     @PrePersist
     protected void onCreate() {
@@ -71,7 +73,7 @@ public abstract class CitagoraObjectImpl implements CitagoraObject {
 	// creator
 	if (created == null)
 	    created = updated;
-
+	getUri();
     }
 
     /**
@@ -80,10 +82,7 @@ public abstract class CitagoraObjectImpl implements CitagoraObject {
      */
     @PostPersist
     protected void afterCreate() {
-	if (uri == null) {
-	    String id = makeId(myCollection, myId);
-	    uri = id;
-	}
+	// getUri();
     }
 
     /**
@@ -115,15 +114,9 @@ public abstract class CitagoraObjectImpl implements CitagoraObject {
 	return id;
     }
 
-    /*
-     * public void initId() { id = makeId(myCollection, myId); if (uri == null)
-     * uri = id; }
-     * 
-     * public String getId() { if (id == null) { // initId(); } return id; }
-     * 
-     * public void setId(String id) { this.id = id; }
-     */
     public String getUri() {
+	if (uri == null && myId != null)
+	    uri = makeId(myCollection, myId);
 	return uri;
     }
 
@@ -187,15 +180,24 @@ public abstract class CitagoraObjectImpl implements CitagoraObject {
     }
 
     public void addAnnotation(Annotation annotation) {
-	if (annotations == null) {
-	    annotations = new Vector<Annotation>();
-	}
-	annotations.add(annotation);
+	if (annotation == null)
+	    return;
+	getAnnotations().add(annotation);
+	annotation.setTarget(this);
     }
 
     @Override
     public String getId() {
 	// TODO Auto-generated method stub
 	return uri;
+    }
+
+    @Override
+    public Integer getMyId() {
+	return myId;
+    }
+
+    public void setMyId(Integer myId) {
+	this.myId = myId;
     }
 }

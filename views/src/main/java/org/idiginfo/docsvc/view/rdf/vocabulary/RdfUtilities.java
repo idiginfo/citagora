@@ -6,7 +6,6 @@ import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
 
-
 public class RdfUtilities {
 
     /**
@@ -41,7 +40,7 @@ public class RdfUtilities {
      */
     public static void addProperty(Model model, Resource r, Property p,
 	    String value) {
-	if (value == null || value.equals(""))
+	if (p == null || value == null || value.equals(""))
 	    return;
 	model.add(r, p, (String) value);
     }
@@ -62,7 +61,7 @@ public class RdfUtilities {
      */
     public static void addProperty(Model model, Resource resource,
 	    Property relationship, Resource value) {
-	if (value == null)
+	if (value == null || relationship == null)
 	    return;
 	model.add(resource, relationship, value);
     }

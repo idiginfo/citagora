@@ -18,7 +18,7 @@ public class MapDocumentToReference {
 	Reference toReference = factory.createReference();
 	// TODO change to Reference toReference
 	toReference.setSource(fromDocument.getSource());
-	toReference.setId(fromDocument.getId());
+	toReference.setUri(fromDocument.getId());
 	toReference.setTitle(fromDocument.getTitle());
 	toReference.setPageStart(fromDocument.getPageStart());
 	toReference.setVolume(fromDocument.getVolume());

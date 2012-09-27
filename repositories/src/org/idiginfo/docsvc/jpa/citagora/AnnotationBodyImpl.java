@@ -79,4 +79,13 @@ public class AnnotationBodyImpl implements AnnotationBody {
 	return uri;
     }
 
+    @Override
+    public Integer getMyId() {
+        return myId;
+    }
+
+    public void setMyId(int myId) {
+        this.myId = myId;
+    }
+
 }

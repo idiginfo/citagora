@@ -2,6 +2,7 @@ package org.idiginfo.docsvc.jpa.citagora;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Vector;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -16,12 +17,15 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
-import org.idiginfo.docsvc.model.citagora.Annotation;
 import org.idiginfo.docsvc.model.citagora.Author;
 import org.idiginfo.docsvc.model.citagora.CitagoraAgent;
 import org.idiginfo.docsvc.model.citagora.CitagoraDocument;
+import org.idiginfo.docsvc.model.citagora.CitagoraObject;
+import org.idiginfo.docsvc.model.citagora.Comment;
 import org.idiginfo.docsvc.model.citagora.Person;
 import org.idiginfo.docsvc.model.citagora.Reference;
+import org.idiginfo.docsvc.model.citagora.Review;
+import org.idiginfo.docsvc.model.citagora.Tag;
 
 @Entity(name = "people")
 public class PersonImpl implements Person, CitagoraAgent, Author {
@@ -46,16 +50,20 @@ public class PersonImpl implements Person, CitagoraAgent, Author {
     Boolean isPerson;
 
     // Author fields
-    @ManyToMany(mappedBy = "authorList", targetEntity = ReferenceImpl.class)
+    @ManyToMany(mappedBy = "authorList", targetEntity = ReferenceImpl.class, cascade = CascadeType.ALL)
     List<Reference> authorReferences;
 
     // Agent fields
-    @OneToMany(mappedBy = "generator", targetEntity = CitagoraDocumentImpl.class, cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "generator", targetEntity = CitagoraDocumentImpl.class, cascade = CascadeType.ALL)
     List<CitagoraDocument> agentDocuments;
-    // List<Annotation> comments;
-    // List<Annotation> tags;
-    @OneToMany(mappedBy = "contributedBy", targetEntity = ReferenceImpl.class, cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "reviewer", targetEntity = CommentImpl.class, cascade = CascadeType.ALL)
+    List<Comment> agentComments;
+    @OneToMany(mappedBy = "annotator", targetEntity = TagImpl.class, cascade = CascadeType.ALL)
+    List<Tag> agentTags;
+    @OneToMany(mappedBy = "contributedBy", targetEntity = ReferenceImpl.class, cascade = CascadeType.ALL)
     List<Reference> agentReferences;
+    @OneToMany(mappedBy = "reviewer", targetEntity = ReviewImpl.class)
+    List<Review> agentReviews;
 
     // Non-persistent members
     @Transient
@@ -66,15 +74,16 @@ public class PersonImpl implements Person, CitagoraAgent, Author {
     String id = null;
 
     public PersonImpl() {
-	setType(Person.TYPE);
-	// id = CitagoraObjectImpl.makeId(type, myId);
+	setPersonType(Person.TYPE);
+	myCollection = Person.COLLECTION;
     }
 
     public PersonImpl(String type) {
-	setType(type);
+	this();
+	setPersonType(type);
     }
 
-    public PersonImpl(Class subclass) {
+    public PersonImpl(Class<?> subclass) {
 	this();
 	if (Author.class.isInstance(subclass)) {
 	    isAuthor = true;
@@ -105,6 +114,7 @@ public class PersonImpl implements Person, CitagoraAgent, Author {
 	// creator
 	if (created == null)
 	    created = updated;
+	getUri();// make sure uri is not null
     }
 
     /**
@@ -115,12 +125,19 @@ public class PersonImpl implements Person, CitagoraAgent, Author {
 	updated = new Date();
     }
 
-    public String getUri() {
-	return id;
-    }
+    public static String makeId(String collection, int myId) {
+ 	String id = CitagoraObject.NAMESPACE + collection + "/" + myId;
+ 	return id;
+     }
+
+     public String getUri() {
+ 	if (uri == null && myId != null)
+ 	    uri = makeId(myCollection, myId);
+ 	return uri;
+     }
 
     public String getId() {
-	return id;
+	return getUri();
     }
 
     // private void setMyId(Integer id) {
@@ -131,7 +148,7 @@ public class PersonImpl implements Person, CitagoraAgent, Author {
 	return type;
     }
 
-    public void setType(String type) {
+    public void setPersonType(String type) {
 	this.type = type;
     }
 
@@ -191,6 +208,7 @@ public class PersonImpl implements Person, CitagoraAgent, Author {
 	this.created = created;
     }
 
+    @Override
     public Boolean getIsAuthor() {
 	return isAuthor;
     }
@@ -199,6 +217,7 @@ public class PersonImpl implements Person, CitagoraAgent, Author {
 	this.isAuthor = isAuthor;
     }
 
+    @Override
     public Boolean getIsAgent() {
 	return isAgent;
     }
@@ -207,6 +226,7 @@ public class PersonImpl implements Person, CitagoraAgent, Author {
 	this.isAgent = isAgent;
     }
 
+    @Override
     public Boolean getIsPerson() {
 	return isPerson;
     }
@@ -232,33 +252,88 @@ public class PersonImpl implements Person, CitagoraAgent, Author {
     }
 
     public List<Reference> getAuthorReferences() {
+	if (authorReferences == null)
+	    authorReferences = new Vector<Reference>();
 	return authorReferences;
     }
 
     public List<Reference> getAgentReferences() {
+	if (agentReferences == null)
+	    agentReferences = new Vector<Reference>();
 	return agentReferences;
     }
 
     @Override
-    public List<Annotation> getAgentComments() {
-	// TODO Auto-generated method stub
-	return null;
+    public List<Comment> getAgentComments() {
+	if (agentComments == null)
+	    agentComments = new Vector<Comment>();
+	return agentComments;
     }
 
     @Override
-    public List<Annotation> getAgentTags() {
-	// TODO Auto-generated method stub
-	return null;
-    }
-
-    @Override
-    public List<Annotation> getAgentAnnotations() {
-	// TODO Auto-generated method stub
-	return null;
+    public List<Tag> getAgentTags() {
+	if (agentTags == null)
+	    agentTags = new Vector<Tag>();
+	return agentTags;
     }
 
     public List<CitagoraDocument> getAgentDocuments() {
+	if (agentDocuments == null)
+	    agentDocuments = new Vector<CitagoraDocument>();
 	return agentDocuments;
+    }
+
+    @Override
+    public void addAuthorReference(Reference reference) {
+	if (reference == null)
+	    return;
+	getAuthorReferences().add(reference);
+	reference.addAuthor(this);
+    }
+
+    @Override
+    public void addAgentDocument(CitagoraDocument document) {
+	if (document == null)
+	    return;
+	getAgentDocuments().add(document);
+	document.setGenerator(this);
+    }
+
+    @Override
+    public void addAgentComment(Comment document) {
+	if (document == null)
+	    return;
+	getAgentComments().add(document);
+	document.setAnnotator(this);
+    }
+
+    @Override
+    public void addAgentTag(Tag document) {
+	if (document == null)
+	    return;
+	getAgentTags().add(document);
+	document.setAnnotator(this);
+    }
+
+    @Override
+    public void addAgentReference(Reference reference) {
+	if (reference == null)
+	    return;
+	getAgentReferences().add(reference);
+	reference.setContributedBy(this);
+    }
+
+    public List<Review> getAgentReviews() {
+	if (agentReviews == null)
+	    agentReviews = new Vector<Review>();
+	return agentReviews;
+    }
+
+    public void addAgentReview(Review review) {
+	if (review == null)
+	    return;
+	getAgentReviews().add(review);
+	review.setReviewer(this);
     }
 
 }

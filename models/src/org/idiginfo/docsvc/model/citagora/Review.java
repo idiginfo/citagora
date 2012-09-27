@@ -1,26 +1,27 @@
 package org.idiginfo.docsvc.model.citagora;
 
 public interface Review extends CitagoraObject {
-	static final String TYPE = "http://purl.org/stuff/rev#Review";
-	static final String COLLECTION = "review";
+    static final String TYPE = "http://purl.org/stuff/rev#Review";
+    static final String COLLECTION = "review";
 
-	String getRatingType(); // constant citagora:ratingType
+    String getRatingType();
 
-	Person getReviewer(); // same as getAnnotator
+    void setRatingType(String uri);
 
-	Integer getRating();
+    Person getReviewer();
 
-	CitagoraDocument getDocumentReviewed(); // same as getTarget
+    void setReviewer(Person person);
 
-	Integer getTotalVotes();
+    Integer getRating();
 
-	void setDocumentReviewed(CitagoraDocument document);
+    void setRating(int i);
 
-	void setRatingType(String uri);
+    CitagoraDocument getDocumentReviewed();
 
-	void setRating(int i);
+    void setDocumentReviewed(CitagoraDocument document);
 
-	void setReviewer(Person person);
+    Integer getTotalVotes();
 
-	void setTotalVotes(int i);
+    void setTotalVotes(int i);
+
 }

@@ -111,7 +111,7 @@ public class TestCitagoraPersistence {
 	reference
 		.setAbstract("This is an abstract for a journal article. This article discusses something very important. This is an example.");
 	reference.setDoi("doi id");
-	reference.setId("doi:doi id");
+	//reference.setId("doi:doi id");
 	reference.setPmid("pmid number");
 	// note identifier is multi-valued
 	// <dcterms:identifier>pmid:pmid number</dcterms:identifier>

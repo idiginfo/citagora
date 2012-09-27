@@ -5,24 +5,43 @@ import java.util.List;
 
 public interface CitagoraObject extends UriObject {
 
-	public static final String NAMESPACE = "http://citagora.org/";
-	String getType();
+    public static final String NAMESPACE = "http://citagora.org/";
 
-	String getId();
+    String getType();
 
-	String getUri();
+    String getUri();
 
-	String getWasAttributedTo();
+    void setUri(String uri);
 
-	Date getCreated();
+    String getWasAttributedTo();
 
-	String getSource();
+    void setWasAttributedTo(String actor);
 
-	String getRights();
+    Date getCreated();
 
-	CitagoraAgent getGenerator(); // same as wasAttributedTo?
+    void setCreated(Date created);
 
-	Date getGenerated();
+    String getSource();
 
-	List<Annotation> getAnnotations();
+    void setSource(String source);
+
+    String getRights();
+
+    void setRights(String rights);
+
+    CitagoraAgent getGenerator(); // same as wasAttributedTo?
+
+    void setGenerator(CitagoraAgent generator);
+
+    Date getGenerated();
+
+    void setGenerated(Date generated);
+
+    List<Annotation> getAnnotations();
+
+    void addAnnotation(Annotation annotation);
+
+    String getId();
+
+
 }
