@@ -63,8 +63,8 @@ public class CitagoraObjectImpl implements CitagoraObject {
     // String id = null;
 
     /**
-     * Perform operations required before persisting an object
-     * myId is set before this method is called and so the URI can be created here
+     * Perform operations required before persisting an object myId is set
+     * before this method is called and so the URI can be created here
      */
     @PrePersist
     protected void onCreate() {
@@ -82,7 +82,7 @@ public class CitagoraObjectImpl implements CitagoraObject {
      */
     @PostPersist
     protected void afterCreate() {
-	//getUri();
+	// getUri();
     }
 
     /**
@@ -190,5 +190,14 @@ public class CitagoraObjectImpl implements CitagoraObject {
     public String getId() {
 	// TODO Auto-generated method stub
 	return uri;
+    }
+
+    @Override
+    public Integer getMyId() {
+	return myId;
+    }
+
+    public void setMyId(Integer myId) {
+	this.myId = myId;
     }
 }

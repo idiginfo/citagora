@@ -23,6 +23,7 @@ import org.idiginfo.docsvc.model.citagora.Reference;
 import org.idiginfo.docsvc.model.citagora.Reply;
 import org.idiginfo.docsvc.model.citagora.Review;
 import org.idiginfo.docsvc.model.citagora.Tag;
+import org.idiginfo.docsvc.model.citagora.UriObject;
 
 /**
  * Class to support Citagora object creation and persistence management
@@ -93,7 +94,7 @@ public class CitagoraFactoryImpl extends CitagoraFactory {
 
     @Override
     public RatingType createRatingType(String type) {
-	return new RatingType(type);
+	return new RatingTypeImpl(type);
     }
 
     @Override
@@ -241,11 +242,18 @@ public class CitagoraFactoryImpl extends CitagoraFactory {
      * Persist the object. If the transaction is not active, open it
      */
     @Override
-    public boolean merge(Object obj) {
+    public boolean merge(UriObject obj) {
 	// test to see if object is already persistent
 
 	boolean localTransaction = false;
 	EntityManager em = getEntityManager();
+	// if already managed, nothing required
+	if (em.contains(obj)) return true;
+	if (obj.getMyId()!= null){
+	    em.merge(obj);
+	    return true;
+	}
+	// object is not managed and has no primary id
 	EntityTransaction t = em.getTransaction();
 	if (!t.isActive()) {
 	    localTransaction = true;

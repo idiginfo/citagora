@@ -61,7 +61,7 @@ public abstract class CitagoraFactory {
 
     public abstract void init();
 
-    public abstract boolean merge(Object obj);
+    public abstract boolean merge(UriObject obj);
 
     public abstract boolean openTransaction();
 
@@ -76,4 +76,5 @@ public abstract class CitagoraFactory {
     public abstract void refresh(Object obj);
 
     public abstract void flush() ;
+
 }

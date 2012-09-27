@@ -2,16 +2,18 @@ package org.idiginfo.docsvc.jpa.citagora;
 
 import javax.persistence.Embeddable;
 
+import org.idiginfo.docsvc.model.citagora.RatingType;
 import org.idiginfo.docsvc.model.citagora.UriObject;
 
 @Embeddable
-public class RatingType implements UriObject {
+public class RatingTypeImpl extends RatingType {
     private String uri = null;
 
-    public RatingType(){
-	
+    public RatingTypeImpl() {
+
     }
-    public RatingType(String type) {
+
+    public RatingTypeImpl(String type) {
 	uri = getUri(type);
     }
 
@@ -19,12 +21,14 @@ public class RatingType implements UriObject {
 	return uri;
     }
 
-    public static String getUri(String type) {
-	return "http://citagora.com/RatingTypes/" + type;
-    }
-
     @Override
     public String getType() {
 	return "ratingtype";
+    }
+
+    @Override
+    public Integer getMyId() {
+	// TODO Auto-generated method stub
+	return null;
     }
 }
