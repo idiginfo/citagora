@@ -18,11 +18,13 @@ public class MapDocuments {
 	MapDocument mapDocument = new MapDocument();
 
 	/**
-	 * Add the documents to the model
+	 * Add List of apisvc document objects to the model, using an
+	 *  Iterator if the List is not null to map each element.
 	 * 
 	 * @param model
 	 * @param documents
-	 * @return
+	 * 
+	 * @return model
 	 */
 	public Model addDocuments(Model model, Documents documents) {
 		if (documents == null)

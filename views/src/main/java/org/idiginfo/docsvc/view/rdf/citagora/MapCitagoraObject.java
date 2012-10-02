@@ -19,11 +19,14 @@ import org.idiginfo.docsvc.model.citagora.Tag;
 import org.idiginfo.docsvc.model.citagora.UriObject;
 import org.idiginfo.docsvc.view.rdf.vocabulary.BIBO;
 import org.idiginfo.docsvc.view.rdf.vocabulary.Citagora;
+import org.idiginfo.docsvc.view.rdf.vocabulary.CommonTag;
 import org.idiginfo.docsvc.view.rdf.vocabulary.Content;
 import org.idiginfo.docsvc.view.rdf.vocabulary.OAF;
+import org.idiginfo.docsvc.view.rdf.vocabulary.OAX;
 import org.idiginfo.docsvc.view.rdf.vocabulary.Provenance;
 import org.idiginfo.docsvc.view.rdf.vocabulary.RdfReview;
 import org.idiginfo.docsvc.view.rdf.vocabulary.RdfUtilities;
+import org.idiginfo.docsvc.view.rdf.vocabulary.ResourceList;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
@@ -33,6 +36,7 @@ import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.sparql.vocabulary.FOAF;
 import com.hp.hpl.jena.vocabulary.DCTerms;
+import com.hp.hpl.jena.vocabulary.OWL;
 import com.hp.hpl.jena.vocabulary.RDF;
 
 /**
@@ -60,10 +64,14 @@ public class MapCitagoraObject {
 	model.setNsPrefix("bibo", BIBO.NS);
 	model.setNsPrefix("cnt", Content.NS);
 	model.setNsPrefix("oaf", OAF.NS);
+	model.setNsPrefix("oax", OAX.NS);
 	model.setNsPrefix("prov", Provenance.NS);
 	model.setNsPrefix("rev", RdfReview.NS);
 	model.setNsPrefix("foaf", FOAF.NS);
 	model.setNsPrefix("cit", Citagora.NS);
+	model.setNsPrefix("res", ResourceList.NS);
+	model.setNsPrefix("owl", OWL.NS);
+	model.setNsPrefix("ctag", CommonTag.NS);
     }
 
     /**
