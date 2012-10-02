@@ -62,19 +62,15 @@ public interface Reference extends CitagoraObject {
 
     public List<Author> getAuthors();
 
-    void addAuthor(Author author);
+    public void addAuthor(Author author);
+
+    public void removeAuthor(Author author);
 
     public List<Reference> getCitationList();
 
-    void addCitation(Reference citation);
-
     public List<String> getSeeAlso();
 
-    void addSeeAlso(String seeAlso);
-
     public List<CitagoraDocument> getCitagoraDocuments();
-
-    public void addCitagoraDocument(CitagoraDocument document);
 
     public Double getOverallRating();
 
@@ -119,5 +115,23 @@ public interface Reference extends CitagoraObject {
     void setContributedBy(CitagoraAgent contributedBy);
 
     List<Reference> getIsCitedBy();
+
+    public void setAuthors(String authors);
+
+    public void addSeeAlso(String seeAlso);
+
+    public String getAuthorString();
+
+    public void setAuthorString(String authorString);
+
+    void removeCitation(Reference citation);
+
+    void addCitation(Reference citation);
+
+    public void addIsCitedBy(Reference reference);
+
+    public void removeIsCitedBy(Reference reference);
+
+    public void addCitagoraDocument(CitagoraDocument document);
 
 }

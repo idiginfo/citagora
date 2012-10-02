@@ -39,9 +39,6 @@ public interface CitagoraObject extends UriObject {
 
     List<Annotation> getAnnotations();
 
-    void addAnnotation(Annotation annotation);
-
     String getId();
-
 
 }

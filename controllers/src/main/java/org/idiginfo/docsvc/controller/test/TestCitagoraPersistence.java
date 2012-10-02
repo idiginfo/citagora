@@ -52,7 +52,7 @@ public class TestCitagoraPersistence {
 	Reference ref = null;
 	String requestDoi = "doi:10.1007/s11276-008-0131-4";
 
-	//ref = getSpringerDocument(requestDoi);
+	// ref = getSpringerDocument(requestDoi);
 	// ref.setUri(null);
 	// ref.setDoi(ref.getDoi() + ":new2");
 	EntityManager em = factory.getEntityManager();
@@ -61,7 +61,7 @@ public class TestCitagoraPersistence {
 
 	// ref.setLanguage("French");
 	// factory.openTransaction();
-	//factory.merge(doc);
+	// factory.merge(doc);
 	// factory.merge(ref);
 	System.out.println("Contains after persist: " + em.contains(doc)
 		+ " uri: " + doc.getUri());
@@ -97,7 +97,7 @@ public class TestCitagoraPersistence {
 	Date nov2011 = new GregorianCalendar(2011, 11, 11).getTime();
 	Date june2012 = new GregorianCalendar(2012, 6, 12).getTime();
 
-	//factory.openTransaction();
+	// factory.openTransaction();
 
 	CitagoraAgent docgenerator = (CitagoraAgent) factory
 		.createPerson(CitagoraAgent.class);
@@ -119,6 +119,7 @@ public class TestCitagoraPersistence {
 	document.setCreated(nov2011);
 	document.setGenerated(nov2011);
 	docgenerator.addAgentDocument(document);
+	document.setGenerator(docgenerator);
 	// TODO what is this?
 	// document.setRatingType("http://purl.org/ontology/bibo/AcademicArticle");
 	document.setWasAttributedTo("http://citagora.com/softwareAgent");
@@ -131,17 +132,17 @@ public class TestCitagoraPersistence {
 	Review review1 = factory.createReview();
 	factory.merge(review1);
 	document.addReview(review1);
-	// review.setDocumentReviewed(document);
+	review1.setDocumentReviewed(document);
 	review1.setRatingType(RatingType.getUri("overall"));
 	review1.setRating(4);
 	reviewer.addAgentReview(review1);
-	// review.setReviewer(reviewer);
+	review1.setReviewer(reviewer);
 
 	// second review
 	Review review2 = factory.createReview();
 	factory.merge(review2);
 	document.addReview(review2);
-	// review.setDocumentReviewed(document);
+	review2.setDocumentReviewed(document);
 	review2.setRatingType(RatingType.getUri("accuracy"));
 	review2.setTotalVotes(50);
 	review2.setRating(4);
@@ -150,7 +151,7 @@ public class TestCitagoraPersistence {
 	Review review3 = factory.createReview();
 	factory.merge(review3);
 	document.addReview(review3);
-	// review.setDocumentReviewed(document);
+	review3.setDocumentReviewed(document);
 	review3.setRatingType(RatingType.getUri("originality"));
 	review3.setTotalVotes(10);
 	review3.setRating(3);
@@ -165,11 +166,11 @@ public class TestCitagoraPersistence {
 	Tag tag = factory.createTag();
 	factory.merge(tag);
 	document.addTag(tag);
-	// tag.setTarget(document);
+	tag.setTarget(document);
 	tag.setChars("actual tag");
 	tag.setCharacterEncoding("UTF-8");
-	// annotator.addAgentTag(tag);
-	// tag.setAnnotator(annotator);
+	annotator.addAgentTag(tag);
+	tag.setAnnotator(annotator);
 	tag.setAnnotated(june2012);
 	tag.setGenerator((CitagoraAgent) generator);
 	tag.setGenerated(june2012);
@@ -178,9 +179,9 @@ public class TestCitagoraPersistence {
 	// Reference
 	Reference reference = factory.createReference();
 	factory.merge(reference);
+	reference.setLanguage("English");
 	reference.addCitagoraDocument(document);
-	// reference.setLanguage("English");
-	reference.addCitagoraDocument(document);
+	document.setIsAbout(reference);
 	reference
 		.addSeeAlso("another link that also provides some information about this article");
 	reference.setSource("http://example.com/article");
@@ -190,9 +191,10 @@ public class TestCitagoraPersistence {
 	reference.setShortTitle("Short Article");
 	reference
 		.setAbstract("This is an abstract for a journal article. This article discusses something very important. This is an example.");
-	reference.setUri("doi:doi id:"+((ReferenceImpl)reference).getMyId());
+	reference.setUri("doi:doi id:" + ((ReferenceImpl) reference).getMyId());
 	reference.setDoi(reference.getUri());
-	reference.setPmid("pmid number"+((ReferenceImpl)reference).getMyId());
+	reference
+		.setPmid("pmid number" + ((ReferenceImpl) reference).getMyId());
 	reference.setPublisher("a publisher as plain text");
 	reference.setVolume("6");
 	reference.setPageStart(8);
@@ -213,20 +215,20 @@ public class TestCitagoraPersistence {
 	// comment
 	Comment comment = factory.createComment();
 	factory.merge(comment);
-	document.addComment(comment);
-	// comment.setTarget(document);
+	 document.addComment(comment);
+	comment.setTarget(document);
 	comment.setAnnotated(new GregorianCalendar(2012, 01, 01).getTime());
-	// commentor.addAgentComment(comment);
-	// comment.setAnnotator(commentor);
+	commentor.addAgentComment(comment);
+	comment.setAnnotator(commentor);
 	comment.setCharacterEncoding("UTF-8");
 	comment.setChars("string being commented upon");
 	comment.setCommentType("content critique");
 	comment.setCreated(new GregorianCalendar(2012, 02, 02).getTime());
 	comment.setGenerated(new GregorianCalendar(2012, 02, 02).getTime());
 	commentor.addAgentComment(comment);
-	// comment.setGenerator((CitagoraAgent) commentor);
+	comment.setGenerator((CitagoraAgent) commentor);
 	comment.setRating(4);
-	// comment.setAnnotator(annotator);
+	comment.setAnnotator(annotator);
 	comment.setModelVersion("0.1");
 	comment.setRights("notate");
 	comment.setSource("comment source");
@@ -247,6 +249,7 @@ public class TestCitagoraPersistence {
 	// reply
 	Reply reply = factory.createReply();
 	comment.addReply(reply);
+	reply.setTarget(comment);
 	reply.setAnnotated(new GregorianCalendar(2012, 03, 01).getTime());
 	reply.setAnnotator(commentor);
 	reply.setCharacterEncoding("UTF-8");
@@ -255,9 +258,9 @@ public class TestCitagoraPersistence {
 	reply.setCreated(new GregorianCalendar(2012, 03, 03).getTime());
 	reply.setGenerated(new GregorianCalendar(2012, 03, 03).getTime());
 	replier.addAgentComment(reply);
-	// reply.setGenerator((CitagoraAgent) replier);
+	reply.setGenerator((CitagoraAgent) replier);
 	reply.setRating(2);
-	// reply.setAnnotator(replier);
+	reply.setAnnotator(replier);
 	reply.setModelVersion("0.1");
 	reply.setRights("notate");
 	reply.setSource("reply source");
@@ -265,7 +268,7 @@ public class TestCitagoraPersistence {
 	reply.setCommentType(RatingType.getUri("readability"));
 	reply.setWasAttributedTo("hearsay");
 
-	//factory.commitTransaction();
+	// factory.commitTransaction();
 
 	printInfo("docgenerator", docgenerator.getUri());
 	printInfo("document", document.getUri());

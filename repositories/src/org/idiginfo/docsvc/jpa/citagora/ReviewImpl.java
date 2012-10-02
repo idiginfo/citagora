@@ -9,8 +9,7 @@ import org.idiginfo.docsvc.model.citagora.CitagoraDocument;
 import org.idiginfo.docsvc.model.citagora.Person;
 import org.idiginfo.docsvc.model.citagora.Review;
 
-
-@Entity(name="reviews")
+@Entity(name = "reviews")
 @DiscriminatorValue(value = "review")
 public class ReviewImpl extends CitagoraObjectImpl implements Review {
     String ratingType; // constant citagora:ratingType
@@ -19,12 +18,12 @@ public class ReviewImpl extends CitagoraObjectImpl implements Review {
     @ManyToOne(targetEntity = PersonImpl.class, cascade = CascadeType.ALL)
     Person reviewer;
     @ManyToOne(targetEntity = CitagoraDocumentImpl.class, cascade = CascadeType.ALL)
-    CitagoraDocument documentReviwed;
+    CitagoraDocument documentReviewed;
 
     public ReviewImpl() {
 	setType(Review.TYPE);
 	setCollection(Review.COLLECTION);
-	//initId();
+	// initId();
     }
 
     // CitagoraDocument documentReviewed; // same as getTarget
@@ -45,17 +44,51 @@ public class ReviewImpl extends CitagoraObjectImpl implements Review {
 	return reviewer;
     }
 
+    /**
+     * Set both sides of the relationship, carefully. This code is repeated for
+     * every ManyToOne field.
+     */
+    @Override
     public void setReviewer(Person reviewer) {
+	// do nothing if relationship not changed
+	if (this.reviewer == reviewer)
+	    return;
+	// remove from inverse relationship
+	if (this.reviewer != null) {
+	    this.reviewer.getAgentReviews().remove(this);
+	}
+	// set forward relationship
 	this.reviewer = reviewer;
+	if (reviewer == null)
+	    return;
+	// set inverse relationship
+	reviewer.getAgentReviews().add(this);
     }
 
     @Override
     public CitagoraDocument getDocumentReviewed() {
-	return documentReviwed;
+	return documentReviewed;
     }
 
-    public void setDocumentReviewed(CitagoraDocument document) {
-	documentReviwed = document;
+    /**
+     * Set both sides of the relationship, carefully. This code is repeated for
+     * every ManyToOne field.
+     */
+    @Override
+    public void setDocumentReviewed(CitagoraDocument documentReviewed) {
+	// do nothing if relationship not changed
+	if (this.documentReviewed == documentReviewed)
+	    return;
+	// remove from inverse relationship
+	if (this.documentReviewed != null) {
+	    this.documentReviewed.getReviews().remove(this);
+	}
+	// set forward relationship
+	this.documentReviewed = documentReviewed;
+	if (documentReviewed == null)
+	    return;
+	// set inverse relationship
+	documentReviewed.getReviews().add(this);
     }
 
     public void setRatingType(String string) {

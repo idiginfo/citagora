@@ -10,10 +10,12 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.idiginfo.docsvc.model.citagora.CitagoraAgent;
 import org.idiginfo.docsvc.model.citagora.CitagoraDocument;
 import org.idiginfo.docsvc.model.citagora.CitagoraObject;
 import org.idiginfo.docsvc.model.citagora.Comment;
 import org.idiginfo.docsvc.model.citagora.Person;
+import org.idiginfo.docsvc.model.citagora.Reference;
 import org.idiginfo.docsvc.model.citagora.Reply;
 
 @Entity(name = "comments")
@@ -56,8 +58,24 @@ public class CommentImpl extends AnnotationImpl implements Comment {
 	return reviewer;
     }
 
-    public void setReviewer(Person reviewer) {
+    /**
+     * Set both sides of the relationship, carefully. This code is repeated for
+     * every ManyToOne field.
+     */
+    @Override
+    public void setReviewer(CitagoraAgent reviewer) {
+	if (this.reviewer == reviewer)
+	    return; // no change
+	if (this.reviewer != null) {
+	    // remove from inverse relationship
+	    this.reviewer.getAgentReviews().remove(this);
+	}
+	// set forward relationship
 	this.reviewer = reviewer;
+	if (reviewer == null)
+	    return;
+	// set inverse relationship
+	reviewer.getAgentComments().add(this);
     }
 
     public Integer getRating() {
@@ -79,18 +97,30 @@ public class CommentImpl extends AnnotationImpl implements Comment {
 	return target;
     }
 
+    /**
+     * Set both sides of the relationship, carefully. This code is repeated for
+     * every ManyToOne field.
+     */
     @Override
     public void setTarget(CitagoraObject target) {
-	if (target instanceof CitagoraDocument)
-	    this.target = (CitagoraDocument) target;
+	if (this.target == target)
+	    return; // no change
+	if (target != null && !(target instanceof CitagoraDocument))
+	    throw new ClassCastException();
+	if (this.target != null) {
+	    // remove from inverse relationship
+	    this.target.getComments().remove(this);
+	}
+	// set forward relationship
+	this.target = (CitagoraDocument) target;
+	if (target == null)
+	    return;
+	((CitagoraDocument) target).getComments().add(this);
     }
 
     @Override
     public void addReply(Reply reply) {
-	if (reply == null)
-	    return;
-	getReplies().add(reply);
-	reply.setTarget(this);
+	if (reply != null)
+	    reply.setTarget(this);
     }
-
 }

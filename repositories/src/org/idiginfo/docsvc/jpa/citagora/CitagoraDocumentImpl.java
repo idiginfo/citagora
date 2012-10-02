@@ -17,6 +17,14 @@ import org.idiginfo.docsvc.model.citagora.Reference;
 import org.idiginfo.docsvc.model.citagora.Review;
 import org.idiginfo.docsvc.model.citagora.Tag;
 
+/**
+ * @author griccardi
+ *
+ */
+/**
+ * @author griccardi
+ * 
+ */
 @Entity
 @Table(schema = "citagora", name = "citagora_documents")
 @DiscriminatorValue(value = "document")
@@ -26,7 +34,7 @@ public class CitagoraDocumentImpl extends CitagoraObjectImpl implements
     @ManyToOne(targetEntity = ReferenceImpl.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     Reference isAbout;
 
-    @OneToMany(mappedBy = "documentReviwed", targetEntity = ReviewImpl.class, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "documentReviewed", targetEntity = ReviewImpl.class, cascade = CascadeType.ALL)
     List<Review> reviews;
     @OneToMany(mappedBy = "target", targetEntity = TagImpl.class, cascade = CascadeType.ALL)
     List<Tag> tags;
@@ -57,36 +65,48 @@ public class CitagoraDocumentImpl extends CitagoraObjectImpl implements
 	return isAbout;
     }
 
+    /**
+     * Set both sides of the relationship, carefully. This code is repeated for
+     * every ManyToOne field.
+     */
     public void setIsAbout(Reference isAbout) {
-	this.isAbout = (ReferenceImpl) isAbout;
+	if (this.isAbout == isAbout)
+	    return; // no change
+	if (this.isAbout != null) {
+	    // remove from inverse relationship
+	    this.isAbout.getCitagoraDocuments().remove(this);
+	}
+	// set forward relationship
+	this.isAbout = isAbout;
+	if (isAbout == null)
+	    return;
+	isAbout.getCitagoraDocuments().add(this);
     }
 
+    @Override
     public List<Review> getReviews() {
 	if (reviews == null)
 	    reviews = new Vector<Review>();
 	return reviews;
     }
 
+    @Override
     public void addReview(Review review) {
-	if (review == null)
-	    return;
-	getReviews().add(review);
-	review.setDocumentReviewed(this);
+	if (review != null)
+	    review.setDocumentReviewed(this);
+
     }
 
     @Override
     public void addTag(Tag tag) {
-	if (tag == null)
-	    return;
-	getTags().add(tag);
-	tag.setTarget(this);
+	if (tag != null)
+	    tag.setTarget(this);
     }
 
     @Override
     public void addComment(Comment comment) {
-	if (comment == null)
-	    return;
-	getComments().add(comment);
-	comment.setTarget(this);
+	if (comment != null)
+	    comment.setTarget(this);
     }
+
 }

@@ -16,18 +16,14 @@ public class TagImpl extends AnnotationImpl implements Tag {
     @ManyToOne(targetEntity = CitagoraDocumentImpl.class, cascade = CascadeType.ALL)
     CitagoraDocument target;
 
-    public CitagoraDocument getTarget() {
-	return target;
-    }
-
-    public void setTarget(CitagoraDocument target) {
-	this.target = target;
-    }
-
     public TagImpl() {
 	type = Tag.TYPE;
 	setCollection(Tag.COLLECTION);
-	//initId();
+	// initId();
+    }
+
+    public CitagoraDocument getTarget() {
+	return target;
     }
 
     @Override
@@ -35,15 +31,32 @@ public class TagImpl extends AnnotationImpl implements Tag {
 	return (CitagoraDocument) getTarget();
     }
 
+    /**
+     * Set both sides of the relationship, carefully. This code is repeated for
+     * every ManyToOne field.
+     */
     @Override
     public void setTarget(CitagoraObject target) {
-	// TODO Auto-generated method stub
-	
+	// do nothing if relationship not changed
+	if (this.target == target)
+	    return;
+	// check type of target: must be Comment
+	if (target != null && !(target instanceof CitagoraDocument))
+	    throw new ClassCastException();
+	// remove from inverse relationship
+	if (this.target != null) {
+	    this.target.getTags().remove(this);
+	}
+	// set forward relationship
+	this.target = (CitagoraDocument) target;
+	if (target == null)
+	    return;
+	// set inverse relationship
+	((CitagoraDocument) target).getTags().add(this);
     }
 
     @Override
     public void setDocumentTagged(CitagoraDocument document) {
-	// TODO Auto-generated method stub
-	
+	setTarget(document);
     }
 }

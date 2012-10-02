@@ -80,7 +80,7 @@ public class TestCitagoraModel {
 	document.setRights("http://www.nlm.nih.gov/databases/license/license.html");
 	// first review
 	Review review = factory.createReview();
-	document.addReview(review);
+	//document.addReview(review);
 	review.setDocumentReviewed(document);
 	review.setRatingType(RatingType.getUri("overall"));
 	review.setRating(4);
@@ -89,14 +89,14 @@ public class TestCitagoraModel {
 	person.setAccountName("a_user_foaf");
 	// second review
 	review = factory.createReview();
-	document.addReview(review);
+	//document.addReview(review);
 	review.setDocumentReviewed(document);
 	review.setRatingType("overall");
 	review.setTotalVotes(50);
 	review.setRating(4);
 	// third review
 	review = factory.createReview();
-	document.addReview(review);
+	//document.addReview(review);
 	review.setDocumentReviewed(document);
 	review.setRatingType("overall");
 	review.setTotalVotes(10);
@@ -104,7 +104,7 @@ public class TestCitagoraModel {
 
 	// tag
 	Tag tag = factory.createTag();
-	document.addTag(tag);
+	//document.addTag(tag);
 	tag.setTarget(document);
 	tag.setChars("actual tag");
 	tag.setCharacterEncoding("UTF-8");
@@ -122,7 +122,8 @@ public class TestCitagoraModel {
 	Reference reference = factory.createReference();
 	document.setIsAbout(reference);
 	reference.setLanguage("English");
-	reference.addCitagoraDocument(document);
+	//reference.addCitagoraDocument(document);
+	document.setIsAbout(reference);
 	reference
 		.addSeeAlso("another link that also provides some information about this article");
 	reference.setSource("http://example.com/article");

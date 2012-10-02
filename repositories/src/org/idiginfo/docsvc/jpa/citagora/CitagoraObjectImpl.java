@@ -24,6 +24,7 @@ import org.idiginfo.docsvc.model.citagora.Annotation;
 import org.idiginfo.docsvc.model.citagora.CitagoraAgent;
 import org.idiginfo.docsvc.model.citagora.CitagoraFactory;
 import org.idiginfo.docsvc.model.citagora.CitagoraObject;
+import org.idiginfo.docsvc.model.citagora.Reference;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -101,6 +102,7 @@ public class CitagoraObjectImpl implements CitagoraObject {
 	myCollection = collection;
     }
 
+    @Override
     public String getType() {
 	return type;
     }
@@ -114,76 +116,98 @@ public class CitagoraObjectImpl implements CitagoraObject {
 	return id;
     }
 
+    @Override
     public String getUri() {
 	if (uri == null && myId != null)
 	    uri = makeId(myCollection, myId);
 	return uri;
     }
 
+    @Override
     public void setUri(String uri) {
 	this.uri = uri;
     }
 
+    @Override
     public String getWasAttributedTo() {
 	return wasAttributedTo;
     }
 
+    @Override
     public void setWasAttributedTo(String wasAttributedTo) {
 	this.wasAttributedTo = wasAttributedTo;
     }
 
+    @Override
     public Date getCreated() {
 	return created;
     }
 
+    @Override
     public void setCreated(Date created) {
 	this.created = created;
     }
 
+    @Override
     public String getSource() {
 	return source;
     }
 
+    @Override
     public void setSource(String source) {
 	this.source = source;
     }
 
+    @Override
     public String getRights() {
 	return rights;
     }
 
+    @Override
     public void setRights(String rights) {
 	this.rights = rights;
     }
 
+    @Override
     public CitagoraAgent getGenerator() {
 	return generator;
     }
 
+    /**
+     * Set both sides of the relationship, carefully. This code is repeated for
+     * every ManyToOne field.
+     */
+    @Override
     public void setGenerator(CitagoraAgent generator) {
+	if (this.generator == generator)
+	    return; // no change
+	if (this.generator != null) {
+	    // remove from inverse relationship
+	    this.generator.getAgentObjects().remove(this);
+	}
+	// set forward relationship
 	this.generator = generator;
+	if (generator == null)
+	    return;
+	generator.getAgentObjects().add(this);
     }
 
+    @Override
     public Date getGenerated() {
 	return generated;
     }
 
+    @Override
     public void setGenerated(Date generated) {
 	this.generated = generated;
     }
 
+    @Override
     public List<Annotation> getAnnotations() {
 	if (annotations == null) {
 	    annotations = new Vector<Annotation>();
 	}
 	return annotations;
-    }
-
-    public void addAnnotation(Annotation annotation) {
-	if (annotation == null)
-	    return;
-	getAnnotations().add(annotation);
-	annotation.setTarget(this);
     }
 
     @Override

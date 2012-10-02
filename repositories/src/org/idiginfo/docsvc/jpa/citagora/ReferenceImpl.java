@@ -39,6 +39,7 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
     String pmid;
     @Column(unique = true)
     String doi;
+    String authorString;
 
     @ManyToOne(targetEntity = ReferenceImpl.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "isPartOf")
@@ -156,8 +157,25 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
 	return isPartOf;
     }
 
+    /**
+     * Set both sides of the relationship, carefully. This code is repeated for
+     * every ManyToOne field.
+     */
+    @Override
     public void setIsPartOf(Reference isPartOf) {
+	// do nothing if relationship not changed
+	if (this.isPartOf == isPartOf)
+	    return;
+	// remove from inverse relationship
+	if (this.isPartOf != null) {
+	    this.isPartOf.getContains().remove(this);
+	}
+	// set forward relationship
 	this.isPartOf = isPartOf;
+	if (isPartOf == null)
+	    return;
+	// set inverse relationship
+	isPartOf.getContains().add(this);
     }
 
     public List<Author> getAuthors() {
@@ -212,11 +230,10 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
 	return originalityRating;
     }
 
+    @Override
     public void addCitagoraDocument(CitagoraDocument document) {
-	if (document == null)
-	    return;
-	getCitagoraDocuments().add(document);
-	document.setIsAbout(this);
+	if (document != null)
+	    document.setIsAbout(this);
     }
 
     public void addSeeAlso(String link) {
@@ -302,23 +319,25 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
 	this.biboType = biboType;
     }
 
+    /**
+     * Set both sides of the relationship, carefully. This code is repeated for
+     * every ManyToOne field.
+     */
     @Override
     public void setContributedBy(CitagoraAgent contributedBy) {
+	// do nothing if relationship not changed
+	if (this.contributedBy == contributedBy)
+	    return; // no change
+	// remove from inverse relationship
+	if (this.contributedBy != null) {
+	    this.contributedBy.getAgentReferences().remove(this);
+	}
+	// set forward relationship
 	this.contributedBy = contributedBy;
-    }
-
-    @Override
-    public void addAuthor(Author author) {
-	if (author == null || getAuthors().contains(author))
+	// set inverse relationship
+	if (contributedBy == null)
 	    return;
-	author.addAuthorReference(this);// work done in inverse
-    }
-
-    @Override
-    public void addCitation(Reference citation) {
-	if (citation == null || getCitationList().contains(citation))
-	    return;
-	citation.addCitation(this);// work done in inverse
+	contributedBy.getAgentReferences().add(this);
     }
 
     @Override
@@ -365,6 +384,93 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
 
     public Integer getMyId() {
 	return myId;
+    }
+
+    /**
+     * Set authors from comma-separated string of author names
+     */
+    @Override
+    public void setAuthors(String authors) {
+	// TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void setAuthorString(String authorString) {
+	// TODO look up authors?
+	this.authorString = authorString;
+    }
+
+    @Override
+    public String getAuthorString() {
+	if (getAuthorList().size() > 0) {
+	    // TODO return concat of author names!
+	}
+	return authorString;
+    }
+
+    // owner side of many-to-many
+    @Override
+    public void addAuthor(Author author) {
+	List<Author> authorList = getAuthorList();
+	// check for existing relationship
+	if (author == null || authorList.contains(author))
+	    return;
+	// add both sides of relationship
+	author.getAuthorReferences().add(this);
+	authorList.add(author);
+    }
+
+    // owner side of many-to-many
+    @Override
+    public void removeAuthor(Author author) {
+	List<Author> authorList = getAuthorList();
+	// check for existing relationship
+	if (author == null || !authorList.contains(author))
+	    return;
+	// add both sides of relationship
+	author.getAuthorReferences().remove(this);
+	authorList.remove(author);
+    }
+
+    // dependent side of many-to-many
+    @Override
+    public void addCitation(Reference citation) {
+	if (citation != null)
+	    citation.addIsCitedBy(this);
+
+    }
+
+    // dependent side of many-to-many
+    @Override
+    public void removeCitation(Reference citation) {
+	if (citation != null)
+	    citation.removeIsCitedBy(this);
+    }
+
+    // owner side of many-to-many
+    @Override
+    public void addIsCitedBy(Reference reference) {
+	List<Reference> isCitedBy = getIsCitedBy();
+	// check for existing relationship
+	if (reference == null || isCitedBy.contains(reference))
+	    return;
+	// add both sides of relationship
+	reference.getCitationList().add(this);
+	isCitedBy.add(reference);
+    }
+
+    // owner side of many-to-many
+    @Override
+    public void removeIsCitedBy(Reference reference) {
+	List<Reference> isCitedBy = getIsCitedBy();
+	// check for no existing relationship
+	if (reference == null || !isCitedBy.contains(reference))
+	    return;
+	// remove both sides of relationship
+	reference.getCitationList().remove(this);
+	isCitedBy.remove(reference);
+
     }
 
 }
