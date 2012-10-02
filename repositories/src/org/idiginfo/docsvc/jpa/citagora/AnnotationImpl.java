@@ -1,6 +1,7 @@
 package org.idiginfo.docsvc.jpa.citagora;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
@@ -14,7 +15,8 @@ import org.idiginfo.docsvc.model.citagora.Person;
 
 @Entity
 @Table(name = "annotations", schema = "citagora")
-abstract public class AnnotationImpl extends CitagoraObjectImpl implements Annotation {
+abstract public class AnnotationImpl extends CitagoraObjectImpl implements
+	Annotation {
 
     @ManyToOne(targetEntity = PersonImpl.class, cascade = CascadeType.ALL)
     Person annotator;
@@ -56,7 +58,12 @@ abstract public class AnnotationImpl extends CitagoraObjectImpl implements Annot
 
     @Override
     public void setAnnotator(Person annotator) {
-	this.annotator = annotator;
+	//TODO check this field
+	// List<Annotation> annotators = annotator.get;
+	// if (annotator != null && annotator != this.annotator) {
+	//
+	// }
+	// this.annotator = annotator;
     }
 
     @Override

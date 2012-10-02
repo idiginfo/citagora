@@ -8,18 +8,18 @@ public interface CitagoraDocument extends CitagoraObject {
 
     List<Review> getReviews();
 
-    void addReview(Review review);
-
     List<Tag> getTags();
 
-    void addTag(Tag tag);
-
     List<Comment> getComments();
-
-    void addComment(Comment comment);
 
     Reference getIsAbout();
 
     void setIsAbout(Reference reference);
+
+    void addReview(Review review1);
+
+    void addTag(Tag tag);
+
+    void addComment(Comment comment);
 
 }

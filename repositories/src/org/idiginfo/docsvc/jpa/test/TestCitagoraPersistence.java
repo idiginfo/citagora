@@ -45,8 +45,7 @@ public class TestCitagoraPersistence {
 	em.persist(doc);
 	em.persist(ref);
 	em.getTransaction().commit();
-	CitagoraObjectImpl doc2 =  em.find(
-		CitagoraObjectImpl.class, 52);
+	CitagoraObjectImpl doc2 = em.find(CitagoraObjectImpl.class, 52);
 	System.out.println(doc2.getClass().getName());
     }
 
@@ -57,7 +56,6 @@ public class TestCitagoraPersistence {
 	document.setRights("http://www.nlm.nih.gov/databases/license/license.html");
 	// first review
 	ReviewImpl review = new ReviewImpl();
-	document.addReview(review);
 	review.setDocumentReviewed(document);
 	review.setRatingType(RatingType.getUri("overall"));
 	review.setRating(4);
@@ -66,14 +64,12 @@ public class TestCitagoraPersistence {
 	person.setAccountName("a_user_foaf");
 	// second review
 	review = new ReviewImpl();
-	document.addReview(review);
 	review.setDocumentReviewed(document);
 	review.setRatingType("overall");
 	review.setTotalVotes(50);
 	review.setRating(4);
 	// third review
 	review = new ReviewImpl();
-	document.addReview(review);
 	review.setDocumentReviewed(document);
 	review.setRatingType("overall");
 	review.setTotalVotes(10);
@@ -81,7 +77,6 @@ public class TestCitagoraPersistence {
 
 	// tag
 	TagImpl tag = new TagImpl();
-	document.addTag(tag);
 	tag.setTarget(document);
 	AnnotationBodyImpl body = (AnnotationBodyImpl) tag.getBody();
 	body.setChars("actual tag");
@@ -111,7 +106,7 @@ public class TestCitagoraPersistence {
 	reference
 		.setAbstract("This is an abstract for a journal article. This article discusses something very important. This is an example.");
 	reference.setDoi("doi id");
-	//reference.setId("doi:doi id");
+	// reference.setId("doi:doi id");
 	reference.setPmid("pmid number");
 	// note identifier is multi-valued
 	// <dcterms:identifier>pmid:pmid number</dcterms:identifier>

@@ -5,6 +5,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
+import org.idiginfo.docsvc.model.citagora.CitagoraDocument;
 import org.idiginfo.docsvc.model.citagora.CitagoraObject;
 import org.idiginfo.docsvc.model.citagora.Comment;
 import org.idiginfo.docsvc.model.citagora.Reply;
@@ -26,10 +27,29 @@ public class ReplyImpl extends CommentImpl implements Reply {
 	return Comment.TYPE;
     }
 
+    /**
+     * Set both sides of the relationship, carefully. This code is repeated for
+     * every ManyToOne field.
+     * This method includes type constraint to related object
+     */
     @Override
-    public void setTarget(CitagoraObject target) {
-	if (target instanceof Comment)
-	    this.replyTarget = (Comment) target;
+    public void setTarget(CitagoraObject replyTarget)  {
+	// do nothing if relationship not changed
+	if (this.replyTarget == replyTarget)
+	    return;
+	// check type of target: must be Comment
+	if (target != null && !(target instanceof Comment))
+	    throw new ClassCastException();
+	// remove from inverse relationship
+	if (this.replyTarget != null) {
+	    this.replyTarget.getReplies().remove(this);
+	}
+	// set forward relationship
+	this.replyTarget = (Comment) replyTarget;
+	if (replyTarget == null)
+	    return;
+	// set inverse relationship
+	((Comment) replyTarget).getReplies().add(this);
     }
 
 }

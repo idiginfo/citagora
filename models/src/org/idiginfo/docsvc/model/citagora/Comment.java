@@ -25,6 +25,7 @@ public interface Comment extends Annotation {
 
     public List<Reply> getReplies();
 
-    public void addReply(Reply reply);
+    public void setReviewer(CitagoraAgent reviewer);
 
+    public void addReply(Reply reply);
 }

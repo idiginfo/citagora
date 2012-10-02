@@ -47,9 +47,12 @@ public interface Person extends UriObject {
 
     void setPersonType(String string);
 
-    void addAgentReview(Review review);
-
     List<Review> getAgentReviews();
 
+    void addAgentTag(Tag tag);
+
     void addAgentComment(Comment comment);
+
+    void addAgentReview(Review review1);
+
 }
