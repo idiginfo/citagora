@@ -1,11 +1,11 @@
-package org.idiginfo.docsvc.svcapi.annotate.model;
+package org.idiginfo.docsvc.svcapi.annotate;
 
 import java.util.Date;
 
 import org.idiginfo.docsvc.model.apisvc.Annotation;
 import org.idiginfo.docsvc.model.apisvc.Document;
-import org.idiginfo.docsvc.svcapi.annotate.model.AnnotateMeta.Payment;
-import org.idiginfo.docsvc.svcapi.annotate.model.AnnotateMeta.Reader;
+import org.idiginfo.docsvc.svcapi.annotate.AnnotateMeta.Payment;
+import org.idiginfo.docsvc.svcapi.annotate.AnnotateMeta.Reader;
 
 public class AnnotateDocumentNotes implements Document {
 	public AnnotateMeta meta;

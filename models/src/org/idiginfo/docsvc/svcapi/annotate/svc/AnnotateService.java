@@ -8,10 +8,10 @@ import org.idiginfo.docsvc.model.apisvc.ApiParams;
 import org.idiginfo.docsvc.model.apisvc.DocService;
 import org.idiginfo.docsvc.model.apisvc.Document;
 import org.idiginfo.docsvc.model.apisvc.Documents;
-import org.idiginfo.docsvc.svcapi.annotate.model.AnnotateDocument;
-import org.idiginfo.docsvc.svcapi.annotate.model.AnnotateDocumentNotes;
-import org.idiginfo.docsvc.svcapi.annotate.model.AnnotateDocuments;
-import org.idiginfo.docsvc.svcapi.annotate.model.AnnotateUsers;
+import org.idiginfo.docsvc.svcapi.annotate.AnnotateDocument;
+import org.idiginfo.docsvc.svcapi.annotate.AnnotateDocumentNotes;
+import org.idiginfo.docsvc.svcapi.annotate.AnnotateDocuments;
+import org.idiginfo.docsvc.svcapi.annotate.AnnotateUsers;
 
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestFactory;
