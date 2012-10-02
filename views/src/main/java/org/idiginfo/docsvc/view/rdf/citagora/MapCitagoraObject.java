@@ -22,6 +22,7 @@ import org.idiginfo.docsvc.view.rdf.vocabulary.Citagora;
 import org.idiginfo.docsvc.view.rdf.vocabulary.CommonTag;
 import org.idiginfo.docsvc.view.rdf.vocabulary.Content;
 import org.idiginfo.docsvc.view.rdf.vocabulary.OAF;
+import org.idiginfo.docsvc.view.rdf.vocabulary.OAX;
 import org.idiginfo.docsvc.view.rdf.vocabulary.Provenance;
 import org.idiginfo.docsvc.view.rdf.vocabulary.RdfReview;
 import org.idiginfo.docsvc.view.rdf.vocabulary.RdfUtilities;
@@ -63,6 +64,7 @@ public class MapCitagoraObject {
 	model.setNsPrefix("bibo", BIBO.NS);
 	model.setNsPrefix("cnt", Content.NS);
 	model.setNsPrefix("oaf", OAF.NS);
+	model.setNsPrefix("oax", OAX.NS);
 	model.setNsPrefix("prov", Provenance.NS);
 	model.setNsPrefix("rev", RdfReview.NS);
 	model.setNsPrefix("foaf", FOAF.NS);
