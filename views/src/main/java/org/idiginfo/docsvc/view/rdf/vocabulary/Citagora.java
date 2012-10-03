@@ -1,5 +1,7 @@
 package org.idiginfo.docsvc.view.rdf.vocabulary;
 
+import org.idiginfo.docsvc.model.citagora.UriObject;
+
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Property;
@@ -33,9 +35,10 @@ public class Citagora {
 	    + "hasRatingType");
 
     // types
-    public static final String documentType = NS + "documentType";
-    public static final String tagType = NS + "tagType";
-    public static final String ratingType = NS + "ratingType";
-    public static final String commentType = NS + "comment";
-    public static final String agentType = NS + "agent";
+    public static final Resource documentType = m_model.createResource(NS + "documentType");
+    public static final Resource tagType = m_model.createResource(NS + "tagType");
+    public static final Resource ratingType = m_model.createResource(NS + "ratingType");
+    public static final Resource commentType = m_model.createResource(NS + "comment");
+    public static final Resource agentType = m_model.createResource(NS + "agent");
+    
 }

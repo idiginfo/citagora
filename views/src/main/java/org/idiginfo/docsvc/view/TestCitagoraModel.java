@@ -21,7 +21,7 @@ import org.idiginfo.docsvc.model.citagora.Reference;
 import org.idiginfo.docsvc.model.citagora.Review;
 import org.idiginfo.docsvc.model.citagora.Tag;
 import org.idiginfo.docsvc.model.citagora.UriObject;
-import org.idiginfo.docsvc.model.mapping.MapDocumentToReference;
+import org.idiginfo.docsvc.model.mapping.MapSvcapiToCitagora;
 import org.idiginfo.docsvc.svcapi.springer.SpringerApiParams;
 import org.idiginfo.docsvc.svcapi.springer.SpringerService;
 import org.idiginfo.docsvc.view.rdf.citagora.MapCitagoraObject;
@@ -157,15 +157,15 @@ public class TestCitagoraModel {
 	Document document = service.getDocument(params);
 	System.out.println(document.getId());
 
-	MapDocumentToReference documentMapper = new MapDocumentToReference();
-	Reference reference = documentMapper.map(document);
+	MapSvcapiToCitagora documentMapper = new MapSvcapiToCitagora();
+	CitagoraDocument citagoraDocument = documentMapper.createCitagoraDocument(document);
 	// Gson gson = new GsonBuilder().setPrettyPrinting().create();
 	// String string = gson.toJson(reference);
 	// System.out.println(string);
 
 	MapCitagoraObject mapper = new MapCitagoraObject();
-	mapper.add(reference);
-	String rdf = writeCitagora(reference, null);
+	mapper.add(citagoraDocument);
+	String rdf = writeCitagora(citagoraDocument, null);
 	System.out.println(rdf);
 
     }
