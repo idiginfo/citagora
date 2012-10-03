@@ -5,9 +5,6 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.List;
-
-import javax.persistence.EntityManager;
 
 import org.idiginfo.docsvc.jpa.citagora.CitagoraFactoryImpl;
 import org.idiginfo.docsvc.jpa.citagora.ReferenceImpl;
@@ -15,7 +12,6 @@ import org.idiginfo.docsvc.model.apisvc.ApiParams;
 import org.idiginfo.docsvc.model.apisvc.Document;
 import org.idiginfo.docsvc.model.citagora.CitagoraAgent;
 import org.idiginfo.docsvc.model.citagora.CitagoraDocument;
-import org.idiginfo.docsvc.model.citagora.CitagoraFactory;
 import org.idiginfo.docsvc.model.citagora.Comment;
 import org.idiginfo.docsvc.model.citagora.Person;
 import org.idiginfo.docsvc.model.citagora.RatingType;
@@ -24,7 +20,7 @@ import org.idiginfo.docsvc.model.citagora.Reply;
 import org.idiginfo.docsvc.model.citagora.Review;
 import org.idiginfo.docsvc.model.citagora.Tag;
 import org.idiginfo.docsvc.model.citagora.UriObject;
-import org.idiginfo.docsvc.model.mapping.MapDocumentToReference;
+import org.idiginfo.docsvc.model.mapping.MapSvcapiToCitagora;
 import org.idiginfo.docsvc.svcapi.springer.SpringerApiParams;
 import org.idiginfo.docsvc.svcapi.springer.SpringerService;
 import org.idiginfo.docsvc.view.rdf.citagora.MapCitagoraObject;
@@ -46,37 +42,16 @@ public class TestCitagoraPersistence {
 
     private void run(String[] args) {
 	CitagoraDocument doc = null;
-	doc = createCitagoraDocument();
+	 doc = createCitagoraDocument();
 	// doc = (CitagoraDocument) factory.findCitagoraObject(12);
 
-	Reference ref = null;
 	String requestDoi = "doi:10.1007/s11276-008-0131-4";
 
-	// ref = getSpringerDocument(requestDoi);
-	// ref.setUri(null);
-	// ref.setDoi(ref.getDoi() + ":new2");
-	EntityManager em = factory.getEntityManager();
-	System.out.println("Contains before persist: " + em.contains(doc)
-		+ " uri: " + doc.getUri());
-
-	// ref.setLanguage("French");
-	// factory.openTransaction();
-	// factory.merge(doc);
-	// factory.merge(ref);
-	System.out.println("Contains after persist: " + em.contains(doc)
-		+ " uri: " + doc.getUri());
-	// factory.flush();
-	System.out.println("Contains after flush: " + em.contains(doc)
-		+ "uri: " + doc.getUri());
-
-	// factory.commitTransaction();
-	System.out.println("Contains after commit: " + em.contains(doc)
-		+ " uri: " + doc.getUri());
-	// factory.refresh(doc);
-	String rdf = writeCitagora(doc, null);
+	//doc = getSpringerDocument(requestDoi);
+	String rdf = writeCitagora(doc,null);
 	FileWriter out;
 	try {
-	    out = new FileWriter("c:/dev/api samples/citagora_new.rdf");
+	    out = new FileWriter("c:/dev/api samples/citagora_1.rdf");
 	    out.write(rdf);
 	    out.close();
 	} catch (IOException e) {
@@ -104,7 +79,7 @@ public class TestCitagoraPersistence {
 	factory.merge(docgenerator);
 	docgenerator.setAccountName("CitagoraSoftwareAgent");
 	docgenerator.setAccount("http://citagora.com/softwareAgent");
-	docgenerator.setPersonType("SoftwareAgent");
+	docgenerator.setIsAgent(true);
 
 	CitagoraDocument document = factory.createCitagoraDocument();
 	System.out.println("doc uri: " + document.getUri());
@@ -210,12 +185,12 @@ public class TestCitagoraPersistence {
 	commentor.setGivenName("Comma");
 	commentor.setHomePage("http://wwww.comment.org/~Comm1");
 	commentor.setName("Comma N. One");
-	commentor.setPersonType("Annonymous User");
+	commentor.setIsAgent(true);
 
 	// comment
 	Comment comment = factory.createComment();
 	factory.merge(comment);
-	 document.addComment(comment);
+	document.addComment(comment);
 	comment.setTarget(document);
 	comment.setAnnotated(new GregorianCalendar(2012, 01, 01).getTime());
 	commentor.addAgentComment(comment);
@@ -288,22 +263,22 @@ public class TestCitagoraPersistence {
 
     }
 
-    Reference getSpringerDocument(String requestDoi) {
-	List<Reference> references = CitagoraFactory.getFactory()
-		.findReferences(requestDoi);
-	// references = null;
-	if (references != null && references.size() > 0)
-	    return references.get(0);
+    CitagoraDocument getSpringerDocument(String requestDoi) {
 	SpringerService service = new SpringerService();
+	factory.openTransaction();
 	ApiParams params = new SpringerApiParams();
 	// params.setDoi("doi:10.1007/s11276-008-0131-4");
 	params.setId(requestDoi);
 	Document document = service.getDocument(params);
 	System.out.println(document.getId());
 
-	MapDocumentToReference documentMapper = new MapDocumentToReference();
-	Reference reference = documentMapper.map(document);
-	return reference;
+	MapSvcapiToCitagora documentMapper = new MapSvcapiToCitagora();
+	CitagoraDocument citagoraDocument = documentMapper
+		.createCitagoraDocument(document);
+	citagoraDocument.getIsAbout().addSeeAlso("see 1");
+	citagoraDocument.getIsAbout().addSeeAlso("see 2");
+	factory.commitTransaction();
+	return citagoraDocument;
     }
 
     public String writeCitagora(UriObject document, String version) {
