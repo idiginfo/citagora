@@ -9,6 +9,9 @@ import org.idiginfo.docsvc.svcapi.altmetric.AltmetricRecord;
 import org.idiginfo.docsvc.svcapi.altmetric.AltmetricService;
 import org.idiginfo.docsvc.svcapi.altmetric.AltmetricUrl;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 public class AltmetricSample {
 
 	static AltmetricService service = new AltmetricService();
@@ -17,8 +20,9 @@ public class AltmetricSample {
 
 	private static void run() {
 		// testAltmetricDocument("241939");
-		testDoiDocument("10.1038/news.2011.490");
-		testPmidDocument("21148220");
+		//testDoiDocument("10.1038/news.2011.490");
+		testDoiDocument("10.1136/bmj.c6801");
+		//testPmidDocument("21148220");
 		// testAltmetricQuery();
 	}
 
@@ -41,6 +45,10 @@ public class AltmetricSample {
 	}
 
 	static void printDocumentInfo(AltmetricRecord document) {
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		String string = gson.toJson(document);
+		System.out.println(string);
+
 		System.out.println("Id is: " + document.getId());
 		System.out.println("Title is: " + document.getTitle());
 		System.out.println("Pub name is: " + document.getName());
