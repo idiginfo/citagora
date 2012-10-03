@@ -7,6 +7,7 @@ public interface Reference extends CitagoraObject {
 
     public String TYPE = "bibo:Document";
     public String COLLECTION = "reference";
+    public String JOURNAL_TYPE = "journal";
 
     public String getUri();
 
@@ -133,5 +134,17 @@ public interface Reference extends CitagoraObject {
     public void removeIsCitedBy(Reference reference);
 
     public void addCitagoraDocument(CitagoraDocument document);
+
+    public void setIssn(String issn);
+
+    public String getIssn();
+
+    public void setIssue(String issue);
+
+    public String getIssue();
+
+    String getIsbn();
+
+    void setIsbn(String isbn);
 
 }

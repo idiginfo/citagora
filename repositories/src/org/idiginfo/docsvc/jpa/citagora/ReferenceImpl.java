@@ -40,6 +40,9 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
     @Column(unique = true)
     String doi;
     String authorString;
+    String issn;
+    String isbn;
+    String issue;
 
     @ManyToOne(targetEntity = ReferenceImpl.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "isPartOf")
@@ -79,6 +82,13 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
 	type = Reference.TYPE;
 	setCollection(Reference.COLLECTION);
 	// initId();
+    }
+
+    @Override
+    public String getType() {
+	if (biboType != null)
+	    return biboType;
+	return Reference.TYPE;
     }
 
     public String getAbstract() {
@@ -473,4 +483,60 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
 
     }
 
+    @Override
+    public void setIssn(String issn) {
+	this.issn = issn;
+    }
+
+    @Override
+    public String getIssn() {
+	return issn;
+    }
+
+    @Override
+    public void setIssue(String issue) {
+	this.issue = issue;
+    }
+
+    @Override
+    public String getIssue() {
+	return issue;
+    }
+
+    static final String DOI_PREFIX = "doi:";
+    static final String ISSN_PREFIX = "urn:issn:";
+    static final String ISBN_PREFIX = "urn:isbn:";
+    
+    @Override
+    /**
+     * Select usable URI for a reference object
+     */
+    public String getUri() {
+	if (doi != null) {
+	    if (doi.startsWith(DOI_PREFIX))
+		return doi;
+	    return DOI_PREFIX + doi;
+	}
+	if (issn != null) {
+	    if (issn.startsWith(ISSN_PREFIX))
+		return issn;
+	    return ISSN_PREFIX + issn;
+	}
+	if (isbn != null) {
+	    if (issn.startsWith(ISBN_PREFIX))
+		return isbn;
+	    return ISBN_PREFIX + isbn;
+	}
+	return null;
+    }
+
+    @Override
+    public String getIsbn() {
+        return isbn;
+    }
+
+    @Override
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
 }
