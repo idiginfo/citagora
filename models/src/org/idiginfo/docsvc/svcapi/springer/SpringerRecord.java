@@ -1,5 +1,8 @@
 package org.idiginfo.docsvc.svcapi.springer;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.idiginfo.docsvc.model.apisvc.Annotation;
@@ -13,262 +16,281 @@ import org.apache.commons.lang.StringUtils;
  * 
  */
 public class SpringerRecord implements Document {
-	String identifier;
-	String title;
-	Creator[] creators;
-	String publicationName;
-	String issn;
-	String isbn;
-	String doi;
-	String publisher;
-	String publicationDate;
-	String volume;
-	String number;
-	Integer startingPage;
-	String url;
-	String copyright;
+    String identifier;
+    String title;
+    Creator[] creators;
+    String publicationName;
+    String issn;
+    String isbn;
+    String doi;
+    String publisher;
+    String publicationDate;
+    String volume;
+    String number;
+    Integer startingPage;
+    String url;
+    String copyright;
 
-	static class Creator {
-		String creator;
+    static class Creator {
+	String creator;
 
-		public String toString() {
-			return creator;
-		}
+	public String toString() {
+	    return creator;
 	}
+    }
 
-	@Override
-	public String getId() {
-		return "doi:" + doi;
+    @Override
+    public String getId() {
+	return "doi:" + doi;
+    }
+
+    @Override
+    public void setId(String id) {
+	doi = id;
+    }
+
+    @Override
+    public String getDate() {
+	return publicationDate;
+    }
+
+    DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+    @Override
+    public Date getDateObject() {
+	if (publicationDate==null)
+	return null;
+	try {
+	    return formatter.parse(publicationDate);
+	} catch (ParseException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	    return null;
 	}
+    }
 
-	@Override
-	public void setId(String id) {
-		doi = id;
-	}
+    @Override
+    public void setDate(Date date) {
+    }
 
-	@Override
-	public String getDate() {
-		return null;
-	}
+    @Override
+    public String getName() {
+	return null;
+    }
 
-	@Override
-	public Date getDateObject() {
-		return null;
-	}
+    @Override
+    public void setName(String name) {
+    }
 
-	@Override
-	public void setDate(Date date) {
-	}
+    @Override
+    public String getOwner() {
+	return null;
+    }
 
-	@Override
-	public String getName() {
-		return null;
-	}
+    @Override
+    public void setOwner(String owner) {
+    }
 
-	@Override
-	public void setName(String name) {
-	}
+    @Override
+    public String getType() {
+	return null;
+    }
 
-	@Override
-	public String getOwner() {
-		return null;
-	}
+    @Override
+    public void setType(String type) {
+    }
 
-	@Override
-	public void setOwner(String owner) {
-	}
+    @Override
+    public Document getParent() {
+	return null;
+    }
 
-	@Override
-	public String getType() {
-		return null;
-	}
+    @Override
+    public void setParent(Document parent) {
+    }
 
-	@Override
-	public void setType(String type) {
-	}
+    @Override
+    public Annotation[] getAnnotations() {
+	return null;
+    }
 
-	@Override
-	public Document getParent() {
-		return null;
-	}
+    @Override
+    public String getTitle() {
+	return title;
+    }
 
-	@Override
-	public void setParent(Document parent) {
-	}
+    @Override
+    public void setTitle(String title) {
+	this.title = title;
+    }
 
-	@Override
-	public Annotation[] getAnnotations() {
-		return null;
-	}
+    @Override
+    public String getAuthors() {
+	String authors = StringUtils.join(creators, ", ");
+	return authors;
+    }
 
-	@Override
-	public String getTitle() {
-		return title;
-	}
+    @Override
+    public void setAuthors(String authors) {
+	// TODO Auto-generated method stub
 
-	@Override
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    }
 
-	@Override
-	public String getAuthors() {
-		String authors = StringUtils.join(creators, ", ");
-		return authors;
-	}
+    @Override
+    public int getNumAnnotations() {
+	// TODO Auto-generated method stub
+	return 0;
+    }
 
-	@Override
-	public void setAuthors(String authors) {
-		// TODO Auto-generated method stub
+    @Override
+    public Annotation getAnnotation(int i) {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	}
+    public String getIdentifier() {
+	return identifier;
+    }
 
-	@Override
-	public int getNumAnnotations() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    public void setIdentifier(String identifier) {
+	this.identifier = identifier;
+    }
 
-	@Override
-	public Annotation getAnnotation(int i) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public Creator[] getCreators() {
+	return creators;
+    }
 
-	public String getIdentifier() {
-		return identifier;
-	}
+    public void setCreators(Creator[] creators) {
+	this.creators = creators;
+    }
 
-	public void setIdentifier(String identifier) {
-		this.identifier = identifier;
-	}
+    public String getPublicationName() {
+	return publicationName;
+    }
 
-	public Creator[] getCreators() {
-		return creators;
-	}
+    public void setPublicationName(String publicationName) {
+	this.publicationName = publicationName;
+    }
 
-	public void setCreators(Creator[] creators) {
-		this.creators = creators;
-	}
+    public String getIssn() {
+	return issn;
+    }
 
-	public String getPublicationName() {
-		return publicationName;
-	}
+    public void setIssn(String issn) {
+	this.issn = issn;
+    }
 
-	public void setPublicationName(String publicationName) {
-		this.publicationName = publicationName;
-	}
+    public String getIsbn() {
+	return isbn;
+    }
 
-	public String getIssn() {
-		return issn;
-	}
+    public void setIsbn(String isbn) {
+	this.isbn = isbn;
+    }
 
-	public void setIssn(String issn) {
-		this.issn = issn;
-	}
+    public String getDoi() {
+	return doi;
+    }
 
-	public String getIsbn() {
-		return isbn;
-	}
+    public void setDoi(String doi) {
+	this.doi = doi;
+    }
 
-	public void setIsbn(String isbn) {
-		this.isbn = isbn;
-	}
+    public String getPublisher() {
+	return publisher;
+    }
 
-	public String getDoi() {
+    public void setPublisher(String publisher) {
+	this.publisher = publisher;
+    }
+
+    public String getPublicationDate() {
+	return publicationDate;
+    }
+
+    public void setPublicationDate(String publicationDate) {
+	this.publicationDate = publicationDate;
+    }
+
+    public String getVolume() {
+	return volume;
+    }
+
+    public void setVolume(String volume) {
+	this.volume = volume;
+    }
+
+    public String getNumber() {
+	return number;
+    }
+
+    public void setNumber(String number) {
+	this.number = number;
+    }
+
+    public Integer getStartingPage() {
+	return startingPage;
+    }
+
+    public void setStartingPage(Integer startingPage) {
+	this.startingPage = startingPage;
+    }
+
+    public String getUrl() {
+	return url;
+    }
+
+    public void setUrl(String url) {
+	this.url = url;
+    }
+
+    public String getCopyright() {
+	return copyright;
+    }
+
+    public void setCopyright(String copyright) {
+	this.copyright = copyright;
+    }
+
+    @Override
+    public String getGUID() {
+	if (doi != null) {
+	    if (doi.startsWith("doi:"))
 		return doi;
+	    return "doi:" + doi;
 	}
+	return "http://ids.idiginfo.org/" + getId();
+    }
 
-	public void setDoi(String doi) {
-		this.doi = doi;
-	}
+    @Override
+    public String getSource() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	public String getPublisher() {
-		return publisher;
-	}
+    @Override
+    public Integer getPageStart() {
+	return startingPage;
+    }
 
-	public void setPublisher(String publisher) {
-		this.publisher = publisher;
-	}
+    @Override
+    public Integer getPageEnd() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	public String getPublicationDate() {
-		return publicationDate;
-	}
+    @Override
+    public String getPages() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	public void setPublicationDate(String publicationDate) {
-		this.publicationDate = publicationDate;
-	}
+    @Override
+    public String getIssue() {
+	return number;
+    }
 
-	public String getVolume() {
-		return volume;
-	}
-
-	public void setVolume(String volume) {
-		this.volume = volume;
-	}
-
-	public String getNumber() {
-		return number;
-	}
-
-	public void setNumber(String number) {
-		this.number = number;
-	}
-
-	public Integer getStartingPage() {
-		return startingPage;
-	}
-
-	public void setStartingPage(Integer startingPage) {
-		this.startingPage = startingPage;
-	}
-
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
-	public String getCopyright() {
-		return copyright;
-	}
-
-	public void setCopyright(String copyright) {
-		this.copyright = copyright;
-	}
-
-	@Override
-	public String getGUID() {
-		if (doi != null) {
-			if (doi.startsWith("doi:"))
-				return doi;
-			return "doi:" + doi;
-		}
-		return "http://ids.idiginfo.org/" + getId();
-	}
-
-	@Override
-	public String getSource() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Integer getPageStart() {
-		return startingPage;
-	}
-
-	@Override
-	public Integer getPageEnd() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getPages() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public void setIssue(String issue) {
+	this.number = issue;
+    }
 }

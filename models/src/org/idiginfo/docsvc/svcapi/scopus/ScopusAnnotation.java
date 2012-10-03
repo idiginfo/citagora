@@ -1,7 +1,9 @@
 package org.idiginfo.docsvc.svcapi.scopus;
 
+import java.util.Date;
+
 import org.idiginfo.docsvc.model.apisvc.Annotation;
-import org.idiginfo.docsvc.svcapi.annotate.model.AnnotateNote;
+import org.idiginfo.docsvc.svcapi.annotate.AnnotateNote;
 
 public class ScopusAnnotation implements Annotation {
 
@@ -103,7 +105,7 @@ public class ScopusAnnotation implements Annotation {
 	}
 
 	@Override
-	public String getDate() {
+	public String getDateString() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -232,6 +234,12 @@ public class ScopusAnnotation implements Annotation {
 	public Integer getPagenum() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Date getDate() {
+	    // TODO Auto-generated method stub
+	    return null;
 	}
 
 }

@@ -1,5 +1,11 @@
 package org.idiginfo.docsvc.svcapi.annotate;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import org.idiginfo.docsvc.model.apisvc.*;
 
 public class AnnotateNote implements Annotation {
@@ -128,7 +134,7 @@ public class AnnotateNote implements Annotation {
 		this.signed = signed;
 	}
 
-	public String getDate() {
+	public String getDateString() {
 		return date;
 	}
 
@@ -206,6 +212,20 @@ public class AnnotateNote implements Annotation {
 
 	public void setReplies(AnnotateNote[] replies) {
 		this.replies = replies;
+	}
+	
+	DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+	@Override
+	public Date getDate() {
+	    Date d = null;
+	    try {
+		d = formatter.parse(date);
+	    } catch (ParseException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	    }
+	    return d;
 	}
 
 }
