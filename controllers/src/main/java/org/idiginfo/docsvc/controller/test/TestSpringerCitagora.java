@@ -3,22 +3,11 @@ package org.idiginfo.docsvc.controller.test;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.Date;
-import java.util.GregorianCalendar;
 
 import org.idiginfo.docsvc.jpa.citagora.CitagoraFactoryImpl;
-import org.idiginfo.docsvc.jpa.citagora.ReferenceImpl;
 import org.idiginfo.docsvc.model.apisvc.ApiParams;
 import org.idiginfo.docsvc.model.apisvc.Document;
-import org.idiginfo.docsvc.model.citagora.CitagoraAgent;
 import org.idiginfo.docsvc.model.citagora.CitagoraDocument;
-import org.idiginfo.docsvc.model.citagora.Comment;
-import org.idiginfo.docsvc.model.citagora.Person;
-import org.idiginfo.docsvc.model.citagora.RatingType;
-import org.idiginfo.docsvc.model.citagora.Reference;
-import org.idiginfo.docsvc.model.citagora.Reply;
-import org.idiginfo.docsvc.model.citagora.Review;
-import org.idiginfo.docsvc.model.citagora.Tag;
 import org.idiginfo.docsvc.model.citagora.UriObject;
 import org.idiginfo.docsvc.model.mapping.MapSvcapiToCitagora;
 import org.idiginfo.docsvc.svcapi.springer.SpringerApiParams;
@@ -77,8 +66,6 @@ public class TestSpringerCitagora {
 	MapSvcapiToCitagora documentMapper = new MapSvcapiToCitagora();
 	CitagoraDocument citagoraDocument = documentMapper
 		.createCitagoraDocument(document);
-	citagoraDocument.getIsAbout().addSeeAlso("see 1");
-	citagoraDocument.getIsAbout().addSeeAlso("see 2");
 	factory.commitTransaction();
 	return citagoraDocument;
     }
