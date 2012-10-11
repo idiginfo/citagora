@@ -84,7 +84,7 @@ public class MapCitagoraObject {
 	    return null;
 	Resource resource = model.getResource(uri);
 	if (resource.hasProperty(RDF.type)) // already added this object to
-					      // the model
+					    // the model
 	    return resource;
 	from.getClass();
 	if (from instanceof CitagoraDocument)
@@ -182,7 +182,11 @@ public class MapCitagoraObject {
 	addProperty(resource, FOAF.accountName, from.getAccountName());
 	addProperty(resource, FOAF.account, from.getAccount());
 	addProperty(resource, FOAF.homepage, from.getHomePage());
+	if (from.getIsAgent())//TODO ok to include multiple types?
+	    addObject(resource, RDF.type, FOAF.Agent);
+	if (from.getIsAuthor()) {
 
+	}
 	return resource;
     }
 
@@ -342,12 +346,10 @@ public class MapCitagoraObject {
     private Resource getCitagoraType(String type) {
 	if (CitagoraDocument.TYPE.equals(type))
 	    return Citagora.documentType;
-	if (Reference.TYPE.equals(type)) {
+	if (Reference.TYPE.equals(type))
 	    return BIBO.Document;
-	}
-	if (Reference.JOURNAL_TYPE.equals(type)) {
+	if (Reference.JOURNAL_TYPE.equals(type))
 	    return BIBO.Journal;
-	}
 	if (Tag.TYPE.equals(type))
 	    return Citagora.tagType;
 	if (Comment.TYPE.equals(type))
@@ -355,7 +357,7 @@ public class MapCitagoraObject {
 	if (Person.TYPE.equals(type))
 	    return FOAF.OnlineAccount;
 	if (CitagoraAgent.TYPE.equals(type))
-	    return Citagora.agentType;
+	    return FOAF.Agent;
 	if (Author.TYPE.equals(type))
 	    return FOAF.Person;
 	if (AnnotationBody.TYPE.equals(type))
