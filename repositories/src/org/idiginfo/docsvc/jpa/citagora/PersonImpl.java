@@ -45,9 +45,9 @@ public class PersonImpl implements Person, CitagoraAgent, Author {
     Date created;
     @Temporal(TemporalType.TIMESTAMP)
     Date updated;
-    Boolean isAuthor;
-    Boolean isAgent;
-    Boolean isPerson;
+    Boolean isAuthor = false;
+    Boolean isAgent = false;
+    Boolean isPerson = false;
 
     // Author fields
     @ManyToMany(mappedBy = "authorList", targetEntity = ReferenceImpl.class, cascade = CascadeType.ALL)
@@ -85,6 +85,9 @@ public class PersonImpl implements Person, CitagoraAgent, Author {
 
     public PersonImpl(Class<?> subclass) {
 	this();
+	isAuthor = false;
+	isAgent = false;
+	isPerson = false;
 	if (Author.class.isInstance(subclass)) {
 	    isAuthor = true;
 	}
