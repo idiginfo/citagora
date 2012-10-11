@@ -30,7 +30,12 @@ public class RestService {
 
 	RequestProcessor requestProcessor = new RequestProcessor();
 
-
+	@GET
+	@Path(value="/citagora")
+	public Response getCitagora(){
+	    return null;
+	}
+	
 	@GET
 	@Produces(MediaType.TEXT_HTML)
 	public Response get(@QueryParam("collection") String collection) {

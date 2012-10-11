@@ -43,7 +43,7 @@ public class TestCitagoraPersistence {
     private void run(String[] args) {
 	CitagoraDocument doc = null;
 	 doc = createCitagoraDocument();
-	// doc = (CitagoraDocument) factory.findCitagoraObject(12);
+	//doc = (CitagoraDocument) factory.findCitagoraObject(12);
 
 	String requestDoi = "doi:10.1007/s11276-008-0131-4";
 
@@ -51,7 +51,7 @@ public class TestCitagoraPersistence {
 	String rdf = writeCitagora(doc,null);
 	FileWriter out;
 	try {
-	    out = new FileWriter("c:/dev/api samples/citagora_1.rdf");
+	    out = new FileWriter("c:/dev/api samples/citagora_2.rdf");
 	    out.write(rdf);
 	    out.close();
 	} catch (IOException e) {
