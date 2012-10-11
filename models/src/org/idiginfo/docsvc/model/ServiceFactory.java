@@ -25,12 +25,13 @@ import org.idiginfo.docsvc.svcapi.springer.SpringerService;
 public class ServiceFactory {
 
 	// Defined collections
-	public static String COLLECTION_ANNOTATE = "annotate";
-	public static String COLLECTION_SPRINGER = "springer";
-	public static String COLLECTION_ELSEVIER = "elsevier";
-	public static String COLLECTION_ALTMETRIC = "altmetric";
-	public static String[] COLLECTIONS = { COLLECTION_ANNOTATE,
+	public static final String COLLECTION_ANNOTATE = "annotate";
+	public static final String COLLECTION_SPRINGER = "springer";
+	public static final String COLLECTION_ELSEVIER = "elsevier";
+	public static final String COLLECTION_ALTMETRIC = "altmetric";
+	public static final String[] COLLECTIONS = { COLLECTION_ANNOTATE,
 			COLLECTION_SPRINGER, COLLECTION_ELSEVIER };
+	public static final String COLLECTION_CITAGORA = "citagora";
 
 	// services is used to keep a copy of each service available for shared use.
 	static Map<String, DocService> services;
