@@ -24,7 +24,7 @@ public class AltmetricApiParams extends BaseApiParams {
 	String[] timeframeValues = { "at", "1d", "2d", "3d", "4d", "5d", "6d",
 			"1w", "1m", "3m", "1y" };
 	String page;
-	String numResults;// num_results
+	Integer numResults;// num_results
 	String citedIn; // cited_in
 	String[] citedInValues = {
 			// cited_in One or more comma delimited options from:
@@ -97,11 +97,11 @@ public class AltmetricApiParams extends BaseApiParams {
 		this.page = page;
 	}
 
-	public String getNumResults() {
+	public Integer getNumResults() {
 		return numResults;
 	}
 
-	public void setNumResults(String numResults) {
+	public void setNumResults(Integer numResults) {
 		this.numResults = numResults;
 	}
 

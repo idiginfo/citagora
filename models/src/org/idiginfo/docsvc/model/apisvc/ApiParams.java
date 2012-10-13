@@ -117,4 +117,12 @@ public interface ApiParams {
 
     public void setPersist(boolean persist);
 
+    Integer getNumResults();
+
+    void setNumResults(Integer numResults);
+
+    Integer getFirstResult();
+
+    void setFirstResult(Integer firstResult);
+
 }

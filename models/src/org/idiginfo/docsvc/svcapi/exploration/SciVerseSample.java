@@ -5,8 +5,10 @@ import java.io.IOException;
 import java.util.logging.*;
 
 import org.apache.commons.io.IOUtils;
+import org.idiginfo.docsvc.svcapi.sciverse.SciVerseApiParams;
 import org.idiginfo.docsvc.svcapi.sciverse.SciVerseDocument;
 import org.idiginfo.docsvc.svcapi.sciverse.SciVerseUrl;
+import org.idiginfo.docsvc.svcapi.sciverse.ScopusAuthUrl;
 
 import com.google.api.client.http.HttpHeaders;
 import com.google.api.client.http.HttpRequest;
@@ -38,6 +40,26 @@ public class SciVerseSample {
 	// test = testSciVerseSearch();
     }
 
+    public static String getAuthKey() {
+	try {
+	    ScopusAuthUrl url = new ScopusAuthUrl();
+	    enableLogging();
+	    url.prepare();
+	    System.out.println(url.build());
+	    HttpRequest request = requestFactory.buildGetRequest(url);
+	    HttpHeaders headers = new HttpHeaders();
+	    request.setConnectTimeout(200000);
+	    headers.set("X-ELS-APIKey", SciVerseApiParams.API_KEY);// griccardi
+	    request.setHeaders(headers);
+	    HttpResponse result = request.execute();
+	    String content = IOUtils.toString(result.getContent());
+	    return content;
+	} catch (IOException e) {
+	    e.printStackTrace();
+	    return null;
+	}
+    }
+
     public static String testSciVerseDocument() {
 	String content;
 	try {
@@ -45,13 +67,17 @@ public class SciVerseSample {
 	    SciVerseUrl url = new SciVerseUrl(
 		    "article/DOI:10.1016/j.jpsychires.2008.05.001");
 	    // url.view = "META_ABS";
+	    String authKey = getAuthKey();
+	    System.out.println("authKey: " + authKey);
 	    enableLogging();
 	    url.prepare();
 	    System.out.println(url.build());
 	    HttpRequest request = requestFactory.buildGetRequest(url);
 	    HttpHeaders headers = new HttpHeaders();
+	    request.setConnectTimeout(200000);
 	    headers.setAccept("application/json");
 	    headers.set("X-ELS-APIKey", "32044be7be3a652a32654afeae5bf4d1");// griccardi
+	    headers.set("X-ELS-Authtoken", authKey);
 	    headers.set("X-ELS-ResourceVersion", "XOCS");
 	    request.setHeaders(headers);
 	    HttpResponse result = request.execute();

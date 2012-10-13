@@ -2,6 +2,7 @@ package org.idiginfo.docsvc.svcapi.sciverse;
 
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.util.Key;
+import com.google.gson.JsonElement;
 
 public class SciVerseUrl extends GenericUrl {
 
@@ -176,6 +177,11 @@ public class SciVerseUrl extends GenericUrl {
 
 	public void setCoAuthor(String coAuthor) {
 		this.coAuthor = coAuthor;
+	}
+
+	public static boolean isError(JsonElement json) {
+	    // TODO Auto-generated method stub
+	    return false;
 	}
 
 }

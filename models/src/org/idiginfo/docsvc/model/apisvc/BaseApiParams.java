@@ -40,6 +40,8 @@ public class BaseApiParams implements ApiParams {
     public String withNotes;
     public String withMeta;
     public boolean persist = false;
+    public Integer numResults;
+    public Integer firstResult;
 
     /**
      * Use reflection methods to set fields of an ApiParam object from an HTTP
@@ -364,5 +366,22 @@ public class BaseApiParams implements ApiParams {
     @Override
     public void setPersist(boolean persist) {
 	this.persist = persist;
+    }
+
+    @Override
+    public Integer getNumResults() {
+        return numResults;
+    }
+@Override
+    public void setNumResults(Integer numResults) {
+        this.numResults = numResults;
+    }
+@Override
+    public Integer getFirstResult() {
+        return firstResult;
+    }
+@Override
+    public void setFirstResult(Integer firstResult) {
+        this.firstResult = firstResult;
     }
 }
