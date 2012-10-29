@@ -39,7 +39,7 @@ public class SearchClientTest {
 	/*
 	 * comment start: add constant WSDL_URL.
 	 */
-	public static String SERVICE_ENDPOINT_URL = "http://search.isiknowledge.com/esti/wokmws/ws/WokSearchLite";
+	public static String SERVICE_ENDPOINT_URL = "http://search.webofknowledge.com/esti/wokmws/ws/WokSearchLite";
 	public static String REMOTE_WSDL_URL = SERVICE_ENDPOINT_URL + "?wsdl";
 	public static URL LOCAL_WSDL_URL = WokSearchLiteService.WSDL_LOCATION;
 	/* comment end */
