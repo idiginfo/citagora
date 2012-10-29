@@ -2,11 +2,19 @@ package org.idiginfo.docsvc.svcapi.exploration;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.logging.*;
+import java.lang.reflect.Type;
+import java.util.List;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.LogRecord;
+import java.util.logging.Logger;
 
 import org.apache.commons.io.IOUtils;
+import org.idiginfo.docsvc.svcapi.ListTypeAdapter;
 import org.idiginfo.docsvc.svcapi.sciverse.SciVerseApiParams;
 import org.idiginfo.docsvc.svcapi.sciverse.SciVerseDocument;
+import org.idiginfo.docsvc.svcapi.sciverse.SciVerseLink;
+import org.idiginfo.docsvc.svcapi.sciverse.SciVerseResult;
 import org.idiginfo.docsvc.svcapi.sciverse.SciVerseUrl;
 import org.idiginfo.docsvc.svcapi.sciverse.ScopusAuthUrl;
 
@@ -21,6 +29,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 
 public class SciVerseSample {
 
@@ -43,7 +52,6 @@ public class SciVerseSample {
     public static String getAuthKey() {
 	try {
 	    ScopusAuthUrl url = new ScopusAuthUrl();
-	    enableLogging();
 	    url.prepare();
 	    System.out.println(url.build());
 	    HttpRequest request = requestFactory.buildGetRequest(url);
@@ -63,13 +71,17 @@ public class SciVerseSample {
     public static String testSciVerseDocument() {
 	String content;
 	try {
-	    // AnnotateApiParams params = new AnnotateApiParams();
-	    SciVerseUrl url = new SciVerseUrl(
-		    "article/DOI:10.1016/j.jpsychires.2008.05.001");
-	    // url.view = "META_ABS";
+	    enableLogging();
+	    // abstract/scopus_id:84865439036
+	    // SciVerseUrl url = new
+	    // SciVerseUrl("abstract","scopus_id","84865439036");
+	    SciVerseUrl url = new SciVerseUrl("search", "SCOPUS");
+	    url.addSearchField("abs", "suicide");
+	    url.setCount(2);
+	    url.view = "STANDARD";
+	    // url.addSearchTerm("military");
 	    String authKey = getAuthKey();
 	    System.out.println("authKey: " + authKey);
-	    enableLogging();
 	    url.prepare();
 	    System.out.println(url.build());
 	    HttpRequest request = requestFactory.buildGetRequest(url);
@@ -83,17 +95,33 @@ public class SciVerseSample {
 	    HttpResponse result = request.execute();
 	    // HttpHeaders httpHeaders = result.getHeaders();
 	    content = IOUtils.toString(result.getContent());
-	    System.out.print(content);
-	    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+	    // System.out.print(content);
+	    Type linkListType = new TypeToken<List<SciVerseLink>>() {}.getType();
+	    Type documentListType = new TypeToken<List<SciVerseDocument>>() {
+	    }.getType();
+	    Type affiliationListType = new TypeToken<List<SciVerseDocument.Affiliation>>() {
+	    }.getType();
+	    SciVerseDocument sampleDocument = new SciVerseDocument();
+	    Gson gson = new GsonBuilder()
+		    .registerTypeAdapter(linkListType, new ListTypeAdapter<SciVerseLink>(new SciVerseLink()))
+		    .registerTypeAdapter(documentListType,
+			    new ListTypeAdapter<SciVerseDocument>(sampleDocument))
+		    .registerTypeAdapter(affiliationListType,
+			    new ListTypeAdapter<SciVerseDocument.Affiliation>(sampleDocument.new Affiliation()))
+
+		    .setPrettyPrinting().create();
 	    JsonParser parser = new JsonParser();
 	    JsonObject tree = parser.parse(content).getAsJsonObject();
 	    System.out.println(gson.toJson(tree));
 
-	    SciVerseDocument data = gson.fromJson(content,
-		    SciVerseDocument.class);
-	    System.out.println("Id is: " + data.getId());
-	    System.out.println("Title is: " + data.getTitle());
-	    System.out.println("Pub name is: " + data.getPubName());
+	    SciVerseResult data = gson.fromJson(gson.toJson(tree),
+		    SciVerseResult.class);
+	    SciVerseDocument document = data.getResult();
+	    System.out.println("total results " + data.getTotalResults());
+	    System.out.println("num results "+data.getItemsPerPage());
+	    System.out.println("Id is: " + document.getId());
+	    System.out.println("Title is: " + document.getTitle());
+	    System.out.println("Pub name is: " + document.getPubName());
 
 	} catch (IOException e) {
 	    e.printStackTrace();
@@ -112,7 +140,7 @@ public class SciVerseSample {
 	    SciVerseUrl url = new SciVerseUrl("search/index:hub");
 	    // url.view = "META_ABS";
 	    url.setQuery("suicide");
-	    url.setCount("1");
+	    url.setCount(1);
 	    // url.httpAccept="application/json";
 	    url.prepare();
 	    System.out.println(url.build());
