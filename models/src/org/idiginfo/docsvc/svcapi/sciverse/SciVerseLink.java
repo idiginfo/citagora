@@ -1,10 +1,36 @@
 package org.idiginfo.docsvc.svcapi.sciverse;
 
-import com.google.api.client.util.Key;
+import com.google.gson.annotations.SerializedName;
 
 public class SciVerseLink {
-	@Key("@href")
-	String href; //: "http://www.sciencedirect.com/science/article/pii/S0022395608001143",
-    @Key("@rel")
-    String rel; //: "scidir"
+    @SerializedName("@ref")
+    String ref;
+    @SerializedName("@href")
+    String href;
+    @SerializedName("@type")
+    String type;
+
+    public String getRef() {
+	return ref;
+    }
+
+    public void setRef(String ref) {
+	this.ref = ref;
+    }
+
+    public String getHref() {
+	return href;
+    }
+
+    public void setHref(String href) {
+	this.href = href;
+    }
+
+    public String getType() {
+	return type;
+    }
+
+    public void setType(String type) {
+	this.type = type;
+    }
 }

@@ -1,187 +1,244 @@
 package org.idiginfo.docsvc.svcapi.sciverse;
 
+import org.idiginfo.docsvc.model.apisvc.ApiParams;
+
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.util.Key;
 import com.google.gson.JsonElement;
 
 public class SciVerseUrl extends GenericUrl {
 
-	public SciVerseUrl(String function) {
-		super(SciVerseApiParams.API_URL + function);
+    public SciVerseUrl(ApiParams params) {
+	this("search", "SCOPUS");
+	searchTerms = params.getKeyword();
+	count = params.getNumResults();
+	start = params.getFirstResult();
+	addSearchField("abs", params.getSubject());
+	// params.get
+    }
+
+    public SciVerseUrl(String function) {
+	super(SciVerseApiParams.API_URL + function);
+    }
+
+    public SciVerseUrl(String function, String cluster) {
+	super(SciVerseApiParams.API_URL + function + "/index:" + cluster);
+    }
+
+    public SciVerseUrl(String function, String field, String value) {
+	super(SciVerseApiParams.API_URL + function + "/" + field + ":" + value);
+    }
+
+    // http://api.elsevier.com/content/
+    // search/index:SCOPUS?query=DOI(DOI:10.1016%2Fj.jpsychires.2008.05.001)
+    // "http://api.elsevier.com/content/"
+    // Clusters: HUB SCIDIR SCIDIR-OBJECT SCOPUS AUTHOR AFFILIATION
+
+    public SciVerseUrl(String function, String cluster, ApiParams params) {
+	this(function,cluster);
+	addSearchTerm(params.getKeyword());
+	count = params.getNumResults();
+	start = params.getFirstResult();
+	// TODO Auto-generated constructor stub
+    }
+
+    @Key
+    String query;
+    @Key
+    String date;
+    @Key
+    public String view;
+    @Key
+    String field;
+    @Key
+    String content;
+    @Key
+    Integer count;
+    @Key
+    Integer start;
+    @Key
+    String sort;
+    @Key
+    String subj;
+    @Key
+    String subscribed;
+    @Key
+    String facet;
+    @Key
+    String httpAccept;
+    @Key
+    String collapse;
+    @Key("co-author")
+    String coAuthor;
+    @Key("scopus_id")
+    String scopusId;
+
+    String searchTerms;
+    String searchFields;
+
+    // ={searchTerms}&[{param}=[paramValue]&{param]=[paramValue]...]
+
+    public void addSearchTerm(String term) {
+	if (searchTerms == null)
+	    searchTerms = term;
+	else
+	    searchTerms += " " + term;
+    }
+
+    public void addSearchField(String name, String value) {
+	String term = name + "(" + value + ")";
+	if (searchFields == null || searchFields.length() == 0) {
+	    searchFields = term;
+	} else {
+	    searchFields += " " + term;
 	}
+    }
 
-	public SciVerseUrl(String function, String cluster) {
-		super(SciVerseApiParams.API_URL + function + cluster);
+    /**
+     * Get the URL ready for execution
+     */
+    public void prepare() {
+	if (searchTerms != null && searchFields == null)
+	    query = searchTerms;
+	else if (searchTerms != null && searchFields != null)
+	    query = searchTerms + " " + searchFields;
+	else
+	    query = searchFields;
+    }
+
+    public static boolean isError(String content) {
+	if (content.startsWith("XXX")) {
+	    return true;
 	}
+	return false;
+    }
 
-	// Clusters: HUB SCIDIR SCIDIR-OBJECT SCOPUS AUTHOR AFFILIATION
+    protected void mapParams(SciVerseApiParams params) {
+	if (params == null)
+	    return;
+	// TODO finish method
+    }
 
-	@Key
-	String query;
-	@Key
-	String date;
-	@Key
-	public
-	String view;
-	@Key
-	String field;
-	@Key
-	String content;
-	@Key
-	String count;
-	@Key
-	String start;
-	@Key
-	String sort;
-	@Key
-	String subj;
-	@Key
-	String subscribed;
-	@Key
-	String facet;
-	@Key
-	String httpAccept;
-	@Key
-	String collapse;
-	@Key("co-author")
-	String coAuthor;
+    public String getQuery() {
+	return query;
+    }
 
-	// ={searchTerms}&[{param}=[paramValue]&{param]=[paramValue]...]
+    public void setQuery(String query) {
+	this.query = query;
+    }
 
-	/**
-	 * Get the URL ready for execution
-	 */
-	public void prepare() {
+    public String getDate() {
+	return date;
+    }
 
-	}
+    public void setDate(String date) {
+	this.date = date;
+    }
 
-	public static boolean isError(String content) {
-		if (content.startsWith("XXX")) {
-			return true;
-		}
-		return false;
-	}
+    public String getView() {
+	return view;
+    }
 
-	protected void mapParams(SciVerseApiParams params) {
-		if (params == null) return;
-		// TODO finish method
-	}
+    public void setView(String view) {
+	this.view = view;
+    }
 
-	public String getQuery() {
-		return query;
-	}
+    public String getField() {
+	return field;
+    }
 
-	public void setQuery(String query) {
-		this.query = query;
-	}
+    public void setField(String field) {
+	this.field = field;
+    }
 
-	public String getDate() {
-		return date;
-	}
+    public String getContent() {
+	return content;
+    }
 
-	public void setDate(String date) {
-		this.date = date;
-	}
+    public void setContent(String content) {
+	this.content = content;
+    }
 
-	public String getView() {
-		return view;
-	}
+    public Integer getCount() {
+	return count;
+    }
 
-	public void setView(String view) {
-		this.view = view;
-	}
+    public void setCount(int i) {
+	this.count = i;
+    }
 
-	public String getField() {
-		return field;
-	}
+    public Integer getStart() {
+	return start;
+    }
 
-	public void setField(String field) {
-		this.field = field;
-	}
+    public void setStart(int start) {
+	this.start = start;
+    }
 
-	public String getContent() {
-		return content;
-	}
+    public String getSort() {
+	return sort;
+    }
 
-	public void setContent(String content) {
-		this.content = content;
-	}
+    public void setSort(String sort) {
+	this.sort = sort;
+    }
 
-	public String getCount() {
-		return count;
-	}
+    public String getSubj() {
+	return subj;
+    }
 
-	public void setCount(String count) {
-		this.count = count;
-	}
+    public void setSubj(String subj) {
+	this.subj = subj;
+    }
 
-	public String getStart() {
-		return start;
-	}
+    public String getSubscribed() {
+	return subscribed;
+    }
 
-	public void setStart(String start) {
-		this.start = start;
-	}
+    public void setSubscribed(String subscribed) {
+	this.subscribed = subscribed;
+    }
 
-	public String getSort() {
-		return sort;
-	}
+    public String getFacet() {
+	return facet;
+    }
 
-	public void setSort(String sort) {
-		this.sort = sort;
-	}
+    public void setFacet(String facet) {
+	this.facet = facet;
+    }
 
-	public String getSubj() {
-		return subj;
-	}
+    public String getHttpAccept() {
+	return httpAccept;
+    }
 
-	public void setSubj(String subj) {
-		this.subj = subj;
-	}
+    public void setHttpAccept(String httpAccept) {
+	this.httpAccept = httpAccept;
+    }
 
-	public String getSubscribed() {
-		return subscribed;
-	}
+    public String getCollapse() {
+	return collapse;
+    }
 
-	public void setSubscribed(String subscribed) {
-		this.subscribed = subscribed;
-	}
+    public void setCollapse(String collapse) {
+	this.collapse = collapse;
+    }
 
-	public String getFacet() {
-		return facet;
-	}
+    public String getCoAuthor() {
+	return coAuthor;
+    }
 
-	public void setFacet(String facet) {
-		this.facet = facet;
-	}
+    public void setCoAuthor(String coAuthor) {
+	this.coAuthor = coAuthor;
+    }
 
-	public String getHttpAccept() {
-		return httpAccept;
-	}
+    public static boolean isError(JsonElement json) {
+	// TODO Auto-generated method stub
+	return false;
+    }
 
-	public void setHttpAccept(String httpAccept) {
-		this.httpAccept = httpAccept;
-	}
+    public void setScopusId(String string) {
+	scopusId = string;
 
-	public String getCollapse() {
-		return collapse;
-	}
-
-	public void setCollapse(String collapse) {
-		this.collapse = collapse;
-	}
-
-	public String getCoAuthor() {
-		return coAuthor;
-	}
-
-	public void setCoAuthor(String coAuthor) {
-		this.coAuthor = coAuthor;
-	}
-
-	public static boolean isError(JsonElement json) {
-	    // TODO Auto-generated method stub
-	    return false;
-	}
+    }
 
 }
