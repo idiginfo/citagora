@@ -9,6 +9,8 @@ import org.idiginfo.docsvc.model.apisvc.Document;
 import org.idiginfo.docsvc.model.apisvc.Documents;
 import org.idiginfo.docsvc.svcapi.sciverse.SciVerseApiParams;
 import org.idiginfo.docsvc.svcapi.sciverse.SciVerseDocument;
+import org.idiginfo.docsvc.svcapi.sciverse.SciVerseDocuments;
+import org.idiginfo.docsvc.svcapi.sciverse.SciVerseResult;
 import org.idiginfo.docsvc.svcapi.sciverse.SciVerseService;
 import org.idiginfo.docsvc.svcapi.sciverse.SciVerseUrl;
 import org.idiginfo.docsvc.svcapi.sciverse.ScopusAuthUrl;
@@ -27,29 +29,54 @@ import com.google.gson.JsonParser;
 
 public class SciVerseHarvest {
 
-    private final static String FILE_PREFIX = "c:/dev/harvest/sciverse/";
+    private final static String FILE_PREFIX = "c:/dev/harvest/sciverse/abs_suicide_";
+    private final static int MAX_PER_PAGE = 25;
 
     @SuppressWarnings("unused")
     private static void run(String[] args) {
 	String test;
-	String searchText="";
+	String searchText = "abs(suicide)";
 	String filePrefix = FILE_PREFIX;
+	int numPerFile = MAX_PER_PAGE;
 	if (args != null && args.length > 0) {
 	    searchText = args[0];
 	}
 	if (args != null && args.length > 1) {
 	    filePrefix = args[1];
 	}
-	test = harvestFiles(searchText, filePrefix);
+	if (args != null && args.length > 2) {
+	    numPerFile = Integer.parseInt(args[2]);
+	}
+	test = harvestFiles(searchText, filePrefix, numPerFile);
     }
 
-    public static String harvestFiles(String keywords, String filePrefix) {
+    public static String harvestFiles(String keywords, String filePrefix,
+	    int numPerFile) {
 	SciVerseService service = new SciVerseService();
 	SciVerseApiParams params = new SciVerseApiParams();
 	params.setKeyword(keywords);
 	params.setNumResults(1);
-	Documents data = service.getDocuments(params);
-	
+	SciVerseResult result = service.getSciVerseResult("search", params);
+	int totalResults = result.getTotalResults();
+	int totalPages = (int) Math.ceil(totalResults / numPerFile) + 1;
+	System.out.println("Total results: " + totalResults + " pages: "
+		+ totalPages + " per file: " + numPerFile);
+	for (int pageNum = 0; pageNum < totalPages; pageNum++) {
+	    params.setFirstResult(pageNum * numPerFile);
+	    params.setNumResults(numPerFile);
+	    String fileName = filePrefix + String.format("%05d", pageNum)
+		    + ".json";
+	    System.out.println("getting file " + fileName);
+	    String contents = service.getSciVerseContents("search", params);
+	    try {
+		FileWriter out = new FileWriter(fileName);
+		out.write(contents);
+		out.close();
+	    } catch (IOException e) {
+		e.printStackTrace();
+		break;
+	    }
+	}
 
 	return null;
     }
