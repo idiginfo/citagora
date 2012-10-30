@@ -4,6 +4,8 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Vector;
 
 import org.idiginfo.docsvc.model.apisvc.Annotation;
 import org.idiginfo.docsvc.model.apisvc.Document;
@@ -284,5 +286,12 @@ public class AnnotateDocument implements Document {
 	public void setIssue(String issue) {
 	    // TODO Auto-generated method stub
 	    
+	}
+
+	@Override
+	public List<String> getAuthorList() {
+	    List<String> authorList = new Vector<String>();
+	    authorList.add(getAuthors());
+	    return authorList;
 	}
 }

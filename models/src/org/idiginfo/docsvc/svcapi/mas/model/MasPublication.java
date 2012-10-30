@@ -1,7 +1,11 @@
 package org.idiginfo.docsvc.svcapi.mas.model;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Vector;
+
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
 
 import org.idiginfo.docsvc.model.apisvc.Annotation;
 import org.idiginfo.docsvc.model.apisvc.Document;
@@ -409,6 +413,18 @@ public class MasPublication implements Document
 	public void setIssue(String issue) {
 	    // TODO Auto-generated method stub
 	    
+	}
+
+	@Override
+	public List<String> getAuthorList() {
+	    if (author==null) author = new Vector<MasAuthor>();
+	    List<String> authorList = new Vector<String>();
+	   Iterator<MasAuthor> authors = author.iterator();
+	   while (authors.hasNext()){
+	       MasAuthor authorItem = authors.next();
+	       authorList.add(authorItem.getLastName()+", "+authorItem.getFirstName());
+	   }
+	   return authorList;
 	}
 
     

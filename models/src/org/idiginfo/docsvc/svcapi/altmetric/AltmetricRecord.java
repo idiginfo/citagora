@@ -2,6 +2,7 @@ package org.idiginfo.docsvc.svcapi.altmetric;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.idiginfo.docsvc.model.apisvc.Annotation;
 import org.idiginfo.docsvc.model.apisvc.Document;
@@ -575,5 +576,11 @@ public class AltmetricRecord implements Document {
 	public void setIssue(String issue) {
 	    // TODO Auto-generated method stub
 	    
+	}
+
+	@Override
+	public List<String> getAuthorList() {
+	    // TODO Auto-generated method stub
+	    return null;
 	}
 }

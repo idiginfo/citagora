@@ -1,6 +1,7 @@
 package org.idiginfo.docsvc.model.apisvc;
 
 import java.util.Date;
+import java.util.List;
 
 public interface Document {
 
@@ -9,6 +10,8 @@ public interface Document {
     public Annotation[] getAnnotations();
 
     public String getAuthors();
+
+    public List<String> getAuthorList();
 
     public String getCopyright();
 

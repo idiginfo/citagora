@@ -4,6 +4,8 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Vector;
 
 import org.idiginfo.docsvc.model.apisvc.Annotation;
 import org.idiginfo.docsvc.model.apisvc.Document;
@@ -55,10 +57,11 @@ public class SpringerRecord implements Document {
     }
 
     DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
     @Override
     public Date getDateObject() {
-	if (publicationDate==null)
-	return null;
+	if (publicationDate == null)
+	    return null;
 	try {
 	    return formatter.parse(publicationDate);
 	} catch (ParseException e) {
@@ -127,6 +130,16 @@ public class SpringerRecord implements Document {
     public String getAuthors() {
 	String authors = StringUtils.join(creators, ", ");
 	return authors;
+    }
+
+    @Override
+    public List<String> getAuthorList() {
+	List<String> authorList = new Vector<String>();
+	for (int i = 0; i < creators.length; i++) {
+	    authorList.add(creators[i].creator);
+	}
+	return authorList;
+
     }
 
     @Override

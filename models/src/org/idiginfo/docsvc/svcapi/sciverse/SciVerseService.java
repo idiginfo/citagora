@@ -52,7 +52,7 @@ public class SciVerseService implements DocService {
     String authKey;
 
     public SciVerseService() {
-	//enableLogging();
+	// enableLogging();
 	authKey = getAuthKey();
 	System.out.println("authKey: " + authKey);
     }
@@ -197,6 +197,8 @@ public class SciVerseService implements DocService {
 
     public String getSciVerseContents(String function, ApiParams params) {
 	JsonElement content = queryService(function, params);
+	if (content == null)
+	    return null;
 	SciVerseResult result = gson.fromJson(content, SciVerseResult.class);
 	String contentString = gson.toJson(result);
 	return contentString;

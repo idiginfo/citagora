@@ -1,6 +1,8 @@
 package org.idiginfo.docsvc.model.apisvc;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Vector;
 
 public class BaseDocument implements Document {
 
@@ -384,5 +386,13 @@ public class BaseDocument implements Document {
 	public void setIssue(String issue) {
 	    // TODO Auto-generated method stub
 	    
+	}
+
+	@Override
+	public List<String> getAuthorList() {
+	    // TODO Auto-generated method stub
+	    List<String> authorList = new Vector<String>();
+	    authorList.add(getAuthors());
+	    return authorList;
 	}
 }

@@ -321,4 +321,10 @@ public class SciVerseDocument implements Document {
 
     }
 
+    @Override
+    public List<String> getAuthorList() {
+	// TODO Auto-generated method stub
+	return null;
+    }
+
 }
