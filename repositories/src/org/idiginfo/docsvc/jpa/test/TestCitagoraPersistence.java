@@ -39,7 +39,7 @@ public class TestCitagoraPersistence {
     private void run(String[] args) {
 	emf = Persistence.createEntityManagerFactory("repositories");
 	em = emf.createEntityManager();
-	Container doc = createCitagoraDocument();
+	Container doc = createContainer();
 	//Reference ref = createSpringerDocument();
 	em.getTransaction().begin();
 	em.persist(doc);
@@ -49,7 +49,7 @@ public class TestCitagoraPersistence {
 	System.out.println(doc2.getClass().getName());
     }
 
-    private ContainerImpl createCitagoraDocument() {
+    private ContainerImpl createContainer() {
 	ContainerImpl document = new ContainerImpl();
 	// document.setId("http://citagora.com/documents/123456");
 	document.setSource("http://example.com/article");
@@ -95,7 +95,7 @@ public class TestCitagoraPersistence {
 	ReferenceImpl reference = new ReferenceImpl();
 	document.setIsAbout(reference);
 	reference.setLanguage("English");
-	reference.addCitagoraDocument(document);
+	reference.addContainer(document);
 	reference
 		.addSeeAlso("another link that also provides some information about this article");
 	reference.setUri("http://example.com/article");

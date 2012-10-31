@@ -72,7 +72,7 @@ public class CitagoraFactoryImpl extends CitagoraFactory {
     }
 
     @Override
-    public Container createCitagoraDocument() {
+    public Container createContainer() {
 	return new ContainerImpl();
     }
 
@@ -136,7 +136,7 @@ public class CitagoraFactoryImpl extends CitagoraFactory {
     }
 
     @Override
-    public Container findCitagoraDocument(int key) {
+    public Container findContainer(int key) {
 	// TODO Auto-generated method stub
 	return null;
     }

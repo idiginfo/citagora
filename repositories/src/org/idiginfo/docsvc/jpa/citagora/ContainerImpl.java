@@ -74,13 +74,13 @@ public class ContainerImpl extends CitagoraObjectImpl implements
 	    return; // no change
 	if (this.isAbout != null) {
 	    // remove from inverse relationship
-	    this.isAbout.getCitagoraDocuments().remove(this);
+	    this.isAbout.getContainers().remove(this);
 	}
 	// set forward relationship
 	this.isAbout = isAbout;
 	if (isAbout == null)
 	    return;
-	isAbout.getCitagoraDocuments().add(this);
+	isAbout.getContainers().add(this);
     }
 
     @Override

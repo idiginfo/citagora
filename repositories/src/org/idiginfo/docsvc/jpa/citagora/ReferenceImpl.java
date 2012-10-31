@@ -206,7 +206,7 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
 	return seeAlso;
     }
 
-    public List<Container> getCitagoraDocuments() {
+    public List<Container> getContainers() {
 	if (containers == null)
 	    containers = new Vector<Container>();
 	return containers;
@@ -241,7 +241,7 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
     }
 
     @Override
-    public void addCitagoraDocument(Container document) {
+    public void addContainer(Container document) {
 	if (document != null)
 	    document.setIsAbout(this);
     }

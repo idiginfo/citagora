@@ -26,7 +26,7 @@ public class ReviewImpl extends CitagoraObjectImpl implements Review {
 	// initId();
     }
 
-    // CitagoraDocument documentReviewed; // same as getTarget
+    // Container documentReviewed; // same as getTarget
     public Integer getRating() {
 	return rating;
     }
