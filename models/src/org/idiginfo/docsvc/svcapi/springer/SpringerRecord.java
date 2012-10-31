@@ -29,7 +29,7 @@ public class SpringerRecord implements Document {
     String publicationDate;
     String volume;
     String number;
-    Integer startingPage;
+    String startingPage;
     String url;
     String copyright;
 
@@ -240,11 +240,11 @@ public class SpringerRecord implements Document {
 	this.number = number;
     }
 
-    public Integer getStartingPage() {
+    public String getStartingPage() {
 	return startingPage;
     }
 
-    public void setStartingPage(Integer startingPage) {
+    public void setStartingPage(String startingPage) {
 	this.startingPage = startingPage;
     }
 
@@ -282,7 +282,11 @@ public class SpringerRecord implements Document {
 
     @Override
     public Integer getPageStart() {
-	return startingPage;
+	try {
+	    return Integer.getInteger(startingPage);
+	} catch (NumberFormatException e) {
+	    return null;
+	}
     }
 
     @Override

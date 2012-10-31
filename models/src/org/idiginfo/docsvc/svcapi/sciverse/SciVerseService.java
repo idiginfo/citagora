@@ -72,7 +72,7 @@ public class SciVerseService implements DocService {
      * 
      * @return
      */
-    public Gson getGson() {
+    public static Gson getGson() {
 	Type linkListType = new TypeToken<List<SciVerseLink>>() {
 	}.getType();
 	Type documentListType = new TypeToken<List<SciVerseDocument>>() {

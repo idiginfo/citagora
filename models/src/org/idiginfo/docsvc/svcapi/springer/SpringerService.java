@@ -120,23 +120,24 @@ public class SpringerService implements DocService {
 	return documents.get(0);
     }
 
-    private Documents getSpringerDocuments(String function, ApiParams params) {
-	JsonElement content = queryService(function, params);
-	SpringerResult result = gson.fromJson(content, SpringerResult.class);
+    public Documents getSpringerDocuments(String function, ApiParams params) {
+	SpringerResult result = getSpringerResult(function, params);
 	if (result == null)
 	    return null;
 	return result.getDocuments();
     }
 
+    public SpringerResult getSpringerResult(String function, ApiParams params) {
+	JsonElement content = queryService(function, params);
+	SpringerResult result = gson.fromJson(content, SpringerResult.class);
+	return result;
+    }
+
     private JsonElement queryService(String function, ApiParams params) {
 	try {
 	    // TODO add other functions
-	    SpringerUrl url = getSpringerUrl(function, params);
-	    if ("getdocument".equals(function)) {
-		url.addParameter("doi", params.getId());
-	    } else if ("getdocuments".equals(function)) {
-		url.addParameter("keyword", params.getSearchTerms());
-	    }
+	    SpringerUrl url = new SpringerUrl("metadata", "json", function,
+		    params);
 	    url.prepare();
 	    System.out.println(url.build());
 	    HttpRequest request = requestFactory.buildGetRequest(url);
@@ -157,17 +158,6 @@ public class SpringerService implements DocService {
 	}
     }
 
-    /**
-     * Add all of the Springer parameters to the URL
-     * 
-     * @param url
-     * @param params
-     */
-    protected SpringerUrl getSpringerUrl(String function, ApiParams params) {
-	SpringerUrl url = new SpringerUrl("metadata", "json");
-	return url;
-    }
-
     protected void printJson(JsonElement json, String fileName) {
 	try {
 	    FileWriter out = new FileWriter(fileName);
@@ -177,4 +167,11 @@ public class SpringerService implements DocService {
 	    e.printStackTrace();
 	}
     }
+
+    // return service result as formatted json string
+    public String getSpringerContents(SpringerApiParams params) {
+	JsonElement results = queryService("getdocuments", params);
+	return gson.toJson(results);
+    }
+
 }
