@@ -2,8 +2,8 @@ package org.idiginfo.docsvc.model.citagora;
 
 import java.util.List;
 
-public interface CitagoraDocument extends CitagoraObject {
-    static final String TYPE = "http://citagora.com/rdf#Document";
+public interface Container extends CitagoraObject {
+    static final String TYPE = "http://citagora.com/rdf#Container";
     static final String COLLECTION = "document";
 
     List<Review> getReviews();

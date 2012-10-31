@@ -13,5 +13,5 @@ public interface CitagoraAgent extends Person {
 
     List<Reference> getAgentReferences();
 
-    void addAgentDocument(CitagoraDocument document);
+    void addAgentDocument(Container document);
 }
