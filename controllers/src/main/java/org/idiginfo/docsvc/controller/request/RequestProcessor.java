@@ -12,7 +12,7 @@ import org.idiginfo.docsvc.model.apisvc.DocService;
 import org.idiginfo.docsvc.model.apisvc.Document;
 import org.idiginfo.docsvc.model.apisvc.Documents;
 import org.idiginfo.docsvc.model.apisvc.Users;
-import org.idiginfo.docsvc.model.citagora.CitagoraDocument;
+import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.model.mapping.MapSvcapiToCitagora;
 import org.idiginfo.docsvc.view.HtmlDocumentWriter;
 import org.idiginfo.docsvc.view.JsonWriter;
@@ -164,14 +164,14 @@ public class RequestProcessor {
     }
 
     /**
-     * Use the CitagoraDocumentMapper to make the Document persistent
+     * Use the ContainerMapper to make the Document persistent
      * @param document
      * @return
      */
     public int persist(Document document) {
-	CitagoraDocument citagoraDocument = documentMapper
-		.createCitagoraDocument(document);
-	if (citagoraDocument != null)
+	Container container = documentMapper
+		.createContainer(document);
+	if (container != null)
 	    return 1;
 	return 0;
     }

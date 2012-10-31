@@ -11,7 +11,7 @@ import org.idiginfo.docsvc.jpa.citagora.ReferenceImpl;
 import org.idiginfo.docsvc.model.apisvc.ApiParams;
 import org.idiginfo.docsvc.model.apisvc.Document;
 import org.idiginfo.docsvc.model.citagora.CitagoraAgent;
-import org.idiginfo.docsvc.model.citagora.CitagoraDocument;
+import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.model.citagora.Comment;
 import org.idiginfo.docsvc.model.citagora.Person;
 import org.idiginfo.docsvc.model.citagora.RatingType;
@@ -41,9 +41,9 @@ public class TestCitagoraPersistence {
     }
 
     private void run(String[] args) {
-	CitagoraDocument doc = null;
-	 doc = createCitagoraDocument();
-	//doc = (CitagoraDocument) factory.findCitagoraObject(12);
+	Container doc = null;
+	 doc = createContainer();
+	//doc = (Container) factory.findCitagoraObject(12);
 
 	String requestDoi = "doi:10.1007/s11276-008-0131-4";
 
@@ -67,7 +67,7 @@ public class TestCitagoraPersistence {
 	System.out.println("+++Object " + objName + " : " + objUri);
     }
 
-    private CitagoraDocument createCitagoraDocument() {
+    private Container createContainer() {
 	// document.setId("http://citagora.com/documents/123456");
 	Date nov2011 = new GregorianCalendar(2011, 11, 11).getTime();
 	Date june2012 = new GregorianCalendar(2012, 6, 12).getTime();
@@ -81,7 +81,7 @@ public class TestCitagoraPersistence {
 	docgenerator.setAccount("http://citagora.com/softwareAgent");
 	docgenerator.setIsAgent(true);
 
-	CitagoraDocument document = factory.createCitagoraDocument();
+	Container document = factory.createContainer();
 	System.out.println("doc uri: " + document.getUri());
 	factory.merge(document);
 	// factory.commitTransaction();
@@ -155,7 +155,7 @@ public class TestCitagoraPersistence {
 	Reference reference = factory.createReference();
 	factory.merge(reference);
 	reference.setLanguage("English");
-	reference.addCitagoraDocument(document);
+	reference.addContainer(document);
 	document.setIsAbout(reference);
 	reference
 		.addSeeAlso("another link that also provides some information about this article");
@@ -263,7 +263,7 @@ public class TestCitagoraPersistence {
 
     }
 
-    CitagoraDocument getSpringerDocument(String requestDoi) {
+    Container getSpringerDocument(String requestDoi) {
 	SpringerService service = new SpringerService();
 	factory.openTransaction();
 	ApiParams params = new SpringerApiParams();
@@ -273,12 +273,12 @@ public class TestCitagoraPersistence {
 	System.out.println(document.getId());
 
 	MapSvcapiToCitagora documentMapper = new MapSvcapiToCitagora();
-	CitagoraDocument citagoraDocument = documentMapper
-		.createCitagoraDocument(document);
-	citagoraDocument.getIsAbout().addSeeAlso("see 1");
-	citagoraDocument.getIsAbout().addSeeAlso("see 2");
+	Container container = documentMapper
+		.createContainer(document);
+	container.getIsAbout().addSeeAlso("see 1");
+	container.getIsAbout().addSeeAlso("see 2");
 	factory.commitTransaction();
-	return citagoraDocument;
+	return container;
     }
 
     public String writeCitagora(UriObject document, String version) {

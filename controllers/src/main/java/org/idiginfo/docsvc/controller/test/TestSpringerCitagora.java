@@ -7,7 +7,7 @@ import java.io.StringWriter;
 import org.idiginfo.docsvc.jpa.citagora.CitagoraFactoryImpl;
 import org.idiginfo.docsvc.model.apisvc.ApiParams;
 import org.idiginfo.docsvc.model.apisvc.Document;
-import org.idiginfo.docsvc.model.citagora.CitagoraDocument;
+import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.model.citagora.UriObject;
 import org.idiginfo.docsvc.model.mapping.MapSvcapiToCitagora;
 import org.idiginfo.docsvc.svcapi.springer.SpringerApiParams;
@@ -30,7 +30,7 @@ public class TestSpringerCitagora {
     }
 
     private void run(String[] args) {
-	CitagoraDocument doc = null;
+	Container doc = null;
 
 	String requestDoi = "doi:10.1007/s11276-008-0131-4";
 
@@ -54,7 +54,7 @@ public class TestSpringerCitagora {
 	System.out.println("+++Object " + objName + " : " + objUri);
     }
 
-    CitagoraDocument getSpringerDocument(String requestDoi) {
+    Container getSpringerDocument(String requestDoi) {
 	SpringerService service = new SpringerService();
 	factory.openTransaction();
 	ApiParams params = new SpringerApiParams();
@@ -64,10 +64,10 @@ public class TestSpringerCitagora {
 	System.out.println(document.getId());
 
 	MapSvcapiToCitagora documentMapper = new MapSvcapiToCitagora();
-	CitagoraDocument citagoraDocument = documentMapper
-		.createCitagoraDocument(document);
+	Container container = documentMapper
+		.createContainer(document);
 	factory.commitTransaction();
-	return citagoraDocument;
+	return container;
     }
 
     public String writeCitagoraRdf(UriObject document, String version) {
