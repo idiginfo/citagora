@@ -5,7 +5,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
-import org.idiginfo.docsvc.model.citagora.CitagoraDocument;
+import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.model.citagora.CitagoraObject;
 import org.idiginfo.docsvc.model.citagora.Tag;
 
@@ -13,8 +13,8 @@ import org.idiginfo.docsvc.model.citagora.Tag;
 @DiscriminatorValue(value = "tag")
 public class TagImpl extends AnnotationImpl implements Tag {
 
-    @ManyToOne(targetEntity = CitagoraDocumentImpl.class, cascade = CascadeType.ALL)
-    CitagoraDocument target;
+    @ManyToOne(targetEntity = ContainerImpl.class, cascade = CascadeType.ALL)
+    Container target;
 
     public TagImpl() {
 	type = Tag.TYPE;
@@ -22,13 +22,13 @@ public class TagImpl extends AnnotationImpl implements Tag {
 	// initId();
     }
 
-    public CitagoraDocument getTarget() {
+    public Container getTarget() {
 	return target;
     }
 
     @Override
-    public CitagoraDocument getDocumentTagged() {
-	return (CitagoraDocument) getTarget();
+    public Container getDocumentTagged() {
+	return (Container) getTarget();
     }
 
     /**
@@ -41,22 +41,22 @@ public class TagImpl extends AnnotationImpl implements Tag {
 	if (this.target == target)
 	    return;
 	// check type of target: must be Comment
-	if (target != null && !(target instanceof CitagoraDocument))
+	if (target != null && !(target instanceof Container))
 	    throw new ClassCastException();
 	// remove from inverse relationship
 	if (this.target != null) {
 	    this.target.getTags().remove(this);
 	}
 	// set forward relationship
-	this.target = (CitagoraDocument) target;
+	this.target = (Container) target;
 	if (target == null)
 	    return;
 	// set inverse relationship
-	((CitagoraDocument) target).getTags().add(this);
+	((Container) target).getTags().add(this);
     }
 
     @Override
-    public void setDocumentTagged(CitagoraDocument document) {
+    public void setDocumentTagged(Container document) {
 	setTarget(document);
     }
 }

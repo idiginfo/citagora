@@ -19,7 +19,7 @@ import javax.persistence.Transient;
 
 import org.idiginfo.docsvc.model.citagora.Author;
 import org.idiginfo.docsvc.model.citagora.CitagoraAgent;
-import org.idiginfo.docsvc.model.citagora.CitagoraDocument;
+import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.model.citagora.CitagoraObject;
 import org.idiginfo.docsvc.model.citagora.Comment;
 import org.idiginfo.docsvc.model.citagora.Person;
@@ -309,7 +309,7 @@ public class PersonImpl implements Person, CitagoraAgent, Author {
     }
 
     @Override
-    public void addAgentDocument(CitagoraDocument document) {
+    public void addAgentDocument(Container document) {
 	if (document != null)
 	    document.setGenerator(this);
     }

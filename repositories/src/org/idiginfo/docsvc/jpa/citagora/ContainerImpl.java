@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.idiginfo.docsvc.model.citagora.CitagoraDocument;
+import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.model.citagora.Comment;
 import org.idiginfo.docsvc.model.citagora.Reference;
 import org.idiginfo.docsvc.model.citagora.Review;
@@ -26,10 +26,10 @@ import org.idiginfo.docsvc.model.citagora.Tag;
  * 
  */
 @Entity
-@Table(schema = "citagora", name = "citagora_documents")
+@Table(schema = "citagora", name = "containers")
 @DiscriminatorValue(value = "document")
-public class CitagoraDocumentImpl extends CitagoraObjectImpl implements
-	CitagoraDocument {
+public class ContainerImpl extends CitagoraObjectImpl implements
+	Container {
 
     @ManyToOne(targetEntity = ReferenceImpl.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     Reference isAbout;
@@ -41,9 +41,9 @@ public class CitagoraDocumentImpl extends CitagoraObjectImpl implements
     @OneToMany(mappedBy = "target", targetEntity = CommentImpl.class, cascade = CascadeType.ALL)
     List<Comment> comments;
 
-    public CitagoraDocumentImpl() {
-	setType(CitagoraDocument.TYPE);
-	setCollection(CitagoraDocument.COLLECTION);
+    public ContainerImpl() {
+	setType(Container.TYPE);
+	setCollection(Container.COLLECTION);
 	// initId();
     }
 

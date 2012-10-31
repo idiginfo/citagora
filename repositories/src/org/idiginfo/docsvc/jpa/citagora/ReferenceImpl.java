@@ -18,7 +18,7 @@ import javax.persistence.TemporalType;
 
 import org.idiginfo.docsvc.model.citagora.Author;
 import org.idiginfo.docsvc.model.citagora.CitagoraAgent;
-import org.idiginfo.docsvc.model.citagora.CitagoraDocument;
+import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.model.citagora.Reference;
 
 @Entity(name = "citagora_references")
@@ -51,8 +51,8 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
     @OneToMany(mappedBy = "isPartOf", targetEntity = ReferenceImpl.class, cascade = CascadeType.ALL)
     List<Reference> contains;
 
-    @OneToMany(mappedBy = "isAbout", targetEntity = CitagoraDocumentImpl.class, cascade = CascadeType.ALL)
-    List<CitagoraDocument> citagoraDocuments;
+    @OneToMany(mappedBy = "isAbout", targetEntity = ContainerImpl.class, cascade = CascadeType.ALL)
+    List<Container> containers;
 
     @ManyToMany(targetEntity = PersonImpl.class, cascade = CascadeType.ALL)
     @JoinTable(name = "reference_authors")
@@ -206,10 +206,10 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
 	return seeAlso;
     }
 
-    public List<CitagoraDocument> getCitagoraDocuments() {
-	if (citagoraDocuments == null)
-	    citagoraDocuments = new Vector<CitagoraDocument>();
-	return citagoraDocuments;
+    public List<Container> getCitagoraDocuments() {
+	if (containers == null)
+	    containers = new Vector<Container>();
+	return containers;
     }
 
     public Double getOverallRating() {
@@ -241,7 +241,7 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
     }
 
     @Override
-    public void addCitagoraDocument(CitagoraDocument document) {
+    public void addCitagoraDocument(Container document) {
 	if (document != null)
 	    document.setIsAbout(this);
     }

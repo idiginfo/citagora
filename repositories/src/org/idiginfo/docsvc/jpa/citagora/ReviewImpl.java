@@ -5,7 +5,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
-import org.idiginfo.docsvc.model.citagora.CitagoraDocument;
+import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.model.citagora.Person;
 import org.idiginfo.docsvc.model.citagora.Review;
 
@@ -17,8 +17,8 @@ public class ReviewImpl extends CitagoraObjectImpl implements Review {
     Integer totalVotes;
     @ManyToOne(targetEntity = PersonImpl.class, cascade = CascadeType.ALL)
     Person reviewer;
-    @ManyToOne(targetEntity = CitagoraDocumentImpl.class, cascade = CascadeType.ALL)
-    CitagoraDocument documentReviewed;
+    @ManyToOne(targetEntity = ContainerImpl.class, cascade = CascadeType.ALL)
+    Container documentReviewed;
 
     public ReviewImpl() {
 	setType(Review.TYPE);
@@ -66,7 +66,7 @@ public class ReviewImpl extends CitagoraObjectImpl implements Review {
     }
 
     @Override
-    public CitagoraDocument getDocumentReviewed() {
+    public Container getDocumentReviewed() {
 	return documentReviewed;
     }
 
@@ -75,7 +75,7 @@ public class ReviewImpl extends CitagoraObjectImpl implements Review {
      * every ManyToOne field.
      */
     @Override
-    public void setDocumentReviewed(CitagoraDocument documentReviewed) {
+    public void setDocumentReviewed(Container documentReviewed) {
 	// do nothing if relationship not changed
 	if (this.documentReviewed == documentReviewed)
 	    return;

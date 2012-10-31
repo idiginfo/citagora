@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import org.idiginfo.docsvc.model.citagora.CitagoraAgent;
-import org.idiginfo.docsvc.model.citagora.CitagoraDocument;
+import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.model.citagora.CitagoraObject;
 import org.idiginfo.docsvc.model.citagora.Comment;
 import org.idiginfo.docsvc.model.citagora.Person;
@@ -25,8 +25,8 @@ public class CommentImpl extends AnnotationImpl implements Comment {
     @Column(name = "ratingType")
     String commentType;
 
-    @ManyToOne(targetEntity = CitagoraDocumentImpl.class, cascade = CascadeType.ALL)
-    CitagoraDocument target;
+    @ManyToOne(targetEntity = ContainerImpl.class, cascade = CascadeType.ALL)
+    Container target;
 
     @ManyToOne(targetEntity = PersonImpl.class, cascade = CascadeType.ALL)
     Person reviewer;
@@ -105,17 +105,17 @@ public class CommentImpl extends AnnotationImpl implements Comment {
     public void setTarget(CitagoraObject target) {
 	if (this.target == target)
 	    return; // no change
-	if (target != null && !(target instanceof CitagoraDocument))
+	if (target != null && !(target instanceof Container))
 	    throw new ClassCastException();
 	if (this.target != null) {
 	    // remove from inverse relationship
 	    this.target.getComments().remove(this);
 	}
 	// set forward relationship
-	this.target = (CitagoraDocument) target;
+	this.target = (Container) target;
 	if (target == null)
 	    return;
-	((CitagoraDocument) target).getComments().add(this);
+	((Container) target).getComments().add(this);
     }
 
     @Override

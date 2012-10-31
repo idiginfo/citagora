@@ -11,5 +11,5 @@ public class ReviewImpl_ extends CitagoraObjectImpl_ {
 	public static volatile SingularAttribute<ReviewImpl, Integer> rating;
 	public static volatile SingularAttribute<ReviewImpl, Integer> totalVotes;
 	public static volatile SingularAttribute<ReviewImpl, PersonImpl> reviewer;
-	public static volatile SingularAttribute<ReviewImpl, CitagoraDocumentImpl> documentReviewed;
+	public static volatile SingularAttribute<ReviewImpl, ContainerImpl> documentReviewed;
 }

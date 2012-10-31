@@ -7,7 +7,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import org.idiginfo.docsvc.jpa.citagora.AnnotationBodyImpl;
-import org.idiginfo.docsvc.jpa.citagora.CitagoraDocumentImpl;
+import org.idiginfo.docsvc.jpa.citagora.ContainerImpl;
 import org.idiginfo.docsvc.jpa.citagora.CitagoraObjectImpl;
 import org.idiginfo.docsvc.jpa.citagora.PersonImpl;
 import org.idiginfo.docsvc.jpa.citagora.ReferenceImpl;
@@ -15,7 +15,7 @@ import org.idiginfo.docsvc.jpa.citagora.ReviewImpl;
 import org.idiginfo.docsvc.jpa.citagora.TagImpl;
 import org.idiginfo.docsvc.model.apisvc.ApiParams;
 import org.idiginfo.docsvc.model.apisvc.Document;
-import org.idiginfo.docsvc.model.citagora.CitagoraDocument;
+import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.model.citagora.RatingType;
 import org.idiginfo.docsvc.model.citagora.Reference;
 import org.idiginfo.docsvc.model.mapping.MapSvcapiToCitagora;
@@ -39,7 +39,7 @@ public class TestCitagoraPersistence {
     private void run(String[] args) {
 	emf = Persistence.createEntityManagerFactory("repositories");
 	em = emf.createEntityManager();
-	CitagoraDocument doc = createCitagoraDocument();
+	Container doc = createCitagoraDocument();
 	//Reference ref = createSpringerDocument();
 	em.getTransaction().begin();
 	em.persist(doc);
@@ -49,8 +49,8 @@ public class TestCitagoraPersistence {
 	System.out.println(doc2.getClass().getName());
     }
 
-    private CitagoraDocumentImpl createCitagoraDocument() {
-	CitagoraDocumentImpl document = new CitagoraDocumentImpl();
+    private ContainerImpl createCitagoraDocument() {
+	ContainerImpl document = new ContainerImpl();
 	// document.setId("http://citagora.com/documents/123456");
 	document.setSource("http://example.com/article");
 	document.setRights("http://www.nlm.nih.gov/databases/license/license.html");

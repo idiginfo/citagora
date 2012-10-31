@@ -13,7 +13,7 @@ import javax.persistence.RollbackException;
 
 import org.idiginfo.docsvc.model.citagora.Author;
 import org.idiginfo.docsvc.model.citagora.CitagoraAgent;
-import org.idiginfo.docsvc.model.citagora.CitagoraDocument;
+import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.model.citagora.CitagoraFactory;
 import org.idiginfo.docsvc.model.citagora.CitagoraObject;
 import org.idiginfo.docsvc.model.citagora.Comment;
@@ -72,8 +72,8 @@ public class CitagoraFactoryImpl extends CitagoraFactory {
     }
 
     @Override
-    public CitagoraDocument createCitagoraDocument() {
-	return new CitagoraDocumentImpl();
+    public Container createCitagoraDocument() {
+	return new ContainerImpl();
     }
 
     @Override
@@ -136,7 +136,7 @@ public class CitagoraFactoryImpl extends CitagoraFactory {
     }
 
     @Override
-    public CitagoraDocument findCitagoraDocument(int key) {
+    public Container findCitagoraDocument(int key) {
 	// TODO Auto-generated method stub
 	return null;
     }
