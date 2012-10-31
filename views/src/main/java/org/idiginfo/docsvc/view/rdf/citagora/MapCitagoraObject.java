@@ -8,7 +8,7 @@ import org.idiginfo.docsvc.model.citagora.Annotation;
 import org.idiginfo.docsvc.model.citagora.AnnotationBody;
 import org.idiginfo.docsvc.model.citagora.Author;
 import org.idiginfo.docsvc.model.citagora.CitagoraAgent;
-import org.idiginfo.docsvc.model.citagora.CitagoraDocument;
+import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.model.citagora.CitagoraObject;
 import org.idiginfo.docsvc.model.citagora.Comment;
 import org.idiginfo.docsvc.model.citagora.Person;
@@ -87,8 +87,8 @@ public class MapCitagoraObject {
 					    // the model
 	    return resource;
 	from.getClass();
-	if (from instanceof CitagoraDocument)
-	    return addCitagoraDocument((CitagoraDocument) from);
+	if (from instanceof Container)
+	    return addContainer((Container) from);
 	if (from instanceof Comment)
 	    return addComment((Comment) from);
 	if (from instanceof Tag)
@@ -135,11 +135,11 @@ public class MapCitagoraObject {
 	return resource;
     }
 
-    public Resource addCitagoraDocument(CitagoraDocument from) {
+    public Resource addContainer(Container from) {
 	// add parent class object and its properties
 	Resource resource = addCitagoraObject(from);
 
-	// add CitagoraDocument properties
+	// add Container properties
 	addObject(resource, DCTERMS.source, from.getIsAbout());
 	addObjects(resource, RdfReview.rating, from.getReviews());
 	addObjects(resource, Citagora.hasTag, from.getTags());
@@ -242,7 +242,7 @@ public class MapCitagoraObject {
 	addProperties(resource, DCTERMS.references, from.getSeeAlso());
 	addProperty(resource, RdfReview.rating, from.getOverallRating());
 	addProperty(resource, RdfReview.rating, from.getReadabilityRating());
-	// addObjects(resource, RdfReview.rating, from.getCitagoraDocuments());
+	// addObjects(resource, RdfReview.rating, from.getContainers());
 	// // note: we are driving the transformation from the citagora Document
 	addProperty(resource, RdfReview.rating, from.getAccuracyRating());
 	addProperty(resource, BIBO.issn, from.getIssn());
@@ -344,7 +344,7 @@ public class MapCitagoraObject {
     }
 
     private Resource getCitagoraType(String type) {
-	if (CitagoraDocument.TYPE.equals(type))
+	if (Container.TYPE.equals(type))
 	    return Citagora.documentType;
 	if (Reference.TYPE.equals(type))
 	    return BIBO.Document;

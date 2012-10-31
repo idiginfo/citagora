@@ -4,7 +4,7 @@ import java.io.StringWriter;
 
 import org.idiginfo.docsvc.model.apisvc.Document;
 import org.idiginfo.docsvc.model.apisvc.Documents;
-import org.idiginfo.docsvc.model.citagora.CitagoraDocument;
+import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.view.rdf.BiboModel;
 import org.idiginfo.docsvc.view.rdf.MapDocument;
 import org.idiginfo.docsvc.view.rdf.MapDocuments;
@@ -22,9 +22,9 @@ public class RdfWriter implements ObjectWriter {
 		RIOT.init();// initialize the I/O tools
 	}
 
-	public static String writeCitagoraDocument(CitagoraDocument document) {
+	public static String writeContainer(Container document) {
 		MapCitagoraObject mapper = new MapCitagoraObject();
-		mapper.addCitagoraDocument(document);
+		mapper.addContainer(document);
 		Model model = mapper.getModel();
 		return null;
 	}

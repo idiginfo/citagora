@@ -13,7 +13,7 @@ import org.idiginfo.docsvc.model.apisvc.ApiParams;
 import org.idiginfo.docsvc.model.apisvc.Document;
 import org.idiginfo.docsvc.model.citagora.AnnotationBody;
 import org.idiginfo.docsvc.model.citagora.CitagoraAgent;
-import org.idiginfo.docsvc.model.citagora.CitagoraDocument;
+import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.model.citagora.CitagoraFactory;
 import org.idiginfo.docsvc.model.citagora.Person;
 import org.idiginfo.docsvc.model.citagora.RatingType;
@@ -43,16 +43,16 @@ public class TestCitagoraModel {
      */
     public static void main(String[] args) {
 	TestCitagoraModel tester = new TestCitagoraModel();
-	tester.testCitagoraDocument();
+	tester.testContainer();
 	// tester.testSpringDocument();
     }
 
-    private void testCitagoraDocument() {
+    private void testContainer() {
 	emf = Persistence.createEntityManagerFactory("repositories");
 	em = emf.createEntityManager();
 	em.getTransaction().begin();
 
-	CitagoraDocument document = createCitagoraDocument();
+	Container document = createContainer();
 	// Gson gson = new GsonBuilder().setPrettyPrinting().create();
 	// String string = gson.toJson(document);
 	// System.out.println(string);
@@ -72,9 +72,9 @@ public class TestCitagoraModel {
 	return out.toString();
     }
 
-    private CitagoraDocument createCitagoraDocument() {
+    private Container createContainer() {
 	CitagoraFactory factory = CitagoraFactory.getFactory();
-	CitagoraDocument document = factory.createCitagoraDocument();
+	Container document = factory.createContainer();
 	// document.setId("http://citagora.com/documents/123456");
 	document.setSource("http://example.com/article");
 	document.setRights("http://www.nlm.nih.gov/databases/license/license.html");
@@ -122,7 +122,7 @@ public class TestCitagoraModel {
 	Reference reference = factory.createReference();
 	document.setIsAbout(reference);
 	reference.setLanguage("English");
-	//reference.addCitagoraDocument(document);
+	//reference.addContainer(document);
 	document.setIsAbout(reference);
 	reference
 		.addSeeAlso("another link that also provides some information about this article");
@@ -158,14 +158,14 @@ public class TestCitagoraModel {
 	System.out.println(document.getId());
 
 	MapSvcapiToCitagora documentMapper = new MapSvcapiToCitagora();
-	CitagoraDocument citagoraDocument = documentMapper.createCitagoraDocument(document);
+	Container container = documentMapper.createContainer(document);
 	// Gson gson = new GsonBuilder().setPrettyPrinting().create();
 	// String string = gson.toJson(reference);
 	// System.out.println(string);
 
 	MapCitagoraObject mapper = new MapCitagoraObject();
-	mapper.add(citagoraDocument);
-	String rdf = writeCitagora(citagoraDocument, null);
+	mapper.add(container);
+	String rdf = writeCitagora(container, null);
 	System.out.println(rdf);
 
     }
