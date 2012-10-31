@@ -71,7 +71,7 @@ public interface Reference extends CitagoraObject {
 
     public List<String> getSeeAlso();
 
-    public List<Container> getCitagoraDocuments();
+    public List<Container> getContainers();
 
     public Double getOverallRating();
 
@@ -133,7 +133,7 @@ public interface Reference extends CitagoraObject {
 
     public void removeIsCitedBy(Reference reference);
 
-    public void addCitagoraDocument(Container document);
+    public void addContainer(Container document);
 
     public void setIssn(String issn);
 

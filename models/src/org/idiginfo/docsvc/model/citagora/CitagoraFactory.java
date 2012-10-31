@@ -25,9 +25,9 @@ public abstract class CitagoraFactory {
 
     public abstract CitagoraAgent findCitagoraAgent(int key);
 
-    public abstract Container createCitagoraDocument();
+    public abstract Container createContainer();
 
-    public abstract Container findCitagoraDocument(int key);
+    public abstract Container findContainer(int key);
 
     public abstract Comment createComment();
 

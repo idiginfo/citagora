@@ -6,7 +6,7 @@ import java.util.List;
 import org.apache.poi.ss.formula.functions.Today;
 import org.idiginfo.docsvc.model.apisvc.Annotation;
 import org.idiginfo.docsvc.model.apisvc.Document;
-import org.idiginfo.docsvc.model.citagora.CitagoraDocument;
+import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.model.citagora.CitagoraFactory;
 import org.idiginfo.docsvc.model.citagora.Comment;
 import org.idiginfo.docsvc.model.citagora.Reference;
@@ -22,8 +22,8 @@ public class MapSvcapiToCitagora {
 
     CitagoraFactory factory = CitagoraFactory.getFactory();
 
-    public CitagoraDocument createCitagoraDocument(Document fromDocument) {
-	CitagoraDocument toDocument = factory.createCitagoraDocument();
+    public Container createContainer(Document fromDocument) {
+	Container toDocument = factory.createContainer();
 	factory.merge(toDocument);
 	toDocument.setGenerator(null);
 	Reference toReference = map(fromDocument);
