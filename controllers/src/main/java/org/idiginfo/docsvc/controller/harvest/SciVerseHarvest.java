@@ -2,34 +2,21 @@ package org.idiginfo.docsvc.controller.harvest;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.logging.*;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.LogRecord;
+import java.util.logging.Logger;
 
-import org.apache.commons.io.IOUtils;
-import org.idiginfo.docsvc.model.apisvc.Document;
-import org.idiginfo.docsvc.model.apisvc.Documents;
 import org.idiginfo.docsvc.svcapi.sciverse.SciVerseApiParams;
-import org.idiginfo.docsvc.svcapi.sciverse.SciVerseDocument;
-import org.idiginfo.docsvc.svcapi.sciverse.SciVerseDocuments;
 import org.idiginfo.docsvc.svcapi.sciverse.SciVerseResult;
 import org.idiginfo.docsvc.svcapi.sciverse.SciVerseService;
-import org.idiginfo.docsvc.svcapi.sciverse.SciVerseUrl;
-import org.idiginfo.docsvc.svcapi.sciverse.ScopusAuthUrl;
 
-import com.google.api.client.http.HttpHeaders;
-import com.google.api.client.http.HttpRequest;
-import com.google.api.client.http.HttpRequestFactory;
-import com.google.api.client.http.HttpRequestInitializer;
-import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpTransport;
-import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 public class SciVerseHarvest {
 
-    private final static String FILE_PREFIX = "c:/dev/harvest/sciverse/abs_suicide_";
+    final static String FILE_DIR = "c:/dev/harvest/sciverse/";
+    final static String FILE_PREFIX = FILE_DIR + "abs_suicide_";
     private final static int MAX_PER_PAGE = 25;
 
     @SuppressWarnings("unused")
