@@ -3,7 +3,11 @@ package org.idiginfo.docsvc.controller.harvest;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
 
+import org.idiginfo.docsvc.model.citagora.CitagoraAgent;
+import org.idiginfo.docsvc.model.citagora.CitagoraObject;
 import org.idiginfo.docsvc.svcapi.sciverse.SciVerseDocument;
 import org.idiginfo.docsvc.svcapi.sciverse.SciVerseService;
 
@@ -31,12 +35,18 @@ public class SciVerseLoad {
     private void run(String[] args) {
 	int numFiles;
 	File baseDirectory = new File(BASE_DIR);
-
-	numFiles = loadFiles(baseDirectory);
+	CitagoraObject containerFields = loader.getFactory()
+		.createCitagoraObject();
+	CitagoraAgent agent = loader.getFactory().getServiceAgent("springer");
+	containerFields.setGenerator(agent);
+	containerFields.setRights("copyright 2012 idiginfo.com");
+	containerFields.setSource("springer api");
+	containerFields.setWasAttributedTo("riccardi");
+	numFiles = loadFiles(containerFields, baseDirectory);
 	System.out.println("Number of files processed: " + numFiles);
     }
 
-    private int loadFiles(File baseDir) {
+    private int loadFiles(CitagoraObject containerFields, File baseDir) {
 	System.out.println("Loading directory " + baseDir.getPath());
 	int numLoaded = 0;
 	File[] files = baseDir.listFiles();
@@ -44,21 +54,22 @@ public class SciVerseLoad {
 	for (int i = 0; i < files.length; i++) {
 	    File file = files[i];
 	    if (file.isDirectory()) {
-		numLoaded += loadFiles(file);
+		numLoaded += loadFiles(containerFields, file);
 	    } else {
-		numLoaded += loadFile(file);
+		numLoaded += loadFile(containerFields, file);
 	    }
 	}
 	return numLoaded;
     }
 
-    private int loadFile(File file) {
+    private int loadFile(CitagoraObject containerFields, File file) {
 	System.out.println("loading file: " + file.getName());
 	try {
 	    FileReader in = new FileReader(file);
 	    SciVerseDocument document = gson.fromJson(in,
 		    SciVerseDocument.class);
-	    loader.loadDocument(document);
+	    containerFields.setGenerated(new Date(file.lastModified()));
+	    loader.load(containerFields, document);
 	    return 1;
 	} catch (IOException e) {
 	    e.printStackTrace();
