@@ -35,7 +35,7 @@ public class TestSpringerCitagora {
 	String requestDoi = "doi:10.1007/s11276-008-0131-4";
 
 	doc = getSpringerDocument(requestDoi);
-	String rdf = writeCitagoraRdf(doc, null);
+	String rdf = writeCitagoraRdf(doc, null, -1);
 	FileWriter out;
 	try {
 	    out = new FileWriter("c:/dev/api samples/springer1.rdf");
@@ -65,14 +65,14 @@ public class TestSpringerCitagora {
 
 	MapSvcapiToCitagora documentMapper = new MapSvcapiToCitagora();
 	Container container = documentMapper
-		.createContainer(document);
+		.createContainer(null, document);
 	factory.commitTransaction();
 	return container;
     }
 
-    public String writeCitagoraRdf(UriObject document, String version) {
+    public String writeCitagoraRdf(UriObject document, String version, int level) {
 	MapCitagoraObject mapper = new MapCitagoraObject();
-	mapper.add(document);
+	mapper.add(document, level-1);
 	Model model = mapper.getModel();
 	StringWriter out = new StringWriter();
 	model.write(out, version);

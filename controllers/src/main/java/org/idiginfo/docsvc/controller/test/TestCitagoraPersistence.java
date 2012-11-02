@@ -42,13 +42,13 @@ public class TestCitagoraPersistence {
 
     private void run(String[] args) {
 	Container doc = null;
-	 doc = createContainer();
-	//doc = (Container) factory.findCitagoraObject(12);
+	doc = createContainer();
+	// doc = (Container) factory.findCitagoraObject(12);
 
 	String requestDoi = "doi:10.1007/s11276-008-0131-4";
 
-	//doc = getSpringerDocument(requestDoi);
-	String rdf = writeCitagora(doc,null);
+	// doc = getSpringerDocument(requestDoi);
+	String rdf = writeCitagora(doc, null, -1);
 	FileWriter out;
 	try {
 	    out = new FileWriter("c:/dev/api samples/citagora_2.rdf");
@@ -273,17 +273,16 @@ public class TestCitagoraPersistence {
 	System.out.println(document.getId());
 
 	MapSvcapiToCitagora documentMapper = new MapSvcapiToCitagora();
-	Container container = documentMapper
-		.createContainer(document);
+	Container container = documentMapper.createContainer(null, document);
 	container.getIsAbout().addSeeAlso("see 1");
 	container.getIsAbout().addSeeAlso("see 2");
 	factory.commitTransaction();
 	return container;
     }
 
-    public String writeCitagora(UriObject document, String version) {
+    public String writeCitagora(UriObject document, String version, int level) {
 	MapCitagoraObject mapper = new MapCitagoraObject();
-	mapper.add(document);
+	mapper.add(document, level);
 	Model model = mapper.getModel();
 	StringWriter out = new StringWriter();
 	model.write(out, version);

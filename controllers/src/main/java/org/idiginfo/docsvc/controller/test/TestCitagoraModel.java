@@ -25,6 +25,8 @@ import org.idiginfo.docsvc.svcapi.springer.SpringerApiParams;
 import org.idiginfo.docsvc.svcapi.springer.SpringerService;
 import org.idiginfo.docsvc.view.rdf.citagora.MapCitagoraObject;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.hp.hpl.jena.rdf.model.Model;
 
 public class TestCitagoraModel {
@@ -47,24 +49,27 @@ public class TestCitagoraModel {
     }
 
     private void testContainer() {
-	emf = Persistence.createEntityManagerFactory("repositories");
-	em = emf.createEntityManager();
-	em.getTransaction().begin();
+//	emf = Persistence.createEntityManagerFactory("repositories");
+//	em = emf.createEntityManager();
+	//em.getTransaction().begin();
 
 	Container document = createContainer();
 	// Gson gson = new GsonBuilder().setPrettyPrinting().create();
 	// String string = gson.toJson(document);
 	// System.out.println(string);
-	em.persist(document);
-	em.getTransaction().commit();
+	//em.persist(document);
+	//em.getTransaction().commit();
 
-	String rdf = writeCitagora(document, null);
+	String rdf = writeCitagora(document, "TURTLE");
 	System.out.println(rdf);
     }
 
     public String writeCitagora(UriObject document, String version) {
+	// Gson gson = new GsonBuilder().setPrettyPrinting().create();
+	// String json = gson.toJson(document);
+	// System.out.println(json);
 	MapCitagoraObject mapper = new MapCitagoraObject();
-	mapper.add(document);
+	mapper.add(document, -1);
 	Model model = mapper.getModel();
 	StringWriter out = new StringWriter();
 	model.write(out, version);
@@ -157,8 +162,8 @@ public class TestCitagoraModel {
 	// System.out.println(string);
 
 	MapCitagoraObject mapper = new MapCitagoraObject();
-	mapper.add(reference);
-	String rdf = writeCitagora(reference, null);
+	mapper.add(reference, -1);
+	String rdf = writeCitagora(reference, "TURTLE");
 	System.out.println(rdf);
 
     }
