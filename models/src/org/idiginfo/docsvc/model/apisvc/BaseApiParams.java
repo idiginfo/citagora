@@ -1,10 +1,6 @@
 package org.idiginfo.docsvc.model.apisvc;
 
 import java.lang.reflect.Field;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import com.google.api.client.http.GenericUrl;
 

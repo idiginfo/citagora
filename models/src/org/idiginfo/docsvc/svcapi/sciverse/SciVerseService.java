@@ -15,13 +15,8 @@ import org.apache.commons.io.IOUtils;
 import org.idiginfo.docsvc.model.apisvc.ApiParams;
 import org.idiginfo.docsvc.model.apisvc.DocService;
 import org.idiginfo.docsvc.model.apisvc.Document;
-import org.idiginfo.docsvc.model.apisvc.Documents;
 import org.idiginfo.docsvc.model.apisvc.Users;
 import org.idiginfo.docsvc.svcapi.ListTypeAdapter;
-import org.idiginfo.docsvc.svcapi.sciverse.SciVerseDocument.Affiliation;
-import org.idiginfo.docsvc.svcapi.springer.SpringerApiParams;
-import org.idiginfo.docsvc.svcapi.springer.SpringerResult;
-import org.idiginfo.docsvc.svcapi.springer.SpringerUrl;
 
 import com.google.api.client.http.HttpHeaders;
 import com.google.api.client.http.HttpRequest;

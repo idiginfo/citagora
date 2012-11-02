@@ -215,7 +215,7 @@ public class MasService implements DocService {
 		params.setPublicationContent("Keyword");
 		params.setStartIdx(start);
 		params.setEndIdx(end);
-		MasResponse response = getResponse(params);
+		//MasResponse response = getResponse(params);
 		return null; // response.getD().getKeyword().getResult();
 	}
 

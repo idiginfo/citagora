@@ -2,8 +2,6 @@ package org.idiginfo.docsvc.svcapi.sciverse;
 
 import java.util.List;
 
-import org.idiginfo.docsvc.model.apisvc.Documents;
-
 import com.google.gson.annotations.SerializedName;
 
 /**

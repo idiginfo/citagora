@@ -3,10 +3,9 @@ package org.idiginfo.docsvc.svcapi.annotate;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
-import org.idiginfo.docsvc.model.apisvc.*;
+import org.idiginfo.docsvc.model.apisvc.Annotation;
 
 public class AnnotateNote implements Annotation {
 
