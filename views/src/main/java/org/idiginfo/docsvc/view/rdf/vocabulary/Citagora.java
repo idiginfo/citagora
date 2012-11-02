@@ -1,7 +1,5 @@
 package org.idiginfo.docsvc.view.rdf.vocabulary;
 
-import org.idiginfo.docsvc.model.citagora.UriObject;
-
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Property;

@@ -8,13 +8,11 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import org.idiginfo.docsvc.jpa.citagora.CitagoraFactoryImpl;
-import org.idiginfo.docsvc.jpa.citagora.CitagoraObjectImpl;
 import org.idiginfo.docsvc.model.apisvc.ApiParams;
 import org.idiginfo.docsvc.model.apisvc.Document;
-import org.idiginfo.docsvc.model.citagora.AnnotationBody;
 import org.idiginfo.docsvc.model.citagora.CitagoraAgent;
-import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.model.citagora.CitagoraFactory;
+import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.model.citagora.Person;
 import org.idiginfo.docsvc.model.citagora.RatingType;
 import org.idiginfo.docsvc.model.citagora.Reference;
