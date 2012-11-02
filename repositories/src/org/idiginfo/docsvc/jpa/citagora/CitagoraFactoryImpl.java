@@ -1,16 +1,20 @@
 package org.idiginfo.docsvc.jpa.citagora;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import javax.persistence.RollbackException;
 
+import org.hibernate.validator.util.GetAnnotationParameter;
+import org.idiginfo.docsvc.model.citagora.Annotation;
 import org.idiginfo.docsvc.model.citagora.Author;
 import org.idiginfo.docsvc.model.citagora.CitagoraAgent;
 import org.idiginfo.docsvc.model.citagora.Container;
@@ -248,8 +252,9 @@ public class CitagoraFactoryImpl extends CitagoraFactory {
 	boolean localTransaction = false;
 	EntityManager em = getEntityManager();
 	// if already managed, nothing required
-	if (em.contains(obj)) return true;
-	if (obj.getMyId()!= null){
+	if (em.contains(obj))
+	    return true;
+	if (obj.getMyId() != null) {
 	    em.merge(obj);
 	    return true;
 	}
@@ -261,7 +266,7 @@ public class CitagoraFactoryImpl extends CitagoraFactory {
 	}
 	if (em.contains(obj)) {
 	    em.merge(obj);
-	}else {
+	} else {
 	    em.persist(obj);
 	}
 	if (localTransaction) {
@@ -296,14 +301,53 @@ public class CitagoraFactoryImpl extends CitagoraFactory {
 	    e.printStackTrace(System.err);
 	}
     }
+
     @Override
-    public void flush(){
+    public void flush() {
 	try {
 	    getEntityManager().flush();
 	} catch (Exception e) {
 	    e.printStackTrace(System.err);
 	}
-	
+
     }
 
+    @Override
+    public boolean isTransactionActive() {
+	EntityTransaction to = em.getTransaction();
+	if (to == null)
+	    return false;
+	return to.isActive();
+    }
+
+    @Override
+    public Container createContainer(Container containerFields) {
+	return new ContainerImpl(containerFields);
+    }
+
+    @Override
+    /**
+     * Get the standard agent for the service
+     */
+    public CitagoraAgent getServiceAgent(String serviceName) {
+	Person agent = getPerson(serviceName);
+	if (agent instanceof CitagoraAgent)
+	    return (CitagoraAgent) agent;
+	return null;
+    }
+
+    @Override
+    public Person getPerson(String name) {
+	try {
+	    getEntityManager();
+	    Query q = em.createQuery("SELECT p FROM "
+		    + PersonImpl.class.getCanonicalName()
+		    + " p WHERE p.name=:name");
+	    q.setParameter("name", name);
+	    Person person = (Person) q.getSingleResult();
+	    return person;
+	} catch (NoResultException e) {
+	    return null;
+	}
+    }
 }

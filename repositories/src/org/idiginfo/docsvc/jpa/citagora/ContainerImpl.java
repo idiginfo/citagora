@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.idiginfo.docsvc.model.citagora.CitagoraObject;
 import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.model.citagora.Comment;
 import org.idiginfo.docsvc.model.citagora.Reference;
@@ -27,7 +28,7 @@ import org.idiginfo.docsvc.model.citagora.Tag;
  */
 @Entity
 @Table(schema = "citagora", name = "containers")
-@DiscriminatorValue(value = "document")
+@DiscriminatorValue(value = Container.COLLECTION)
 public class ContainerImpl extends CitagoraObjectImpl implements
 	Container {
 
@@ -45,6 +46,16 @@ public class ContainerImpl extends CitagoraObjectImpl implements
 	setType(Container.TYPE);
 	setCollection(Container.COLLECTION);
 	// initId();
+    }
+
+    public ContainerImpl(CitagoraObject containerFields) {
+	this();
+	setGenerated(containerFields.getGenerated());
+	setCreated(containerFields.getCreated());
+	setGenerator(containerFields.getGenerator());
+	setRights(containerFields.getRights());
+	setSource(containerFields.getSource());
+	setWasAttributedTo(containerFields.getWasAttributedTo());
     }
 
     @Override
