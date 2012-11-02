@@ -10,7 +10,12 @@ public class SpringerUrl extends GenericUrl {
 
     public SpringerUrl(String collection, String resultFormat) {
 	super(SpringerApiParams.API_URL + collection + "/" + resultFormat + "/");
-	apiKey = SpringerApiParams.API_KEY;
+	if (collection.equals("metadata")) {
+	    apiKey = SpringerApiParams.API_KEY;
+	} else {
+	    apiKey = SpringerApiParams.OPENACCESS_API_KEY;
+	}
+
     }
 
     // sample URL
@@ -48,7 +53,11 @@ public class SpringerUrl extends GenericUrl {
 	}
 	if (constraint != null)
 	    parameterString += constraint + ":";
-	parameterString += "\"" + term + "\"";
+	if ("doi".equals(constraint)) {// add term with no quotes
+	    parameterString += term;
+	} else {// add term with quotes
+	    parameterString += "\"" + term + "\"";
+	}
     }
 
     public void addExcludingParameter(String constraint, String term) {
