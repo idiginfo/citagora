@@ -21,10 +21,12 @@ public class SpringerSample {
     public static String testSpringerDocument() {
 	ApiParams params = new SpringerApiParams();
 	// params.setDoi("doi:10.1007/s11276-008-0131-4");
-	params.setId("10.1007/s00259-011-1959-x");
+	params.setId(//"10.1007/s00259-011-1959-x");
+	"10.1023/A:1009661728366");
 	params.setSearchTerms("suicide");
 	// params.setDoi("doi:10.1136/bmj.c6801");
 	Documents documents = service.getDocuments(params);
+	//Document document = service.getDocument(params);
 	Document document = documents.get(0);
 	System.out.println(document.getId());
 	Gson gson = new GsonBuilder().setPrettyPrinting().create();
