@@ -74,9 +74,10 @@ public class MapCitagoraObject {
      * Add any object to the model
      * 
      * @param from
+     * @param level TODO
      * @return
      */
-    public Resource add(UriObject from) {
+    public Resource add(UriObject from, int level) {
 	if (from == null)
 	    return null;
 	String uri = from.getUri();
@@ -86,25 +87,27 @@ public class MapCitagoraObject {
 	if (resource.hasProperty(RDF.type)) // already added this object to
 					    // the model
 	    return resource;
-	from.getClass();
+	if (level==0) return resource;
+	addObject(resource, RDF.type, getCitagoraType(from.getType()));
+	//from.getClass();
 	if (from instanceof Container)
-	    return addContainer((Container) from);
+	    return addContainer((Container) from, level);
 	if (from instanceof Comment)
-	    return addComment((Comment) from);
+	    return addComment((Comment) from, level);
 	if (from instanceof Tag)
-	    return addTag((Tag) from);
+	    return addTag((Tag) from, level);
 	if (from instanceof Annotation)
-	    return addAnnotation((Annotation) from);
+	    return addAnnotation((Annotation) from, level);
 	if (from instanceof Person)
-	    return addPerson((Person) from);
+	    return addPerson((Person) from, level);
 	if (from instanceof AnnotationBody)
 	    return addCitagoraAnnotationBody((AnnotationBody) from);
 	if (from instanceof Review)
-	    return addReview((Review) from);
+	    return addReview((Review) from, level);
 	if (from instanceof RatingType)
 	    return addRatingType((RatingType) from);
 	if (from instanceof Reference)
-	    return addReference((Reference) from);
+	    return addReference((Reference) from, level);
 	System.err.println("Type not recognized: "
 		+ from.getClass().getCanonicalName());
 	return null;
@@ -115,62 +118,63 @@ public class MapCitagoraObject {
      * 
      * @param from
      *            the object to be mapped
+     * @param level TODO
      */
-    public Resource addCitagoraObject(CitagoraObject from) {
+    public Resource addCitagoraObject(CitagoraObject from, int level) {
 	// create resource in the model for this object
 	String uri = from.getUri();
 	Resource resource = model.getResource(uri);
 
 	// add properties of CitagoraObject
-	addObject(resource, RDF.type, getCitagoraType(from.getType()));
+	//addObject(resource, RDF.type, getCitagoraType(from.getType()));
 	// addProperty(resource, DublinCore.identifier, from.getId());
 	// addProperty(resource, BIBO.uri, from.getUri());
 	addProperty(resource, DCTERMS.creator, from.getWasAttributedTo());
 	addProperty(resource, DCTERMS.created, from.getCreated());
 	addProperty(resource, DCTERMS.source, from.getSource());
 	addProperty(resource, DCTERMS.rights, from.getRights());
-	addObject(resource, OAF.generator, from.getGenerator());
+	addObject(resource, OAF.generator, from.getGenerator(), level);
 	addProperty(resource, DCTERMS.dateSubmitted, from.getGenerated());
 	System.out.println("object: " + RdfUtilities.getProperties(resource));
 	return resource;
     }
 
-    public Resource addContainer(Container from) {
+    public Resource addContainer(Container from, int level) {
 	// add parent class object and its properties
-	Resource resource = addCitagoraObject(from);
+	Resource resource = addCitagoraObject(from, level);
 
 	// add Container properties
-	addObject(resource, DCTERMS.source, from.getIsAbout());
-	addObjects(resource, RdfReview.rating, from.getReviews());
-	addObjects(resource, Citagora.hasTag, from.getTags());
-	addObjects(resource, Citagora.hasComment, from.getComments());
+	addObject(resource, CommonTag.isAbout, from.getIsAbout(), level);
+	addObjects(resource, RdfReview.rating, from.getReviews(), level);
+	addObjects(resource, Citagora.hasTag, from.getTags(), level);
+	addObjects(resource, Citagora.hasComment, from.getComments(), level);
 	System.out.println("document: " + RdfUtilities.getProperties(resource));
 
 	return resource;
     }
 
-    private Resource addAnnotation(Annotation from) {
-	Resource resource = addCitagoraObject(from);
-	addObject(resource, OAF.hasTarget, from.getTarget());
-	addObject(resource, DCTERMS.creator, from.getAnnotator());
+    private Resource addAnnotation(Annotation from, int level) {
+	Resource resource = addCitagoraObject(from, level);
+	addObject(resource, OAF.hasTarget, from.getTarget(), level);
+	addObject(resource, DCTERMS.creator, from.getAnnotator(), level);
 	addProperty(resource, DCTERMS.dateSubmitted, from.getAnnotated());
-	addObject(resource, OAF.hasBody, from.getBody());
+	addObject(resource, OAF.hasBody, from.getBody(), level);
 	addProperty(resource, DCTERMS.source, from.getModelVersion());
 	return resource;
     }
 
-    private Resource addComment(Comment from) {
-	Resource resource = addAnnotation(from);
+    private Resource addComment(Comment from, int level) {
+	Resource resource = addAnnotation(from, level);
 
 	addProperty(resource, RdfReview.type, from.getCommentType());
-	addObject(resource, RdfReview.reviewer, from.getAnnotator());
+	addObject(resource, RdfReview.reviewer, from.getAnnotator(), level);
 	addProperty(resource, RdfReview.rating, from.getRating());
 
-	addObjects(resource, null, from.getReplies());
+	addObjects(resource, null, from.getReplies(), level);
 	return resource;
     }
 
-    private Resource addPerson(Person from) {
+    private Resource addPerson(Person from, int level) {
 	String uri = from.getUri();// TODO get uri of person
 	Resource resource = model.getResource(uri);
 
@@ -190,10 +194,10 @@ public class MapCitagoraObject {
 	return resource;
     }
 
-    private Resource addReview(Review from) {
-	Resource resource = addCitagoraObject(from);
+    private Resource addReview(Review from, int level) {
+	Resource resource = addCitagoraObject(from, level);
 	addProperty(resource, RdfReview.type, from.getRatingType());
-	addObject(resource, RdfReview.reviewer, from.getReviewer());
+	addObject(resource, RdfReview.reviewer, from.getReviewer(), level);
 	addProperty(resource, RdfReview.rating, from.getRating());
 	addProperty(resource, RdfReview.totalVotes, from.getTotalVotes());
 	// reverse addObject(resource, null, from.getDocumentReviewed());
@@ -212,20 +216,20 @@ public class MapCitagoraObject {
 	return resource;
     }
 
-    public Resource addCitagoraAgent(CitagoraAgent from) {
-	Resource resource = addPerson(from);
+    public Resource addCitagoraAgent(CitagoraAgent from, int level) {
+	Resource resource = addPerson(from, level);
 	return resource;
     }
 
-    public Resource addAuthor(Author from) {
-	Resource resource = addPerson(from);
-	addObjects(resource, null, from.getAuthorReferences());
+    public Resource addAuthor(Author from, int level) {
+	Resource resource = addPerson(from, level);
+	addObjects(resource, null, from.getAuthorReferences(), level);
 
 	return resource;
     }
 
-    public Resource addReference(Reference from) {
-	Resource resource = addCitagoraObject(from);
+    public Resource addReference(Reference from, int level) {
+	Resource resource = addCitagoraObject(from, level);
 
 	addProperty(resource, null, from.getSource());
 	addProperty(resource, DCTERMS.abstract_, from.getAbstract());
@@ -236,9 +240,9 @@ public class MapCitagoraObject {
 	addProperty(resource, DCTERMS.date, from.getIssued());
 	addProperty(resource, BIBO.pmid, from.getPmid());
 	addProperty(resource, BIBO.doi, from.getDoi());
-	addObject(resource, DCTERMS.isPartOf, from.isPartOf());
-	addObjects(resource, BIBO.authorList, from.getAuthors());
-	addObjects(resource, null, from.getCitationList());
+	addObject(resource, DCTERMS.isPartOf, from.isPartOf(), level);
+	addObjects(resource, BIBO.authorList, from.getAuthors(), level);
+	addObjects(resource, null, from.getCitationList(), level);
 	addProperties(resource, DCTERMS.references, from.getSeeAlso());
 	addProperty(resource, RdfReview.rating, from.getOverallRating());
 	addProperty(resource, RdfReview.rating, from.getReadabilityRating());
@@ -265,8 +269,8 @@ public class MapCitagoraObject {
 
     }
 
-    public Resource addTag(Tag from) {
-	Resource resource = addAnnotation(from);
+    public Resource addTag(Tag from, int level) {
+	Resource resource = addAnnotation(from, level);
 	return resource;
     }
 
@@ -279,15 +283,16 @@ public class MapCitagoraObject {
      * 
      * @param resource
      * @param relationship
+     * @param level TODO
      * @param annotations
      */
     private void addObjects(Resource resource, Property relationship,
-	    List<?> targets) {
+	    List<?> targets, int level) {
 	if (targets == null)
 	    return;
 	Iterator<?> iterator = targets.iterator();
 	while (iterator.hasNext()) {
-	    addObject(resource, relationship, (UriObject) iterator.next());
+	    addObject(resource, relationship, (UriObject) iterator.next(), level);
 	}
     }
 
@@ -299,8 +304,8 @@ public class MapCitagoraObject {
     }
 
     private void addObject(Resource resource, Property relationship,
-	    UriObject target) {
-	Resource targetResource = add(target);
+	    UriObject target, int level) {
+	Resource targetResource = add(target, level-1);
 	RdfUtilities.addProperty(model, resource, relationship, targetResource);
     }
 
@@ -362,6 +367,9 @@ public class MapCitagoraObject {
 	    return FOAF.Person;
 	if (AnnotationBody.TYPE.equals(type))
 	    return model.createResource(Content.ContentAsText.getURI());
+	if (Review.TYPE.equals(type)){
+	    return RdfReview.Review;
+	}
 	return model.createResource(type);
     }
 }

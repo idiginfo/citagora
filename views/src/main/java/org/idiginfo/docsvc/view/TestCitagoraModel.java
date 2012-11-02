@@ -59,13 +59,13 @@ public class TestCitagoraModel {
 	em.persist(document);
 	em.getTransaction().commit();
 
-	String rdf = writeCitagora(document, null);
+	String rdf = writeCitagora(document, "TURTLE");
 	System.out.println(rdf);
     }
 
     public String writeCitagora(UriObject document, String version) {
 	MapCitagoraObject mapper = new MapCitagoraObject();
-	mapper.add(document);
+	mapper.add(document, -1);
 	Model model = mapper.getModel();
 	StringWriter out = new StringWriter();
 	model.write(out, version);
@@ -158,13 +158,13 @@ public class TestCitagoraModel {
 	System.out.println(document.getId());
 
 	MapSvcapiToCitagora documentMapper = new MapSvcapiToCitagora();
-	Container container = documentMapper.createContainer(document);
+	Container container = documentMapper.createContainer(null, document);
 	// Gson gson = new GsonBuilder().setPrettyPrinting().create();
 	// String string = gson.toJson(reference);
 	// System.out.println(string);
 
 	MapCitagoraObject mapper = new MapCitagoraObject();
-	mapper.add(container);
+	mapper.add(container, 1);
 	String rdf = writeCitagora(container, null);
 	System.out.println(rdf);
 

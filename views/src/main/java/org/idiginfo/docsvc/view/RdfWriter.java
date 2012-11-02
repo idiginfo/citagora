@@ -24,7 +24,7 @@ public class RdfWriter implements ObjectWriter {
 
 	public static String writeContainer(Container document) {
 		MapCitagoraObject mapper = new MapCitagoraObject();
-		mapper.addContainer(document);
+		mapper.addContainer(document, -1);
 		Model model = mapper.getModel();
 		return null;
 	}
