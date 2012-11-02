@@ -3,11 +3,10 @@ package org.idiginfo.docsvc.controller.harvest;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Calendar;
 import java.util.Date;
 
 import org.idiginfo.docsvc.model.citagora.CitagoraAgent;
-import org.idiginfo.docsvc.model.citagora.CitagoraObject;
+import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.svcapi.sciverse.SciVerseDocument;
 import org.idiginfo.docsvc.svcapi.sciverse.SciVerseService;
 
@@ -35,8 +34,8 @@ public class SciVerseLoad {
     private void run(String[] args) {
 	int numFiles;
 	File baseDirectory = new File(BASE_DIR);
-	CitagoraObject containerFields = loader.getFactory()
-		.createCitagoraObject();
+	Container containerFields = loader.getFactory()
+		.createContainer();
 	CitagoraAgent agent = loader.getFactory().getServiceAgent("springer");
 	containerFields.setGenerator(agent);
 	containerFields.setRights("copyright 2012 idiginfo.com");
@@ -46,7 +45,7 @@ public class SciVerseLoad {
 	System.out.println("Number of files processed: " + numFiles);
     }
 
-    private int loadFiles(CitagoraObject containerFields, File baseDir) {
+    private int loadFiles(Container containerFields, File baseDir) {
 	System.out.println("Loading directory " + baseDir.getPath());
 	int numLoaded = 0;
 	File[] files = baseDir.listFiles();
@@ -62,7 +61,7 @@ public class SciVerseLoad {
 	return numLoaded;
     }
 
-    private int loadFile(CitagoraObject containerFields, File file) {
+    private int loadFile(Container containerFields, File file) {
 	System.out.println("loading file: " + file.getName());
 	try {
 	    FileReader in = new FileReader(file);

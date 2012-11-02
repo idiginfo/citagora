@@ -62,7 +62,7 @@ public class SpringerHarvest {
 		e.printStackTrace();
 		break;
 	    }
-	    break;
+	   // break;
 	}
 
 	return null;

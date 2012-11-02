@@ -9,7 +9,6 @@ import org.idiginfo.docsvc.jpa.citagora.CitagoraFactoryImpl;
 import org.idiginfo.docsvc.model.apisvc.Document;
 import org.idiginfo.docsvc.model.apisvc.Documents;
 import org.idiginfo.docsvc.model.citagora.CitagoraFactory;
-import org.idiginfo.docsvc.model.citagora.CitagoraObject;
 import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.model.citagora.Reference;
 import org.idiginfo.docsvc.model.citagora.UriObject;
@@ -23,7 +22,7 @@ public class LoadDocuments {
     CitagoraFactoryImpl factory = new CitagoraFactoryImpl();
     MapSvcapiToCitagora documentMapper = new MapSvcapiToCitagora();
 
-    List<Container> load(CitagoraObject containerFields, Documents documents) {
+    List<Container> load(Container containerFields, Documents documents) {
 	List<Container> containers = new Vector<Container>();
 	if (documents == null)
 	    return null;
@@ -36,7 +35,7 @@ public class LoadDocuments {
 
     }
 
-    Container load(CitagoraObject containerFields, Document document) {
+    Container load(Container containerFields, Document document) {
 	boolean localTransaction = false;
 	List<Reference> ref = factory.findReferences(document.getDoi());
 	if (ref!=null&&ref.size()>0) {
