@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface Container extends CitagoraObject {
     static final String TYPE = "http://citagora.com/rdf#Container";
-    static final String COLLECTION = "document";
+    static final String COLLECTION = "container";
 
     List<Review> getReviews();
 
