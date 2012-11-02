@@ -63,6 +63,8 @@ public abstract class CitagoraFactory {
 
     public abstract boolean merge(UriObject obj);
 
+    public abstract boolean isTransactionActive();
+
     public abstract boolean openTransaction();
 
     public abstract boolean commitTransaction();
@@ -75,6 +77,12 @@ public abstract class CitagoraFactory {
 
     public abstract void refresh(Object obj);
 
-    public abstract void flush() ;
+    public abstract void flush();
+
+    public abstract Container createContainer(Container containerFields);
+
+    public abstract CitagoraAgent getServiceAgent(String serviceName);
+
+    public abstract Person getPerson(String name);
 
 }
