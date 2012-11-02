@@ -45,7 +45,7 @@ public class TestCitagoraPersistence {
 	doc = createContainer();
 	// doc = (Container) factory.findCitagoraObject(12);
 
-	String requestDoi = "doi:10.1007/s11276-008-0131-4";
+	//String requestDoi = "doi:10.1007/s11276-008-0131-4";
 
 	// doc = getSpringerDocument(requestDoi);
 	String rdf = writeCitagora(doc, null, -1);

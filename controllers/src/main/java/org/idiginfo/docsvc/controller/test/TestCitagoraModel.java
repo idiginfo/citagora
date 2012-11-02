@@ -3,17 +3,12 @@ package org.idiginfo.docsvc.controller.test;
 import java.io.StringWriter;
 import java.util.GregorianCalendar;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-
 import org.idiginfo.docsvc.jpa.citagora.CitagoraFactoryImpl;
 import org.idiginfo.docsvc.model.apisvc.ApiParams;
 import org.idiginfo.docsvc.model.apisvc.Document;
-import org.idiginfo.docsvc.model.citagora.AnnotationBody;
 import org.idiginfo.docsvc.model.citagora.CitagoraAgent;
-import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.model.citagora.CitagoraFactory;
+import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.model.citagora.Person;
 import org.idiginfo.docsvc.model.citagora.RatingType;
 import org.idiginfo.docsvc.model.citagora.Reference;
@@ -25,15 +20,11 @@ import org.idiginfo.docsvc.svcapi.springer.SpringerApiParams;
 import org.idiginfo.docsvc.svcapi.springer.SpringerService;
 import org.idiginfo.docsvc.view.rdf.citagora.MapCitagoraObject;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.hp.hpl.jena.rdf.model.Model;
 
 public class TestCitagoraModel {
 
     CitagoraFactory factory = new CitagoraFactoryImpl();
-    private EntityManagerFactory emf;
-    private EntityManager em;
 
     public TestCitagoraModel() {
 
@@ -49,25 +40,14 @@ public class TestCitagoraModel {
     }
 
     private void testContainer() {
-//	emf = Persistence.createEntityManagerFactory("repositories");
-//	em = emf.createEntityManager();
-	//em.getTransaction().begin();
 
 	Container document = createContainer();
-	// Gson gson = new GsonBuilder().setPrettyPrinting().create();
-	// String string = gson.toJson(document);
-	// System.out.println(string);
-	//em.persist(document);
-	//em.getTransaction().commit();
 
 	String rdf = writeCitagora(document, "TURTLE");
 	System.out.println(rdf);
     }
 
     public String writeCitagora(UriObject document, String version) {
-	// Gson gson = new GsonBuilder().setPrettyPrinting().create();
-	// String json = gson.toJson(document);
-	// System.out.println(json);
 	MapCitagoraObject mapper = new MapCitagoraObject();
 	mapper.add(document, -1);
 	Model model = mapper.getModel();
