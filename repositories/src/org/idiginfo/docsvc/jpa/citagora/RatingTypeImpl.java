@@ -3,7 +3,6 @@ package org.idiginfo.docsvc.jpa.citagora;
 import javax.persistence.Embeddable;
 
 import org.idiginfo.docsvc.model.citagora.RatingType;
-import org.idiginfo.docsvc.model.citagora.UriObject;
 
 @Embeddable
 public class RatingTypeImpl extends RatingType {

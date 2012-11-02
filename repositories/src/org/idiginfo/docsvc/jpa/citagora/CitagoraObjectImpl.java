@@ -22,9 +22,7 @@ import javax.persistence.Transient;
 
 import org.idiginfo.docsvc.model.citagora.Annotation;
 import org.idiginfo.docsvc.model.citagora.CitagoraAgent;
-import org.idiginfo.docsvc.model.citagora.CitagoraFactory;
 import org.idiginfo.docsvc.model.citagora.CitagoraObject;
-import org.idiginfo.docsvc.model.citagora.Reference;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
