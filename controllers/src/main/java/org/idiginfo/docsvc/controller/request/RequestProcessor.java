@@ -170,7 +170,7 @@ public class RequestProcessor {
      */
     public int persist(Document document) {
 	Container container = documentMapper
-		.createContainer(document);
+		.createContainer(null, document);
 	if (container != null)
 	    return 1;
 	return 0;
