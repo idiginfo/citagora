@@ -1,6 +1,7 @@
 package org.idiginfo.docsvc.svcapi.sciverse;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -79,10 +80,10 @@ public class SciVerseDocument implements Document {
 
     @Override
     public Date getDateObject() {
-	// try {
-	// return formatter.parse(date);
-	// } catch (ParseException e) {
-	// }
+	try {
+	    return formatter.parse(coverDate);
+	} catch (ParseException e) {
+	}
 	return null;
     }
 
@@ -117,13 +118,12 @@ public class SciVerseDocument implements Document {
     @Override
     public String getType() {
 	// TODO Auto-generated method stub
-	return null;
+	return subtype;
     }
 
     @Override
     public void setType(String type) {
-	// TODO Auto-generated method stub
-
+	this.subtype = type;
     }
 
     @Override
@@ -157,14 +157,12 @@ public class SciVerseDocument implements Document {
 
     @Override
     public String getAuthors() {
-	// TODO Auto-generated method stub
-	return null;
+	return creator;
     }
 
     @Override
     public void setAuthors(String authors) {
-	// TODO Auto-generated method stub
-
+	this.creator = authors;
     }
 
     @Override
@@ -181,7 +179,7 @@ public class SciVerseDocument implements Document {
 
     @Override
     public void setDate(Date date) {
-	// TODO Auto-generated method stub
+	this.displayDate = DateFormat.getDateInstance().format(date);
 
     }
 
@@ -191,8 +189,7 @@ public class SciVerseDocument implements Document {
 
     @Override
     public String getDoi() {
-	// TODO Auto-generated method stub
-	return null;
+	return doi;
     }
 
     @Override
@@ -221,14 +218,12 @@ public class SciVerseDocument implements Document {
 
     @Override
     public String getIssn() {
-	// TODO Auto-generated method stub
-	return null;
+	return issn;
     }
 
     @Override
     public String getPublicationName() {
-	// TODO Auto-generated method stub
-	return null;
+	return pubName;
     }
 
     @Override
@@ -239,8 +234,7 @@ public class SciVerseDocument implements Document {
 
     @Override
     public String getUrl() {
-	// TODO Auto-generated method stub
-	return null;
+	return  url;
     }
 
     @Override
