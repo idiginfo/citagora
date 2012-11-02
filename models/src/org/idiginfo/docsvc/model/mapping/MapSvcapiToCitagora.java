@@ -1,14 +1,11 @@
 package org.idiginfo.docsvc.model.mapping;
 
-import java.util.Iterator;
-import java.util.List;
-
-import org.apache.poi.ss.formula.functions.Today;
 import org.idiginfo.docsvc.model.apisvc.Annotation;
 import org.idiginfo.docsvc.model.apisvc.Document;
-import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.model.citagora.CitagoraFactory;
+import org.idiginfo.docsvc.model.citagora.CitagoraObject;
 import org.idiginfo.docsvc.model.citagora.Comment;
+import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.model.citagora.Reference;
 
 /**
@@ -22,8 +19,8 @@ public class MapSvcapiToCitagora {
 
     CitagoraFactory factory = CitagoraFactory.getFactory();
 
-    public Container createContainer(Document fromDocument) {
-	Container toDocument = factory.createContainer();
+    public Container createContainer(Container containerFields, Document fromDocument) {
+	Container toDocument = factory.createContainer(containerFields);
 	factory.merge(toDocument);
 	toDocument.setGenerator(null);
 	Reference toReference = map(fromDocument);
@@ -37,13 +34,13 @@ public class MapSvcapiToCitagora {
 	if (factory == null || fromDocument == null)
 	    return null;
 
-	List<Reference> references = factory.findReferences(fromDocument
-		.getDoi());
+	// List<Reference> references = factory.findReferences(fromDocument
+	// .getDoi());
 	Reference toReference;
-//	if (references.size() > 0) {
-//	    toReference = references.get(0);
-//	    return toReference;
-//	}
+	// if (references.size() > 0) {
+	// toReference = references.get(0);
+	// return toReference;
+	// }
 	toReference = factory.createReference();
 	factory.merge(toReference);
 	toReference.setSource(fromDocument.getSource());
