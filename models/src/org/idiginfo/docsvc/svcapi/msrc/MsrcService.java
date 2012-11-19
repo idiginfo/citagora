@@ -48,43 +48,43 @@ public class MsrcService implements DocService {
 		return null;
 	}
 
-	public MsrcResult getCitations(String timespan) {
+	public MsrcCollectionResult getCitations(String timespan) {
 		return null;
 	}
 
 	public MsrcRecord getDetailsByDoi(String doi) {
-		String altmetricId = getAltmetricIdByDoi(doi);
-		return getDetails(altmetricId);
+		String biblioId = getBiblioIdByDoi(doi);
+		return getDetails(biblioId);
 	}
 
 	public MsrcRecord getDetailsByPmid(String pmid) {
-		String altmetricId = getAltmetricIdByPmid(pmid);
-		return getDetails(altmetricId);
+		String biblioId = getBiblioIdByPmid(pmid);
+		return getDetails(biblioId);
 	}
 
-	public MsrcRecord getDetails(String altmetricId) {
+	public MsrcRecord getDetails(String biblioId) {
 		MsrcApiParams params = new MsrcApiParams();
-		params.setCollection(MsrcApiParams.DETAILS_COLLECTION);
-		params.setId(altmetricId);
+		params.setCollection(MsrcApiParams.BIBLIO_COLLECTION);
+		params.setId(biblioId);
 		return (MsrcRecord) getDocument(params);
 	}
 
-	public String getAltmetricIdByDoi(String doi) {
+	public String getBiblioIdByDoi(String doi) {
 		MsrcApiParams params = new MsrcApiParams();
-		params.setCollection(MsrcApiParams.DOI_COLLECTION);
+		params.setCollection(MsrcApiParams.BIBLIO_COLLECTION);
 		params.setId(doi);
 		MsrcRecord document = (MsrcRecord) getDocument(params);
-		return document.getAltmetricId();
+		return document.getBiblioId();
 	}
 
-	public String getAltmetricIdByPmid(String pmid) {
+	public String getBiblioIdByPmid(String pmid) {
 		MsrcApiParams params = new MsrcApiParams();
-		params.setCollection(MsrcApiParams.PMID_COLLECTION);
+		params.setCollection(MsrcApiParams.BIBLIO_COLLECTION);
 		params.setId(pmid);
 		MsrcRecord document = (MsrcRecord) getDocument(params);
-		System.out.println("For Pmid: " + pmid + " Altmetric id: "
-				+ document.getAltmetricId());
-		return document.getAltmetricId();
+		System.out.println("For Pmid: " + pmid + " Biblio id: "
+				+ document.getBiblioId());
+		return document.getBiblioId();
 	}
 
 	@Override
@@ -94,7 +94,7 @@ public class MsrcService implements DocService {
 	}
 
 	/**
-	 * Get document from Altmetric service Check first for presence of doi, then
+	 * Get document from Biblio service Check first for presence of doi, then
 	 * pmcid in params If not present, send parameters to service
 	 */
 	@Override
@@ -122,7 +122,7 @@ public class MsrcService implements DocService {
 			boolean withNotes) {
 		MsrcApiParams params = new MsrcApiParams();
 		params.setId(id);
-		Documents documents = getAltmetricDocuments("getdocument", params);
+		Documents documents = getBiblioDocuments("getdocument", params);
 		if (documents == null || documents.size() < 1)
 			return null;
 		return documents.get(0);
@@ -130,7 +130,7 @@ public class MsrcService implements DocService {
 
 	@Override
 	public Documents getDocuments(ApiParams params) {
-		Documents documents = getAltmetricDocuments("getdocuments", params);
+		Documents documents = getBiblioDocuments("getdocuments", params);
 		return documents;
 	}
 
@@ -165,13 +165,13 @@ public class MsrcService implements DocService {
 		return null;
 	}
 
-	private Documents getAltmetricDocuments(String function, ApiParams params) {
+	private Documents getBiblioDocuments(String function, ApiParams params) {
 		if (!(params instanceof MsrcApiParams)) {
 			return null; // TODO exception here
 		}
 		JsonElement content = queryService(function,
 				(MsrcApiParams) params);
-		MsrcResult result = gson.fromJson(content, MsrcResult.class);
+		MsrcCollectionResult result = gson.fromJson(content, MsrcCollectionResult.class);
 		if (result == null)
 			return null;
 		return result.getDocuments();
@@ -204,7 +204,7 @@ public class MsrcService implements DocService {
 			result.disconnect();
 			reader.close();
 			FileWriter out = new FileWriter(
-					"c:/dev/api samples/altmetric_details_201135.json");
+					"c:/dev/api samples/Biblio_details_201135.json");
 			out.write(content);
 			out.close();
 			return json;
@@ -215,12 +215,12 @@ public class MsrcService implements DocService {
 	}
 
 	/**
-	 * Add all of the Altmetric parameters to the URL
+	 * Add all of the Biblio parameters to the URL
 	 * 
 	 * @param url
 	 * @param params
 	 */
-	protected MsrcUrl getAltmetricUrl(String function, ApiParams params) {
+	protected MsrcUrl getBiblioUrl(String function, ApiParams params) {
 		MsrcUrl url = new MsrcUrl("citations", "1d");
 		return url;
 	}

@@ -9,87 +9,74 @@ import com.google.gson.JsonElement;
 
 public class MsrcUrl extends GenericUrl {
 
-	public MsrcUrl(String collection, String time) {
-		this();
-		List<String> pathParts = Arrays.asList("", "v1", "citations", "1d");
-		setPathParts(pathParts);
+    public MsrcUrl(String collection, String time) {
+	this();
+	List<String> pathParts = Arrays.asList("", "v1", "citations", "1d");
+	setPathParts(pathParts);
+    }
+
+    // sample URL
+    // http://api.Altmetric.com/metadata/json?q=10.1007/s11276-008-0131-4&api_key=yprt5a5cy4pgj3788ewfj7wz
+
+    public MsrcUrl() {
+	super();
+	setHost(MsrcApiParams.API_HOST);
+	setScheme("https");
+    }
+
+    public MsrcUrl(MsrcApiParams params) {
+	this();
+	// List<String> pathParts = Arrays.asList("", "v1", "citations", "1d");
+	// List<String> pathParts = Arrays.asList("", "v1", "details",
+	// "241939");201135
+	String id = params.getId();
+	String collection = params.getCollection();
+	if (id != null) {
+	    // get all citations by timeframe
+	    List<String> pathParts = Arrays.asList("",
+		    MsrcApiParams.API_SERVICE_NAME,
+		    MsrcApiParams.BIBLIO_COLLECTION, id);
+	    setPathParts(pathParts);
+	} else {// get single document by id
+	    List<String> pathParts = Arrays.asList("",
+		    MsrcApiParams.API_SERVICE_NAME,
+		    MsrcApiParams.BIBLIO_COLLECTION);
+	    setPathParts(pathParts);
 	}
+    }
 
-	// sample URL
-	// http://api.Altmetric.com/metadata/json?q=10.1007/s11276-008-0131-4&api_key=yprt5a5cy4pgj3788ewfj7wz
+    /**
+     * Get the URL ready for execution
+     */
+    public void prepare() {
 
-	public MsrcUrl() {
-		super();
-		apiKey = MsrcApiParams.API_KEY;
-		setHost(MsrcApiParams.API_HOST);
-		setScheme("http");
+    }
+
+    public static boolean isError(String content) {
+	if (content.startsWith("<html")) {
+	    return true;
 	}
+	return false;
+    }
 
-	public MsrcUrl(MsrcApiParams params) {
-		this();
-		// List<String> pathParts = Arrays.asList("", "v1", "citations", "1d");
-		// List<String> pathParts = Arrays.asList("", "v1", "details",
-		// "241939");201135
-		String collection = params.getCollection();
-		if (MsrcApiParams.CITATION_COLLECTION.equals(collection)) {
-			// get all citations by timeframe
-			String timeframe = params.getTimeframe();
-			List<String> pathParts = Arrays.asList("",
-					MsrcApiParams.API_VERSION, collection, timeframe);
-			setPathParts(pathParts);
-		} else {// get single document by id
-			String id = params.getId();
-			List<String> pathParts = Arrays.asList("",
-					MsrcApiParams.API_VERSION, collection, id);
-			setPathParts(pathParts);
-		}
-	}
+    protected void mapParams(MsrcApiParams params) {
+	if (params == null)
+	    return;
+	// TODO finish method
+    }
 
-	@Key("key")
-	protected String apiKey;
+    public static boolean isError(JsonElement json) {
+	// TODO Auto-generated method stub
+	if (json == null)
+	    return true;
+	return false;
+    }
 
-	protected Integer numberResults; // default=10
-
-	/**
-	 * Get the URL ready for execution
-	 */
-	public void prepare() {
-
-	}
-
-	public static boolean isError(String content) {
-		if (content.startsWith("<html")) {
-			return true;
-		}
-		return false;
-	}
-
-	protected void mapParams(MsrcApiParams params) {
-		if (params == null)
-			return;
-		// TODO finish method
-	}
-
-	public String getApiKey() {
-		return apiKey;
-	}
-
-	public void setApiKey(String apiKey) {
-		this.apiKey = apiKey;
-	}
-
-	public static boolean isError(JsonElement json) {
-		// TODO Auto-generated method stub
-		if (json == null)
-			return true;
-		return false;
-	}
-
-	public static String getMessage(JsonElement json) {
-		// TODO Auto-generated method stub
-		if (json == null)
-			return "no json objects found";
-		return null;
-	}
+    public static String getMessage(JsonElement json) {
+	// TODO Auto-generated method stub
+	if (json == null)
+	    return "no json objects found";
+	return null;
+    }
 
 }
