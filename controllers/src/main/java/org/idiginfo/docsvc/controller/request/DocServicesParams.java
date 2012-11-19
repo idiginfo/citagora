@@ -53,6 +53,7 @@ public class DocServicesParams extends BaseApiParams {
 	public static String METHOD_GET_DOCUMENT = "getdocument";
 	public static String METHOD_GET_DOCUMENTS = "getdocuments";
 	public static String METHOD_GET_ANNOTATIONS = "getannotations";
+	public static String METHOD_GET_CITAGORA = "getcitagora";
 
 	public static String FORMAT_RDF = "rdf";
 	public static String FORMAT_HTML = "html";

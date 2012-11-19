@@ -2,23 +2,25 @@ package org.idiginfo.docsvc.controller.request;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Vector;
 
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response.Status;
 
+import org.idiginfo.docsvc.jpa.citagora.CitagoraFactoryImpl;
 import org.idiginfo.docsvc.model.ServiceFactory;
 import org.idiginfo.docsvc.model.apisvc.ApiParams;
 import org.idiginfo.docsvc.model.apisvc.DocService;
 import org.idiginfo.docsvc.model.apisvc.Document;
 import org.idiginfo.docsvc.model.apisvc.Documents;
 import org.idiginfo.docsvc.model.apisvc.Users;
+import org.idiginfo.docsvc.model.citagora.CitagoraObject;
 import org.idiginfo.docsvc.model.citagora.Container;
+import org.idiginfo.docsvc.model.citagora.Reference;
 import org.idiginfo.docsvc.model.mapping.MapSvcapiToCitagora;
 import org.idiginfo.docsvc.view.HtmlDocumentWriter;
 import org.idiginfo.docsvc.view.JsonWriter;
 import org.idiginfo.docsvc.view.RdfWriter;
-
-import com.hp.hpl.jena.rdf.model.HasNoModelException;
 
 public class RequestProcessor {
 
@@ -68,7 +70,7 @@ public class RequestProcessor {
 	}
 	if (collection.equals(ServiceFactory.COLLECTION_CITAGORA)) {
 	    // access objects already in the repository
-	    return null;
+	    return getCitagoraObjects(params);
 	} else {
 	    DocService service = ServiceFactory.getSharedService(collection);
 	    if (service == null) {
@@ -77,6 +79,39 @@ public class RequestProcessor {
 	    }
 	    return getObjects(service, params);
 	}
+    }
+
+    CitagoraFactoryImpl factory = new CitagoraFactoryImpl();
+
+    private Object getCitagoraObjects(ApiParams params) {
+	String doi = params.getDoi();
+	if (doi != null) {
+	    System.out.print(" doi: " + doi);
+	    Reference ref = factory.findReferenceByDoi(doi);
+	    if (ref != null ) {
+		// get the containers for the document
+		List<Container> containers = ref.getContainers();
+		System.out.println(" found");
+		return containers;
+	    }
+	    System.out.println(" not found");
+	    return null;
+	}
+	String uri = params.getId();
+	if (uri != null) {
+	    System.out.print(" uri: " + uri);
+	    CitagoraObject obj = factory.findCitagoraObjectByURI(uri);
+	    if (obj != null) {
+		System.out.println(" found");
+		List<CitagoraObject> objs = new Vector<CitagoraObject>();
+		objs.add(obj);
+		return objs;
+	    }
+	    System.out.println(" not found ");
+	    return null;
+	}
+	System.out.println("no id in params");
+	return null;
     }
 
     /**
@@ -165,12 +200,12 @@ public class RequestProcessor {
 
     /**
      * Use the ContainerMapper to make the Document persistent
+     * 
      * @param document
      * @return
      */
     public int persist(Document document) {
-	Container container = documentMapper
-		.createContainer(null, document);
+	Container container = documentMapper.createContainer(null, document);
 	if (container != null)
 	    return 1;
 	return 0;
@@ -178,6 +213,7 @@ public class RequestProcessor {
 
     /**
      * Make all of the documents in the set persistent
+     * 
      * @param documents
      * @return
      */
