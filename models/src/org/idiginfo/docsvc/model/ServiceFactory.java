@@ -25,13 +25,13 @@ import org.idiginfo.docsvc.svcapi.springer.SpringerService;
 public class ServiceFactory {
 
 	// Defined collections
+	public static final String COLLECTION_CITAGORA = "citagora";
 	public static final String COLLECTION_ANNOTATE = "annotate";
 	public static final String COLLECTION_SPRINGER = "springer";
 	public static final String COLLECTION_ELSEVIER = "elsevier";
 	public static final String COLLECTION_ALTMETRIC = "altmetric";
 	public static final String[] COLLECTIONS = { COLLECTION_ANNOTATE,
-			COLLECTION_SPRINGER, COLLECTION_ELSEVIER };
-	public static final String COLLECTION_CITAGORA = "citagora";
+			COLLECTION_SPRINGER, COLLECTION_ELSEVIER, COLLECTION_ALTMETRIC,COLLECTION_CITAGORA };
 
 	// services is used to keep a copy of each service available for shared use.
 	static Map<String, DocService> services;
@@ -103,6 +103,9 @@ public class ServiceFactory {
 			if (collection.equals(COLLECTION_ELSEVIER)) {
 				return new SciVerseApiParams();
 			}
+//			if (collection.equals(COLLECTION_CITAGORA)){
+//			    return new CitagoraApiParams();
+//			}
 		}
 		return new BaseApiParams();
 	}

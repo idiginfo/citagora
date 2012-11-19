@@ -57,7 +57,7 @@ public abstract class CitagoraFactory {
 
     public abstract Person createPerson(Class<?> subclass);
 
-    public abstract List<Reference> findReferences(String doi);
+    public abstract Reference findReferenceByDoi(String doi);
 
     public abstract void init();
 
@@ -84,5 +84,15 @@ public abstract class CitagoraFactory {
     public abstract CitagoraAgent getServiceAgent(String serviceName);
 
     public abstract Person getPerson(String name);
+
+    public List<Reference> findReferencesById(String doi) {
+	// TODO Auto-generated method stub
+	return null;
+    }
+
+    public CitagoraObject findCitagoraObjectByURI(String uri) {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
 }
