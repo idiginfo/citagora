@@ -3,6 +3,7 @@ package org.idiginfo.docsvc.model.mapping;
 import org.idiginfo.docsvc.model.apisvc.Annotation;
 import org.idiginfo.docsvc.model.apisvc.Document;
 import org.idiginfo.docsvc.model.citagora.CitagoraFactory;
+import org.idiginfo.docsvc.model.citagora.CitagoraObject;
 import org.idiginfo.docsvc.model.citagora.Comment;
 import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.model.citagora.Reference;
@@ -18,7 +19,8 @@ public class MapSvcapiToCitagora {
 
     CitagoraFactory factory = CitagoraFactory.getFactory();
 
-    public Container createContainer(Container containerFields, Document fromDocument) {
+    public Container createContainer(Container containerFields,
+	    Document fromDocument) {
 	Container toDocument = factory.createContainer(containerFields);
 	factory.merge(toDocument);
 	toDocument.setGenerator(null);
@@ -43,7 +45,8 @@ public class MapSvcapiToCitagora {
 	toReference = factory.createReference();
 	factory.merge(toReference);
 	toReference.setSource(fromDocument.getSource());
-	toReference.setUri(fromDocument.getId());
+	toReference.setBiboType(Reference.ARTICLE_TYPE);
+	toReference.setUri(fromDocument.getUri());
 	toReference.setTitle(fromDocument.getTitle());
 	toReference.setPageStart(fromDocument.getPageStart());
 	toReference.setVolume(fromDocument.getVolume());
@@ -52,6 +55,7 @@ public class MapSvcapiToCitagora {
 	// TODO authors
 	String authors = fromDocument.getAuthors();
 	toReference.setAuthorString(authors);
+	toReference.setUrl(fromDocument.getUrl());
 	// TODO number
 	toReference.setRights(fromDocument.getCopyright());
 	// TODO isbn
@@ -61,17 +65,31 @@ public class MapSvcapiToCitagora {
 	toReference.setPublisher(fromDocument.getPublisher());
 
 	if (fromDocument.getPublicationName() != null) {
-	    // part of a larger publication
-	    Reference toJournal = factory.createReference();
-	    toReference.setIsPartOf(toJournal);
-	    factory.merge(toJournal);
-	    toJournal.setBiboType(Reference.JOURNAL_TYPE);
-	    toJournal.setIssn(fromDocument.getIssn());
-	    toJournal.setPublisher(fromDocument.getPublisher());
-	    toJournal.setVolume(fromDocument.getVolume());
-	    toJournal.setIssue(fromDocument.getIssue());
-	    toJournal.setTitle(fromDocument.getPublicationName());
-	    toJournal.setIssued(fromDocument.getDateObject());
+	    // part of a larger publication, id is from issn
+
+	    // check for existing journal
+	    String issn = fromDocument.getIssn();
+	    String uri = "urn:issn:" + issn;
+	    CitagoraObject journal = factory.findCitagoraObjectByURI(uri);
+	    if (journal instanceof Reference) {
+		toReference.setIsPartOf((Reference) journal);
+		// journal already present
+	    } else if (journal != null) {
+		// object in the system by URI but is not a reference
+		// TODO handle this error!
+	    } else { // add new journal
+		Reference toJournal = factory.createReference();
+		toReference.setIsPartOf(toJournal);
+		factory.merge(toJournal);
+		toJournal.setUri(uri);
+		toJournal.setBiboType(Reference.JOURNAL_TYPE);
+		toJournal.setIssn(fromDocument.getIssn());
+		toJournal.setPublisher(fromDocument.getPublisher());
+		toJournal.setVolume(fromDocument.getVolume());
+		toJournal.setIssue(fromDocument.getIssue());
+		toJournal.setTitle(fromDocument.getPublicationName());
+		toJournal.setIssued(fromDocument.getDateObject());
+	    }
 	}
 
 	return toReference;
