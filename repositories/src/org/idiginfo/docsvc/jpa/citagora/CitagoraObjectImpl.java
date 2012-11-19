@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Vector;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -32,6 +33,7 @@ public class CitagoraObjectImpl implements CitagoraObject {
     @GeneratedValue(strategy = GenerationType.TABLE)
     Integer myId;
     String type;
+    @Column(unique = true)
     String uri;
     String wasAttributedTo;
     @Temporal(TemporalType.TIMESTAMP)
@@ -39,6 +41,7 @@ public class CitagoraObjectImpl implements CitagoraObject {
     @Temporal(TemporalType.TIMESTAMP)
     Date updated;
     String source;
+    @Column(length=1000)
     String rights;
     @ManyToOne(targetEntity = PersonImpl.class, cascade = CascadeType.ALL)
     CitagoraAgent generator;

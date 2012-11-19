@@ -21,12 +21,15 @@ import org.idiginfo.docsvc.model.citagora.CitagoraAgent;
 import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.model.citagora.Reference;
 
-@Entity(name = "citagora_references")
+@Entity(name = "citagora_references") 
 @DiscriminatorValue(value = "reference")
 public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
 
+    @Column(length = 10000)
     String abstractText; // 'abstract' is a Java keyword
+    @Column(length = 1000)
     String title;
+    @Column(length = 1000)
     String subject;
     String language;
     Integer pageStart;
@@ -39,10 +42,14 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
     String pmid;
     @Column(unique = true)
     String doi;
+    @Column(length = 1000)
     String authorString;
+    @Column(unique = true)
     String issn;
+    @Column(unique = true)
     String isbn;
     String issue;
+    String url;
 
     @ManyToOne(targetEntity = ReferenceImpl.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "isPartOf")
@@ -506,7 +513,7 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
     static final String DOI_PREFIX = "doi:";
     static final String ISSN_PREFIX = "urn:issn:";
     static final String ISBN_PREFIX = "urn:isbn:";
-    
+
     @Override
     /**
      * Select usable URI for a reference object
@@ -532,11 +539,21 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
 
     @Override
     public String getIsbn() {
-        return isbn;
+	return isbn;
     }
 
     @Override
     public void setIsbn(String isbn) {
-        this.isbn = isbn;
+	this.isbn = isbn;
+    }
+
+    @Override
+    public String getUrl() {
+	return url;
+    }
+
+    @Override
+    public void setUrl(String url) {
+	this.url = url;
     }
 }

@@ -166,6 +166,13 @@ public class CitagoraFactoryImpl extends CitagoraFactory {
 	return obj;
     }
 
+    /**
+     * Get an object from the repository of a specific type.
+     */
+    protected <K> K findObjectByUri(Class<K> type, int key) {
+	return null;
+    }
+
     @Override
     public Person findPerson(int key) {
 	PersonImpl obj = findObject(PersonImpl.class, key);
@@ -189,12 +196,24 @@ public class CitagoraFactoryImpl extends CitagoraFactory {
     @SuppressWarnings("unchecked")
     // we know that the query returns the correct class
     @Override
-    public List<Reference> findReferences(String doi) {
+    public Reference findReferenceByDoi(String doi) {
 	getEntityManager();
-	Query q = em.createQuery("SELECT e FROM "
-		+ ReferenceImpl.class.getCanonicalName()
+	Query q = em.createQuery("SELECT e FROM " + REFERENCE_CLASS_NAME
 		+ " e WHERE e.doi=:doi");
 	q.setParameter("doi", doi);
+	List<Reference> references = q.getResultList();
+	if (references==null||references.size()<1) return null;
+	return references.get(0);
+    }
+
+    @SuppressWarnings("unchecked")
+    // we know that the query returns the correct class
+    @Override
+    public List<Reference> findReferencesById(String id) {
+	getEntityManager();
+	Query q = em.createQuery("SELECT e FROM "
+		+ ReferenceImpl.class.getCanonicalName() + " e WHERE e.id=:id");
+	q.setParameter("id", id);
 	List<Reference> references = q.getResultList();
 	return references;
     }
@@ -343,6 +362,21 @@ public class CitagoraFactoryImpl extends CitagoraFactory {
 	    q.setParameter("name", name);
 	    Person person = (Person) q.getSingleResult();
 	    return person;
+	} catch (NoResultException e) {
+	    return null;
+	}
+    }
+    
+    
+
+    @Override
+    public CitagoraObject findCitagoraObjectByURI(String uri) {
+	try {
+	    getEntityManager();
+	    Query q = em.createQuery("SELECT c FROM CitagoraObjectImpl c WHERE c.uri=:uri");
+	    q.setParameter("uri", uri);
+	    CitagoraObject obj =  (CitagoraObject) q.getSingleResult();
+	    return obj;
 	} catch (NoResultException e) {
 	    return null;
 	}
