@@ -391,4 +391,10 @@ public class AnnotateDocumentNotes implements Document {
 	    return meta.getAuthorList();
 	}
 
+	@Override
+	public String getUri() {
+	    // TODO Auto-generated method stub
+	    return null;
+	}
+
 }

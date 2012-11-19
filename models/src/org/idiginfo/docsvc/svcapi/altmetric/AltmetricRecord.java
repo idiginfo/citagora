@@ -3,6 +3,7 @@ package org.idiginfo.docsvc.svcapi.altmetric;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.idiginfo.docsvc.model.apisvc.Annotation;
 import org.idiginfo.docsvc.model.apisvc.Document;
@@ -62,7 +63,7 @@ public class AltmetricRecord implements Document {
 	// This field may contain a list of pairs (index, value) instead of a list
 	// of strings
 	@SerializedName("cited_by_tweeters")
-	JsonElement citedByTweeters;
+	Map<String,String> citedByTweeters;
 	@SerializedName("cited_by_tweeters_count")
 	Integer citedByTweetersCount;
 	@SerializedName("cited_by_accounts")
@@ -71,7 +72,7 @@ public class AltmetricRecord implements Document {
 	Integer citedByAccountsCount;
 	Context context;
 	Double score;
-	JsonElement history;
+	 Map<String,JsonElement> history;
 	String url;
 	@SerializedName("added_on")
 	Integer addedOn;
@@ -107,7 +108,12 @@ public class AltmetricRecord implements Document {
 	}
 
 	class History {
-
+		Double score;
+		List<String> redddits;
+		Map<Integer,String> tweets;
+		List<String> fbwalls;
+		List<Integer> posts;
+		List<Integer> feeds;
 	}
 
 	class Reader {
@@ -280,7 +286,7 @@ public class AltmetricRecord implements Document {
 		this.score = score;
 	}
 
-	public JsonElement getHistory() {
+	public Map<String, JsonElement> getHistory() {
 		return history;
 	}
 
@@ -580,6 +586,12 @@ public class AltmetricRecord implements Document {
 
 	@Override
 	public List<String> getAuthorList() {
+	    // TODO Auto-generated method stub
+	    return null;
+	}
+
+	@Override
+	public String getUri() {
 	    // TODO Auto-generated method stub
 	    return null;
 	}

@@ -90,4 +90,6 @@ public interface Document {
     public String getIssue();
 
     public void setIssue(String issue);
+
+    public String getUri();
 }

@@ -350,6 +350,11 @@ public class AnnotateMeta implements Document {
 	    authorList.add(getAuthors());
 	    return authorList;
 	}
+	@Override
+	public String getUri() {
+	    // TODO Auto-generated method stub
+	    return null;
+	}
 
 
 }

@@ -312,4 +312,10 @@ public class ScopusDocument implements Document {
 	    return null;
 	}
 
+	@Override
+	public String getUri() {
+	    // TODO Auto-generated method stub
+	    return null;
+	}
+
 }

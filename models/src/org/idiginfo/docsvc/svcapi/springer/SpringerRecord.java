@@ -56,7 +56,7 @@ public class SpringerRecord implements Document {
 	return publicationDate;
     }
 
-    DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+    transient DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
     @Override
     public Date getDateObject() {
@@ -309,5 +309,15 @@ public class SpringerRecord implements Document {
     @Override
     public void setIssue(String issue) {
 	this.number = issue;
+    }
+
+    @Override
+    public String getUri() {
+	if (doi != null && doi.length() > 0) {
+	    if (doi.startsWith("doi:"))
+		return doi;
+	    return "doi:" + doi;
+	}
+	return url;
     }
 }

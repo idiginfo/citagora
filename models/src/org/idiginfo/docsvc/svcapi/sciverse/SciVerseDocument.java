@@ -20,7 +20,7 @@ public class SciVerseDocument implements Document {
     List<SciVerseLink> links;
 
     @SerializedName("dc:identifier")
-    String id; // : "DOI:10.1016/j.jpsychires.2008.05.001",
+    String id; // : "SCOPUS_ID:...",
     @SerializedName("prism:doi")
     String doi; // : "10.1016/j.jpsychires.2008.05.001",
     @SerializedName("pii")
@@ -319,6 +319,15 @@ public class SciVerseDocument implements Document {
     public List<String> getAuthorList() {
 	// TODO Auto-generated method stub
 	return null;
+    }
+
+    @Override
+    public String getUri() {
+	if (doi!=null && doi.length()>0){
+	    if (doi.startsWith("doi:")) return doi;
+	    return "doi:"+doi;
+	}
+	return id;
     }
 
 }

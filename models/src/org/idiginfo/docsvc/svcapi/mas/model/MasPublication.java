@@ -425,5 +425,11 @@ public class MasPublication implements Document
 	   return authorList;
 	}
 
+	@Override
+	public String getUri() {
+	    // TODO Auto-generated method stub
+	    return dOI;
+	}
+
     
 }

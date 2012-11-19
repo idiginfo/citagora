@@ -28,7 +28,7 @@ public class SpringerService implements DocService {
     static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
     static JsonParser parser = new JsonParser();
     static final int CONNECT_TIMEOUT = 200000;
-    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    Gson gson = getGson();
 
     private static HttpRequestFactory requestFactory = HTTP_TRANSPORT
 	    .createRequestFactory(new HttpRequestInitializer() {
@@ -172,6 +172,11 @@ public class SpringerService implements DocService {
     public String getSpringerContents(SpringerApiParams params) {
 	JsonElement results = queryService("getdocuments", params);
 	return gson.toJson(results);
+    }
+
+    public static Gson getGson() {
+	Gson gson = new GsonBuilder().setPrettyPrinting().create();
+	return gson;
     }
 
 }
