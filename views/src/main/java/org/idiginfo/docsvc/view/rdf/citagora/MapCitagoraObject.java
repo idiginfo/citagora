@@ -241,7 +241,7 @@ public class MapCitagoraObject {
 	addProperty(resource, BIBO.pmid, from.getPmid());
 	addProperty(resource, BIBO.doi, from.getDoi());
 	addObject(resource, DCTERMS.isPartOf, from.isPartOf(), level);
-	addObjects(resource, BIBO.authorList, from.getAuthors(), level);
+	addObjects(resource, DCTERMS.creator, from.getAuthors(), level);
 	addObjects(resource, null, from.getCitationList(), level);
 	addProperties(resource, DCTERMS.references, from.getSeeAlso());
 	addProperty(resource, RdfReview.rating, from.getOverallRating());
@@ -253,7 +253,7 @@ public class MapCitagoraObject {
 	addProperty(resource, BIBO.issue, from.getIssue());
 	addProperty(resource, DCTERMS.publisher, from.getPublisher());
 	addProperty(resource, BIBO.volume, from.getVolume());
-	addProperty(resource, DCTERMS.creator, from.getAuthorString());
+	addProperty(resource, BIBO.authorList, from.getAuthorString());
 
 	return resource;
 
@@ -355,6 +355,8 @@ public class MapCitagoraObject {
 	    return BIBO.Document;
 	if (Reference.JOURNAL_TYPE.equals(type))
 	    return BIBO.Journal;
+	if (Reference.ARTICLE_TYPE.equals(type))
+	    return BIBO.Article;
 	if (Tag.TYPE.equals(type))
 	    return Citagora.tagType;
 	if (Comment.TYPE.equals(type))
