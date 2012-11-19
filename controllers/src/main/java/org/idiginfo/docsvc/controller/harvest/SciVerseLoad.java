@@ -62,11 +62,15 @@ public class SciVerseLoad {
     }
 
     private int loadFile(Container containerFields, File file) {
-	System.out.println("loading file: " + file.getName());
+	System.out.print("loading file: " + file.getName());
 	try {
 	    FileReader in = new FileReader(file);
 	    SciVerseDocument document = gson.fromJson(in,
 		    SciVerseDocument.class);
+	    if (document==null){
+		System.out.println(" no document");
+		return 0;
+	    }
 	    containerFields.setGenerated(new Date(file.lastModified()));
 	    loader.load(containerFields, document);
 	    return 1;

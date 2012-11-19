@@ -9,6 +9,7 @@ import org.idiginfo.docsvc.jpa.citagora.CitagoraFactoryImpl;
 import org.idiginfo.docsvc.model.apisvc.Document;
 import org.idiginfo.docsvc.model.apisvc.Documents;
 import org.idiginfo.docsvc.model.citagora.CitagoraFactory;
+import org.idiginfo.docsvc.model.citagora.CitagoraObject;
 import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.model.citagora.Reference;
 import org.idiginfo.docsvc.model.citagora.UriObject;
@@ -26,9 +27,8 @@ public class LoadDocuments {
 	List<Container> containers = new Vector<Container>();
 	if (documents == null)
 	    return null;
-	Iterator<Document> documentIterator = documents.iterator();
-	while (documentIterator.hasNext()) {
-	    Container container = load(containerFields, documentIterator.next());
+	for (Document document : documents) {
+	    Container container = load(containerFields, document);
 	    containers.add(container);
 	}
 	return containers;
@@ -37,15 +37,30 @@ public class LoadDocuments {
 
     Container load(Container containerFields, Document document) {
 	boolean localTransaction = false;
-	List<Reference> ref = factory.findReferences(document.getDoi());
-	if (ref!=null&&ref.size()>0) {
-	    return null; // there is already a document
+	String doi = document.getDoi();
+	if (doi != null) {
+	    Reference ref = factory.findReferenceByDoi(doi);
+	    if (ref != null ) {
+		System.out.println(" doi: " + doi + " already present");
+		return null; // there is already a document
+	    }
+	}
+	String uri = document.getUri();
+	if (uri != null) {
+	    CitagoraObject obj = factory.findCitagoraObjectByURI(uri);
+	    if (obj != null) {
+		System.out.println(" uri: " + uri + " already present");
+		return null;
+	    }
 	}
 	if (!factory.isTransactionActive()) {
 	    factory.openTransaction();
 	    localTransaction = true;
 	}
-	Container container = documentMapper.createContainer(containerFields, document);
+	Container container = documentMapper.createContainer(containerFields,
+		document);
+	System.out.println(" document created");
+
 	if (localTransaction) {
 	    factory.commitTransaction();
 	}
@@ -62,6 +77,6 @@ public class LoadDocuments {
     }
 
     public CitagoraFactory getFactory() {
-        return factory;
+	return factory;
     }
 }

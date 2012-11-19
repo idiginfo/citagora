@@ -15,7 +15,8 @@ public class SpringerHarvest {
 
     final static String FILE_DIR = "c:/dev/harvest/springer/";
     final static String FILE_PREFIX = FILE_DIR + "abs_suicide_";
-    private final static int MAX_PER_PAGE = 25;
+    private final static int MAX_PER_PAGE = 100;
+    private static final int FIRST_PAGE = 113;
 
     @SuppressWarnings("unused")
     private static void run(String[] args) {
@@ -47,7 +48,7 @@ public class SpringerHarvest {
 	int totalPages = (int) Math.ceil(totalResults / numPerFile) + 1;
 	System.out.println("Total results: " + totalResults + " pages: "
 		+ totalPages + " per file: " + numPerFile);
-	for (int pageNum = 0; pageNum < totalPages; pageNum++) {
+	for (int pageNum = FIRST_PAGE; pageNum < totalPages; pageNum++) {
 	    params.setFirstResult(pageNum * numPerFile);
 	    params.setNumResults(numPerFile);
 	    String fileName = filePrefix + String.format("%05d", pageNum)
