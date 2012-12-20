@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Vector;
 
 import org.idiginfo.docsvc.jpa.citagora.CitagoraFactoryImpl;
+import org.idiginfo.docsvc.model.apisvc.Annotation;
 import org.idiginfo.docsvc.model.apisvc.Document;
 import org.idiginfo.docsvc.model.apisvc.Documents;
 import org.idiginfo.docsvc.model.citagora.CitagoraFactory;
@@ -42,7 +43,9 @@ public class LoadDocuments {
 	    Reference ref = factory.findReferenceByDoi(doi);
 	    if (ref != null ) {
 		System.out.println(" doi: " + doi + " already present");
-		return null; // there is already a document
+		List<Container> containers = ref.getContainers();
+		if (containers!=null&&containers.size()>0) return containers.get(0); // there is already a document
+		return null; // no container
 	    }
 	}
 	String uri = document.getUri();
@@ -79,4 +82,5 @@ public class LoadDocuments {
     public CitagoraFactory getFactory() {
 	return factory;
     }
+
 }

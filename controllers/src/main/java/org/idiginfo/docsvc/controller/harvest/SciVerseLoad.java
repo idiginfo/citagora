@@ -36,10 +36,10 @@ public class SciVerseLoad {
 	File baseDirectory = new File(BASE_DIR);
 	Container containerFields = loader.getFactory()
 		.createContainer();
-	CitagoraAgent agent = loader.getFactory().getServiceAgent("springer");
+	CitagoraAgent agent = loader.getFactory().getServiceAgent("sciverse");
 	containerFields.setGenerator(agent);
 	containerFields.setRights("copyright 2012 idiginfo.com");
-	containerFields.setSource("springer api");
+	containerFields.setSource("sciverse api");
 	containerFields.setWasAttributedTo("riccardi");
 	numFiles = loadFiles(containerFields, baseDirectory);
 	System.out.println("Number of files processed: " + numFiles);

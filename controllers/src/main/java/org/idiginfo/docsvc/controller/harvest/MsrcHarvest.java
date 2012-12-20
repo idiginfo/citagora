@@ -2,59 +2,42 @@ package org.idiginfo.docsvc.controller.harvest;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
-import org.idiginfo.docsvc.svcapi.springer.*;
+import org.idiginfo.docsvc.svcapi.msrc.MsrcService;
 
 import com.google.api.client.http.HttpTransport;
 
-public class SpringerHarvest {
+public class MsrcHarvest {
+    // TODO modify this class to gather documents from the MSRC repository
+    final static String FILE_DIR = "c:/dev/harvest/msrc/part2/";
+    final static String FILE_PREFIX = FILE_DIR + "doc_";
+    private static final int START_INDEX = 2598;
 
-    final static String FILE_DIR = "c:/dev/harvest/springerTitle/";
-    final static String FILE_PREFIX = FILE_DIR + "abs_suicide_";
-    private final static int MAX_PER_PAGE = 100;
-    private static final int FIRST_PAGE = 0;
-
-    @SuppressWarnings("unused")
-    private static void run(String[] args) {
+    private void run(String[] args) {
 	String test;
-	String searchText = "suicide";
 	String filePrefix = FILE_PREFIX;
-	int numPerFile = MAX_PER_PAGE;
 	if (args != null && args.length > 0) {
-	    searchText = args[0];
+	    filePrefix = args[0];
 	}
-	if (args != null && args.length > 1) {
-	    filePrefix = args[1];
-	}
-	if (args != null && args.length > 2) {
-	    numPerFile = Integer.parseInt(args[2]);
-	}
-	test = harvestFiles(searchText, filePrefix, numPerFile);
+	test = harvestFiles(filePrefix);
     }
 
-    public static String harvestFiles(String keywords, String filePrefix,
-	    int numPerFile) {
-	SpringerService service = new SpringerService();
-	SpringerApiParams params = new SpringerApiParams();
-	params.setSearchTerms(keywords);
-	//params.setId("10.1007/s11276-008-0131-4");
-	params.setNumResults(1);
-	SpringerResult result = service.getSpringerResult("getdocuments",params);
-	int totalResults = result.getTotalResults();
-	int totalPages = (int) Math.ceil(totalResults / numPerFile) + 1;
-	System.out.println("Total results: " + totalResults + " pages: "
-		+ totalPages + " per file: " + numPerFile);
-	for (int pageNum = FIRST_PAGE; pageNum < totalPages; pageNum++) {
-	    params.setFirstResult(pageNum * numPerFile);
-	    params.setNumResults(numPerFile);
-	    String fileName = filePrefix + String.format("%05d", pageNum)
+    public String harvestFiles(String filePrefix) {
+	MsrcService service = new MsrcService();
+	List<Integer> documentIds = service.getMsrcDocumentIds();
+	int totalResults = documentIds.size();
+	System.out.println("Total results: " + totalResults);
+	for (int i = START_INDEX; i < totalResults; i++) {
+	    int documentId = documentIds.get(i);
+	    String fileName = filePrefix + String.format("%06d", documentId)
 		    + ".json";
 	    System.out.println("getting file " + fileName);
-	    String contents = service.getSpringerContents(params);
+	    String contents = service.getJsonDocument(documentId);
 	    try {
 		FileWriter out = new FileWriter(fileName);
 		out.write(contents);
@@ -63,14 +46,14 @@ public class SpringerHarvest {
 		e.printStackTrace();
 		break;
 	    }
-	   // break;
 	}
 
 	return null;
     }
 
     public static void main(String[] args) {
-	run(args);
+	MsrcHarvest harvester = new MsrcHarvest();
+	harvester.run(args);
 	return;
     }
 
