@@ -21,6 +21,6 @@
 		<module>../controllers</module>
 		<module>../models</module>
 		<module>../views</module>
-		<module>../wokv3</module>
+		<module>../wok_v3</module>
 	</modules>
 </project>
