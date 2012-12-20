@@ -5,7 +5,7 @@ import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="Dali", date="2012-09-27T09:28:10.446-0400")
+@Generated(value="Dali", date="2012-12-19T13:21:37.549-0500")
 @StaticMetamodel(CommentImpl.class)
 public class CommentImpl_ extends AnnotationImpl_ {
 	public static volatile SingularAttribute<CommentImpl, String> commentType;

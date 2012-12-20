@@ -22,6 +22,8 @@ abstract public class AnnotationImpl extends CitagoraObjectImpl implements
     @Embedded
     AnnotationBodyImpl body;
     String modelVersion;
+    String specifier;
+    String tags;
 
     public AnnotationImpl() {
 	body = new AnnotationBodyImpl();
@@ -57,7 +59,7 @@ abstract public class AnnotationImpl extends CitagoraObjectImpl implements
 
     @Override
     public void setAnnotator(Person annotator) {
-	//TODO check this field
+	// TODO check this field
 	// List<Annotation> annotators = annotator.get;
 	// if (annotator != null && annotator != this.annotator) {
 	//
@@ -87,6 +89,22 @@ abstract public class AnnotationImpl extends CitagoraObjectImpl implements
     @Override
     public void setModelVersion(String modelVersion) {
 	this.modelVersion = modelVersion;
+    }
+
+    public String getSpecifier() {
+	return specifier;
+    }
+
+    public void setSpecifier(String specifier) {
+	this.specifier = specifier;
+    }
+
+    public String getTags() {
+	return tags;
+    }
+
+    public void setTags(String tags) {
+	this.tags = tags;
     }
 
 }

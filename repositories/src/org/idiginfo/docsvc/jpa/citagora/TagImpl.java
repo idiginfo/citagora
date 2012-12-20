@@ -59,4 +59,28 @@ public class TagImpl extends AnnotationImpl implements Tag {
     public void setDocumentTagged(Container document) {
 	setTarget(document);
     }
+
+    @Override
+    public String getSpecifier() {
+	// TODO Auto-generated method stub
+	return null;
+    }
+
+    @Override
+    public void setSpecifier(String specifier) {
+	// TODO Auto-generated method stub
+	
+    }
+
+    @Override
+    public void setTags(String tags) {
+	// TODO Auto-generated method stub
+	
+    }
+
+    @Override
+    public String getTags() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 }
