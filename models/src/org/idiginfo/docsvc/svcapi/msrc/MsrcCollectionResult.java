@@ -1,8 +1,11 @@
 package org.idiginfo.docsvc.svcapi.msrc;
 
+import java.util.List;
 import java.util.Map;
 
 import org.idiginfo.docsvc.model.apisvc.Documents;
+
+import com.google.gson.annotations.SerializedName;
 
 /**
  * Class to map results of Altmetric API calls
@@ -10,14 +13,13 @@ import org.idiginfo.docsvc.model.apisvc.Documents;
  * @author griccardi
  * 
  */
-public class MsrcCollectionResult {
+public class MsrcCollectionResult extends MsrcResult {
 
-    Map<String, MsrcRecord> documents;
+   MsrcRecord record;
 
-    public Documents getDocuments() {
-	// TODO Auto-generated method stub
-	
-	return null; // documents.values();
-    }
+public Documents getDocuments() {
+    // TODO Auto-generated method stub
+    return null;
+}
     
 }

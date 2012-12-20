@@ -11,7 +11,8 @@ public class MsrcUrl extends GenericUrl {
 
     public MsrcUrl(String collection, String time) {
 	this();
-	List<String> pathParts = Arrays.asList("", "v1", "citations", "1d");
+	List<String> pathParts = Arrays.asList("",
+		MsrcApiParams.BIBLIO_COLLECTION);
 	setPathParts(pathParts);
     }
 
@@ -21,7 +22,7 @@ public class MsrcUrl extends GenericUrl {
     public MsrcUrl() {
 	super();
 	setHost(MsrcApiParams.API_HOST);
-	setScheme("https");
+	setScheme("http");
     }
 
     public MsrcUrl(MsrcApiParams params) {
@@ -31,16 +32,15 @@ public class MsrcUrl extends GenericUrl {
 	// "241939");201135
 	String id = params.getId();
 	String collection = params.getCollection();
-	if (id != null) {
+	if (collection==null) collection = MsrcApiParams.BIBLIO_COLLECTION;
+	if (id == null) {
 	    // get all citations by timeframe
 	    List<String> pathParts = Arrays.asList("",
-		    MsrcApiParams.API_SERVICE_NAME,
-		    MsrcApiParams.BIBLIO_COLLECTION, id);
+		   collection);
 	    setPathParts(pathParts);
 	} else {// get single document by id
 	    List<String> pathParts = Arrays.asList("",
-		    MsrcApiParams.API_SERVICE_NAME,
-		    MsrcApiParams.BIBLIO_COLLECTION);
+		    collection, id);
 	    setPathParts(pathParts);
 	}
     }

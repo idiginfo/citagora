@@ -5,9 +5,9 @@ import org.idiginfo.docsvc.model.apisvc.BaseApiParams;
 
 public class MsrcApiParams extends BaseApiParams {
 
-    public static final String API_SERVICE_NAME = "msrc-export";
-    public static final String API_HOST = "msrc.fsu.edu";
-    public static final String BIBLIO_COLLECTION = "biblio";
+    //public static final String API_SERVICE_NAME = "msrc-export";
+    public static final String API_HOST = "msrc.idiginfo.org";
+    public static final String BIBLIO_COLLECTION = "documents";
 
     public MsrcApiParams(ApiParams apiParams) {
 	if (apiParams == null)

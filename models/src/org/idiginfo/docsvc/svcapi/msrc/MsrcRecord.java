@@ -1,17 +1,13 @@
 package org.idiginfo.docsvc.svcapi.msrc;
 
 import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
-
-import javax.xml.ws.ServiceMode;
 
 import org.idiginfo.docsvc.model.apisvc.Annotation;
 import org.idiginfo.docsvc.model.apisvc.Document;
-
-import com.google.gson.JsonElement;
-import com.google.gson.annotations.SerializedName;
 
 /**
  * Class
@@ -21,597 +17,340 @@ import com.google.gson.annotations.SerializedName;
  */
 public class MsrcRecord implements Document {
 
-    @SerializedName("bid")
-    String bId;// place for biblio node id
-    String publication_type; // ": "journal_article",
-    String uid;// ": "295",
-    @SerializedName("biblio_md5")
-    String biblioMd5;
-    @SerializedName("biblio_sort_title")
-    String sortTitle; // :
-		      // "Veterans and suicide a reexamination of the National Death Index",
-    @SerializedName("biblio_formats")
-    String formats;
-    Long created; // "1331831805",
-    Long changed; // "1350925161",
-    @SerializedName("field_added_by_core_b")
-    Map<String, Value[]> otherFields;
-    @SerializedName("field_attatchment")// misspelling
-    Map<String,Attachment[]> attachments;
-    @SerializedName("field_category")
-    JsonElement categories;
-    @SerializedName("field_conclusion_section")
-    String conclusion;
+    String id;
+    String created;
+    String changed;
+    String documentType; // ": "journal_article",
+    String methodsSection;
+    MsrcDocument document;
+    List<String> creators;
+    List<MsrcAnnotationRef> annotations;
+
+    @Override
+    public Annotation getAnnotation(int i) {
+	// TODO get annotation from Annotate service
+	return null;
+    }
     
-    
-     class Value {
-	String value;
-
-    }
-class Attachment{
-    
-}
-    String title;
-    String doi;
-    String nlmid;
-    @SerializedName("arxiv_id")
-    String I;
-    @SerializedName("ads_id")
-    String adsId;
-    String[] tq;
-    @SerializedName("altmetric_jid")
-    String altmetricJid;
-    String[] issns;
-    String journal;
-    Cohort cohorts;
-    @SerializedName("altmetric_id")
-    String altmetricId;
-    String schema;
-    @SerializedName("is_oa")
-    String isOA;
-    // fields for cited_by_XXX
-    @SerializedName("cited_by_fbwalls")
-    String[] citedByFBWalls;
-    @SerializedName("cited_by_fbwalls_count")
-    Integer citedByFBWallsCount;
-    @SerializedName("cited_by_feeds")
-    String[] citedByFeeds;
-    @SerializedName("cited_by_feeds_count")
-    Integer citedByFeedsCount;
-    @SerializedName("cited_by_gplus")
-    String[] citedByGPlus;
-    @SerializedName("cited_by_gplus_count")
-    Integer citedByGPlusCount;
-    @SerializedName("cited_by_posts")
-    String[] citedByPosts;
-    @SerializedName("cited_by_posts_count")
-    Integer citedByPostsCount;
-    @SerializedName("cited_by_rdts")
-    String[] citedByRdts;
-    @SerializedName("cited_by_rdts_count")
-    Integer citedByRdtsCount;
-    // This field may contain a list of pairs (index, value) instead of a list
-    // of strings
-    @SerializedName("cited_by_tweeters")
-    Map<String, String> citedByTweeters;
-    @SerializedName("cited_by_tweeters_count")
-    Integer citedByTweetersCount;
-    @SerializedName("cited_by_accounts")
-    String[] citedByAccounts;
-    @SerializedName("cited_by_accounts_count")
-    Integer citedByAccountsCount;
-    Context context;
-    Double score;
-    Map<String, JsonElement> history;
-    String url;
-    @SerializedName("added_on")
-    Integer addedOn;
-    @SerializedName("published_on")
-    String publishedOn;
-    String[] subjects;
-    String[] scopusSubjects;
-    @SerializedName("last_updated")
-    Integer lastUpdated;
-    @SerializedName("readers_count")
-    Integer readersCount;
-    Reader readers;
-    Image images;
-    @SerializedName("details_url")
-    String detailsUrl;
-
-    class Cohort {
-	Integer sci;
-	Integer pub;
-	Integer com;
-	Integer doc;
-    }
-
-    class Context {
-	Journal journal;
-	Journal all;
-    }
-
-    class Journal {
-	Integer count;
-	Integer rank;
-	Double pct;
-    }
-
-    class History {
-	Double score;
-	List<String> redddits;
-	Map<Integer, String> tweets;
-	List<String> fbwalls;
-	List<Integer> posts;
-	List<Integer> feeds;
-    }
-
-    class Reader {
-	Integer mendeley;
-	Integer connotea;
-	Integer citeulike;
-    }
-
-    class Image {
-	String small;
-	String medium;
-	String large;
-    }
-
-    public String getTitle() {
-	return title;
-    }
-
-    public void setTitle(String title) {
-	this.title = title;
-    }
-
-    public String getDoi() {
-	return doi;
-    }
-
-    public void setDoi(String doi) {
-	this.doi = doi;
-    }
-
-    public String getNlmid() {
-	return nlmid;
-    }
-
-    public void setNlmid(String nlmid) {
-	this.nlmid = nlmid;
-    }
-
-    public String[] getTq() {
-	return tq;
-    }
-
-    public void setTq(String[] tq) {
-	this.tq = tq;
-    }
-
-
-    public String[] getIssns() {
-	return issns;
-    }
-
-    public void setIssns(String[] issns) {
-	this.issns = issns;
-    }
-
-    public String getJournal() {
-	return journal;
-    }
-
-    public void setJournal(String journal) {
-	this.journal = journal;
-    }
-
-    public Cohort getCohorts() {
-	return cohorts;
-    }
-
-    public void setCohorts(Cohort cohorts) {
-	this.cohorts = cohorts;
-    }
-
-
-    public String getSchema() {
-	return schema;
-    }
-
-    public void setSchema(String schema) {
-	this.schema = schema;
-    }
-
-    public String getIsOA() {
-	return isOA;
-    }
-
-    public void setIsOA(String isOA) {
-	this.isOA = isOA;
-    }
-
-    public Integer getCitedByFBWallsCount() {
-	return citedByFBWallsCount;
-    }
-
-    public void setCitedByFBWallsCount(Integer citedByFBWallsCount) {
-	this.citedByFBWallsCount = citedByFBWallsCount;
-    }
-
-    public Integer getCitedByFeedsCount() {
-	return citedByFeedsCount;
-    }
-
-    public void setCitedByFeedsCount(Integer citedByFeedsCount) {
-	this.citedByFeedsCount = citedByFeedsCount;
-    }
-
-    public Integer getCitedByGPlusCount() {
-	return citedByGPlusCount;
-    }
-
-    public void setCitedByGPlusCount(Integer citedByGPlusCount) {
-	this.citedByGPlusCount = citedByGPlusCount;
-    }
-
-    public Integer getCitedByPostsCount() {
-	return citedByPostsCount;
-    }
-
-    public void setCitedByPostsCount(Integer citedByPostsCount) {
-	this.citedByPostsCount = citedByPostsCount;
-    }
-
-    public Integer getCitedByRdtsCount() {
-	return citedByRdtsCount;
-    }
-
-    public void setCitedByRdtsCount(Integer citedByRdtsCount) {
-	this.citedByRdtsCount = citedByRdtsCount;
-    }
-
-    public Integer getCitedByTweetersCount() {
-	return citedByTweetersCount;
-    }
-
-    public void setCitedByTweetersCount(Integer citedByTweetersCount) {
-	this.citedByTweetersCount = citedByTweetersCount;
-    }
-
-    public Integer getCitedByAccountsCount() {
-	return citedByAccountsCount;
-    }
-
-    public void setCitedByAccountsCount(Integer citedByAccountsCount) {
-	this.citedByAccountsCount = citedByAccountsCount;
-    }
-
-    public Context getContext() {
-	return context;
-    }
-
-    public Double getScore() {
-	return score;
-    }
-
-    public void setScore(Double score) {
-	this.score = score;
-    }
-
-    public Map<String, JsonElement> getHistory() {
-	return history;
-    }
-
-    public String getUrl() {
-	return url;
-    }
-
-    public void setUrl(String url) {
-	this.url = url;
-    }
-
-    public Integer getAddedOn() {
-	return addedOn;
-    }
-
-    public void setAddedOn(Integer addedOn) {
-	this.addedOn = addedOn;
-    }
-
-    public String getPublishedOn() {
-	return publishedOn;
-    }
-
-    public void setPublishedOn(String publishedOn) {
-	this.publishedOn = publishedOn;
-    }
-
-    public String[] getSubjects() {
-	return subjects;
-    }
-
-    public void setSubjects(String[] subjects) {
-	this.subjects = subjects;
-    }
-
-    public String[] getScopusSubjects() {
-	return scopusSubjects;
-    }
-
-    public void setScopusSubjects(String[] scopusSubjects) {
-	this.scopusSubjects = scopusSubjects;
-    }
-
-    public Integer getLastUpdated() {
-	return lastUpdated;
-    }
-
-    public void setLastUpdated(Integer lastUpdated) {
-	this.lastUpdated = lastUpdated;
-    }
-
-    public Integer getReadersCount() {
-	return readersCount;
-    }
-
-    public void setReadersCount(Integer readersCount) {
-	this.readersCount = readersCount;
-    }
-
-    public Reader getReaders() {
-	return readers;
-    }
-
-    public Image getImages() {
-	return images;
-    }
-
-    public String getDetailsUrl() {
-	return detailsUrl;
-    }
-
-    public void setDetailsUrl(String detailsUrl) {
-	this.detailsUrl = detailsUrl;
-    }
-
-    @Override
-    public String getSource() {
-	return MsrcApiParams.API_HOST;
-    }
-
-    @Override
-    public String getId() {
-	return doi;
-    }
-
-    @Override
-    public void setId(String id) {
-	doi = id;
-    }
-
-    static DateFormat dateFormatter = DateFormat.getDateInstance();
-
-    @Override
-    public String getDate() {
-	if (publishedOn != null) {
-	    return dateFormatter.format(publishedOn);
-	}
-	return null;
-    }
-
-    @Override
-    public Date getDateObject() {
-	// TODO Auto-generated method stub
-	return null;
-    }
-
-    @Override
-    public void setDate(Date date) {
-	// TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public String getName() {
-	return title;
-    }
-
-    @Override
-    public void setName(String name) {
-	// TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public String getOwner() {
-	// TODO Auto-generated method stub
-	return null;
-    }
-
-    @Override
-    public void setOwner(String owner) {
-	// TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public String getType() {
-	// TODO Auto-generated method stub
-	return null;
-    }
-
-    @Override
-    public void setType(String type) {
-	// TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public Document getParent() {
-	// TODO Auto-generated method stub
-	return null;
-    }
-
-    @Override
-    public void setParent(Document parent) {
-	// TODO Auto-generated method stub
-
+    public List<MsrcAnnotationRef> getAnnotationRefs(){
+	return annotations;
     }
 
     @Override
     public Annotation[] getAnnotations() {
-	// TODO Auto-generated method stub
+	// TODO get annotations from Annotate service
 	return null;
     }
 
     @Override
     public String getAuthors() {
-	// TODO Auto-generated method stub
-	return null;
-    }
-
-    @Override
-    public void setAuthors(String authors) {
-	// TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public int getNumAnnotations() {
-	// TODO Auto-generated method stub
-	return 0;
-    }
-
-    @Override
-    public Annotation getAnnotation(int i) {
-	// TODO Auto-generated method stub
-	return null;
-    }
-
-    @Override
-    public String getGUID() {
-	// TODO Auto-generated method stub
-	return doi;
-    }
-
-    @Override
-    public String getCopyright() {
-	// TODO Auto-generated method stub
-	return null;
-    }
-
-    @Override
-    public String getIsbn() {
-	// TODO Auto-generated method stub
-	return null;
-    }
-
-    @Override
-    public String getIssn() {
-	// TODO Auto-generated method stub
-	return null;
-    }
-
-    @Override
-    public String getPublicationName() {
-	// TODO Auto-generated method stub
-	return null;
-    }
-
-    @Override
-    public String getPublisher() {
-	// TODO Auto-generated method stub
-	return null;
-    }
-
-    @Override
-    public String getVolume() {
-	// TODO Auto-generated method stub
-	return null;
-    }
-
-    @Override
-    public void setCopyright(String copyright) {
-	// TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void setIsbn(String isbn) {
-	// TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void setIssn(String issn) {
-	// TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void setPublicationName(String name) {
-	// TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void setPublisher(String publisher) {
-	// TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void setVolume(String volume) {
-	// TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public Integer getPageStart() {
-	// TODO Auto-generated method stub
-	return null;
-    }
-
-    @Override
-    public Integer getPageEnd() {
-	// TODO Auto-generated method stub
-	return null;
-    }
-
-    @Override
-    public String getPages() {
-	// TODO Auto-generated method stub
-	return null;
-    }
-
-    @Override
-    public String getIssue() {
-	// TODO Auto-generated method stub
-	return null;
-    }
-
-    @Override
-    public void setIssue(String issue) {
-	// TODO Auto-generated method stub
-
+	if (document == null)
+	    return null;
+	return document.getAuthors();
     }
 
     @Override
     public List<String> getAuthorList() {
+	if (document == null)
+	    return null;
+	return document.getAuthorList();
+    }
+
+    @Override
+    public String getCopyright() {
+	if (document == null)
+	    return null;
+	return document.getCopyright();
+    }
+
+    @Override
+    public String getDate() {
+	if (document == null)
+	    return null;
+	return document.getDate();
+    }
+
+    static DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX"); //"2011-11-04T15:40:15-04:00"
+
+    public static Date parseDate(String date) {
+	try {
+	    return formatter.parse(date);
+	} catch (ParseException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	    return null;
+	}
+
+    }
+
+    @Override
+    public Date getDateObject() {
+	return parseDate(created);
+    }
+
+    @Override
+    public String getDoi() {
+	if (document == null)
+	    return null;
+	return document.getDoi();
+    }
+
+    @Override
+    public String getGUID() {
+	if (document == null)
+	    return null;
+	return document.getGUID();
+    }
+
+    @Override
+    public String getId() {
+	if (document == null)
+	    return null;
+	return document.getId();
+    }
+
+    @Override
+    public String getIsbn() {
+	if (document == null)
+	    return null;
+	return document.getIsbn();
+    }
+
+    @Override
+    public String getIssn() {
+	if (document == null)
+	    return null;
+	return document.getIssn();
+    }
+
+    @Override
+    public String getName() {
+	if (document == null)
+	    return null;
+	return document.getName();
+    }
+
+    @Override
+    public int getNumAnnotations() {
+	if (document == null)
+	    return 0;
+	return document.getNumAnnotations();
+    }
+
+    @Override
+    public String getOwner() {
+	if (document == null)
+	    return null;
+	return document.getOwner();
+    }
+
+    @Override
+    public Document getParent() {
+	if (document == null)
+	    return null;
+	return document.getParent();
+    }
+
+    @Override
+    public String getPublicationName() {
+	if (document == null)
+	    return null;
+	return document.getPublicationName();
+    }
+
+    @Override
+    public String getPublisher() {
+	if (document == null)
+	    return null;
+	return document.getPublisher();
+    }
+
+    @Override
+    public String getSource() {
+	if (document == null)
+	    return null;
+	return document.getSource();
+    }
+
+    @Override
+    public String getTitle() {
+	if (document == null)
+	    return null;
+	return document.getTitle();
+    }
+
+    @Override
+    public String getType() {
+	return documentType;
+    }
+
+    @Override
+    public String getUrl() {
+	if (document == null)
+	    return null;
+	return document.getUrl();
+    }
+
+    @Override
+    public String getVolume() {
+	if (document == null)
+	    return null;
+	return document.getVolume();
+    }
+
+    @Override
+    public Integer getPageStart() {
+	if (document == null)
+	    return null;
+	return document.getPageStart();
+    }
+
+    @Override
+    public Integer getPageEnd() {
+	if (document == null)
+	    return null;
+	return document.getPageEnd();
+    }
+
+    @Override
+    public String getPages() {
+	if (document == null)
+	    return null;
+	return document.getPages();
+    }
+
+    @Override
+    public void setAuthors(String authors) {
+	if (document != null)
+	    document.setAuthors(authors);
+    }
+
+    @Override
+    public void setCopyright(String copyright) {
+	if (document != null)
+	    document.setCopyright(copyright);
+    }
+
+    @Override
+    public void setDate(Date date) {
+	if (document != null)
+	    document.setDate(date);
+    }
+
+    @Override
+    public void setId(String id) {
+	if (document != null)
+	    document.setId(id);
+    }
+
+    @Override
+    public void setIsbn(String isbn) {
+	if (document != null)
+	    document.setIsbn(isbn);
+    }
+
+    @Override
+    public void setIssn(String issn) {
+	if (document != null)
+	    document.setIssn(issn);
+    }
+
+    @Override
+    public void setName(String name) {
+	if (document != null)
+	    document.setName(name);
+    }
+
+    @Override
+    public void setOwner(String owner) {
+	if (document != null)
+	    document.setOwner(owner);
+    }
+
+    @Override
+    public void setParent(Document parent) {
+	if (document != null)
+	    document.setParent(parent);
+    }
+
+    @Override
+    public void setPublicationName(String name) {
+	if (document != null)
+	    document.setPublicationName(name);
+    }
+
+    @Override
+    public void setPublisher(String publisher) {
+	if (document != null)
+	    document.setPublisher(publisher);
+    }
+
+    @Override
+    public void setTitle(String title) {
+	if (document != null)
+	    document.setTitle(title);
+    }
+
+    @Override
+    public void setType(String type) {
+	if (document != null)
+	    document.setType(type);
+    }
+
+    @Override
+    public void setUrl(String url) {
+	if (document != null)
+	    document.setUrl(url);
+    }
+
+    @Override
+    public void setVolume(String volume) {
+	if (document != null)
+	    document.setVolume(volume);
+    }
+
+    @Override
+    public String getIssue() {
+	if (document == null)
+	    return null;
+	return document.getIssue();
+    }
+
+    @Override
+    public void setIssue(String issue) {
+	if (document != null)
+	    document.setIssue(issue);
+    }
+
+    @Override
+    public String getUri() {
+	if (document == null)
+	    return null;
+	return document.getUri();
+    }
+
+    @Override
+    public List<String> getKeywords() {
 	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
-    public String getUri() {
+    public void addKeyword(String keywords) {
+	// TODO Auto-generated method stub
+	
+    }
+
+    @Override
+    public List<String> getMeshTerms() {
 	// TODO Auto-generated method stub
 	return null;
     }
 
-    public String getBiblioId() {
+    @Override
+    public void addMeshTerm(String meshTerms) {
 	// TODO Auto-generated method stub
-	return null;
+	
     }
+
 }
