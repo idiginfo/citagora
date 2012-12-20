@@ -40,9 +40,13 @@ public interface Annotation extends CitagoraObject {
     String getSpecifier();
 
     void setSpecifier(String specifier);
-    
+
     public void setTags(String tags);
 
     public String getTags();
+
+    public void setContext(String mark);
+
+    public String getContext();
 
 }
