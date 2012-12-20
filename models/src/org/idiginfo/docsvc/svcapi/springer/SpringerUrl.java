@@ -27,7 +27,7 @@ public class SpringerUrl extends GenericUrl {
 	if ("getdocument".equals(function)) {
 	    addParameter("doi", params.getId());
 	} else if ("getdocuments".equals(function)) {
-	    addParameter(null, params.getSearchTerms());
+	    addParameter("title", params.getSearchTerms());
 	}
 	numberResults = params.getNumResults();
 	start = params.getFirstResult();
