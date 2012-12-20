@@ -34,4 +34,15 @@ public interface Annotation extends CitagoraObject {
 
     AnnotationBody getBody();
 
+    // Note that OA has a more complex structure to represent selectors and
+    // specifiers
+    // see http://www.openannotation.org/spec/core/#Specifier
+    String getSpecifier();
+
+    void setSpecifier(String specifier);
+    
+    public void setTags(String tags);
+
+    public String getTags();
+
 }

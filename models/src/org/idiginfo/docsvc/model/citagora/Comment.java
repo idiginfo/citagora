@@ -28,4 +28,8 @@ public interface Comment extends Annotation {
     public void setReviewer(CitagoraAgent reviewer);
 
     public void addReply(Reply reply);
+
+    public void setTags(String tags);
+
+    public String getTags();
 }
