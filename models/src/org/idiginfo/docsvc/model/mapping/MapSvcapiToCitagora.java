@@ -95,11 +95,22 @@ public class MapSvcapiToCitagora {
 	return toReference;
     }
 
-    public Comment map(Annotation fromAnnotation) {
+    public Comment map(Container container, Annotation fromAnnotation) {
+	if (container == null)
+	    return null;
+
 	Comment toComment = factory.createComment();
+	if (fromAnnotation.getDate() != null) {
+	    toComment.setCreated(fromAnnotation.getDate());
+	}
 	toComment.setAnnotated(fromAnnotation.getDate());
 	toComment.setSource(fromAnnotation.getFullPageUrl());
-	toComment.setChars(fromAnnotation.getContext());
+	toComment.setChars(fromAnnotation.getNotetext());
+	toComment.setUri(fromAnnotation.getFullPageUrl());
+	toComment.setSpecifier(fromAnnotation.getMatch());
+	toComment.setTags(fromAnnotation.getTags());
+	toComment.setContext(fromAnnotation.getMark());
+	container.addComment(toComment);
 	return toComment;
     }
 }
