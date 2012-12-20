@@ -35,7 +35,6 @@ public class CommentImpl extends AnnotationImpl implements Comment {
     @OneToMany(mappedBy = "replyTarget", targetEntity = ReplyImpl.class, cascade = CascadeType.ALL)
     List<Reply> replies;
 
-
     public CommentImpl() {
 	setType(Comment.TYPE);
 	setCollection(Comment.COLLECTION);
@@ -123,5 +122,4 @@ public class CommentImpl extends AnnotationImpl implements Comment {
 	if (reply != null)
 	    reply.setTarget(this);
     }
-
 }
