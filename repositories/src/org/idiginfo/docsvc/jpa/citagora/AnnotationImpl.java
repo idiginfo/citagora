@@ -24,6 +24,7 @@ abstract public class AnnotationImpl extends CitagoraObjectImpl implements
     String modelVersion;
     String specifier;
     String tags;
+    String context;
 
     public AnnotationImpl() {
 	body = new AnnotationBodyImpl();
@@ -106,5 +107,14 @@ abstract public class AnnotationImpl extends CitagoraObjectImpl implements
     public void setTags(String tags) {
 	this.tags = tags;
     }
+
+    public String getContext() {
+        return context;
+    }
+
+    public void setContext(String context) {
+        this.context = context;
+    }
+
 
 }
