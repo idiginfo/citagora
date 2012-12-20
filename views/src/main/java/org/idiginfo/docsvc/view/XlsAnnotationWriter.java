@@ -41,7 +41,7 @@ public class XlsAnnotationWriter {
 	Font hlink_font = null;
 	// Context text file output parameters
 
-	String[] headers = { "title", "tags", "context", "url" };
+	String[] headers = { "title", "tags", "context", "subject", "url" };
 
 	public void addHeaders(String[] headers) {
 		// initialize output objects
@@ -92,8 +92,9 @@ public class XlsAnnotationWriter {
 		fields[0] = document.getTitle();
 		fields[1] = note.getTags();
 		fields[2] = note.getContext();
+		fields[3] = note.getSubject();
 		String url = note.getFullPageUrl();
-		fields[3] = url;
+		fields[4] = url;
 		addRow(fields, url);
 	}
 
