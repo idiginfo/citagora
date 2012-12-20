@@ -320,4 +320,28 @@ public class SpringerRecord implements Document {
 	}
 	return url;
     }
+
+    @Override
+    public List<String> getKeywords() {
+	// TODO Auto-generated method stub
+	return null;
+    }
+
+    @Override
+    public void addKeyword(String keywords) {
+	// TODO Auto-generated method stub
+	
+    }
+
+    @Override
+    public List<String> getMeshTerms() {
+	// TODO Auto-generated method stub
+	return null;
+    }
+
+    @Override
+    public void addMeshTerm(String meshTerms) {
+	// TODO Auto-generated method stub
+	
+    }
 }

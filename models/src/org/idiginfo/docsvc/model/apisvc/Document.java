@@ -92,4 +92,13 @@ public interface Document {
     public void setIssue(String issue);
 
     public String getUri();
+
+    public List<String> getKeywords();
+
+    public void addKeyword(String keywords);
+
+    public List<String> getMeshTerms();
+
+    public void addMeshTerm(String meshTerms);
+
 }

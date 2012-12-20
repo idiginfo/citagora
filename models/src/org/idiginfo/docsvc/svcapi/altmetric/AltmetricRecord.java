@@ -289,6 +289,21 @@ public class AltmetricRecord implements Document {
 	public Map<String, JsonElement> getHistory() {
 		return history;
 	}
+	
+	public String getHistoryString(String key){
+	    JsonElement value = history.get(key);
+	    if (value==null) return null;
+	    if (value.isJsonPrimitive()) return value.toString();
+	    return null;
+	}
+	public History getHistoryObject(String key){
+	    JsonElement value = history.get(key);
+	    if (value==null) return null;
+	    if (value.isJsonObject()){
+		
+	    }
+	    return null;
+	}
 
 	public String getUrl() {
 		return url;
@@ -595,4 +610,29 @@ public class AltmetricRecord implements Document {
 	    // TODO Auto-generated method stub
 	    return null;
 	}
+
+	@Override
+	public List<String> getKeywords() {
+	    // TODO Auto-generated method stub
+	    return null;
+	}
+
+	@Override
+	public void addKeyword(String keywords) {
+	    // TODO Auto-generated method stub
+	    
+	}
+
+	@Override
+	public List<String> getMeshTerms() {
+	    // TODO Auto-generated method stub
+	    return null;
+	}
+
+	@Override
+	public void addMeshTerm(String meshTerms) {
+	    // TODO Auto-generated method stub
+	    
+	}
+
 }
