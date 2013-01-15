@@ -3,7 +3,6 @@ package org.idiginfo.docsvc.svcapi.sciverse;
 import java.util.Date;
 
 import org.idiginfo.docsvc.model.apisvc.Annotation;
-import org.idiginfo.docsvc.svcapi.annotate.AnnotateNote;
 
 public class SciVerseAnnotation implements Annotation {
 
@@ -213,13 +212,13 @@ public class SciVerseAnnotation implements Annotation {
 	}
 
 	@Override
-	public AnnotateNote[] getReplies() {
+	public Annotation[] getReplies() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void setReplies(AnnotateNote[] replies) {
+	public void setReplies(Annotation[] replies) {
 		// TODO Auto-generated method stub
 
 	}
@@ -238,6 +237,12 @@ public class SciVerseAnnotation implements Annotation {
 
 	@Override
 	public Date getDate() {
+	    // TODO Auto-generated method stub
+	    return null;
+	}
+
+	@Override
+	public String getId() {
 	    // TODO Auto-generated method stub
 	    return null;
 	}
