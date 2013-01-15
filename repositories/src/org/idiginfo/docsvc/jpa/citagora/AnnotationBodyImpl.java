@@ -1,5 +1,6 @@
 package org.idiginfo.docsvc.jpa.citagora;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Transient;
 
@@ -10,6 +11,7 @@ import org.idiginfo.docsvc.model.citagora.CitagoraObject;
 public class AnnotationBodyImpl implements AnnotationBody {
 
     String characterEncoding;
+    @Column(length = 2000)
     String chars;
 
     @Transient
@@ -28,7 +30,7 @@ public class AnnotationBodyImpl implements AnnotationBody {
     public AnnotationBodyImpl() {
 	setType(AnnotationBody.TYPE);
 	// setCollection(AnnotationBody.COLLECTION);
-	//initId();
+	// initId();
     }
 
     public String getType() {
@@ -81,11 +83,11 @@ public class AnnotationBodyImpl implements AnnotationBody {
 
     @Override
     public Integer getMyId() {
-        return myId;
+	return myId;
     }
 
     public void setMyId(int myId) {
-        this.myId = myId;
+	this.myId = myId;
     }
 
 }
