@@ -16,7 +16,7 @@ public class MsrcHarvest {
     // TODO modify this class to gather documents from the MSRC repository
     final static String FILE_DIR = "c:/dev/harvest/msrc/part2/";
     final static String FILE_PREFIX = FILE_DIR + "doc_";
-    private static final int START_INDEX = 2598;
+    private static final int START_INDEX = 2597;
 
     private void run(String[] args) {
 	String test;

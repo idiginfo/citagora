@@ -13,13 +13,12 @@ import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.svcapi.annotate.AnnotateDocumentNotes;
 import org.idiginfo.docsvc.svcapi.annotate.svc.AnnotateService;
 import org.idiginfo.docsvc.svcapi.msrc.MsrcAnnotationRef;
-import org.idiginfo.docsvc.svcapi.msrc.MsrcDocument;
 import org.idiginfo.docsvc.svcapi.msrc.MsrcRecord;
 import org.idiginfo.docsvc.svcapi.msrc.MsrcResult;
 import org.idiginfo.docsvc.svcapi.msrc.MsrcService;
 
 import com.google.gson.Gson;
-
+  
 /**
  * Class to load from MsrcDocument json files
  * 
@@ -33,7 +32,7 @@ public class MsrcLoad {
     CitagoraFactory factory = loader.getFactory();
     AnnotateService annotateService = new AnnotateService();
 
-    public static final String BASE_DIR = "c:/dev/harvest/msrc/part2/";
+    public static final String BASE_DIR = "c:/dev/harvest/msrc/";
 
     public static void main(String[] args) {
 	MsrcLoad loader = new MsrcLoad();
