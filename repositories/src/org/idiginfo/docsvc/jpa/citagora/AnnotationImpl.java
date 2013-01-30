@@ -3,6 +3,7 @@ package org.idiginfo.docsvc.jpa.citagora;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -24,6 +25,7 @@ abstract public class AnnotationImpl extends CitagoraObjectImpl implements
     String modelVersion;
     String specifier;
     String tags;
+    @Column(length=2000)
     String context;
 
     public AnnotationImpl() {

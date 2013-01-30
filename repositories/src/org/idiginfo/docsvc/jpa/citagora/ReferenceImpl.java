@@ -16,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.apache.commons.lang.StringUtils;
 import org.idiginfo.docsvc.model.citagora.Author;
 import org.idiginfo.docsvc.model.citagora.CitagoraAgent;
 import org.idiginfo.docsvc.model.citagora.Container;
@@ -50,6 +51,8 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
     String isbn;
     String issue;
     String url;
+    String keywords;
+    String meshTerms;
 
     @ManyToOne(targetEntity = ReferenceImpl.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "isPartOf")
@@ -555,5 +558,23 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
     @Override
     public void setUrl(String url) {
 	this.url = url;
+    }
+
+    public String getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(List<String> keywords) {
+	String keywordString = StringUtils.join(keywords,',');
+        this.keywords = keywordString;
+    }
+
+    public String getMeshTerms() {
+        return meshTerms;
+    }
+
+    public void setMeshTerms(List<String> meshTerms) {
+	String meshString = StringUtils.join(meshTerms,',');
+        this.meshTerms = meshString;
     }
 }
