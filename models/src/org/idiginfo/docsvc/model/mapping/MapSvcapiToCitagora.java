@@ -56,11 +56,9 @@ public class MapSvcapiToCitagora {
 	String authors = fromDocument.getAuthors();
 	toReference.setAuthorString(authors);
 	toReference.setUrl(fromDocument.getUrl());
-	// TODO number
 	toReference.setRights(fromDocument.getCopyright());
-	// TODO isbn
-	// TODO publisher
-	// TODO publicationname
+	toReference.setKeywords(fromDocument.getKeywords());
+	toReference.setMeshTerms(fromDocument.getMeshTerms());
 
 	toReference.setPublisher(fromDocument.getPublisher());
 
@@ -85,6 +83,7 @@ public class MapSvcapiToCitagora {
 		toJournal.setBiboType(Reference.JOURNAL_TYPE);
 		toJournal.setIssn(fromDocument.getIssn());
 		toJournal.setPublisher(fromDocument.getPublisher());
+		//TODO number?
 		toJournal.setVolume(fromDocument.getVolume());
 		toJournal.setIssue(fromDocument.getIssue());
 		toJournal.setTitle(fromDocument.getPublicationName());
@@ -98,7 +97,15 @@ public class MapSvcapiToCitagora {
     public Comment map(Container container, Annotation fromAnnotation) {
 	if (container == null)
 	    return null;
-
+// Look for existing comment
+	CitagoraObject object = factory.findCitagoraObjectByURI(fromAnnotation
+		.getId());
+	if (object != null) {
+	    if (object instanceof Comment) {
+		return (Comment) object;
+	    }
+	    return null;
+	}
 	Comment toComment = factory.createComment();
 	if (fromAnnotation.getDate() != null) {
 	    toComment.setCreated(fromAnnotation.getDate());
@@ -109,7 +116,7 @@ public class MapSvcapiToCitagora {
 	toComment.setUri(fromAnnotation.getFullPageUrl());
 	toComment.setSpecifier(fromAnnotation.getMatch());
 	toComment.setTags(fromAnnotation.getTags());
-	toComment.setContext(fromAnnotation.getMark());
+	toComment.setContext(fromAnnotation.getContext());
 	container.addComment(toComment);
 	return toComment;
     }
