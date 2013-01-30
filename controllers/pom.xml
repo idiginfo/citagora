@@ -64,6 +64,11 @@
 		</dependency>
 		<dependency>
 			<groupId>org.idiginfo.docsvc</groupId>
+			<artifactId>repositories</artifactId>
+			<version>1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.idiginfo.docsvc</groupId>
 			<artifactId>views</artifactId>
 			<version>1</version>
 		</dependency>
