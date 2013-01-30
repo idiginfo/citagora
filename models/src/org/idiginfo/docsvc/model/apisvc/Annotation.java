@@ -3,6 +3,8 @@ package org.idiginfo.docsvc.model.apisvc;
 import java.util.Date;
 
 public interface Annotation {
+    
+    public String getId();
 
     public String getPageurl();
 
