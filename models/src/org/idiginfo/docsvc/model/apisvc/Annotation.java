@@ -1,6 +1,5 @@
 package org.idiginfo.docsvc.model.apisvc;
 
-import org.idiginfo.docsvc.svcapi.annotate.AnnotateNote;
 import java.util.Date;
 
 public interface Annotation {
@@ -75,9 +74,9 @@ public interface Annotation {
 
     public void setFinalTags(String finalTags);
 
-    public AnnotateNote[] getReplies();
+    public Annotation[] getReplies();
 
-    public void setReplies(AnnotateNote[] replies);
+    public void setReplies(Annotation[] replies);
 
     public String getFullPageUrl();
 
