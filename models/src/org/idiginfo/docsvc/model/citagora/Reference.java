@@ -152,4 +152,8 @@ public interface Reference extends CitagoraObject {
 
     public String getUrl();
 
+    public void setKeywords(List<String> keywords);
+
+    public void setMeshTerms(List<String> meshTerms);
+
 }
