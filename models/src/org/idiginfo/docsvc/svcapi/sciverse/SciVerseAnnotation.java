@@ -3,243 +3,248 @@ package org.idiginfo.docsvc.svcapi.sciverse;
 import java.util.Date;
 
 import org.idiginfo.docsvc.model.apisvc.Annotation;
-import org.idiginfo.docsvc.svcapi.annotate.AnnotateNote;
 
 public class SciVerseAnnotation implements Annotation {
 
-	@Override
-	public String getPageurl() {
-		// temp
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getPageurl() {
+	// temp
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public void setPageurl(String pageurl) {
-		// TODO Auto-generated method stub
+    @Override
+    public void setPageurl(String pageurl) {
+	// TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public String getType() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getType() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public void setType(String type) {
-		// TODO Auto-generated method stub
+    @Override
+    public void setType(String type) {
+	// TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public String getPagetitle() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getPagetitle() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public void setPagetitle(String pagetitle) {
-		// TODO Auto-generated method stub
+    @Override
+    public void setPagetitle(String pagetitle) {
+	// TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public String getContext() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getContext() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public void setContext(String context) {
-		// TODO Auto-generated method stub
+    @Override
+    public void setContext(String context) {
+	// TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public String getSubject() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getSubject() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public void setSubject(String subject) {
-		// TODO Auto-generated method stub
+    @Override
+    public void setSubject(String subject) {
+	// TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public String getNotetext() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getNotetext() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public void setNotetext(String notetext) {
-		// TODO Auto-generated method stub
+    @Override
+    public void setNotetext(String notetext) {
+	// TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public String getAuthor() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getAuthor() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public void setAuthor(String author) {
-		// TODO Auto-generated method stub
+    @Override
+    public void setAuthor(String author) {
+	// TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public String getSigned() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getSigned() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public void setSigned(String signed) {
-		// TODO Auto-generated method stub
+    @Override
+    public void setSigned(String signed) {
+	// TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public String getDateString() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getDateString() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public void setDate(String date) {
-		// TODO Auto-generated method stub
+    @Override
+    public void setDate(String date) {
+	// TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public String getTags() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getTags() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public void setTags(String tags) {
-		// TODO Auto-generated method stub
+    @Override
+    public void setTags(String tags) {
+	// TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public String getMatch() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getMatch() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public void setMatch(String match) {
-		// TODO Auto-generated method stub
+    @Override
+    public void setMatch(String match) {
+	// TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public String getNum() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getNum() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public void setNum(String num) {
-		// TODO Auto-generated method stub
+    @Override
+    public void setNum(String num) {
+	// TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public String getGid() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getGid() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public void setGid(String gid) {
-		// TODO Auto-generated method stub
+    @Override
+    public void setGid(String gid) {
+	// TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public String getColor() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getColor() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public void setColor(String color) {
-		// TODO Auto-generated method stub
+    @Override
+    public void setColor(String color) {
+	// TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public String getMark() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getMark() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public void setMark(String mark) {
-		// TODO Auto-generated method stub
+    @Override
+    public void setMark(String mark) {
+	// TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public String getState() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getState() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public void setState(String state) {
-		// TODO Auto-generated method stub
+    @Override
+    public void setState(String state) {
+	// TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public String getFinalTags() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getFinalTags() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public void setFinalTags(String finalTags) {
-		// TODO Auto-generated method stub
+    @Override
+    public void setFinalTags(String finalTags) {
+	// TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public AnnotateNote[] getReplies() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getFullPageUrl() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public void setReplies(AnnotateNote[] replies) {
-		// TODO Auto-generated method stub
+    @Override
+    public Integer getPagenum() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	}
+    @Override
+    public Date getDate() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public String getFullPageUrl() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getId() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public Integer getPagenum() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public void setReplies(Annotation[] replies) {
+	// TODO Auto-generated method stub
 
-	@Override
-	public Date getDate() {
-	    // TODO Auto-generated method stub
-	    return null;
-	}
+    }
+
+    @Override
+    public Annotation[] getReplies() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
 }
