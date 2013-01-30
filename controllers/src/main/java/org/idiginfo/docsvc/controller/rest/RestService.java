@@ -14,7 +14,10 @@ import javax.ws.rs.core.UriInfo;
 
 import org.idiginfo.docsvc.controller.request.DocServicesParams;
 import org.idiginfo.docsvc.controller.request.RequestProcessor;
+import org.idiginfo.docsvc.jpa.JpaParams;
 import org.idiginfo.docsvc.model.apisvc.ApiParams;
+
+import com.sun.jersey.api.core.ResourceConfig;
 
 /**
  * Hello world!
@@ -23,35 +26,44 @@ import org.idiginfo.docsvc.model.apisvc.ApiParams;
 @Path("/rest")
 @Produces(MediaType.APPLICATION_XML)
 public class RestService {
-	@Context
-	UriInfo uriInfo;
-	@Context
-	Request request;
+    @Context
+    UriInfo uriInfo;
+    @Context
+    Request request;
 
-	RequestProcessor requestProcessor = new RequestProcessor();
 
-	@GET
-	@Path(value="/citagora")
-	public Response getCitagora(){
-	    return null;
+    RestService(@Context ResourceConfig rc) {
+	// Get persistence parameter from servlet configuration (in web.xml)
+	Object persistence = (String) rc.getProperty("persistence");
+	if (persistence instanceof String) {
+	    JpaParams.PERSISTENCE = (String) persistence;
 	}
-	
-	@GET
-	@Produces(MediaType.TEXT_HTML)
-	public Response get(@QueryParam("collection") String collection) {
-		MultivaluedMap<String, String> queryParams = uriInfo
-				.getQueryParameters();
-		ApiParams params = DocServicesParams.getApiServiceParams(queryParams);
-		params.setCollection(collection);
-		RequestProcessor.Result result = requestProcessor
-				.processRequest(params);
-		// return result.body as a Response object;
-		// creating and returning a Response object allows the charset to be
-		// specified
-		return Response
-				.status(result.statusCode)
-				.entity(result.body)
-				.header(HttpHeaders.CONTENT_TYPE,
-						result.mimeType + "; charset=UTF-8").build();
-	}
+    }
+
+    RequestProcessor requestProcessor = new RequestProcessor();
+
+    @GET
+    @Path(value = "/citagora")
+    public Response getCitagora() {
+	return null;
+    }
+
+    @GET
+    @Produces(MediaType.TEXT_HTML)
+    public Response get(@QueryParam("collection") String collection) {
+	MultivaluedMap<String, String> queryParams = uriInfo
+		.getQueryParameters();
+	ApiParams params = DocServicesParams.getApiServiceParams(queryParams);
+	params.setCollection(collection);
+	RequestProcessor.Result result = requestProcessor
+		.processRequest(params);
+	// return result.body as a Response object;
+	// creating and returning a Response object allows the charset to be
+	// specified
+	return Response
+		.status(result.statusCode)
+		.entity(result.body)
+		.header(HttpHeaders.CONTENT_TYPE,
+			result.mimeType + "; charset=UTF-8").build();
+    }
 }
