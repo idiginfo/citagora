@@ -4,12 +4,14 @@ import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import org.idiginfo.docsvc.model.citagora.CitagoraObject;
 import org.idiginfo.docsvc.model.citagora.Comment;
 import org.idiginfo.docsvc.model.citagora.Reply;
 
-@Entity(name = "replies")
+@Entity
+@Table(name = "replies")
 @DiscriminatorValue(value = "reply")
 public class ReplyImpl extends CommentImpl implements Reply {
 

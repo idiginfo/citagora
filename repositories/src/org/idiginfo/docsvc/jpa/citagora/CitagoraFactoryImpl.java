@@ -242,7 +242,7 @@ public class CitagoraFactoryImpl extends CitagoraFactory {
     @Override
     public void init() {
 	if (emf == null)
-	    emf = Persistence.createEntityManagerFactory("repositories");
+	    emf = Persistence.createEntityManagerFactory("idiginfodev");
 	if (em != null)
 	    em.close();
 	em = emf.createEntityManager();

@@ -9,6 +9,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import org.idiginfo.docsvc.model.citagora.CitagoraAgent;
 import org.idiginfo.docsvc.model.citagora.CitagoraObject;
@@ -17,7 +18,8 @@ import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.model.citagora.Person;
 import org.idiginfo.docsvc.model.citagora.Reply;
 
-@Entity(name = "comments")
+@Entity
+@Table(name = "comments")
 @DiscriminatorValue(value = "comment")
 public class CommentImpl extends AnnotationImpl implements Comment {
 

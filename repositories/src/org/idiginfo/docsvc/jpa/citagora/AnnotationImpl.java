@@ -14,7 +14,7 @@ import org.idiginfo.docsvc.model.citagora.AnnotationBody;
 import org.idiginfo.docsvc.model.citagora.Person;
 
 @Entity
-@Table(name = "annotations", schema = "citagora")
+@Table(name = "annotations")
 abstract public class AnnotationImpl extends CitagoraObjectImpl implements
 	Annotation {
 

@@ -27,7 +27,7 @@ import org.idiginfo.docsvc.model.citagora.Tag;
  * 
  */
 @Entity
-@Table(schema = "citagora", name = "containers")
+@Table(name = "containers")
 @DiscriminatorValue(value = Container.COLLECTION)
 public class ContainerImpl extends CitagoraObjectImpl implements
 	Container {

@@ -13,6 +13,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
@@ -27,7 +28,8 @@ import org.idiginfo.docsvc.model.citagora.Reference;
 import org.idiginfo.docsvc.model.citagora.Review;
 import org.idiginfo.docsvc.model.citagora.Tag;
 
-@Entity(name = "people")
+@Entity
+@Table(name = "people")
 public class PersonImpl implements Person, CitagoraAgent, Author {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)

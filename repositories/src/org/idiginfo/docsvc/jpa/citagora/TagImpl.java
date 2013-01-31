@@ -4,12 +4,14 @@ import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.model.citagora.CitagoraObject;
 import org.idiginfo.docsvc.model.citagora.Tag;
 
-@Entity(name = "tags")
+@Entity
+@Table(name = "tags")
 @DiscriminatorValue(value = "tag")
 public class TagImpl extends AnnotationImpl implements Tag {
 

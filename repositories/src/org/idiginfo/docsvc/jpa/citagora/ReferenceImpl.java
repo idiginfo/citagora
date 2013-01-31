@@ -13,6 +13,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -22,7 +23,8 @@ import org.idiginfo.docsvc.model.citagora.CitagoraAgent;
 import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.model.citagora.Reference;
 
-@Entity(name = "citagora_references") 
+@Entity
+@Table(name = "citagora_references")
 @DiscriminatorValue(value = "reference")
 public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
 
@@ -561,20 +563,20 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
     }
 
     public String getKeywords() {
-        return keywords;
+	return keywords;
     }
 
     public void setKeywords(List<String> keywords) {
-	String keywordString = StringUtils.join(keywords,',');
-        this.keywords = keywordString;
+	String keywordString = StringUtils.join(keywords, ',');
+	this.keywords = keywordString;
     }
 
     public String getMeshTerms() {
-        return meshTerms;
+	return meshTerms;
     }
 
     public void setMeshTerms(List<String> meshTerms) {
-	String meshString = StringUtils.join(meshTerms,',');
-        this.meshTerms = meshString;
+	String meshString = StringUtils.join(meshTerms, ',');
+	this.meshTerms = meshString;
     }
 }

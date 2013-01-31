@@ -4,12 +4,14 @@ import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.model.citagora.Person;
 import org.idiginfo.docsvc.model.citagora.Review;
 
-@Entity(name = "reviews")
+@Entity
+@Table(name = "reviews")
 @DiscriminatorValue(value = "review")
 public class ReviewImpl extends CitagoraObjectImpl implements Review {
     String ratingType; // constant citagora:ratingType
