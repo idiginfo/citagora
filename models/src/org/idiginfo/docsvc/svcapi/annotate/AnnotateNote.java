@@ -54,8 +54,6 @@ public class AnnotateNote implements Annotation {
 	this.pagenum = pagenum;
     }
 
-    Annotation[] replies; // {optional} list of replies to this note
-
     public static final String BASE_URL = "http://annotate.msrc.fsu.edu/php/pdfnotate.php?";
 
     public String getFullPageUrl() {
@@ -214,11 +212,11 @@ public class AnnotateNote implements Annotation {
     }
 
     public Annotation[] getReplies() {
-	return replies;
+	return null;
     }
 
     public void setReplies(Annotation[] replies) {
-	this.replies = replies;
+	//this.replies = replies;
     }
 
     DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
