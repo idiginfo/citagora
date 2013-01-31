@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0"
+	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	<persistence-unit name="local">
+		<class>org.idiginfo.docsvc.jpa.citagora.CitagoraObjectImpl</class>
+		<class>org.idiginfo.docsvc.jpa.citagora.AnnotationBodyImpl</class>
+		<class>org.idiginfo.docsvc.jpa.citagora.AnnotationImpl</class>
+		<class>org.idiginfo.docsvc.jpa.citagora.CommentImpl</class>
+		<class>org.idiginfo.docsvc.jpa.citagora.ContainerImpl</class>
+		<class>org.idiginfo.docsvc.jpa.citagora.PersonImpl</class>
+		<class>org.idiginfo.docsvc.jpa.citagora.RatingTypeImpl</class>
+		<class>org.idiginfo.docsvc.jpa.citagora.ReferenceImpl</class>
+		<class>org.idiginfo.docsvc.jpa.citagora.ReplyImpl</class>
+		<class>org.idiginfo.docsvc.jpa.citagora.ReviewImpl</class>
+		<class>org.idiginfo.docsvc.jpa.citagora.TagImpl</class>
+		<exclude-unlisted-classes>false</exclude-unlisted-classes>
+		<properties>
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/citagora" />
+			<property name="javax.persistence.jdbc.user" value="griccardi" />
+			<property name="javax.persistence.jdbc.password" value="Gadmin;" />
+			<property name="eclipselink.logging.level" value="INFO" />
+		</properties>
+	</persistence-unit>
+	<persistence-unit name="idiginfodev">
+		<class>org.idiginfo.docsvc.jpa.citagora.CitagoraObjectImpl</class>
+		<class>org.idiginfo.docsvc.jpa.citagora.AnnotationBodyImpl</class>
+		<class>org.idiginfo.docsvc.jpa.citagora.AnnotationImpl</class>
+		<class>org.idiginfo.docsvc.jpa.citagora.CommentImpl</class>
+		<class>org.idiginfo.docsvc.jpa.citagora.ContainerImpl</class>
+		<class>org.idiginfo.docsvc.jpa.citagora.PersonImpl</class>
+		<class>org.idiginfo.docsvc.jpa.citagora.RatingTypeImpl</class>
+		<class>org.idiginfo.docsvc.jpa.citagora.ReferenceImpl</class>
+		<class>org.idiginfo.docsvc.jpa.citagora.ReplyImpl</class>
+		<class>org.idiginfo.docsvc.jpa.citagora.ReviewImpl</class>
+		<class>org.idiginfo.docsvc.jpa.citagora.TagImpl</class>
+		<exclude-unlisted-classes>false</exclude-unlisted-classes>
+
+		<properties>
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://10.145.254.46:3306/citagora_dev" />
+			<property name="javax.persistence.jdbc.user" value="idig_citagora_u" />
+			<property name="javax.persistence.jdbc.password" value="Sn4k39sk3mA21Lmmns" />
+			<property name="eclipselink.logging.level" value="FINE" />
+		</properties>
+	</persistence-unit>
+</persistence>
