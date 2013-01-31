@@ -178,6 +178,7 @@ public class RequestProcessor {
 	Object objects = getObjects(params);
 	String body = null;
 	String format = params.getFormat();
+	String collection = params.getCollection();
 	if (DocServicesParams.FORMAT_JSON.equals(format)) {
 	    JsonWriter jsonWriter = new JsonWriter();
 	    body = jsonWriter.write(objects);

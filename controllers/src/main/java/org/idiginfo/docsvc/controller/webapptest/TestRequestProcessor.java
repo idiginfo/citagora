@@ -28,12 +28,14 @@ public class TestRequestProcessor {
 		TestRequestProcessor tester = new TestRequestProcessor();
 		try {
 			DocServicesParams params = new DocServicesParams();
-			params.setCollection(ServiceFactory.COLLECTION_ANNOTATE);
-			params.setMethod(DocServicesParams.METHOD_GET_USERS);
+			params.setCollection(ServiceFactory.COLLECTION_CITAGORA);
+			//params.setMethod(DocServicesParams.METHOD_GET_USERS);
 			// tester.run(params);
 			params.setMethod(DocServicesParams.METHOD_GET_DOCUMENT);
-			params.setId("TZpwu9je");
+			//params.setId("TZpwu9je");
+			params.setId("http://citagora.org/container/1");
 			params.setDate("2012-06-29");
+			params.setFormat(DocServicesParams.FORMAT_RDF);
 			tester.run(params);
 
 		} catch (IOException e) {
