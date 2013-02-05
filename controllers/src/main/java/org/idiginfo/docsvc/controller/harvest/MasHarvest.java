@@ -7,23 +7,27 @@ import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
-import org.idiginfo.docsvc.svcapi.sciverse.SciVerseApiParams;
-import org.idiginfo.docsvc.svcapi.sciverse.SciVerseResult;
-import org.idiginfo.docsvc.svcapi.sciverse.SciVerseService;
+import org.idiginfo.docsvc.svcapi.mas.model.MasPublication;
+import org.idiginfo.docsvc.svcapi.mas.model.MasResponse;
+import org.idiginfo.docsvc.svcapi.mas.model.MasResponseObject;
+import org.idiginfo.docsvc.svcapi.mas.model.MasResultObject;
+import org.idiginfo.docsvc.svcapi.mas.svc.MasApiParams;
+import org.idiginfo.docsvc.svcapi.mas.svc.MasService;
+
 
 import com.google.api.client.http.HttpTransport;
 
-public class SciVerseHarvest {
+public class MasHarvest {
 
-    final static String FILE_DIR = "c:/dev/harvest/sciverse/";
-    final static String FILE_PREFIX = FILE_DIR + "abs_suicide_";
-    private final static int MAX_PER_PAGE = 25;
-    private static final int FIRST_PAGE = 200;
+    final static String FILE_DIR = "c:/dev/harvest/mas/";
+    final static String FILE_PREFIX = FILE_DIR + "suicide_";
+    private final static int MAX_PER_PAGE = 100;
+    private static final int FIRST_PAGE = 1;
 
     @SuppressWarnings("unused")
     private static void run(String[] args) {
 	String test;
-	String searchText = "abs(suicide)";
+	String searchText = "suicide";
 	String filePrefix = FILE_PREFIX;
 	int numPerFile = MAX_PER_PAGE;
 	if (args != null && args.length > 0) {
@@ -40,12 +44,15 @@ public class SciVerseHarvest {
 
     public static String harvestFiles(String keywords, String filePrefix,
 	    int numPerFile) {
-	SciVerseService service = new SciVerseService();
-	SciVerseApiParams params = new SciVerseApiParams();
+	MasService service = new MasService();
+	MasApiParams params = new MasApiParams();
 	params.setKeyword(keywords);
+	params.setFirstResult(1);
 	params.setNumResults(1);
-	SciVerseResult result = service.getSciVerseResult("search", params);
-	int totalResults = result.getTotalResults();
+	MasResponse response = service.getResponse( params);
+	MasResponseObject responseObj = response.getResultObject();
+	MasResultObject<MasPublication> resultObject = responseObj.getPublication();
+	int totalResults = resultObject.getTotalItem();
 	int totalPages = (int) Math.ceil(totalResults / numPerFile) + 1;
 	System.out.println("Total results: " + totalResults + " pages: "
 		+ totalPages + " per file: " + numPerFile);
@@ -55,7 +62,7 @@ public class SciVerseHarvest {
 	    String fileName = filePrefix + String.format("%05d", pageNum)
 		    + ".json";
 	    System.out.println("getting file " + fileName);
-	    String contents = service.getSciVerseContents("search", params);
+	    String contents = service.getMasContents("search", params);
 	    try {
 		FileWriter out = new FileWriter(fileName);
 		out.write(contents);

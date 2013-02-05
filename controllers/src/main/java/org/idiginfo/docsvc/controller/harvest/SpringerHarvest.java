@@ -16,7 +16,7 @@ public class SpringerHarvest {
     final static String FILE_DIR = "c:/dev/harvest/springerTitle/";
     final static String FILE_PREFIX = FILE_DIR + "abs_suicide_";
     private final static int MAX_PER_PAGE = 100;
-    private static final int FIRST_PAGE = 0;
+    private static final int FIRST_PAGE = 10;
 
     @SuppressWarnings("unused")
     private static void run(String[] args) {

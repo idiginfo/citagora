@@ -41,10 +41,11 @@ public class LoadDocuments {
 	String doi = document.getDoi();
 	if (doi != null) {
 	    Reference ref = factory.findReferenceByDoi(doi);
-	    if (ref != null ) {
+	    if (ref != null) {
 		System.out.println(" doi: " + doi + " already present");
 		List<Container> containers = ref.getContainers();
-		if (containers!=null&&containers.size()>0) return containers.get(0); // there is already a document
+		if (containers != null && containers.size() > 0)
+		    return containers.get(0); // there is already a document
 		return null; // no container
 	    }
 	}
@@ -62,7 +63,7 @@ public class LoadDocuments {
 	}
 	Container container = documentMapper.createContainer(containerFields,
 		document);
-	System.out.println(" document created");
+	System.out.println(" uri: " + uri + " created");
 
 	if (localTransaction) {
 	    factory.commitTransaction();
