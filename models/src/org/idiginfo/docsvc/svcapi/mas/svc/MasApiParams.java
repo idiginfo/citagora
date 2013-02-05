@@ -54,7 +54,7 @@ public class MasApiParams extends BaseApiParams {
 	// result parameter fields
 	public String resultObjects = "Publication";
 	public String referenceType;
-	public String publicationContent = "Keyword";
+	public String publicationContent = null; //"Keyword";
 	public String orderBy;
 	public Integer yearStart;
 	public Integer yearEnd;
