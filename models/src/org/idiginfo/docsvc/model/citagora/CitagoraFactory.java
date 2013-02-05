@@ -12,10 +12,13 @@ import java.util.List;
 public abstract class CitagoraFactory {
 
     protected static CitagoraFactory factory = null;
+    protected static String persistence = "local";
 
     public static CitagoraFactory getFactory() {
 	return factory;
     }
+    
+    public abstract void renewPersistence();
 
     public abstract Author createAuthor();
 
@@ -93,6 +96,14 @@ public abstract class CitagoraFactory {
     public CitagoraObject findCitagoraObjectByURI(String uri) {
 	// TODO Auto-generated method stub
 	return null;
+    }
+
+    public static void setPersistence(String persistence){
+	CitagoraFactory.persistence = persistence;
+    }
+
+    public static String getPersistence() {
+	return persistence;
     }
 
 }
