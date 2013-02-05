@@ -49,6 +49,7 @@ public class BaseApiParams implements ApiParams {
     public void mapFields(GenericUrl toUrl) {
 	Class<? extends GenericUrl> toClass = toUrl.getClass();
 	Class<? extends BaseApiParams> fromClass = getClass();
+	Class<BaseApiParams> baseFromClass = BaseApiParams.class;
 	// iterate through all parameters and set fields as possible
 	Field[] fieldSet = toClass.getDeclaredFields();
 	for (int i = 0; i < fieldSet.length; i++) {
@@ -57,12 +58,18 @@ public class BaseApiParams implements ApiParams {
 		toField.setAccessible(true);
 		String key = toField.getName();
 		// use reflection to set field
-		Field fromField = fromClass.getDeclaredField(key);
+		Field fromField;
+		try{
+		    fromField= fromClass.getDeclaredField(key);
+		}catch (NoSuchFieldException e){
+		    // didn't find field in API params class, look in BaseApiParams
+		    fromField = baseFromClass.getDeclaredField(key);
+		}
 		fromField.setAccessible(true);
 		toField.set(toUrl, fromField.get(this));
 	    } catch (NoSuchFieldException | SecurityException
 		    | IllegalArgumentException | IllegalAccessException e) {
-		// System.out.println(e.getMessage());
+		//System.out.println("param missing " + e.getMessage());
 		// e.printStackTrace();// no such field or not allowed
 	    }
 	}
@@ -366,18 +373,21 @@ public class BaseApiParams implements ApiParams {
 
     @Override
     public Integer getNumResults() {
-        return numResults;
+	return numResults;
     }
-@Override
+
+    @Override
     public void setNumResults(Integer numResults) {
-        this.numResults = numResults;
+	this.numResults = numResults;
     }
-@Override
+
+    @Override
     public Integer getFirstResult() {
-        return firstResult;
+	return firstResult;
     }
-@Override
+
+    @Override
     public void setFirstResult(Integer firstResult) {
-        this.firstResult = firstResult;
+	this.firstResult = firstResult;
     }
 }
