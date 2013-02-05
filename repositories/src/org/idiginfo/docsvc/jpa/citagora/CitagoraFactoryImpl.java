@@ -202,7 +202,8 @@ public class CitagoraFactoryImpl extends CitagoraFactory {
 		+ " e WHERE e.doi=:doi");
 	q.setParameter("doi", doi);
 	List<Reference> references = q.getResultList();
-	if (references==null||references.size()<1) return null;
+	if (references == null || references.size() < 1)
+	    return null;
 	return references.get(0);
     }
 
@@ -242,10 +243,21 @@ public class CitagoraFactoryImpl extends CitagoraFactory {
     @Override
     public void init() {
 	if (emf == null)
-	    emf = Persistence.createEntityManagerFactory("idiginfodev");
+	    emf = Persistence.createEntityManagerFactory(persistence);
 	if (em != null)
 	    em.close();
 	em = emf.createEntityManager();
+    }
+
+    @Override
+    public void renewPersistence() {
+	if (em != null)
+	    em.close();
+	em = null;
+	if (emf != null)
+	    emf.close();
+	emf = null;
+	init();
     }
 
     @Override
@@ -344,12 +356,18 @@ public class CitagoraFactoryImpl extends CitagoraFactory {
     @Override
     /**
      * Get the standard agent for the service
+     * create an agent if one is not present
      */
     public CitagoraAgent getServiceAgent(String serviceName) {
 	Person agent = getPerson(serviceName);
 	if (agent instanceof CitagoraAgent)
 	    return (CitagoraAgent) agent;
-	return null;
+	// create service agent and add it to database
+	CitagoraAgent newAgent = createCitagoraAgent();
+	newAgent.setName(serviceName);
+	newAgent.setAccount(serviceName);
+	merge(newAgent);
+	return newAgent;
     }
 
     @Override
@@ -366,16 +384,15 @@ public class CitagoraFactoryImpl extends CitagoraFactory {
 	    return null;
 	}
     }
-    
-    
 
     @Override
     public CitagoraObject findCitagoraObjectByURI(String uri) {
 	try {
 	    getEntityManager();
-	    Query q = em.createQuery("SELECT c FROM CitagoraObjectImpl c WHERE c.uri=:uri");
+	    Query q = em
+		    .createQuery("SELECT c FROM CitagoraObjectImpl c WHERE c.uri=:uri");
 	    q.setParameter("uri", uri);
-	    CitagoraObject obj =  (CitagoraObject) q.getSingleResult();
+	    CitagoraObject obj = (CitagoraObject) q.getSingleResult();
 	    return obj;
 	} catch (NoResultException e) {
 	    return null;
