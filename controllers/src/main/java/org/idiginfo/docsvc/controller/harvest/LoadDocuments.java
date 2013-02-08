@@ -63,7 +63,7 @@ public class LoadDocuments {
 	}
 	Container container = documentMapper.createContainer(containerFields,
 		document);
-	System.out.println(" uri: " + uri + " created");
+	System.out.println(" uri: " + (doi!=null?doi:uri) + " created");
 
 	if (localTransaction) {
 	    factory.commitTransaction();
