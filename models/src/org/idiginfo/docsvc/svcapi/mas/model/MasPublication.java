@@ -8,6 +8,8 @@ import java.util.Vector;
 import org.idiginfo.docsvc.model.apisvc.Annotation;
 import org.idiginfo.docsvc.model.apisvc.Document;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * <p>
  * Java class for Publication complex type.
@@ -55,6 +57,7 @@ public class MasPublication implements Document {
 
     protected MasConference conference;
 
+    @SerializedName("DOI")
     protected String doi;
 
     protected List<String> fullVersionURL;
@@ -184,196 +187,170 @@ public class MasPublication implements Document {
 
     @Override
     public Annotation getAnnotation(int i) {
-	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
     public Annotation[] getAnnotations() {
-	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
     public String getAuthors() {
-	for (MasAuthor author1 : author) {
-
+	StringBuffer authors = new StringBuffer();
+	String comma = "";
+	for (MasAuthor author : this.author) {
+	    authors.append(comma).append(author.getName());
+	    comma = ", ";
 	}
-	return null;
+	return authors.toString();
     }
 
     @Override
     public String getCopyright() {
-	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
     public String getDate() {
-	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
     public Date getDateObject() {
-	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
     public String getDoi() {
-	// TODO Auto-generated method stub
-	return null;
+	return doi;
     }
 
     @Override
     public String getGUID() {
-	// TODO Auto-generated method stub
-	return null;
+	return getUri();
     }
 
     @Override
     public String getId() {
-	// TODO Auto-generated method stub
-	return null;
+	return "mas:" + Long.toString(iD);
     }
 
     @Override
     public String getIsbn() {
-	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
     public String getIssn() {
-	// TODO Auto-generated method stub
-	return null;
+	return journal.getiSSN();
     }
 
     @Override
     public String getName() {
-	// TODO Auto-generated method stub
-	return null;
+	return title;
     }
 
     @Override
     public int getNumAnnotations() {
-	// TODO Auto-generated method stub
 	return 0;
     }
 
     @Override
     public String getOwner() {
-	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
     public Document getParent() {
-	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
     public String getPublicationName() {
-	// TODO Auto-generated method stub
-	return null;
+	if (journal == null)
+	    return null;
+	return journal.getFullName();
     }
 
     @Override
     public String getPublisher() {
-	// TODO Auto-generated method stub
+	if (journal == null)
+	    return null;
 	return null;
     }
 
     @Override
     public String getSource() {
-	// TODO Auto-generated method stub
-	return null;
+	return "mas";
     }
 
     @Override
     public String getUrl() {
-	// TODO Auto-generated method stub
-	return null;
+	if (fullVersionURL == null || fullVersionURL.size() == 0)
+	    return null;
+	return fullVersionURL.get(0);
     }
 
     @Override
     public String getVolume() {
-	// TODO Auto-generated method stub
+	if (journal == null)
+	    return null;
 	return null;
     }
 
     @Override
     public void setAuthors(String authors) {
 	// TODO Auto-generated method stub
-
     }
 
     @Override
     public void setCopyright(String copyright) {
-	// TODO Auto-generated method stub
-
     }
 
     @Override
     public void setDate(Date date) {
-	// TODO Auto-generated method stub
-
     }
 
     @Override
     public void setId(String id) {
 	// TODO Auto-generated method stub
-
     }
 
     @Override
     public void setIsbn(String isbn) {
-	// TODO Auto-generated method stub
-
     }
 
     @Override
     public void setIssn(String issn) {
 	// TODO Auto-generated method stub
-
     }
 
     @Override
     public void setName(String name) {
 	// TODO Auto-generated method stub
-
     }
 
     @Override
     public void setOwner(String owner) {
-	// TODO Auto-generated method stub
-
     }
 
     @Override
     public void setParent(Document parent) {
-	// TODO Auto-generated method stub
-
     }
 
     @Override
     public void setPublicationName(String name) {
 	// TODO Auto-generated method stub
-
     }
 
     @Override
     public void setPublisher(String publisher) {
-	// TODO Auto-generated method stub
-
     }
 
     @Override
     public void setType(String type) {
 	this.type = type;
-
     }
 
     @Override
@@ -390,32 +367,26 @@ public class MasPublication implements Document {
 
     @Override
     public Integer getPageStart() {
-	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
     public Integer getPageEnd() {
-	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
     public String getPages() {
-	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
     public String getIssue() {
-	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
     public void setIssue(String issue) {
-	// TODO Auto-generated method stub
-
     }
 
     @Override
@@ -426,40 +397,38 @@ public class MasPublication implements Document {
 	Iterator<MasAuthor> authors = author.iterator();
 	while (authors.hasNext()) {
 	    MasAuthor authorItem = authors.next();
-	    authorList.add(authorItem.getLastName() + ", "
-		    + authorItem.getFirstName());
+	    authorList.add(authorItem.getName());
 	}
 	return authorList;
     }
 
     @Override
     public String getUri() {
-	// TODO Auto-generated method stub
 	return doi;
     }
 
     @Override
     public List<String> getKeywords() {
 	// TODO Auto-generated method stub
-	return null;
+	List<String> keywords = new Vector<String>();
+	for (MasKeyword keyword : this.keyword) {
+	    keywords.add(keyword.getName());
+	}
+	return keywords;
     }
 
     @Override
     public void addKeyword(String keywords) {
 	// TODO Auto-generated method stub
-
     }
 
     @Override
     public List<String> getMeshTerms() {
-	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
     public void addMeshTerm(String meshTerms) {
-	// TODO Auto-generated method stub
-
     }
 
 }
