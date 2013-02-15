@@ -18,7 +18,7 @@ import org.idiginfo.docsvc.svcapi.msrc.MsrcResult;
 import org.idiginfo.docsvc.svcapi.msrc.MsrcService;
 
 import com.google.gson.Gson;
-  
+
 /**
  * Class to load from MsrcDocument json files
  * 
@@ -27,8 +27,13 @@ import com.google.gson.Gson;
  */
 public class MsrcLoad {
 
+    public MsrcLoad() {
+	CitagoraFactory.setPersistence("idiginfodev");
+	loader = new LoadDocuments();
+    }
+
     Gson gson = MsrcService.getGson();
-    LoadDocuments loader = new LoadDocuments();
+    LoadDocuments loader = null;
     CitagoraFactory factory = loader.getFactory();
     AnnotateService annotateService = new AnnotateService();
 
@@ -46,7 +51,7 @@ public class MsrcLoad {
 	Container containerFields = loader.getFactory().createContainer();
 	CitagoraAgent msrcAgent = loader.getFactory().getServiceAgent("msrc");
 	containerFields.setGenerator(msrcAgent);
-	containerFields.setRights("copyright 2012 idiginfo.com");
+	containerFields.setRights("copyright 2013 idiginfo.com");
 	containerFields.setSource("msrc api");
 	containerFields.setWasAttributedTo("riccardi");
 	numFiles = loadFiles(containerFields, baseDirectory);
@@ -107,9 +112,9 @@ public class MsrcLoad {
 	    return 1;
 	} catch (IOException e) {
 	    e.printStackTrace();
-		if (localTransaction) {
-		    factory.rollbackTransaction();
-		}
+	    if (localTransaction) {
+		factory.rollbackTransaction();
+	    }
 	    return 0;
 	}
     }

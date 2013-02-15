@@ -64,9 +64,9 @@ public class MasSplit {
 		JsonElement result = publication.get("Result");
 		JsonArray entries = result.getAsJsonArray();
 		int numEntries = entries.size();
-		for (int i = 0; i < numEntries; i++) {
+		for (JsonElement entry : entries) {
 		    String splitFileName = splitFilePrefix;
-		    JsonObject record = (JsonObject) entries.get(i);
+		    JsonObject record = (JsonObject) entry;
 		    if (record == null)
 			break;
 		    // find an id to use as the file name
