@@ -3,7 +3,6 @@ package org.idiginfo.docsvc.svcapi.mas.model;
 import org.idiginfo.docsvc.svcapi.mas.svc.MasApiParams;
 
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.reflect.TypeToken;
 
 public class MasResponseObject {
     @SerializedName("__type")

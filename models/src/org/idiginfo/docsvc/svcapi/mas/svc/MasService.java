@@ -1,6 +1,5 @@
 package org.idiginfo.docsvc.svcapi.mas.svc;
 
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -29,7 +28,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
-import com.google.gson.reflect.TypeToken;
 
 public class MasService implements DocService {
 
