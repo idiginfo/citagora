@@ -1,8 +1,6 @@
 package org.idiginfo.docsvc.svcapi.msrc;
 
 import java.util.List;
-import java.util.Map;
-
 import org.idiginfo.docsvc.model.apisvc.Documents;
 
 import com.google.gson.annotations.SerializedName;

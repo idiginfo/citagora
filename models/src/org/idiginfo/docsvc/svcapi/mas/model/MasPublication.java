@@ -80,111 +80,6 @@ public class MasPublication implements Document {
 	return _abstract;
     }
 
-    public void set_abstract(String _abstract) {
-	this._abstract = _abstract;
-    }
-
-    public List<MasAuthor> getAuthor() {
-	return author;
-    }
-
-    public void setAuthor(List<MasAuthor> author) {
-	this.author = author;
-    }
-
-    public List<String> getCitationContext() {
-	return citationContext;
-    }
-
-    public void setCitationContext(List<String> citationContext) {
-	this.citationContext = citationContext;
-    }
-
-    public Long getCitationCount() {
-	return citationCount;
-    }
-
-    public void setCitationCount(Long citationCount) {
-	this.citationCount = citationCount;
-    }
-
-    public MasConference getConference() {
-	return conference;
-    }
-
-    public void setConference(MasConference conference) {
-	this.conference = conference;
-    }
-
-    public String getdOI() {
-	return doi;
-    }
-
-    public void setdOI(String dOI) {
-	this.doi = dOI;
-    }
-
-    public List<String> getFullVersionURL() {
-	return fullVersionURL;
-    }
-
-    public void setFullVersionURL(List<String> fullVersionURL) {
-	this.fullVersionURL = fullVersionURL;
-    }
-
-    public Long getiD() {
-	return iD;
-    }
-
-    public void setiD(Long iD) {
-	this.iD = iD;
-    }
-
-    public MasJournal getJournal() {
-	return journal;
-    }
-
-    public void setJournal(MasJournal journal) {
-	this.journal = journal;
-    }
-
-    public List<MasKeyword> getKeyword() {
-	return keyword;
-    }
-
-    public void setKeyword(List<MasKeyword> keyword) {
-	this.keyword = keyword;
-    }
-
-    public Long getReferenceCount() {
-	return referenceCount;
-    }
-
-    public void setReferenceCount(Long referenceCount) {
-	this.referenceCount = referenceCount;
-    }
-
-    public String getTitle() {
-	return title;
-    }
-
-    public void setTitle(String title) {
-	this.title = title;
-    }
-
-    @Override
-    public String getType() {
-	return type;
-    }
-
-    public Integer getYear() {
-	return year;
-    }
-
-    public void setYear(Integer year) {
-	this.year = year;
-    }
-
     @Override
     public Annotation getAnnotation(int i) {
 	return null;
@@ -193,6 +88,23 @@ public class MasPublication implements Document {
     @Override
     public Annotation[] getAnnotations() {
 	return null;
+    }
+
+    public List<MasAuthor> getAuthor() {
+	return author;
+    }
+
+    @Override
+    public List<String> getAuthorList() {
+	if (author == null)
+	    author = new Vector<MasAuthor>();
+	List<String> authorList = new Vector<String>();
+	Iterator<MasAuthor> authors = author.iterator();
+	while (authors.hasNext()) {
+	    MasAuthor authorItem = authors.next();
+	    authorList.add(authorItem.getName());
+	}
+	return authorList;
     }
 
     @Override
@@ -204,6 +116,18 @@ public class MasPublication implements Document {
 	    comma = ", ";
 	}
 	return authors.toString();
+    }
+
+    public List<String> getCitationContext() {
+	return citationContext;
+    }
+
+    public Long getCitationCount() {
+	return citationCount;
+    }
+
+    public MasConference getConference() {
+	return conference;
     }
 
     @Override
@@ -221,14 +145,26 @@ public class MasPublication implements Document {
 	return null;
     }
 
+    public String getdOI() {
+	return doi;
+    }
+
     @Override
     public String getDoi() {
 	return doi;
     }
 
+    public List<String> getFullVersionURL() {
+	return fullVersionURL;
+    }
+
     @Override
     public String getGUID() {
 	return getUri();
+    }
+
+    public Long getiD() {
+	return iD;
     }
 
     @Override
@@ -247,6 +183,34 @@ public class MasPublication implements Document {
     }
 
     @Override
+    public String getIssue() {
+	return null;
+    }
+
+    public MasJournal getJournal() {
+	return journal;
+    }
+
+    public List<MasKeyword> getKeyword() {
+	return keyword;
+    }
+
+    @Override
+    public List<String> getKeywords() {
+	// TODO Auto-generated method stub
+	List<String> keywords = new Vector<String>();
+	for (MasKeyword keyword : this.keyword) {
+	    keywords.add(keyword.getName());
+	}
+	return keywords;
+    }
+
+    @Override
+    public List<String> getMeshTerms() {
+	return null;
+    }
+
+    @Override
     public String getName() {
 	return title;
     }
@@ -258,6 +222,21 @@ public class MasPublication implements Document {
 
     @Override
     public String getOwner() {
+	return null;
+    }
+
+    @Override
+    public Integer getPageEnd() {
+	return null;
+    }
+
+    @Override
+    public String getPages() {
+	return null;
+    }
+
+    @Override
+    public Integer getPageStart() {
 	return null;
     }
 
@@ -280,9 +259,27 @@ public class MasPublication implements Document {
 	return null;
     }
 
+    public Long getReferenceCount() {
+	return referenceCount;
+    }
+
     @Override
     public String getSource() {
 	return "mas";
+    }
+
+    public String getTitle() {
+	return title;
+    }
+
+    @Override
+    public String getType() {
+	return type;
+    }
+
+    @Override
+    public String getUri() {
+	return doi;
     }
 
     @Override
@@ -299,136 +296,16 @@ public class MasPublication implements Document {
 	return null;
     }
 
-    @Override
-    public void setAuthors(String authors) {
-	// TODO Auto-generated method stub
+    public Integer getYear() {
+	return year;
     }
 
-    @Override
-    public void setCopyright(String copyright) {
+    public void set_abstract(String _abstract) {
+	this._abstract = _abstract;
     }
 
-    @Override
-    public void setDate(Date date) {
-    }
-
-    @Override
-    public void setId(String id) {
-	// TODO Auto-generated method stub
-    }
-
-    @Override
-    public void setIsbn(String isbn) {
-    }
-
-    @Override
-    public void setIssn(String issn) {
-	// TODO Auto-generated method stub
-    }
-
-    @Override
-    public void setName(String name) {
-	// TODO Auto-generated method stub
-    }
-
-    @Override
-    public void setOwner(String owner) {
-    }
-
-    @Override
-    public void setParent(Document parent) {
-    }
-
-    @Override
-    public void setPublicationName(String name) {
-	// TODO Auto-generated method stub
-    }
-
-    @Override
-    public void setPublisher(String publisher) {
-    }
-
-    @Override
-    public void setType(String type) {
-	this.type = type;
-    }
-
-    @Override
-    public void setUrl(String url) {
-	// TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void setVolume(String volume) {
-	// TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public Integer getPageStart() {
-	return null;
-    }
-
-    @Override
-    public Integer getPageEnd() {
-	return null;
-    }
-
-    @Override
-    public String getPages() {
-	return null;
-    }
-
-    @Override
-    public String getIssue() {
-	return null;
-    }
-
-    @Override
-    public void setIssue(String issue) {
-    }
-
-    @Override
-    public List<String> getAuthorList() {
-	if (author == null)
-	    author = new Vector<MasAuthor>();
-	List<String> authorList = new Vector<String>();
-	Iterator<MasAuthor> authors = author.iterator();
-	while (authors.hasNext()) {
-	    MasAuthor authorItem = authors.next();
-	    authorList.add(authorItem.getName());
-	}
-	return authorList;
-    }
-
-    @Override
-    public String getUri() {
-	return doi;
-    }
-
-    @Override
-    public List<String> getKeywords() {
-	// TODO Auto-generated method stub
-	List<String> keywords = new Vector<String>();
-	for (MasKeyword keyword : this.keyword) {
-	    keywords.add(keyword.getName());
-	}
-	return keywords;
-    }
-
-    @Override
-    public void addKeyword(String keywords) {
-	// TODO Auto-generated method stub
-    }
-
-    @Override
-    public List<String> getMeshTerms() {
-	return null;
-    }
-
-    @Override
-    public void addMeshTerm(String meshTerms) {
+    public void setAuthor(List<MasAuthor> author) {
+	this.author = author;
     }
 
 }

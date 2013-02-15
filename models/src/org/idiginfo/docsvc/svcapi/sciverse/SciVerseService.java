@@ -47,7 +47,7 @@ public class SciVerseService implements DocService {
     String authKey;
 
     public SciVerseService() {
-	// enableLogging();
+	 enableLogging();
 	authKey = getAuthKey();
 	System.out.println("authKey: " + authKey);
     }

@@ -9,9 +9,9 @@ public interface Document {
 
     public Annotation[] getAnnotations();
 
-    public String getAuthors();
-
     public List<String> getAuthorList();
+
+    public String getAuthors();
 
     public String getCopyright();
 
@@ -29,11 +29,23 @@ public interface Document {
 
     public String getIssn();
 
+    public String getIssue();
+
+    public List<String> getKeywords();
+
+    public List<String> getMeshTerms();
+
     public String getName();
 
     public int getNumAnnotations();
 
     public String getOwner();
+
+    public Integer getPageEnd();
+
+    public String getPages();
+
+    public Integer getPageStart();
 
     public Document getParent();
 
@@ -47,58 +59,10 @@ public interface Document {
 
     public String getType();
 
+    public String getUri();
+
     public String getUrl();
 
     public String getVolume();
-
-    public Integer getPageStart();
-
-    public Integer getPageEnd();
-
-    public String getPages();
-
-    public void setAuthors(String authors);
-
-    public void setCopyright(String copyright);
-
-    public void setDate(Date date);
-
-    public void setId(String id);
-
-    public void setIsbn(String isbn);
-
-    public void setIssn(String issn);
-
-    public void setName(String name);
-
-    public void setOwner(String owner);
-
-    public void setParent(Document parent);
-
-    public void setPublicationName(String name);
-
-    public void setPublisher(String publisher);
-
-    public void setTitle(String title);
-
-    public void setType(String type);
-
-    public void setUrl(String url);
-
-    public void setVolume(String volume);
-
-    public String getIssue();
-
-    public void setIssue(String issue);
-
-    public String getUri();
-
-    public List<String> getKeywords();
-
-    public void addKeyword(String keywords);
-
-    public List<String> getMeshTerms();
-
-    public void addMeshTerm(String meshTerms);
 
 }

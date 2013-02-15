@@ -300,80 +300,11 @@ public class MsrcDocument implements Document {
     }
 
     @Override
-    public void setAuthors(String authors) {
-	// TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void setCopyright(String copyright) {
-	// TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void setDate(Date date) {
-	// TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void setIssn(String issn) {
-	// TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void setName(String name) {
-	// TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void setOwner(String owner) {
-	// TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void setParent(Document parent) {
-	// TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void setPublicationName(String name) {
-	// TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void setPublisher(String publisher) {
-	// TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void setType(String type) {
-	// TODO Auto-generated method stub
-
-    }
-
-    @Override
     public String getUri() {
-	return id;
+	// TODO Auto-generated method stub
+	return null;
     }
 
-    @Override
-    public void addKeyword(String keywords) {
-	// TODO Auto-generated method stub
-	
-    }
-
-    @Override
-    public void addMeshTerm(String meshTerms) {
-	// TODO Auto-generated method stub
-	
-    }
+ 
 
 }

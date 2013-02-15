@@ -13,12 +13,16 @@ import com.google.gson.annotations.SerializedName;
 
 public class SciVerseDocument implements Document {
 
+    public class Affiliation {
+	@SerializedName("affilname")
+	String affiliationName; // "Penn State College of Medicine | Pennsylvania State University ^ Pennsylvania State Univ. ^ Pennsylvania State University College of Medicine ^ Pennsylvania State Univ. Coll. Med."
+    }
+
     @SerializedName("prism:url")
     String url; // "http://api.elsevier.com/content/article/DOI:10.1016/j.jpsychires.2008.05.001",
 
     @SerializedName("link")
     List<SciVerseLink> links;
-
     @SerializedName("dc:identifier")
     String id; // : "SCOPUS_ID:...",
     @SerializedName("prism:doi")
@@ -27,9 +31,9 @@ public class SciVerseDocument implements Document {
     String pii; // : "S0022-3956(08)00114-3",
     @SerializedName("dc:title")
     String title; // "Substance use disorders and ...",
+
     @SerializedName("dc:creator")
     String creator; // : "Mayes, S.D.",
-
     @SerializedName("prism:publicationName")
     String pubName; // : "Journal of Psychiatric Research",
     @SerializedName("prism:aggregationType")
@@ -44,98 +48,24 @@ public class SciVerseDocument implements Document {
     String volume; // : "7",
     @SerializedName("prism:issueIdentifier")
     String issueId; // : "1",
+
     @SerializedName("prism:pageRange")
     String pageRange;// : "109-119",
-
     @SerializedName("prism:coverDisplayDate")
     String displayDate; // : "January 2013",
     @SerializedName("citedby-count")
     Integer citedByCount; // : "0",
     List<Affiliation> affiliation;
     String subtype; // : "ip",
+
     String subtypeDescription; // : "Article in Press"
-
-    public class Affiliation {
-	@SerializedName("affilname")
-	String affiliationName; // "Penn State College of Medicine | Pennsylvania State University ^ Pennsylvania State Univ. ^ Pennsylvania State University College of Medicine ^ Pennsylvania State Univ. Coll. Med."
-    }
-
-    @Override
-    public String getId() {
-	return id;
-    }
-
-    @Override
-    public void setId(String id) {
-	this.id = id;
-
-    }
-
-    @Override
-    public String getDate() {
-	return coverDate;
-    }
 
     static DateFormat formatter = new SimpleDateFormat("yyyy-MM.dd");
 
     @Override
-    public Date getDateObject() {
-	try {
-	    return formatter.parse(coverDate);
-	} catch (ParseException e) {
-	}
-	return null;
-    }
-
-    public void setDate(String date) {
-	coverDate = date;
-    }
-
-    @Override
-    public String getName() {
+    public Annotation getAnnotation(int i) {
 	// TODO Auto-generated method stub
 	return null;
-    }
-
-    @Override
-    public void setName(String name) {
-	// TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public String getOwner() {
-	// TODO Auto-generated method stub
-	return null;
-    }
-
-    @Override
-    public void setOwner(String owner) {
-	// TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public String getType() {
-	// TODO Auto-generated method stub
-	return subtype;
-    }
-
-    @Override
-    public void setType(String type) {
-	this.subtype = type;
-    }
-
-    @Override
-    public Document getParent() {
-	// TODO Auto-generated method stub
-	return null;
-    }
-
-    @Override
-    public void setParent(Document parent) {
-	// TODO Auto-generated method stub
-
     }
 
     @Override
@@ -145,14 +75,9 @@ public class SciVerseDocument implements Document {
     }
 
     @Override
-    public String getTitle() {
-	return title;
-    }
-
-    @Override
-    public void setTitle(String title) {
-	this.title = title;
-
+    public List<String> getAuthorList() {
+	// TODO Auto-generated method stub
+	return null;
     }
 
     @Override
@@ -161,30 +86,23 @@ public class SciVerseDocument implements Document {
     }
 
     @Override
-    public void setAuthors(String authors) {
-	this.creator = authors;
-    }
-
-    @Override
-    public int getNumAnnotations() {
-	// TODO Auto-generated method stub
-	return 0;
-    }
-
-    @Override
-    public Annotation getAnnotation(int i) {
+    public String getCopyright() {
 	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
-    public void setDate(Date date) {
-	this.displayDate = DateFormat.getDateInstance().format(date);
-
+    public String getDate() {
+	return coverDate;
     }
 
-    public String getPubName() {
-	return pubName;
+    @Override
+    public Date getDateObject() {
+	try {
+	    return formatter.parse(coverDate);
+	} catch (ParseException e) {
+	}
+	return null;
     }
 
     @Override
@@ -199,15 +117,8 @@ public class SciVerseDocument implements Document {
     }
 
     @Override
-    public String getSource() {
-	// TODO Auto-generated method stub
-	return null;
-    }
-
-    @Override
-    public String getCopyright() {
-	// TODO Auto-generated method stub
-	return null;
+    public String getId() {
+	return id;
     }
 
     @Override
@@ -222,71 +133,37 @@ public class SciVerseDocument implements Document {
     }
 
     @Override
-    public String getPublicationName() {
-	return pubName;
-    }
-
-    @Override
-    public String getPublisher() {
+    public String getIssue() {
 	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
-    public String getUrl() {
-	return  url;
-    }
-
-    @Override
-    public String getVolume() {
+    public List<String> getKeywords() {
 	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
-    public void setCopyright(String copyright) {
+    public List<String> getMeshTerms() {
 	// TODO Auto-generated method stub
-
+	return null;
     }
 
     @Override
-    public void setIsbn(String isbn) {
+    public String getName() {
 	// TODO Auto-generated method stub
-
+	return null;
     }
 
     @Override
-    public void setIssn(String issn) {
+    public int getNumAnnotations() {
 	// TODO Auto-generated method stub
-
+	return 0;
     }
 
     @Override
-    public void setPublicationName(String name) {
-	// TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void setPublisher(String publisher) {
-	// TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void setUrl(String url) {
-	// TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void setVolume(String volume) {
-	// TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public Integer getPageStart() {
+    public String getOwner() {
 	// TODO Auto-generated method stub
 	return null;
     }
@@ -304,54 +181,67 @@ public class SciVerseDocument implements Document {
     }
 
     @Override
-    public String getIssue() {
+    public Integer getPageStart() {
 	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
-    public void setIssue(String issue) {
+    public Document getParent() {
 	// TODO Auto-generated method stub
-
+	return null;
     }
 
     @Override
-    public List<String> getAuthorList() {
+    public String getPublicationName() {
+	return pubName;
+    }
+
+    @Override
+    public String getPublisher() {
 	// TODO Auto-generated method stub
 	return null;
+    }
+
+    public String getPubName() {
+	return pubName;
+    }
+
+    @Override
+    public String getSource() {
+	// TODO Auto-generated method stub
+	return null;
+    }
+
+    @Override
+    public String getTitle() {
+	return title;
+    }
+
+    @Override
+    public String getType() {
+	// TODO Auto-generated method stub
+	return subtype;
     }
 
     @Override
     public String getUri() {
-	if (doi!=null && doi.length()>0){
-	    if (doi.startsWith("doi:")) return doi;
-	    return "doi:"+doi;
+	if (doi != null && doi.length() > 0) {
+	    if (doi.startsWith("doi:"))
+		return doi;
+	    return "doi:" + doi;
 	}
 	return id;
     }
 
     @Override
-    public List<String> getKeywords() {
+    public String getUrl() {
+	return url;
+    }
+
+    @Override
+    public String getVolume() {
 	// TODO Auto-generated method stub
 	return null;
     }
-
-    @Override
-    public void addKeyword(String keywords) {
-	// TODO Auto-generated method stub
-	
-    }
-
-    @Override
-    public List<String> getMeshTerms() {
-	// TODO Auto-generated method stub
-	return null;
-    }
-
-    @Override
-    public void addMeshTerm(String meshTerms) {
-	// TODO Auto-generated method stub
-	
-    }
-
 }

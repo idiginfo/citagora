@@ -3,19 +3,14 @@ package org.idiginfo.docsvc.svcapi.nature;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.idiginfo.docsvc.model.apisvc.Annotation;
-import org.idiginfo.docsvc.model.apisvc.BaseDocument;
 import org.idiginfo.docsvc.model.apisvc.Document;
 
 import com.google.gson.annotations.SerializedName;
 
-public class NatureDocument extends BaseDocument {
-
-	class FullTextRetrievalResponse {
-		@SerializedName("coredata")
-		public CoreData coreData;
-	}
+public class NatureDocument implements Document {
 
 	class CoreData {
 		@SerializedName("prism:url")
@@ -39,24 +34,32 @@ public class NatureDocument extends BaseDocument {
 		String coverDate;// : "2009-01-31"
 	}
 
+	class FullTextRetrievalResponse {
+		@SerializedName("coredata")
+		public CoreData coreData;
+	}
+
 	@SerializedName("full-text-retrieval-response")
 	FullTextRetrievalResponse fullTextRetrievalResponse;
 
+	static DateFormat formatter = new SimpleDateFormat("yyyy-MM.dd");
+
 	@Override
-	public String getId() {
-		if (fullTextRetrievalResponse == null
-				|| fullTextRetrievalResponse.coreData == null)
-			return null;
-		return fullTextRetrievalResponse.coreData.id;
+	public Annotation getAnnotation(int i) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public void setId(String id) {
-		if (fullTextRetrievalResponse == null
-				|| fullTextRetrievalResponse.coreData == null)
-			return;
-		fullTextRetrievalResponse.coreData.id = id;
+	public Annotation[] getAnnotations() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
+	@Override
+	public String getAuthors() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
@@ -68,8 +71,6 @@ public class NatureDocument extends BaseDocument {
 		return fullTextRetrievalResponse.coreData.coverDate;
 	}
 
-	static DateFormat formatter = new SimpleDateFormat("yyyy-MM.dd");
-
 	@Override
 	public Date getDateObject() {
 		// try {
@@ -77,123 +78,6 @@ public class NatureDocument extends BaseDocument {
 		// } catch (ParseException e) {
 		// }
 		return null;
-	}
-
-	public void setDate(String date) {
-		if (fullTextRetrievalResponse == null
-				|| fullTextRetrievalResponse.coreData == null)
-			return;
-
-		fullTextRetrievalResponse.coreData.coverDate = date;
-	}
-
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setName(String name) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public String getOwner() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setOwner(String owner) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public String getType() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setType(String type) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public Document getParent() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setParent(Document parent) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public Annotation[] getAnnotations() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getTitle() {
-		if (fullTextRetrievalResponse == null
-				|| fullTextRetrievalResponse.coreData == null)
-			return null;
-		return fullTextRetrievalResponse.coreData.title;
-	}
-
-	@Override
-	public void setTitle(String title) {
-		if (fullTextRetrievalResponse == null
-				|| fullTextRetrievalResponse.coreData == null)
-			return;
-
-		fullTextRetrievalResponse.coreData.title = title;
-
-	}
-
-	@Override
-	public String getAuthors() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setAuthors(String authors) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public int getNumAnnotations() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public Annotation getAnnotation(int i) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setDate(Date date) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public String getPubName() {
-		if (fullTextRetrievalResponse == null
-				|| fullTextRetrievalResponse.coreData == null)
-			return null;
-		return fullTextRetrievalResponse.coreData.pubName;
 	}
 
 	@Override
@@ -206,6 +90,155 @@ public class NatureDocument extends BaseDocument {
 	public String getGUID() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public String getId() {
+		if (fullTextRetrievalResponse == null
+				|| fullTextRetrievalResponse.coreData == null)
+			return null;
+		return fullTextRetrievalResponse.coreData.id;
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getNumAnnotations() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public String getOwner() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Document getParent() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getPubName() {
+		if (fullTextRetrievalResponse == null
+				|| fullTextRetrievalResponse.coreData == null)
+			return null;
+		return fullTextRetrievalResponse.coreData.pubName;
+	}
+
+	@Override
+	public String getTitle() {
+		if (fullTextRetrievalResponse == null
+				|| fullTextRetrievalResponse.coreData == null)
+			return null;
+		return fullTextRetrievalResponse.coreData.title;
+	}
+
+	@Override
+	public String getType() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<String> getAuthorList() {
+	    // TODO Auto-generated method stub
+	    return null;
+	}
+
+	@Override
+	public String getCopyright() {
+	    // TODO Auto-generated method stub
+	    return null;
+	}
+
+	@Override
+	public String getIsbn() {
+	    // TODO Auto-generated method stub
+	    return null;
+	}
+
+	@Override
+	public String getIssn() {
+	    // TODO Auto-generated method stub
+	    return null;
+	}
+
+	@Override
+	public String getIssue() {
+	    // TODO Auto-generated method stub
+	    return null;
+	}
+
+	@Override
+	public List<String> getKeywords() {
+	    // TODO Auto-generated method stub
+	    return null;
+	}
+
+	@Override
+	public List<String> getMeshTerms() {
+	    // TODO Auto-generated method stub
+	    return null;
+	}
+
+	@Override
+	public Integer getPageEnd() {
+	    // TODO Auto-generated method stub
+	    return null;
+	}
+
+	@Override
+	public String getPages() {
+	    // TODO Auto-generated method stub
+	    return null;
+	}
+
+	@Override
+	public Integer getPageStart() {
+	    // TODO Auto-generated method stub
+	    return null;
+	}
+
+	@Override
+	public String getPublicationName() {
+	    // TODO Auto-generated method stub
+	    return null;
+	}
+
+	@Override
+	public String getPublisher() {
+	    // TODO Auto-generated method stub
+	    return null;
+	}
+
+	@Override
+	public String getSource() {
+	    // TODO Auto-generated method stub
+	    return null;
+	}
+
+	@Override
+	public String getUri() {
+	    // TODO Auto-generated method stub
+	    return null;
+	}
+
+	@Override
+	public String getUrl() {
+	    // TODO Auto-generated method stub
+	    return null;
+	}
+
+	@Override
+	public String getVolume() {
+	    // TODO Auto-generated method stub
+	    return null;
 	}
 
 }
