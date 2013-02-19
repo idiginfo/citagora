@@ -7,10 +7,7 @@ import org.idiginfo.docsvc.svcapi.msrc.MsrcApiParams;
 import org.idiginfo.docsvc.svcapi.msrc.MsrcResult;
 import org.idiginfo.docsvc.svcapi.msrc.MsrcService;
 
-import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
 public class MsrcSample {
