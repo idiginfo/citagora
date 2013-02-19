@@ -122,12 +122,6 @@ public class MsrcService implements DocService {
 	// return document.getBiblioId();
     }
 
-    @Override
-    public Users getUsers(ApiParams params) {
-	// TODO Auto-generated method stub
-	return null;
-    }
-
     /**
      * Get document from Biblio service Check first for presence of doi, then
      * pmcid in params If not present, send parameters to service
@@ -148,38 +142,9 @@ public class MsrcService implements DocService {
     }
 
     @Override
-    public Document getDocument(String id, String date) {
-	return getDocument(id, date, false, false);
-    }
-
-    @Override
-    public Document getDocument(String id, String date, boolean withMeta,
-	    boolean withNotes) {
-	MsrcApiParams params = new MsrcApiParams();
-	params.setId(id);
-	Documents documents = getBiblioDocuments("getdocument", params);
-	if (documents == null || documents.size() < 1)
-	    return null;
-	return documents.get(0);
-    }
-
-    @Override
     public Documents getDocuments(ApiParams params) {
 	Documents documents = getBiblioDocuments("getdocuments", params);
 	return documents;
-    }
-
-    @Override
-    public Documents getDocuments(String user) {
-	return getDocuments(user, false, false);
-    }
-
-    @Override
-    public Documents getDocuments(String user, boolean withMeta,
-	    boolean withNotes) {
-	MsrcApiParams params = new MsrcApiParams();
-	// map to AnnotateDocuments
-	return getDocuments(params);
     }
 
     @Override
@@ -190,12 +155,6 @@ public class MsrcService implements DocService {
 
     @Override
     public Document getAnnotations(Document document) {
-	// TODO Auto-generated method stub
-	return null;
-    }
-
-    @Override
-    public Document getAnnotations(String code, String date) {
 	// TODO Auto-generated method stub
 	return null;
     }
@@ -264,10 +223,11 @@ public class MsrcService implements DocService {
     }
 
     public List<Integer> getMsrcDocumentIds() {
-	//params?
+	// params?
 	JsonElement result = queryService("documentIds", params);
 	MsrcResult msrcResult = gson.fromJson(result, MsrcResult.class);
-	if (msrcResult.documentIds!=null) return msrcResult.documentIds;
+	if (msrcResult.documentIds != null)
+	    return msrcResult.documentIds;
 	return new Vector<Integer>();
     }
 }

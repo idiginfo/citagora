@@ -49,49 +49,6 @@ public class NatureService implements DocService {
     }
 
     @Override
-    public Users getUsers(ApiParams params) {
-	// TODO Auto-generated method stub
-	return null;
-    }
-
-//    @Override
-//    public Document getDocument(ApiParams params) {
-//	return getSpringerDocument(params);
-//    }
-//
-//    @Override
-//    public Document getDocument(String id, String date) {
-//	return getDocument(id, date, false, false);
-//    }
-//
-//    @Override
-//    public Document getDocument(String id, String date, boolean withMeta,
-//	    boolean withNotes) {
-//	NatureApiParams params = new NatureApiParams();
-//	params.setId(id);
-//	return getSpringerDocument(params);
-//    }
-//
-//    @Override
-//    public Documents getDocuments(ApiParams params) {
-//	Documents documents = getSpringerDocuments("getdocuments", params);
-//	return documents;
-//    }
-//
-//    @Override
-//    public Documents getDocuments(String user) {
-//	return getDocuments(user, false, false);
-//    }
-//
-    @Override
-    public Documents getDocuments(String user, boolean withMeta,
-	    boolean withNotes) {
-	NatureApiParams params = new NatureApiParams();
-	// map to AnnotateDocuments
-	return getDocuments(params);
-    }
-
-    @Override
     public Document getAnnotations(ApiParams params) {
 	// TODO Auto-generated method stub
 	return null;
@@ -103,29 +60,24 @@ public class NatureService implements DocService {
 	return null;
     }
 
-    @Override
-    public Document getAnnotations(String code, String date) {
-	// TODO Auto-generated method stub
-	return null;
-    }
-
-//    private Document getSpringerDocument(ApiParams params) {
-//	// TODO must make a SpringerResult and then extract a SpringerRecord
-//	JsonElement content = queryService("getdocument", params);
-//	printJson(content, "c:/dev/api samples/springer1.json");
-//	NatureResult result = gson.fromJson(content, NatureResult.class);
-//	Documents documents = result.getDocuments();
-//	if (documents == null || documents.size() < 1)
-//	    return null;
-//	return documents.get(0);
-//    }
-//
-//    public Documents getSpringerDocuments(String function, ApiParams params) {
-//	NatureResult result = getSpringerResult(function, params);
-//	if (result == null)
-//	    return null;
-//	return result.getDocuments();
-//    }
+    // private Document getSpringerDocument(ApiParams params) {
+    // // TODO must make a SpringerResult and then extract a SpringerRecord
+    // JsonElement content = queryService("getdocument", params);
+    // printJson(content, "c:/dev/api samples/springer1.json");
+    // NatureResult result = gson.fromJson(content, NatureResult.class);
+    // Documents documents = result.getDocuments();
+    // if (documents == null || documents.size() < 1)
+    // return null;
+    // return documents.get(0);
+    // }
+    //
+    // public Documents getSpringerDocuments(String function, ApiParams params)
+    // {
+    // NatureResult result = getSpringerResult(function, params);
+    // if (result == null)
+    // return null;
+    // return result.getDocuments();
+    // }
 
     public NatureResult getSpringerResult(String function, ApiParams params) {
 	JsonElement content = queryService(function, params);
@@ -136,8 +88,7 @@ public class NatureService implements DocService {
     private JsonElement queryService(String function, ApiParams params) {
 	try {
 	    // TODO add other functions
-	    NatureUrl url = new NatureUrl("metadata", "json", function,
-		    params);
+	    NatureUrl url = new NatureUrl("metadata", "json", function, params);
 	    url.prepare();
 	    System.out.println(url.build());
 	    HttpRequest request = requestFactory.buildGetRequest(url);
@@ -186,26 +137,7 @@ public class NatureService implements DocService {
     }
 
     @Override
-    public Document getDocument(String code, String date) {
-	// TODO Auto-generated method stub
-	return null;
-    }
-
-    @Override
-    public Document getDocument(String code, String date, boolean withMeta,
-	    boolean withNotes) {
-	// TODO Auto-generated method stub
-	return null;
-    }
-
-    @Override
     public Documents getDocuments(ApiParams params) {
-	// TODO Auto-generated method stub
-	return null;
-    }
-
-    @Override
-    public Documents getDocuments(String user) {
 	// TODO Auto-generated method stub
 	return null;
     }

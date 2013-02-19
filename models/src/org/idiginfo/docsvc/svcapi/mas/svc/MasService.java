@@ -91,23 +91,6 @@ public class MasService implements DocService {
 
     }
 
-    @Override
-    public Document getDocument(String id, String date) {
-	return getDocument(id, date, false, false);
-    }
-
-    @Override
-    public Documents getDocuments(String user) {
-	return getDocuments(user, false, false);
-    }
-
-    @Override
-    public Documents getDocuments(String user, boolean withMeta,
-	    boolean withNotes) {
-	MasApiParams params = new MasApiParams();
-	// map to AnnotateDocuments
-	return getDocuments(params);
-    }
 
     @Override
     public Document getAnnotations(ApiParams params) {
@@ -117,12 +100,6 @@ public class MasService implements DocService {
 
     @Override
     public Document getAnnotations(Document document) {
-	// TODO Auto-generated method stub
-	return null;
-    }
-
-    @Override
-    public Document getAnnotations(String code, String date) {
 	// TODO Auto-generated method stub
 	return null;
     }
@@ -172,20 +149,7 @@ public class MasService implements DocService {
     }
 
     @Override
-    public Users getUsers(ApiParams params) {
-	// TODO Auto-generated method stub
-	return null;
-    }
-
-    @Override
     public Document getDocument(ApiParams params) {
-	// TODO Auto-generated method stub
-	return null;
-    }
-
-    @Override
-    public Document getDocument(String code, String date, boolean withMeta,
-	    boolean withNotes) {
 	// TODO Auto-generated method stub
 	return null;
     }

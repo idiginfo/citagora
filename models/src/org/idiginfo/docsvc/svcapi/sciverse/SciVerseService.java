@@ -47,7 +47,7 @@ public class SciVerseService implements DocService {
     String authKey;
 
     public SciVerseService() {
-	 enableLogging();
+	enableLogging();
 	authKey = getAuthKey();
 	System.out.println("authKey: " + authKey);
     }
@@ -102,26 +102,7 @@ public class SciVerseService implements DocService {
     }
 
     @Override
-    public Users getUsers(ApiParams params) {
-	// TODO Auto-generated method stub
-	return null;
-    }
-
-    @Override
     public Document getDocument(ApiParams params) {
-	return getSciVerseDocument(params);
-    }
-
-    @Override
-    public SciVerseDocument getDocument(String id, String date) {
-	return getDocument(id, date, false, false);
-    }
-
-    @Override
-    public SciVerseDocument getDocument(String id, String date,
-	    boolean withMeta, boolean withNotes) {
-	SciVerseApiParams params = new SciVerseApiParams();
-	params.setId(id);
 	return getSciVerseDocument(params);
     }
 
@@ -133,19 +114,6 @@ public class SciVerseService implements DocService {
     }
 
     @Override
-    public SciVerseDocuments getDocuments(String user) {
-	return getDocuments(user, false, false);
-    }
-
-    @Override
-    public SciVerseDocuments getDocuments(String user, boolean withMeta,
-	    boolean withNotes) {
-	SciVerseApiParams params = new SciVerseApiParams();
-	// map to AnnotateDocuments
-	return getDocuments(params);
-    }
-
-    @Override
     public SciVerseDocument getAnnotations(ApiParams params) {
 	// TODO Auto-generated method stub
 	return null;
@@ -153,12 +121,6 @@ public class SciVerseService implements DocService {
 
     @Override
     public SciVerseDocument getAnnotations(Document document) {
-	// TODO Auto-generated method stub
-	return null;
-    }
-
-    @Override
-    public SciVerseDocument getAnnotations(String code, String date) {
 	// TODO Auto-generated method stub
 	return null;
     }

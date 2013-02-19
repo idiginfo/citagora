@@ -49,26 +49,7 @@ public class SpringerService implements DocService {
     }
 
     @Override
-    public Users getUsers(ApiParams params) {
-	// TODO Auto-generated method stub
-	return null;
-    }
-
-    @Override
     public Document getDocument(ApiParams params) {
-	return getSpringerDocument(params);
-    }
-
-    @Override
-    public Document getDocument(String id, String date) {
-	return getDocument(id, date, false, false);
-    }
-
-    @Override
-    public Document getDocument(String id, String date, boolean withMeta,
-	    boolean withNotes) {
-	SpringerApiParams params = new SpringerApiParams();
-	params.setId(id);
 	return getSpringerDocument(params);
     }
 
@@ -79,19 +60,6 @@ public class SpringerService implements DocService {
     }
 
     @Override
-    public Documents getDocuments(String user) {
-	return getDocuments(user, false, false);
-    }
-
-    @Override
-    public Documents getDocuments(String user, boolean withMeta,
-	    boolean withNotes) {
-	SpringerApiParams params = new SpringerApiParams();
-	// map to AnnotateDocuments
-	return getDocuments(params);
-    }
-
-    @Override
     public Document getAnnotations(ApiParams params) {
 	// TODO Auto-generated method stub
 	return null;
@@ -99,12 +67,6 @@ public class SpringerService implements DocService {
 
     @Override
     public Document getAnnotations(Document document) {
-	// TODO Auto-generated method stub
-	return null;
-    }
-
-    @Override
-    public Document getAnnotations(String code, String date) {
 	// TODO Auto-generated method stub
 	return null;
     }
