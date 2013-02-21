@@ -88,7 +88,7 @@ public class RequestProcessor {
 	if (doi != null) {
 	    System.out.print(" doi: " + doi);
 	    Reference ref = factory.findReferenceByDoi(doi);
-	    if (ref != null ) {
+	    if (ref != null) {
 		// get the containers for the document
 		List<Container> containers = ref.getContainers();
 		System.out.println(" found");
@@ -134,12 +134,7 @@ public class RequestProcessor {
 	    result.body = "'method' parameter must be supplied";
 	    return result;
 	}
-	// ApiParams apiParams = params.getApiServiceParams();
-	if (params.getMethod().equals(DocServicesParams.METHOD_GET_USERS)) {
-	    Users users = service.getUsers(params);
-	    objects = users;
-	} else if (params.getMethod().equals(
-		DocServicesParams.METHOD_GET_DOCUMENTS)) {
+	if (params.getMethod().equals(DocServicesParams.METHOD_GET_DOCUMENTS)) {
 	    documents = service.getDocuments(params);
 	    objects = documents;
 	} else if (params.getMethod().equals(
