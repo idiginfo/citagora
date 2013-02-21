@@ -9,7 +9,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.sun.syndication.feed.module.opensearch.OpenSearchModule;
 
 public class TestGSON {
 
@@ -56,7 +55,7 @@ public class TestGSON {
 	    e.printStackTrace();
 	}
 	
-	OpenSearchModule o;
+	//OpenSearchModule o;
 
 	// // convert the json string back to object
 	// JsonParser parser = new JsonParser();
