@@ -6,7 +6,7 @@ import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="Dali", date="2013-02-07T16:36:11.928-0500")
+@Generated(value="Dali", date="2013-02-20T12:03:50.572-0500")
 @StaticMetamodel(ReferenceImpl.class)
 public class ReferenceImpl_ extends CitagoraObjectImpl_ {
 	public static volatile SingularAttribute<ReferenceImpl, String> abstractText;
