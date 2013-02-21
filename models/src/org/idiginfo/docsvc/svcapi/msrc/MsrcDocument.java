@@ -135,7 +135,12 @@ public class MsrcDocument implements Document {
     }
 
     public String getDoi() {
-	return doi;
+	if (doi!=null && doi.startsWith("10.")){
+	    return doi;
+	}
+	// not a real doi, ignore it
+	setDoi(null);
+	return null;
     }
 
     public void setDoi(String doi) {

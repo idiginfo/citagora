@@ -106,7 +106,12 @@ public class MsrcRecord implements Document {
     public String getId() {
 	if (document == null)
 	    return null;
-	return document.getId();
+	String docId = document.getId();
+	if (docId != null && docId.startsWith("doi:10.")) {
+	    // not a proper doi
+	    return docId;
+	}
+	return id;
     }
 
     @Override
@@ -226,9 +231,7 @@ public class MsrcRecord implements Document {
 
     @Override
     public String getUri() {
-	if (document == null)
-	    return null;
-	return document.getUri();
+	return getId();
     }
 
     @Override
