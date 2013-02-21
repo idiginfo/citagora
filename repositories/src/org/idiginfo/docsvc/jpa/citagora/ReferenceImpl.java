@@ -10,6 +10,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -20,6 +21,7 @@ import javax.persistence.TemporalType;
 import org.apache.commons.lang.StringUtils;
 import org.idiginfo.docsvc.model.citagora.Author;
 import org.idiginfo.docsvc.model.citagora.CitagoraAgent;
+import org.idiginfo.docsvc.model.citagora.CitagoraFactory;
 import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.model.citagora.Reference;
 
@@ -28,7 +30,8 @@ import org.idiginfo.docsvc.model.citagora.Reference;
 @DiscriminatorValue(value = "reference")
 public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
 
-    @Column(length = 10000)
+    @Lob
+    // @Column(length = 10000)
     String abstractText; // 'abstract' is a Java keyword
     @Column(length = 1000)
     String title;
@@ -164,6 +167,9 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
     }
 
     public void setDoi(String doi) {
+	if (doi == null || !doi.startsWith("10.")) {
+	    doi = null;
+	}
 	this.doi = doi;
     }
 
@@ -539,7 +545,7 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
 		return isbn;
 	    return ISBN_PREFIX + isbn;
 	}
-	return null;
+	return uri;
     }
 
     @Override
