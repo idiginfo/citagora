@@ -28,12 +28,12 @@ import com.google.gson.Gson;
 public class MsrcLoad {
 
     public MsrcLoad() {
-	CitagoraFactory.setPersistence("idiginfodev");
+	CitagoraFactory.setPersistence("local");
 	loader = new LoadDocuments();
     }
 
     Gson gson = MsrcService.getGson();
-    LoadDocuments loader = null;
+    LoadDocuments loader = new LoadDocuments();
     CitagoraFactory factory = loader.getFactory();
     AnnotateService annotateService = new AnnotateService();
 
