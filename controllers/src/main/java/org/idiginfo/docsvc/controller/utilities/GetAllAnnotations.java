@@ -31,7 +31,7 @@ public class GetAllAnnotations {
 
     XlsAnnotationWriter annotationWriter = new XlsAnnotationWriter();
 
-    DocService service = new AnnotateService();
+    AnnotateService service = new AnnotateService();
     // output parameters
     // static final String OUTPUT_PREFIX =
     // "c:/dev/annotateSampleFiles/some_notes";
