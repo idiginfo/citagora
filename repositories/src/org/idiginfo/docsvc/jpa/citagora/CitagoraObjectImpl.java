@@ -41,7 +41,7 @@ public class CitagoraObjectImpl implements CitagoraObject {
     @Temporal(TemporalType.TIMESTAMP)
     Date updated;
     String source;
-    @Column(length=1000)
+    @Column(length = 1000)
     String rights;
     @ManyToOne(targetEntity = PersonImpl.class, cascade = CascadeType.ALL)
     CitagoraAgent generator;
@@ -120,13 +120,30 @@ public class CitagoraObjectImpl implements CitagoraObject {
     @Override
     public String getUri() {
 	if (uri == null && myId != null)
-	    uri = makeId(myCollection, myId);
+	    return makeUri();
 	return uri;
+    }
+
+    public String makeUri() {
+	if (uri == null && myId != null) {
+	    uri = makeId(myCollection, myId);
+	}
+	return null;
     }
 
     @Override
     public void setUri(String uri) {
-	this.uri = uri;
+	// check for doi
+	if (uri != null) {
+	    if (uri.startsWith("10.")) {
+		// uri is doi
+		this.uri = "doi:" + uri;
+	    } else {
+		this.uri = uri;
+	    }
+	} else {
+	    makeUri();
+	}
     }
 
     @Override
