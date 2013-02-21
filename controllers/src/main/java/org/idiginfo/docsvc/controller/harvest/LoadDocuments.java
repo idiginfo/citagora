@@ -39,6 +39,10 @@ public class LoadDocuments {
     Container load(Container containerFields, Document document) {
 	boolean localTransaction = false;
 	String doi = document.getDoi();
+	if (doi!=null && !doi.startsWith("10.")){
+	    //not a valid doi
+	    doi = null;
+	}
 	if (doi != null) {
 	    Reference ref = factory.findReferenceByDoi(doi);
 	    if (ref != null) {
