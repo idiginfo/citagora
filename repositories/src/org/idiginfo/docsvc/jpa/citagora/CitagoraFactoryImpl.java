@@ -190,7 +190,7 @@ public class CitagoraFactoryImpl extends CitagoraFactory {
 	return findObject(ReferenceImpl.class, key);
     }
 
-    static final String REFERENCE_CLASS_NAME = ReferenceImpl.class
+    public static final String REFERENCE_CLASS_NAME = ReferenceImpl.class
 	    .getCanonicalName();
 
     @SuppressWarnings("unchecked")
@@ -342,6 +342,7 @@ public class CitagoraFactoryImpl extends CitagoraFactory {
 
     @Override
     public boolean isTransactionActive() {
+	getEntityManager();
 	EntityTransaction to = em.getTransaction();
 	if (to == null)
 	    return false;
