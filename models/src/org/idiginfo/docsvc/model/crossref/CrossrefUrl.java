@@ -9,7 +9,10 @@ import com.google.gson.JsonElement;
 public class CrossrefUrl extends GenericUrl {
 
     public CrossrefUrl(String collection, String resultFormat) {
-	super(CrossrefApiParams.API_URL);
+	super(CrossrefApiParams.API_URL + collection);
+	if (collection.equals("dois")){
+	    header = true;
+	}
 	// apiKey = CrossrefApiParams.API_KEY;
     }
 
@@ -35,7 +38,7 @@ public class CrossrefUrl extends GenericUrl {
     }
 
     @Key("q")
-    protected String queryString = "";
+    protected String queryString = null;
     @Key
     String sort;
     @Key
@@ -55,7 +58,7 @@ public class CrossrefUrl extends GenericUrl {
     @Key
     String name;
     @Key
-    String header = "true";
+    Boolean header = null;
 
     /**
      * Get the URL ready for execution

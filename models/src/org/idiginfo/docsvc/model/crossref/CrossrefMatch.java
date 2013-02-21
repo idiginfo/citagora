@@ -36,9 +36,9 @@ public class CrossrefMatch {
     // result from Match
     @SerializedName("query_ok")
     Boolean queryOk;
-    Result[] results;
+    List<MatchResult> results;
 
-    public class Result {
+    public class MatchResult {
 	String text;
 	Boolean match;
 	String doi;
@@ -70,7 +70,7 @@ public class CrossrefMatch {
 	return queryOk;
     }
 
-    public Result[] getResults() {
+    public List<MatchResult> getResults() {
 	return results;
     }
 

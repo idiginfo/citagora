@@ -10,18 +10,25 @@ import org.idiginfo.docsvc.model.apisvc.DocService;
 import org.idiginfo.docsvc.model.apisvc.Document;
 import org.idiginfo.docsvc.model.apisvc.Documents;
 import org.idiginfo.docsvc.model.apisvc.Users;
+import org.idiginfo.docsvc.svcapi.SvcApiLogger;
+import org.idiginfo.docsvc.svcapi.sciverse.SciVerseResult;
 
+import com.google.api.client.http.ByteArrayContent;
+import com.google.api.client.http.HttpContent;
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestFactory;
 import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.InputStreamContent;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
 
 public class CrossrefService implements DocService {
 
@@ -29,6 +36,10 @@ public class CrossrefService implements DocService {
     static JsonParser parser = new JsonParser();
     static final int CONNECT_TIMEOUT = 200000;
     Gson gson = getGson();
+
+    public CrossrefService() {
+	SvcApiLogger.enableLogging();
+    }
 
     private static HttpRequestFactory requestFactory = HTTP_TRANSPORT
 	    .createRequestFactory(new HttpRequestInitializer() {
@@ -124,7 +135,48 @@ public class CrossrefService implements DocService {
     }
 
     public CrossrefResult getResponse(CrossrefApiParams params) {
+	JsonElement content = queryService("getDocuments", params);
+	CrossrefResult result = gson.fromJson(content, CrossrefResult.class);
+	if (result == null)
+	    return null;
+	return result;
+    }
+
+    public JsonElement matchService(String[] references) {
+	// create json array from references
+	// post to /links
 	// TODO Auto-generated method stub
-	return null;
+	try {
+	    CrossrefUrl url = new CrossrefUrl("links", "json");
+	    url.prepare();
+	    System.out.println(url.build());
+	    // create json array of reference strings
+	    JsonArray jsonContent = new JsonArray();
+	    for (String ref : references) {
+		jsonContent.add(new JsonPrimitive(ref));
+	    }
+	    String strContent = gson.toJson(jsonContent);
+	    ByteArrayContent content = new ByteArrayContent("application/json",
+		    strContent.getBytes());
+
+	    HttpRequest request = requestFactory.buildPostRequest(url, content);
+	    request.setConnectTimeout(CONNECT_TIMEOUT);
+	    HttpResponse result = request.execute();
+	    Reader reader = new InputStreamReader(result.getContent(), "UTF-8");
+	    JsonParser parser = new JsonParser();
+	    JsonElement json = parser.parse(reader);
+	    result.disconnect();
+	    return json;
+	} catch (IOException e) {
+	    e.printStackTrace();
+	    return null;
+	}
+    }
+
+    public CrossrefMatch getMatch(String[] references) {
+	JsonElement result = matchService(references);
+	System.out.println("Match result: " + gson.toJson(result));
+	CrossrefMatch match = gson.fromJson(result, CrossrefMatch.class);
+	return match;
     }
 }
