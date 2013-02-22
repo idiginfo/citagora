@@ -241,4 +241,10 @@ public class NatureRecord implements Document {
 	return volume;
     }
 
+	@Override
+	public String getAbstractText() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

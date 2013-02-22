@@ -61,6 +61,7 @@ public class MapSvcapiToCitagora {
 	toReference.setKeywords(fromDocument.getKeywords());
 	toReference.setMeshTerms(fromDocument.getMeshTerms());
 	toReference.setPublisher(fromDocument.getPublisher());
+	toReference.setAbstract(fromDocument.getAbstractText());
 
 	if (fromDocument.getPublicationName() != null) {
 	    // map journal fields

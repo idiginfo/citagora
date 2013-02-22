@@ -244,4 +244,10 @@ public class SciVerseDocument implements Document {
 	// TODO Auto-generated method stub
 	return null;
     }
+
+	@Override
+	public String getAbstractText() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

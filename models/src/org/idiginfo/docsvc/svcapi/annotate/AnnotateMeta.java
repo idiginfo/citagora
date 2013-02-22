@@ -295,4 +295,10 @@ public class AnnotateMeta implements Document {
 	this.code = code;
     }
 
+	@Override
+	public String getAbstractText() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

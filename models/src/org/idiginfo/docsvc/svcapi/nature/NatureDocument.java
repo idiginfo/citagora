@@ -241,4 +241,10 @@ public class NatureDocument implements Document {
 	    return null;
 	}
 
+	@Override
+	public String getAbstractText() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

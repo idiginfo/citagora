@@ -248,4 +248,10 @@ public class MsrcRecord implements Document {
 	return document.getVolume();
     }
 
+	@Override
+	public String getAbstractText() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

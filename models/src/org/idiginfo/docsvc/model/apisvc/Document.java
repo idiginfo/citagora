@@ -64,5 +64,7 @@ public interface Document {
     public String getUrl();
 
     public String getVolume();
+    
+    public String getAbstractText();
 
 }

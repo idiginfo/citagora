@@ -47,7 +47,8 @@ import com.google.gson.annotations.SerializedName;
  */
 public class MasPublication implements Document {
 
-    protected String _abstract;
+    @SerializedName("Abstract")
+	protected String _abstract;
 
     protected List<MasAuthor> author;
 
@@ -77,6 +78,10 @@ public class MasPublication implements Document {
     protected Integer year;
 
     public String get_abstract() {
+	return _abstract;
+    }
+
+    public String getAbstractText() {
 	return _abstract;
     }
 
@@ -298,14 +303,6 @@ public class MasPublication implements Document {
 
     public Integer getYear() {
 	return year;
-    }
-
-    public void set_abstract(String _abstract) {
-	this._abstract = _abstract;
-    }
-
-    public void setAuthor(List<MasAuthor> author) {
-	this.author = author;
     }
 
 }

@@ -286,4 +286,10 @@ public class NatureEntry implements Document {
 	return head.volume;
     }
 
+	@Override
+	public String getAbstractText() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
