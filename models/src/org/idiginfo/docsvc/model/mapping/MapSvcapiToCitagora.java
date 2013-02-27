@@ -62,7 +62,19 @@ public class MapSvcapiToCitagora {
 	toReference.setMeshTerms(fromDocument.getMeshTerms());
 	toReference.setPublisher(fromDocument.getPublisher());
 	toReference.setAbstract(fromDocument.getAbstractText());
-
+	toReference.setAggregationType(fromDocument.getAggregationType());
+	toReference.setArXivId(fromDocument.getarXivId());
+	toReference.setAuthorNotes(fromDocument.getAuthorNotes());
+	toReference.setCoverDate(fromDocument.getCoverDate());
+	toReference.setEdition(fromDocument.getEdition());
+	toReference.seteIssn(fromDocument.geteIssn());
+	toReference.setGenre(fromDocument.getGenre());
+	toReference.setItemNumber(fromDocument.getItemNumber());
+	toReference.setPublicationDate(fromDocument.getPublicationDate());
+	toReference.setPubMedId(fromDocument.getPubMedId());
+	toReference.setRights(fromDocument.getRights());
+	toReference.setSeriesTitle(fromDocument.getSeriesTitle());
+	
 	if (fromDocument.getPublicationName() != null) {
 	    // map journal fields
 	    // part of a larger publication, id is from issn

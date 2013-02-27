@@ -156,4 +156,52 @@ public interface Reference extends CitagoraObject {
 
     public void setMeshTerms(List<String> meshTerms);
 
+    public String getAggregationType();
+
+	public void setAggregationType(String aggregationType);
+
+	public String getArXivId();
+
+	public void setArXivId(String arXivId);
+
+	public String getCoverDate();
+
+	public void setCoverDate(String coverDate);
+
+	public String getEdition();
+
+	public void setEdition(String edition);
+
+	public String geteIssn();
+
+	public void seteIssn(String eIssn);
+
+	public String getGenre();
+
+	public void setGenre(String genre);
+
+	public String getAuthorNotes();
+
+	public void setAuthorNotes(String authorNotes);
+
+	public String getItemNumber();
+
+	public void setItemNumber(String number);
+
+	public String getPublicationDate();
+
+	public void setPublicationDate(String publicationDate);
+
+	public String getPubMedId();
+
+	public void setPubMedId(String pubMedId);
+
+	public String getRights();
+
+	public void setRights(String rights);
+
+	public String getSeriesTitle();
+
+	public void setSeriesTitle(String seriesTitle);
+
 }

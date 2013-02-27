@@ -247,4 +247,76 @@ public class SpringerRecord implements Document {
 		return null;
 	}
 
+	@Override
+	public String getAggregationType() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getarXivId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getAuthorNotes() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getCoverDate() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getEdition() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String geteIssn() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getGenre() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getLanguage() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getItemNumber() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getPubMedId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getRights() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getSeriesTitle() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
