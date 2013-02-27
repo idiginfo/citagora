@@ -254,7 +254,19 @@ public class MapCitagoraObject {
 	addProperty(resource, DCTERMS.publisher, from.getPublisher());
 	addProperty(resource, BIBO.volume, from.getVolume());
 	addProperty(resource, BIBO.authorList, from.getAuthorString());
-
+	addProperty(resource, RdfReview.type, from.getAggregationType());
+	addProperty(resource, DCTERMS.identifier, from.getArXivId());
+	addProperty(resource, DCTERMS.created, from.getCoverDate());
+	addProperty(resource, BIBO.edition, from.getEdition());
+	addProperty(resource, BIBO.eissn, from.geteIssn());
+	addProperty(resource, DCTERMS.type, from.getGenre());
+	addProperty(resource, DCTERMS.description, from.getAuthorNotes());
+	addProperty(resource, BIBO.number, from.getItemNumber());
+	addProperty(resource, DCTERMS.temporal, from.getPublicationDate());
+	addProperty(resource, BIBO.pmid, from.getPmid());
+	addProperty(resource, DCTERMS.rights, from.getRights());
+	addProperty(resource, DCTERMS.isPartOf, from.getSeriesTitle());
+	
 	return resource;
 
     }
