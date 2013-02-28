@@ -48,7 +48,8 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
     String pmid;
     @Column(unique = true)
     String doi;
-    @Column(length = 1000)
+    @Lob
+    // @Column(length = 1000)
     String authorString;
     @Column(unique = true)
     String issn;
@@ -56,6 +57,7 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
     String isbn;
     String issue;
     String url;
+    @Lob
     String keywords;
     String meshTerms;
 
@@ -93,6 +95,19 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
     Double accuracyRating;
     Double originalityRating;
 
+    String aggregationType;
+    String arXivId;
+    String coverDate;
+    String edition;
+    String eIssn;
+    String genre;
+    String authorNotes;
+    String itemNumber;
+    String publicationDate;
+    String rights;
+    String seriesTitle;
+    
+    
     public ReferenceImpl() {
 	type = Reference.TYPE;
 	setCollection(Reference.COLLECTION);
@@ -585,4 +600,93 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
 	String meshString = StringUtils.join(meshTerms, ',');
 	this.meshTerms = meshString;
     }
+
+    public String getAggregationType() {
+		return aggregationType;
+	}
+
+	public void setAggregationType(String aggregationType) {
+		this.aggregationType = aggregationType;
+	}
+
+	public String getArXivId() {
+		return arXivId;
+	}
+
+	public void setArXivId(String arXivId) {
+		this.arXivId = arXivId;
+	}
+
+	public String getCoverDate() {
+		return coverDate;
+	}
+
+	public void setCoverDate(String coverDate) {
+		this.coverDate = coverDate;
+	}
+
+	public String getEdition() {
+		return edition;
+	}
+
+	public void setEdition(String edition) {
+		this.edition = edition;
+	}
+
+	public String geteIssn() {
+		return eIssn;
+	}
+
+	public void seteIssn(String eIssn) {
+		this.eIssn = eIssn;
+	}
+
+	public String getGenre() {
+		return genre;
+	}
+
+	public void setGenre(String genre) {
+		this.genre = genre;
+	}
+
+	public String getAuthorNotes() {
+		return authorNotes;
+	}
+
+	public void setAuthorNotes(String authorNotes) {
+		this.authorNotes = authorNotes;
+	}
+
+	public String getItemNumber() {
+		return itemNumber;
+	}
+
+	public void setItemNumber(String itemNumber) {
+		this.itemNumber = itemNumber;
+	}
+
+	public String getPublicationDate() {
+		return publicationDate;
+	}
+
+	public void setPublicationDate(String publicationDate) {
+		this.publicationDate = publicationDate;
+	}
+
+	public String getRights() {
+		return rights;
+	}
+
+	public void setRights(String rights) {
+		this.rights = rights;
+	}
+
+	public String getSeriesTitle() {
+		return seriesTitle;
+	}
+
+	public void setSeriesTitle(String seriesTitle) {
+		this.seriesTitle = seriesTitle;
+	}
+
 }
