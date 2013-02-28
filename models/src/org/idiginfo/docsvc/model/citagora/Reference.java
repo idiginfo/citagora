@@ -192,10 +192,6 @@ public interface Reference extends CitagoraObject {
 
 	public void setPublicationDate(String publicationDate);
 
-	public String getPubMedId();
-
-	public void setPubMedId(String pubMedId);
-
 	public String getRights();
 
 	public void setRights(String rights);

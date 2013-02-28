@@ -71,7 +71,7 @@ public class MapSvcapiToCitagora {
 	toReference.setGenre(fromDocument.getGenre());
 	toReference.setItemNumber(fromDocument.getItemNumber());
 	toReference.setPublicationDate(fromDocument.getPublicationDate());
-	toReference.setPubMedId(fromDocument.getPubMedId());
+	toReference.setPmid(fromDocument.getPMId());
 	toReference.setRights(fromDocument.getRights());
 	toReference.setSeriesTitle(fromDocument.getSeriesTitle());
 	

@@ -75,7 +75,7 @@ public interface Document {
 
     public String getPublisher();
     
-    public String getPubMedId();
+    public String getPMId();
     
     public String getRights();
     

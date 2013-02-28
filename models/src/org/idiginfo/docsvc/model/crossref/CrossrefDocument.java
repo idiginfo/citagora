@@ -259,11 +259,6 @@ public class CrossrefDocument implements Document {
 		return null;
 	}
 
-	@Override
-	public String getPubMedId() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public String getRights() {
@@ -273,6 +268,12 @@ public class CrossrefDocument implements Document {
 
 	@Override
 	public String getSeriesTitle() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getPMId() {
 		// TODO Auto-generated method stub
 		return null;
 	}

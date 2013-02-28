@@ -348,7 +348,7 @@ public class BaseDocument implements Document {
 	}
 
 	@Override
-	public String getPubMedId() {
+	public String getPMId() {
 		// TODO Auto-generated method stub
 		return null;
 	}
