@@ -321,11 +321,12 @@ public class MsrcDocument implements Document {
     public String getIssued() {
 	return publicationDate;
     }
-	@Override
-	public String getAbstractText() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
+    @Override
+    public String getAbstractText() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
     static DateFormat issuedFormat = new SimpleDateFormat("MMM yyyy");
     static DateFormat yearFormat = new SimpleDateFormat("yyyy");
@@ -360,76 +361,76 @@ public class MsrcDocument implements Document {
 	return null;
     }
 
-	@Override
-	public String getAggregationType() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getAggregationType() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public String getarXivId() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getarXivId() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public String getAuthorNotes() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getAuthorNotes() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public String getCoverDate() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getCoverDate() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public String getEdition() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getEdition() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public String geteIssn() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String geteIssn() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public String getGenre() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getGenre() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public String getItemNumber() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getItemNumber() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public String getPublicationDate() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getPublicationDate() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public String getPMId() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getPMId() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public String getRights() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getRights() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public String getSeriesTitle() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getSeriesTitle() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
 }

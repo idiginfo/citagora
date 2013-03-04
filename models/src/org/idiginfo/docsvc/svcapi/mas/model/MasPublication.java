@@ -51,7 +51,7 @@ import com.google.gson.annotations.SerializedName;
 public class MasPublication implements Document {
 
     @SerializedName("Abstract")
-	protected String _abstract;
+    protected String _abstract;
 
     protected List<MasAuthor> author;
 
@@ -309,98 +309,100 @@ public class MasPublication implements Document {
 	return year;
     }
 
-	@Override
-	public String getAggregationType() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getAggregationType() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public String getarXivId() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getarXivId() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public String getAuthorNotes() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getAuthorNotes() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public String getCoverDate() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getCoverDate() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public String getEdition() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getEdition() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public String geteIssn() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String geteIssn() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public String getGenre() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getGenre() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public String getLanguage() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getLanguage() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public String getItemNumber() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getItemNumber() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public String getPublicationDate() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getPublicationDate() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public String getPMId() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getPMId() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public String getRights() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getRights() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public String getSeriesTitle() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getSeriesTitle() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-}
     @Override
     public String getIssued() {
 	return Integer.toString(year);
     }
 
     static DateFormat issuedFormatter = new SimpleDateFormat("yyyy");
+
     @Override
     public Date getIssuedDate() {
-	if (year==null)return null;
+	if (year == null)
+	    return null;
 	try {
 	    return issuedFormatter.parse(Integer.toString(year));
 	} catch (ParseException e) {
-	    System.out.println("problem parsing year: '"+year +"' for object "+id);
+	    System.out.println("problem parsing year: '" + year
+		    + "' for object " + id);
 	    e.printStackTrace();
 	    return null;
 	}

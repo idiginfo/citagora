@@ -4,27 +4,27 @@ import java.util.Date;
 import java.util.List;
 
 public interface Document {
-    
+
     public String getAbstractText();
 
     public String getAggregationType();
-    
+
     public Annotation getAnnotation(int i);
 
     public Annotation[] getAnnotations();
 
     public String getarXivId();
-    
+
     public List<String> getAuthorList();
 
     public String getAuthorNotes();
-    
+
     public String getAuthors();
 
     public String getCopyright();
 
     public String getCoverDate();
-    
+
     public String getDate();
 
     public Date getDateObject();
@@ -32,11 +32,11 @@ public interface Document {
     public String getDoi();
 
     public String getEdition();
-    
+
     public String geteIssn();
-    
+
     public String getGenre();
-    
+
     public String getGUID();
 
     public String getId();
@@ -50,7 +50,7 @@ public interface Document {
     public List<String> getKeywords();
 
     public String getLanguage();
-    
+
     public List<String> getMeshTerms();
 
     public String getName();
@@ -58,7 +58,7 @@ public interface Document {
     public int getNumAnnotations();
 
     public String getItemNumber();
-    
+
     public String getOwner();
 
     public Integer getPageEnd();
@@ -68,19 +68,19 @@ public interface Document {
     public Integer getPageStart();
 
     public Document getParent();
-    
+
     public String getPublicationDate();
 
     public String getPublicationName();
 
     public String getPublisher();
-    
+
     public String getPMId();
-    
+
     public String getRights();
-    
+
     public String getSeriesTitle();
-    
+
     public String getSource();
 
     public String getTitle();
@@ -92,5 +92,9 @@ public interface Document {
     public String getUrl();
 
     public String getVolume();
+
+    String getIssued();
+
+    Date getIssuedDate();
 
 }

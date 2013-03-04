@@ -210,7 +210,7 @@ public class BaseDocument implements Document {
 	return parent;
     }
 
-     public String getPublicationDate() {
+    public String getPublicationDate() {
 	return publicationDate;
     }
 
@@ -245,7 +245,7 @@ public class BaseDocument implements Document {
 	return startingPage;
     }
 
-     public String getStatus() {
+    public String getStatus() {
 	return status;
     }
 
@@ -288,92 +288,91 @@ public class BaseDocument implements Document {
     }
 
     @Override
+    public Date getIssuedDate() {
+	return getDateObject();
+    }
+
+    @Override
     public String getIssued() {
+	return getDate();
+    }
+
+    @Override
+    public String getAbstractText() {
 	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
-    public Date getIssuedDate() {
+    public String getAggregationType() {
 	// TODO Auto-generated method stub
 	return null;
     }
-	@Override
-	public String getAbstractText() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public String getAggregationType() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getarXivId() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public String getarXivId() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getAuthorNotes() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public String getAuthorNotes() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getCoverDate() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public String getCoverDate() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getEdition() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public String getEdition() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String geteIssn() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public String geteIssn() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getGenre() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public String getGenre() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getLanguage() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public String getLanguage() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getItemNumber() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public String getItemNumber() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getPMId() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public String getPMId() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getRights() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public String getRights() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getSeriesTitle() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getSeriesTitle() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
 }
