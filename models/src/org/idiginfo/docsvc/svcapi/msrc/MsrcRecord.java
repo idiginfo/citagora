@@ -107,9 +107,13 @@ public class MsrcRecord implements Document {
 	if (document == null)
 	    return null;
 	String docId = document.getId();
-	if (docId != null && docId.startsWith("doi:10.")) {
-	    // not a proper doi
+	if (docId != null && docId.startsWith("10.")) {
+	    // a proper doi
 	    return docId;
+	}
+	if (docId != null && docId.startsWith("doi:10.")) {
+	    // does not start with "doi:10.
+	    return docId.substring(3);
 	}
 	return id;
     }
@@ -246,6 +250,20 @@ public class MsrcRecord implements Document {
 	if (document == null)
 	    return null;
 	return document.getVolume();
+    }
+
+    @Override
+    public String getIssued() {
+	if (document == null)
+	    return null;
+	return document.getIssued();
+    }
+
+    @Override
+    public Date getIssuedDate() {
+	if (document == null)
+	    return null;
+	return document.getIssuedDate();
     }
 
 	@Override

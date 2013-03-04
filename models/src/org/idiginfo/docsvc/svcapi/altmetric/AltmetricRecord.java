@@ -525,4 +525,15 @@ public class AltmetricRecord implements Document {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+    @Override
+    public String getIssued() {
+	return publishedOn;
+    }
+
+    @Override
+    public Date getIssuedDate() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 }

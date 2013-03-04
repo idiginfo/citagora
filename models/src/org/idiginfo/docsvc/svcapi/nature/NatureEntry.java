@@ -1,5 +1,8 @@
 package org.idiginfo.docsvc.svcapi.nature;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -117,10 +120,20 @@ public class NatureEntry implements Document {
 	return head.publicationDate;
     }
 
+    static DateFormat formatter = new SimpleDateFormat("yyyy-MM.dd");
+
     @Override
     public Date getDateObject() {
-	// TODO Auto-generated method stub
-	return null;
+	String publicationDate = getDate();
+	if (publicationDate == null)
+	    return null;
+	try {
+	    return formatter.parse(publicationDate);
+	} catch (ParseException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	    return null;
+	}
     }
 
     @Override
@@ -284,6 +297,16 @@ public class NatureEntry implements Document {
 	if (head == null)
 	    return null;
 	return head.volume;
+    }
+
+    @Override
+    public String getIssued() {
+	return getDate();
+    }
+
+    @Override
+    public Date getIssuedDate() {
+	return getDateObject();
     }
 
 	@Override

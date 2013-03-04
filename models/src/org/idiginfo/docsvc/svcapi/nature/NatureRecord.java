@@ -241,6 +241,16 @@ public class NatureRecord implements Document {
 	return volume;
     }
 
+    @Override
+    public String getIssued() {
+	return getDate();
+    }
+
+    @Override
+    public Date getIssuedDate() {
+	return getDateObject();
+    }
+
 	@Override
 	public String getAbstractText() {
 		// TODO Auto-generated method stub

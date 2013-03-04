@@ -1,5 +1,8 @@
 package org.idiginfo.docsvc.svcapi.mas.model;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -63,7 +66,8 @@ public class MasPublication implements Document {
 
     protected List<String> fullVersionURL;
 
-    protected Long iD;
+    @SerializedName("ID")
+    protected Long id;
 
     protected MasJournal journal;
 
@@ -169,12 +173,12 @@ public class MasPublication implements Document {
     }
 
     public Long getiD() {
-	return iD;
+	return id;
     }
 
     @Override
     public String getId() {
-	return "mas:" + Long.toString(iD);
+	return "mas:" + Long.toString(id);
     }
 
     @Override
@@ -382,5 +386,24 @@ public class MasPublication implements Document {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+}
+    @Override
+    public String getIssued() {
+	return Integer.toString(year);
+    }
+
+    static DateFormat issuedFormatter = new SimpleDateFormat("yyyy");
+    @Override
+    public Date getIssuedDate() {
+	if (year==null)return null;
+	try {
+	    return issuedFormatter.parse(Integer.toString(year));
+	} catch (ParseException e) {
+	    System.out.println("problem parsing year: '"+year +"' for object "+id);
+	    e.printStackTrace();
+	    return null;
+	}
+    }
 
 }

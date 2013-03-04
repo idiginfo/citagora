@@ -230,6 +230,18 @@ public class ScopusDocument implements Document {
 	return null;
     }
 
+    @Override
+    public String getIssued() {
+	// TODO Auto-generated method stub
+	return null;
+    }
+
+    @Override
+    public Date getIssuedDate() {
+	// TODO Auto-generated method stub
+	return null;
+    }
+
 	@Override
 	public String getAbstractText() {
 		// TODO Auto-generated method stub

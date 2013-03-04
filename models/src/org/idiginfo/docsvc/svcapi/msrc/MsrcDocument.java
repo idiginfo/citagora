@@ -1,7 +1,12 @@
 package org.idiginfo.docsvc.svcapi.msrc;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 import org.idiginfo.docsvc.model.apisvc.Annotation;
@@ -19,6 +24,7 @@ public class MsrcDocument implements Document {
     String volume;
     String issue;
     String pages;
+    String publicationDate;
     String language;
     @SerializedName("abstract")
     String abstractBody;
@@ -135,7 +141,7 @@ public class MsrcDocument implements Document {
     }
 
     public String getDoi() {
-	if (doi!=null && doi.startsWith("10.")){
+	if (doi != null && doi.startsWith("10.")) {
 	    return doi;
 	}
 	// not a real doi, ignore it
@@ -280,7 +286,7 @@ public class MsrcDocument implements Document {
 	    return null;
 	int separator = pages.indexOf('-');
 	String pageStart = pages;
-	if (separator>=0){
+	if (separator >= 0) {
 	    pageStart = pages.substring(0, separator);
 	}
 	try {
@@ -295,7 +301,8 @@ public class MsrcDocument implements Document {
 	if (pages == null)
 	    return null;
 	int separator = pages.indexOf('-');
-	if (separator<0) return null;
+	if (separator < 0)
+	    return null;
 	String pageEnd = pages.substring(separator + 1);
 	try {
 	    return Integer.valueOf(pageEnd);
@@ -310,11 +317,48 @@ public class MsrcDocument implements Document {
 	return null;
     }
 
+    @Override
+    public String getIssued() {
+	return publicationDate;
+    }
 	@Override
 	public String getAbstractText() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+    static DateFormat issuedFormat = new SimpleDateFormat("MMM yyyy");
+    static DateFormat yearFormat = new SimpleDateFormat("yyyy");
+
+    @Override
+    public Date getIssuedDate() {
+	if (publicationDate == null) {
+	    return null;
+	}
+	try {
+	    return issuedFormat.parse(publicationDate);
+	} catch (ParseException e) {
+	    // System.out.println("problem parsing publicationDate: '"
+	    // + publicationDate + "' for object " + id);
+	}
+	// strip off "SPR" or "FALL" etc.
+	try {
+	    Matcher matcher = Pattern.compile("\\d\\d\\d\\d").matcher(
+		    publicationDate);
+	    matcher.find();
+	    publicationDate = matcher.group();
+	} catch (Exception e) {
+	    if (year != null)
+		publicationDate = year;
+	}
+	try {// parse as year
+	    return yearFormat.parse(publicationDate);
+	} catch (ParseException e) {
+	    System.out.println("problem parsing publicationDate: '"
+		    + publicationDate + "' for object " + id);
+	}
+	return null;
+    }
 
 	@Override
 	public String getAggregationType() {
