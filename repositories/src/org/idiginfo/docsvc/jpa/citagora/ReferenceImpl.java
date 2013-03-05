@@ -105,7 +105,7 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
     String itemNumber;
     String publicationDate;
     String rights;
-    String seriesTitle;
+    String seriesTitle; 
     
     
     public ReferenceImpl() {
