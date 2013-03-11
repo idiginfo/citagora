@@ -3,12 +3,12 @@ package org.idiginfo.docsvc.svcapi.exploration;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
-import org.idiginfo.docsvc.model.crossref.CrossrefApiParams;
-import org.idiginfo.docsvc.model.crossref.CrossrefDocument;
-import org.idiginfo.docsvc.model.crossref.CrossrefMatch;
-import org.idiginfo.docsvc.model.crossref.CrossrefMatch.MatchResult;
-import org.idiginfo.docsvc.model.crossref.CrossrefResult;
-import org.idiginfo.docsvc.model.crossref.CrossrefService;
+import org.idiginfo.docsvc.svcapi.crossref.CrossrefApiParams;
+import org.idiginfo.docsvc.svcapi.crossref.CrossrefDocument;
+import org.idiginfo.docsvc.svcapi.crossref.CrossrefMatch;
+import org.idiginfo.docsvc.svcapi.crossref.CrossrefResult;
+import org.idiginfo.docsvc.svcapi.crossref.CrossrefService;
+import org.idiginfo.docsvc.svcapi.crossref.CrossrefMatch.MatchResult;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -117,7 +117,7 @@ public class CrossrefSample {
 
     public static String testCrossrefQuery() {
 	// String content;
-	CrossrefApiParams params = new org.idiginfo.docsvc.model.crossref.CrossrefApiParams();
+	CrossrefApiParams params = new org.idiginfo.docsvc.svcapi.crossref.CrossrefApiParams();
 	params.setKeyword("suicide");
 	CrossrefResult record = service.getResponse(params);
 	if (record == null) {

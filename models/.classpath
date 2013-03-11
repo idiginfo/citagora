@@ -22,5 +22,7 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/medline/resources/lingpipe-3.9.3.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/medline"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
