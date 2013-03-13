@@ -2,6 +2,7 @@ package org.idiginfo.docsvc.svcapi.entrez;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
@@ -9,18 +10,42 @@ import java.util.Vector;
 import org.apache.commons.lang.StringUtils;
 import org.idiginfo.docsvc.model.apisvc.Annotation;
 import org.idiginfo.docsvc.model.apisvc.Document;
+import org.idiginfo.medline.Abstract;
+import org.idiginfo.medline.Article;
+import org.idiginfo.medline.Author;
+import org.idiginfo.medline.AuthorList;
+import org.idiginfo.medline.CollectiveName;
+import org.idiginfo.medline.ELocationID;
+import org.idiginfo.medline.EndPage;
+import org.idiginfo.medline.ISSN;
+import org.idiginfo.medline.Journal;
+import org.idiginfo.medline.Keyword;
+import org.idiginfo.medline.KeywordList;
+import org.idiginfo.medline.Language;
+import org.idiginfo.medline.MedlineCitation;
+import org.idiginfo.medline.MedlinePgn;
+import org.idiginfo.medline.MeshHeading;
+import org.idiginfo.medline.MeshHeadingList;
+import org.idiginfo.medline.Month;
+import org.idiginfo.medline.PMID;
+import org.idiginfo.medline.Pagination;
+import org.idiginfo.medline.PubDate;
+import org.idiginfo.medline.QualifierName;
+import org.idiginfo.medline.StartPage;
+import org.idiginfo.medline.Year;
 
-import com.aliasi.lingmed.medline.parser.Abstract;
-import com.aliasi.lingmed.medline.parser.Article;
-import com.aliasi.lingmed.medline.parser.Author;
-import com.aliasi.lingmed.medline.parser.ELocationId;
-import com.aliasi.lingmed.medline.parser.Journal;
-import com.aliasi.lingmed.medline.parser.KeywordList;
-import com.aliasi.lingmed.medline.parser.MedlineCitation;
-import com.aliasi.lingmed.medline.parser.MeshHeading;
-import com.aliasi.lingmed.medline.parser.PubDate;
-import com.aliasi.lingmed.medline.parser.Topic;
-
+/**
+ * @author griccardi
+ *
+ */
+/**
+ * @author griccardi
+ *
+ */
+/**
+ * @author griccardi
+ *
+ */
 public class EntrezDocument implements Document {
 
     MedlineCitation citation;
@@ -34,11 +59,15 @@ public class EntrezDocument implements Document {
 
     }
 
+    /**
+     * 
+     * @return
+     */
     public Article getArticle() {
 	if (article != null)
 	    return article;
 	if (citation != null) {
-	    article = citation.article();
+	    article = citation.getArticle();
 	}
 	return article;
     }
@@ -47,7 +76,7 @@ public class EntrezDocument implements Document {
 	if (abstrct != null)
 	    return abstrct;
 	if (getArticle() != null) {
-	    abstrct = article.abstrct();
+	    abstrct = article.getAbstract();
 	}
 	return abstrct;
     }
@@ -56,7 +85,7 @@ public class EntrezDocument implements Document {
 	if (journal != null)
 	    return journal;
 	if (getArticle() != null) {
-	    journal = article.journal();
+	    journal = article.getJournal();
 	}
 	return journal;
     }
@@ -65,7 +94,7 @@ public class EntrezDocument implements Document {
     public String getAbstractText() {
 	if (getAbstract() == null)
 	    return null;
-	return abstrct.textWithoutTruncationMarker();
+	return abstrct.getAbstractText();
     }
 
     @Override
@@ -90,16 +119,23 @@ public class EntrezDocument implements Document {
 
     @Override
     public List<String> getAuthorList() {
-	if (getArticle() == null || article.authorList() == null)
+	if (getArticle() == null || article.getAuthorList() == null)
 	    return null;
 	Vector<String> authors = new Vector<String>();
-	for (Author author : article.authorList()) {
-	    authors.add(author.collectiveName());
+	AuthorList authorList = article.getAuthorList();
+
+	for (Author author : authorList.getAuthor()) {
+	    List<Object> list = author
+		    .getLastNameOrForeNameOrInitialsOrSuffixOrNameIDOrCollectiveName();
+	    for (Object obj : list) {
+		if (obj instanceof CollectiveName) {
+		    authors.add(((CollectiveName) obj).getvalue());
+		}
+	    }
 	}
 	return authors;
     }
 
-    @Override
     public String getAuthorNotes() {
 	return null;
     }
@@ -116,7 +152,7 @@ public class EntrezDocument implements Document {
     public String getCopyright() {
 	if (getAbstract() == null)
 	    return null;
-	return abstrct.copyrightInformation();
+	return abstrct.getCopyrightInformation();
     }
 
     @Override
@@ -140,10 +176,13 @@ public class EntrezDocument implements Document {
 	// ValidYN="Y">10.1136/bmj.a1190</ELocationID>
 	if (getArticle() == null)
 	    return null;
-	ELocationId[] ids = article.eLocationIds();
-	for (ELocationId id : ids) {
-	    if ("doi".equals(id.eIdType())) {
-		return id.toString();
+	List<Object> ids = article.getPaginationOrELocationID();
+	for (Object id : ids) {
+	    if (id instanceof ELocationID) {
+		ELocationID eId = (ELocationID) id;
+		if ("doi".equals(eId.getEIdType())) {
+		    return eId.getvalue();
+		}
 	    }
 	}
 	return null;
@@ -169,10 +208,15 @@ public class EntrezDocument implements Document {
 	return null;
     }
 
+    /**
+     * Use doi as id if avaliable, otherwise use pmid
+     */
     @Override
     public String getId() {
-	// TODO Auto-generated method stub
-	return null;
+	String doi = getDoi();
+	if (doi != null && doi.length() > 0)
+	    return doi;
+	return getPMId();
     }
 
     @Override
@@ -184,26 +228,27 @@ public class EntrezDocument implements Document {
     public String getIssn() {
 	if (getJournal() == null)
 	    return null;
-	return journal.issn();
+	ISSN issn = journal.getISSN();
+	return issn.getvalue();
     }
 
     @Override
     public String getIssue() {
-	if (getJournal() == null || journal.journalIssue() == null)
+	if (getJournal() == null || journal.getJournalIssue() == null)
 	    return null;
-	return journal.journalIssue().issue();
+	return journal.getJournalIssue().getIssue();
     }
 
     @Override
     public List<String> getKeywords() {
-	if (citation == null || citation.keywordLists() == null)
+	if (citation == null || citation.getKeywordList() == null)
 	    return null;
 	List<String> keywords = new Vector<String>();
-	for (KeywordList keywordList : citation.keywordLists()) {
-	    Topic[] topics = keywordList.keywords();
-	    if (topics != null) {
-		for (Topic topic : topics) {
-		    keywords.add(topic.topic());
+	for (KeywordList list : citation.getKeywordList()) {
+	    List<Keyword> keywordList = list.getKeyword();
+	    if (keywords != null) {
+		for (Keyword keyword : keywordList) {
+		    keywords.add(keyword.getvalue());
 		}
 	    }
 	}
@@ -214,16 +259,26 @@ public class EntrezDocument implements Document {
     public String getLanguage() {
 	if (getArticle() == null)
 	    return null;
-	return StringUtils.join(article.languages(), ", ");
+	List<Language> langs = article.getLanguage();
+	List<String> language = new ArrayList<String>();
+	for (Language lang : langs) {
+	    language.add(lang.getvalue());
+	}
+	return StringUtils.join(language, ", ");
     }
 
     @Override
     public List<String> getMeshTerms() {
-	if (citation == null || citation.meshHeadings() == null)
+	if (citation == null || citation.getMeshHeadingList() == null)
 	    return null;
+	MeshHeadingList list = citation.getMeshHeadingList();
 	List<String> headings = new Vector<String>();
-	for (MeshHeading heading : citation.meshHeadings()) {
-	    headings.add(heading.toString());
+	for (MeshHeading heading : list.getMeshHeading()) {
+	    headings.add(heading.getDescriptorName().getvalue());
+	    List<QualifierName> qualNames = heading.getQualifierName();
+	    for (QualifierName name : qualNames) {
+		headings.add(name.getvalue());
+	    }
 	}
 	return headings;
     }
@@ -253,11 +308,34 @@ public class EntrezDocument implements Document {
 	return null;
     }
 
+    String startPage = "";
+    String endPage = "";
+    String medlinePgn;
+
     @Override
     public String getPages() {
 	if (getArticle() == null)
 	    return null;
-	return article.pagination();
+	List<Object> objs = article.getPaginationOrELocationID();
+	for (Object obj : objs) {
+	    if (obj instanceof Pagination) {
+		List<Object> pageInfo = ((Pagination) obj)
+			.getStartPageOrEndPageOrMedlinePgn();
+		for (Object pObj : pageInfo) {
+		    if (pObj instanceof StartPage) {
+			startPage = ((StartPage) pObj).getvalue();
+		    } else if (pObj instanceof EndPage) {
+			endPage = ((EndPage) obj).getvalue();
+		    } else if (pObj instanceof MedlinePgn) {
+			medlinePgn = ((MedlinePgn) pObj).getvalue();
+			return medlinePgn;
+		    }
+		}
+	    }
+	}
+	if (startPage.length() > 0)
+	    return startPage + "-" + endPage;
+	return null;
     }
 
     @Override
@@ -272,17 +350,28 @@ public class EntrezDocument implements Document {
 
     @Override
     public String getPublicationDate() {
-	if (getJournal() == null || journal.journalIssue() == null)
+	// TODO note using Month and year only
+	if (getJournal() == null || journal.getJournalIssue() == null)
 	    return null;
-	PubDate pubDate = journal.journalIssue().pubDate();
-	return pubDate.month() + pubDate.year();
+	PubDate pubDate = journal.getJournalIssue().getPubDate();
+	List<Object> dateFields = pubDate
+		.getYearOrMonthOrDayOrSeasonOrMedlineDate();
+	String dateStr = "";
+	for (Object obj : dateFields) {
+	    if (obj instanceof Month) {
+		dateStr = ((Month) obj).getvalue() + dateStr;
+	    } else if (obj instanceof Year) {
+		dateStr += " " + ((Year) obj).getvalue();
+	    }
+	}
+	return dateStr;
     }
 
     @Override
     public String getPublicationName() {
 	if (getJournal() == null)
 	    return null;
-	return journal.title();
+	return journal.getTitle();
     }
 
     @Override
@@ -292,9 +381,10 @@ public class EntrezDocument implements Document {
 
     @Override
     public String getPMId() {
-	if (citation == null)
+	if (citation == null || citation.getPMID() == null)
 	    return null;
-	return citation.pmid();
+	PMID pmid = citation.getPMID();
+	return pmid.getvalue();
     }
 
     @Override
@@ -316,7 +406,7 @@ public class EntrezDocument implements Document {
     public String getTitle() {
 	if (getArticle() == null)
 	    return null;
-	return article.articleTitle();
+	return article.getArticleTitle();
     }
 
     @Override
@@ -339,9 +429,9 @@ public class EntrezDocument implements Document {
 
     @Override
     public String getVolume() {
-	if (getJournal() == null || journal.journalIssue() == null)
+	if (getJournal() == null || journal.getJournalIssue() == null)
 	    return null;
-	return journal.journalIssue().volume();
+	return journal.getJournalIssue().getVolume();
     }
 
     @Override
