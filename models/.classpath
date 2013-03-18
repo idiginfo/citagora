@@ -6,7 +6,7 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" output="target/classes" path="target/generated-sources/xjc">
+	<classpathentry including="**/*.java" kind="src" output="target/classes" path="target/generated-sources/xjc">
 		<attributes>
 			<attribute name="optional" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>
@@ -22,7 +22,5 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/medline/resources/lingpipe-3.9.3.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/medline"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

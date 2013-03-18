@@ -7,6 +7,9 @@
         <dependent-module archiveName="models-1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/models/models">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="entreztools-1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/entreztools/entreztools">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <dependent-module archiveName="views-1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/views/views">
             <dependency-type>uses</dependency-type>
         </dependent-module>
