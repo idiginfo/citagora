@@ -17,11 +17,14 @@ import org.idiginfo.medline.AuthorList;
 import org.idiginfo.medline.CollectiveName;
 import org.idiginfo.medline.ELocationID;
 import org.idiginfo.medline.EndPage;
+import org.idiginfo.medline.ForeName;
 import org.idiginfo.medline.ISSN;
+import org.idiginfo.medline.Initials;
 import org.idiginfo.medline.Journal;
 import org.idiginfo.medline.Keyword;
 import org.idiginfo.medline.KeywordList;
 import org.idiginfo.medline.Language;
+import org.idiginfo.medline.LastName;
 import org.idiginfo.medline.MedlineCitation;
 import org.idiginfo.medline.MedlinePgn;
 import org.idiginfo.medline.MeshHeading;
@@ -44,7 +47,7 @@ import org.idiginfo.medline.Year;
  */
 /**
  * @author griccardi
- *
+ * 
  */
 public class EntrezDocument implements Document {
 
@@ -127,10 +130,20 @@ public class EntrezDocument implements Document {
 	for (Author author : authorList.getAuthor()) {
 	    List<Object> list = author
 		    .getLastNameOrForeNameOrInitialsOrSuffixOrNameIDOrCollectiveName();
+	    String name = "";
 	    for (Object obj : list) {
 		if (obj instanceof CollectiveName) {
 		    authors.add(((CollectiveName) obj).getvalue());
+		} else if (obj instanceof LastName) {
+		    name += " " + ((LastName) obj).getvalue();
+		} else if (obj instanceof ForeName) {
+		    name = ((ForeName) obj).getvalue() + name;
+		} else if (obj instanceof Initials) {
+
 		}
+	    }
+	    if (name.length() > 1) {
+		authors.add(name);
 	    }
 	}
 	return authors;
@@ -145,7 +158,7 @@ public class EntrezDocument implements Document {
 	List<String> authors = getAuthorList();
 	if (authors == null)
 	    return null;
-	return StringUtils.join(authors, ",");
+	return StringUtils.join(authors, ", ");
     }
 
     @Override
