@@ -76,6 +76,12 @@
 			<artifactId>modelmapper</artifactId>
 			<version>0.4.0</version>
 		</dependency>
+		<dependency>
+			<groupId>org.idiginfo.docsvc</groupId>
+			<artifactId>entreztools</artifactId>
+			<version>1</version>
+		</dependency>
+
 	</dependencies>
 	<parent>
 		<groupId>org.idiginfo.docservice</groupId>
