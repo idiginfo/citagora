@@ -7,10 +7,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
-import java.util.logging.Handler;
-import java.util.logging.Level;
-import java.util.logging.LogRecord;
-import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -18,14 +14,9 @@ import javax.persistence.Query;
 import org.idiginfo.docsvc.jpa.citagora.CitagoraFactoryImpl;
 import org.idiginfo.docsvc.model.citagora.CitagoraFactory;
 import org.idiginfo.docsvc.model.citagora.Reference;
-import org.idiginfo.docsvc.model.crossref.CrossrefApiParams;
-import org.idiginfo.docsvc.model.crossref.CrossrefMatch;
-import org.idiginfo.docsvc.model.crossref.CrossrefMatch.MatchResult;
-import org.idiginfo.docsvc.model.crossref.CrossrefResult;
-import org.idiginfo.docsvc.model.crossref.CrossrefService;
-import org.idiginfo.docsvc.svcapi.springer.*;
-
-import com.google.api.client.http.HttpTransport;
+import org.idiginfo.docsvc.svcapi.crossref.CrossrefMatch;
+import org.idiginfo.docsvc.svcapi.crossref.CrossrefMatch.MatchResult;
+import org.idiginfo.docsvc.svcapi.crossref.CrossrefService;
 
 public class CrossrefMatchHarvest {
 
@@ -63,15 +54,15 @@ public class CrossrefMatchHarvest {
 	System.out.println("Total results: " + numMissing + " pages: "
 		+ totalPages + " per file: " + numPerFile);
 	for (int pageNum = FIRST_PAGE; pageNum < totalPages; pageNum++) {
-	    int firstResult =pageNum * numPerFile;
+	    int firstResult = pageNum * numPerFile;
 
 	    String doiFileName = filePrefix + String.format("%04d", pageNum)
 		    + ".txt";
-	    String noDoiFileName = filePrefix+"no" + String.format("%04d", pageNum)
-		    + ".txt";
+	    String noDoiFileName = filePrefix + "no"
+		    + String.format("%04d", pageNum) + ".txt";
 	    String[] results = harvestMatches(firstResult, numPerFile);
-	    writeFile(doiFileName,results[0]);
-	    writeFile(noDoiFileName,results[1]);
+	    writeFile(doiFileName, results[0]);
+	    writeFile(noDoiFileName, results[1]);
 	}
     }
 
