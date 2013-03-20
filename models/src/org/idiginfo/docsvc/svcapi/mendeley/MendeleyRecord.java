@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
+import java.util.HashMap;
 
 import org.idiginfo.docsvc.model.apisvc.Annotation;
 import org.idiginfo.docsvc.model.apisvc.Document;
@@ -22,328 +23,323 @@ import com.google.gson.annotations.SerializedName;
 public class MendeleyRecord implements Document {
 	@SerializedName("abstract")
 	String abstractText;
-	@SerializedName("authors")
-    Creator[] creators;
-	@SerializedName("catagories")
-	Catagory[] catagories;
-    String doi;
-    @SerializedName("identifiers")
-	Ident[] idents; // doi, issn, etc.
-    String isbn;
-    String issn;
-    @SerializedName("issue")
+	Author[] authors;
+	int categories[];
+	String doi;
+	HashMap<String, String> identifiers; // doi, issn, etc.
+	String isbn;
+	String issn;
 	String issue;
-    @SerializedName("keywords")
-	Keyword[] keywords;
-    @SerializedName("mendeley_url")
-	String mendeley_url;
-    String number;
-    @SerializedName("oa_journal")
-	Boolean oa_journal;
-	@SerializedName("pages")
+	List<String> keywords;
+	@SerializedName("mendeley_url")
+	String mendeleyUrl;
+	String number;
+	@SerializedName("oa_journal")
+	Boolean oaJournal;
 	String pages;
-    String publicationDate;
+	String publicationDate;
 	String publicationName;
-    @SerializedName("publication_outlet")
-	String publication_outlet;
-	@SerializedName("publisher")
+	@SerializedName("publication_outlet")
+	String publicationOutlet;
 	String publisher;
-    String startingPage;
-    @SerializedName("stats")
-    Stat stats;
-    @SerializedName("title")
-    String title;
-    @SerializedName("type")
-    String type;
-    @SerializedName("uuid")
-    String uuid;
-    @SerializedName("volume")
-    String volume;
-    @SerializedName("website")
-    String url;
-    @SerializedName("year")
-    int publishYear;
-    
-    static class Author {
-    	String author;
-    
-    public String toString() {
-	    return author;
-    }
-    }
-    
-    static class Catagory {
-    	int catagoryId;
-    }
+	String startingPage;
+	Stat stats;
+	String title;
+	String type;
+	String uuid;
+	String volume;
+	@SerializedName("website")
+	String url;
+	int publishYear;
 
-    static class Creator {
-    	@SerializedName("forename")
-    	String forename;
-    	@SerializedName("surname")
-    	String surname;
-    
-	public String toString() {
-    	return forename + " " + surname;
+	static class Categories {
+		int catagoryId;
+	}
+
+	static class Author {
+		@SerializedName("forename")
+		String forename;
+		@SerializedName("surname")
+		String surname;
+
+		public String toString() {
+			return forename + " " + surname;
+
+		}
+	}
+
+	static class Keyword {
+		String keyword;
+
+		public String toString() {
+			return keyword;
+		}
+	}
+
+	static class Stat {
+
+		@SerializedName("country")
+		Country country[];
+		@SerializedName("discipline")
+		Discipline discipline[];
+		@SerializedName("readers")
+		int readers;
+		@SerializedName("status")
+		Status status[];
+
+		// public String toString() {
+		// return type + "id : " + id + "name : " + name + "value :" + value;
+		// }
+	}
+
+	static class Country {
+		@SerializedName("name")
+		String countryName;
+		@SerializedName("value")
+		int countryPercent;
+	}
+
+	static class Discipline {
+		@SerializedName("id")
+		int discipineId;
+		@SerializedName("name")
+		String disciplineName;
+		@SerializedName("value")
+		int disciplinePercent;
+	}
+
+	static class Status {
+		@SerializedName("name")
+		String statusName;
+		@SerializedName("value")
+		int statusPercent;
+	}
+
+	@Override
+	public String getId() {
+		if (identifiers == null || identifiers.isEmpty()) {
+			String url = getUrl();
+			if (url != null)
+				return url;
+			String uuid = getUUID();
+			return uuid;
+		}
+		String pmid = getPMId();
+		if (pmid != null)
+			return pmid;
+		String issn = getIssn();
+		if (issn != null)
+			return issn;
+		String isbn = getIsbn();
+		if (isbn != null)
+			return isbn;
+		String doi = getDoi();
+		if (doi != null)
+			return doi;
+		return null;
+	}
+
+	@Override
+	public String getDate() {
+		return publicationDate;
+	}
+
+	transient DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+	@Override
+	public Date getDateObject() {
+		if (publicationDate == null)
+			return null;
+		try {
+			return formatter.parse(publicationDate);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public String getName() {
+		return null;
+	}
+
+	@Override
+	public String getOwner() {
+		return null;
+	}
+
+	@Override
+	public String getType() {
+		return type;
+	}
+
+	@Override
+	public Document getParent() {
+		return null;
+	}
+
+	@Override
+	public Annotation[] getAnnotations() {
+		return null;
+	}
+
+	@Override
+	public String getTitle() {
+		return title;
+	}
+
+	@Override
+	public String getAuthors() {
+		String authorstring = StringUtils.join(authors, ", ");
+		return authorstring;
+	}
+
+	@Override
+	public List<String> getAuthorList() {
+		List<String> authorList = new Vector<String>();
+		for (int i = 0; i < authors.length; i++) {
+			authorList.add(authors[i].toString());
+		}
+		return authorList;
 
 	}
-    }
 
-    static class Ident {
-    	String iLabel;
-    	String iValue;
-    	
-    public String toString() {
-    	return iLabel + ":" + iValue;
-    }
-    }
-    
-    static class Keyword {
-    String keyword;
-    
-    public String toString() {
-    	return keyword;
-    }
-    }
-    
-    static class Stat {
-
-    @SerializedName("country")
-    Country country[];
-    @SerializedName("discipline")
-    Discipline discipline[];
-    @SerializedName("readers")
-    int readers;
-    @SerializedName("status")
-    Status status[];
-
-//    public String toString() {
-//    	return type + "id : " + id + "name : " + name + "value :" + value; 
-//    }
-    }
-    
-    static class Country {
-    	@SerializedName("name")
-    	String countryName;
-    	@SerializedName("value")
-    	int countryPercent;
-    }
-    
-    static class Discipline {
-    	@SerializedName("id")
-    	int discipineId;
-    	@SerializedName("name")
-    	String disciplineName;
-    	@SerializedName("value")
-    	int disciplinePercent;
-    }
-
-    static class Status {
-    	@SerializedName("name")
-    	String statusName;
-    	@SerializedName("value")
-    	int statusPercent;
-    }
-
-    @Override
-    public String getId() {
-	return "doi:" + doi;
-    }
-
-    @Override
-    public String getDate() {
-	return publicationDate;
-    }
-
-    transient DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-
-    @Override
-    public Date getDateObject() {
-	if (publicationDate == null)
-	    return null;
-	try {
-	    return formatter.parse(publicationDate);
-	} catch (ParseException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
-	    return null;
+	@Override
+	public int getNumAnnotations() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
-    }
 
-    @Override
-    public String getName() {
-	return null;
-    }
-
-    @Override
-    public String getOwner() {
-	return null;
-    }
-
-    @Override
-    public String getType() {
-	return type;
-    }
-
-    @Override
-    public Document getParent() {
-	return null;
-    }
-
-    @Override
-    public Annotation[] getAnnotations() {
-	return null;
-    }
-
-    @Override
-    public String getTitle() {
-	return title;
-    }
-
-    @Override
-    public String getAuthors() {
-	String authors = StringUtils.join(creators, ", ");
-	return authors;
-    }
-
-    @Override
-    public List<String> getAuthorList() {
-	List<String> authorList = new Vector<String>();
-	for (int i = 0; i < creators.length; i++) {
-	    authorList.add(creators[i].toString());
+	@Override
+	public Annotation getAnnotation(int i) {
+		// TODO Auto-generated method stub
+		return null;
 	}
-	return authorList;
 
-    }
+	public String getPublicationName() {
+		return publicationName;
+	}
 
-    @Override
-    public int getNumAnnotations() {
-	// TODO Auto-generated method stub
-	return 0;
-    }
+	@Override
+	public String getIssn() {
+		if (identifiers == null || identifiers.isEmpty())
+			return null;
+		String issn = null;
+		issn = identifiers.get("issn");
+		return issn;
+	}
 
-    @Override
-    public Annotation getAnnotation(int i) {
-	// TODO Auto-generated method stub
-	return null;
-    }
+	@Override
+	public String getIsbn() {
+		if (identifiers == null || identifiers.isEmpty())
+			return null;
+		String isbn = null;
+		isbn = identifiers.get("isbn");
+		return isbn;
+	}
 
-    public Creator[] getCreators() {
-	return creators;
-    }
-
-    public String getPublicationName() {
-	return publicationName;
-    }
-
-    public String getIssn() {
-	return issn;
-    }
-
-    public String getIsbn() {
-	return isbn;
-    }
-
-    public String getDoi() {
-    String doi = "";
-   	for (int i = 0; i < idents.length; i++) {
-   		if (idents[i].iLabel == "doi") {
-   			doi = idents[i].iValue;
-   			return doi;
-   		}
-   	}
-    	return null;
-    }
-
-    public String getPublisher() {
-	return publisher;
-    }
-
-    public String getPublicationDate() {
-	return publicationDate;
-    }
-
-    public String getVolume() {
-	return volume;
-    }
-
-    public String getNumber() {
-	return number;
-    }
-
-    public String getStartingPage() {
-	return startingPage;
-    }
-
-    public String getUrl() {
-	return url;
-    }
-
-    public String getCopyright() {
-	return null;
-    }
-
-    @Override
-    public String getGUID() {
-	if (doi != null) {
-	    if (doi.startsWith("doi:"))
+	@Override
+	public String getDoi() {
+		if (identifiers == null || identifiers.isEmpty())
+			return null;
+		String doi = null;
+		doi = identifiers.get("doi");
 		return doi;
-	    return "doi:" + doi;
 	}
-	return "http://ids.idiginfo.org/" + getId();
-    }
 
-    @Override
-    public String getSource() {
-	// TODO Auto-generated method stub
-	return null;
-    }
-
-    @Override
-    public Integer getPageStart() {
-	try {
-	    return Integer.getInteger(startingPage);
-	} catch (NumberFormatException e) {
-	    return null;
+	public String getUUID() {
+		return uuid;
 	}
-    }
 
-    @Override
-    public Integer getPageEnd() {
-	// TODO Auto-generated method stub
-	return null;
-    }
-
-    @Override
-    public String getPages() {
-	return pages;
-    }
-
-    @Override
-    public String getIssue() {
-	return number;
-    }
-
-    @Override
-    public String getUri() {
-	if (doi != null && doi.length() > 0) {
-	    if (doi.startsWith("doi:"))
-		return doi;
-	    return "doi:" + doi;
+	public String getPublisher() {
+		return publisher;
 	}
-	return url;
-    }
 
-    @Override
-    public List<String> getKeywords() {
-	// TODO Auto-generated method stub
-	return null;
-    }
+	public String getPublicationDate() {
+		return publicationDate;
+	}
 
-    @Override
-    public List<String> getMeshTerms() {
-	// TODO Auto-generated method stub
-	return null;
-    }
+	public String getVolume() {
+		return volume;
+	}
+
+	public String getNumber() {
+		return number;
+	}
+
+	public String getStartingPage() {
+		return startingPage;
+	}
+
+	public String getUrl() {
+		return mendeleyUrl;
+	}
+
+	public String getCopyright() {
+		return publicationDate;
+	}
+
+	@Override
+	public String getGUID() {
+		if (doi != null) {
+			if (doi.startsWith("doi:"))
+				return doi;
+			return "doi:" + doi;
+		}
+		return "http://ids.idiginfo.org/" + getId();
+	}
+
+	@Override
+	public String getSource() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Integer getPageStart() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Integer getPageEnd() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getPages() {
+		return pages;
+	}
+
+	@Override
+	public String getIssue() {
+		return issue;
+	}
+
+	@Override
+	public String getUri() {
+		doi = getDoi();
+		if (doi != null && doi.length() > 0) {
+			if (doi.startsWith("doi:"))
+				return doi;
+			return "doi:" + doi;
+		}
+		url = getUrl();
+		return url;
+	}
+
+	@Override
+	public List<String> getKeywords() {
+		return keywords;
+	}
+
+	@Override
+	public List<String> getMeshTerms() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Override
 	public String getAbstractText() {
@@ -366,6 +362,10 @@ public class MendeleyRecord implements Document {
 	public String getAuthorNotes() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public int[] getCategories() {
+		return categories;
 	}
 
 	@Override
@@ -405,8 +405,11 @@ public class MendeleyRecord implements Document {
 
 	@Override
 	public String getPMId() {
-		// TODO Auto-generated method stub
-		return null;
+		if (identifiers == null || identifiers.isEmpty())
+			return null;
+		String pmid = null;
+		pmid = identifiers.get("pmid");
+		return pmid;
 	}
 
 	@Override

@@ -1,13 +1,13 @@
 package org.idiginfo.docsvc.svcapi.mendeley;
 
 import org.idiginfo.docsvc.svcapi.mendeley.MendeleyRecord.Author;
-import org.idiginfo.docsvc.svcapi.mendeley.MendeleyRecord.Creator;
+import org.idiginfo.docsvc.svcapi.mendeley.MendeleyRecord.Author;
 
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Class that implements the Mendeley "search" results Header
- *  containing the uuid necessary for retrieval of the "details" 
+ * Class that implements the Mendeley "search" results Header containing the
+ * uuid necessary for retrieval of the "details"
  * 
  * @author sflager
  * 
@@ -22,7 +22,7 @@ public class MendeleyHeader {
 	String publicationoutlet;
 	@SerializedName("year")
 	String year;
-	
+
 	@SerializedName("mendeley_url")
 	String mendeleyurl;
 	@SerializedName("doi")
@@ -33,23 +33,29 @@ public class MendeleyHeader {
 	public String getUuid() {
 		return uuid;
 	}
+
 	public String getTitle() {
 		return title;
 	}
+
 	public String getPublicationoutlet() {
 		return publicationoutlet;
 	}
+
 	public String getYear() {
 		return year;
 	}
+
 	public String getMendeleyurl() {
 		return mendeleyurl;
 	}
+
 	public String getDoi() {
 		return doi;
 	}
+
 	public Author[] getAuthors() {
 		return authors;
 	}
-	
+
 }
