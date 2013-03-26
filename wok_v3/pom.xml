@@ -37,4 +37,5 @@
 		</plugins>
 
 	</build>
+	<groupId>org.idiginfo.docsvc</groupId>
 </project>
