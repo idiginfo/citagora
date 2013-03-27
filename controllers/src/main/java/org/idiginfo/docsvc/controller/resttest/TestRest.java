@@ -18,11 +18,11 @@ import org.idiginfo.docsvc.model.apisvc.ApiParams;
 
 public class TestRest {
 
-    static final String FILE_NAME = "c:/dev/api samples/citagoratest.json";
+    //static final String FILE_NAME = "c:/dev/api samples/citagoratest.json";
     // static final String FILE_NAME = "c:/dev/api samples/altmetrictest.json";
     // static final String FILE_NAME = "c:/dev/api samples/springertest.json";
     // static final String FILE_NAME = "c:/dev/api samples/annotate.rdf";
-    // static final String FILE_NAME = "c:/dev/api samples/springer2.rdf";
+     static final String FILE_NAME = "c:/dev/api samples/springer2.rdf";
     // static final String FILE_NAME = "c:/dev/api samples/springer.html";
     RequestProcessor requestProcessor = new RequestProcessor();
 
@@ -158,8 +158,8 @@ public class TestRest {
     }
 
     static public void main(String[] args) throws Exception {
-	// String body = new TestRest().get(ServiceFactory.COLLECTION_SPRINGER);
-	String body = new TestRest().get(ServiceFactory.COLLECTION_CITAGORA);
+	 String body = new TestRest().get(ServiceFactory.COLLECTION_SPRINGER);
+	//String body = new TestRest().get(ServiceFactory.COLLECTION_CITAGORA);
 	// String body = new
 	// TestRest().get(ServiceFactory.COLLECTION_ALTMETRIC);
 	// String body = new TestRest().get(ServiceFactory.COLLECTION_ANNOTATE);

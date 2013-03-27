@@ -16,6 +16,9 @@
         <dependent-module archiveName="repositories-1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/repositories/repositories">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="wok_v3-1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/wok_v3/wok_v3">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="java-output-path" value="/controllers/target/classes"/>
         <property name="component.exclusion.patterns"/>
         <property name="context-root" value="docsvc"/>

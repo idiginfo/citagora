@@ -143,22 +143,25 @@ public class CrossrefService implements DocService {
     }
 
     public JsonElement matchService(String[] references) {
+	JsonArray jsonContent = new JsonArray();
+	for (String ref : references) {
+	    jsonContent.add(new JsonPrimitive(ref));
+	}
+	return matchService(jsonContent);
+    }
+
+    public JsonElement matchService(JsonArray jsonContent) {
 	// create json array from references
 	// post to /links
 	// TODO Auto-generated method stub
-	try {
-	    CrossrefUrl url = new CrossrefUrl("links", "json");
-	    url.prepare();
-	    System.out.println(url.build());
-	    // create json array of reference strings
-	    JsonArray jsonContent = new JsonArray();
-	    for (String ref : references) {
-		jsonContent.add(new JsonPrimitive(ref));
-	    }
-	    String strContent = gson.toJson(jsonContent);
-	    ByteArrayContent content = new ByteArrayContent("application/json",
-		    strContent.getBytes());
+	String strContent = gson.toJson(jsonContent);
+	ByteArrayContent content = new ByteArrayContent("application/json",
+		strContent.getBytes());
+	CrossrefUrl url = new CrossrefUrl("links", "json");
+	url.prepare();
+	System.out.println(url.build());
 
+	try {
 	    HttpRequest request = requestFactory.buildPostRequest(url, content);
 	    request.setConnectTimeout(CONNECT_TIMEOUT);
 	    HttpResponse result = request.execute();
@@ -173,10 +176,18 @@ public class CrossrefService implements DocService {
 	}
     }
 
-    public CrossrefMatch getMatch(String[] references) {
-	JsonElement result = matchService(references);
+    public CrossrefMatch getMatch(JsonArray jsonContent) {
+	JsonElement result = matchService(jsonContent);
 	System.out.println("Match result: " + gson.toJson(result));
 	CrossrefMatch match = gson.fromJson(result, CrossrefMatch.class);
 	return match;
+    }
+
+    public CrossrefMatch getMatch(String[] references) {
+	JsonArray jsonContent = new JsonArray();
+	for (String ref : references) {
+	    jsonContent.add(new JsonPrimitive(ref));
+	}
+	return getMatch(jsonContent);
     }
 }

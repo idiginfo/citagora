@@ -1,68 +1,76 @@
 package org.idiginfo.docsvc.controller.rest;
 
-import javax.annotation.PostConstruct;
-import javax.servlet.ServletConfig;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
-//import javax.servlet.*;
 
-import org.idiginfo.docsvc.controller.ControllerFactory;
-import org.idiginfo.docsvc.controller.request.DocServicesParams;
-import org.idiginfo.docsvc.controller.request.RequestProcessor;
-import org.idiginfo.docsvc.model.apisvc.ApiParams;
+import org.apache.commons.lang.StringUtils;
+
+import org.idiginfo.docsvc.svcapi.crossref.CrossrefService;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+
+//import javax.servlet.*;
 
 /**
  * Hello world!
  * 
  */
-@Path("/rest")
+@Path("/")
 @Produces(MediaType.APPLICATION_XML)
 public class CrossRefService {
+
+    CrossrefService service = new CrossrefService();
+    Gson gson = CrossrefService.getGson();
     @Context
     UriInfo uriInfo;
     @Context
-    Request request; 
- 
-    @PostConstruct
-    void postConstruct(@Context ServletConfig servletConfig){
-	String persistence = servletConfig.getInitParameter("persistence");
-	String logFile = servletConfig.getInitParameter("logFile");
-	ControllerFactory.init(persistence,logFile);
-    }
-    
-    RequestProcessor requestProcessor = new RequestProcessor();
+    Request request;
 
     @GET
-    @Path(value = "/citagora")
-    public Response getCitagora() {
-	return null;
+    @Path(value = "/match")
+    public Response getCrossref(@QueryParam("ref") String[] refs) {
+	JsonElement matches = service.matchService(refs);
+	return createResponse(matches);
     }
 
-    @GET
-    @Produces(MediaType.TEXT_HTML)
-    public Response get(@QueryParam("collection") String collection) {
-	MultivaluedMap<String, String> queryParams = uriInfo
-		.getQueryParameters();
-	ApiParams params = DocServicesParams.getApiServiceParams(queryParams);
-	params.setCollection(collection);
-	RequestProcessor.Result result = requestProcessor
-		.processRequest(params);
-	// return result.body as a Response object;
-	// creating and returning a Response object allows the charset to be
-	// specified
+    @POST
+    @Path(value = "/match")
+    public Response getCrossrefPost(@FormParam("refs") String refs) {
+	JsonElement matches = null;
+	JsonParser parser = new JsonParser();
+	JsonElement json = parser.parse(refs);
+	if (json instanceof JsonArray) {
+	    JsonArray refsArray = (JsonArray) json;
+	    matches = service.matchService(refsArray);
+	} else {
+	    // not json array, try strings
+	    String[] refStrings = StringUtils.split(refs, '\n');
+	    matches = service.matchService(refStrings);
+	}
+	return createResponse(matches);
+    }
+
+    private Response createResponse(JsonElement matches) {
+	String result = gson.toJson(matches);
 	return Response
-		.status(result.statusCode)
-		.entity(result.body)
+		.status(Status.OK)
+		.entity(result)
 		.header(HttpHeaders.CONTENT_TYPE,
-			result.mimeType + "; charset=UTF-8").build();
+			"application/json" + "; charset=UTF-8").build();
     }
+
 }

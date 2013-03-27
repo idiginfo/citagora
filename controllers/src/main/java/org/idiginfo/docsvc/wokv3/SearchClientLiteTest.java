@@ -14,7 +14,6 @@ import org.apache.cxf.interceptor.LoggingInInterceptor;
 import org.apache.cxf.interceptor.LoggingOutInterceptor;
 import org.apache.cxf.transport.http.HTTPConduit;
 import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
-import org.idiginfor.docservices.wokv3client.AuthenticationClient;
 
 import com.thomsonreuters.wokmws.v3.woksearchlite.EditionDesc;
 import com.thomsonreuters.wokmws.v3.woksearchlite.LiteRecord;
