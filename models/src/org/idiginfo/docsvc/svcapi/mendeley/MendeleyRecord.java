@@ -292,8 +292,7 @@ public class MendeleyRecord implements Document {
 
 	@Override
 	public String getSource() {
-		// TODO Auto-generated method stub
-		return null;
+		return MendeleyApiParams.SOURCE;
 	}
 
 	@Override

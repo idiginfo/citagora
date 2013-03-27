@@ -7,6 +7,7 @@ public class ScopusApiParams extends BaseApiParams {
 	//public static final String API_URL = "http://api.elsevier.com/content/";
 	public static final String API_URL = "http://searchapi.scopus.com/";
 	public static final String API_KEY = "53c813e3f5a58b232219c80be5dbdea1";
+	public static final String SOURCE = "scopus.com";
 
 	// Content Categories
 	String[] contentCategories = { "Article", "Abstract", "Author",

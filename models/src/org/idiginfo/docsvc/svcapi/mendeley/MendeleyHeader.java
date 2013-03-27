@@ -1,7 +1,6 @@
 package org.idiginfo.docsvc.svcapi.mendeley;
 
 import org.idiginfo.docsvc.svcapi.mendeley.MendeleyRecord.Author;
-import org.idiginfo.docsvc.svcapi.mendeley.MendeleyRecord.Creator;
 
 import com.google.gson.annotations.SerializedName;
 

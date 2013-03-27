@@ -9,6 +9,7 @@ public class SpringerApiParams extends BaseApiParams {
     // public static final String API_KEY = "yprt5a5cy4pgj3788ewfj7wz";
     public static final String API_KEY = "fxmd387e4h4tccmtxv5nub6r";
     public static final String OPENACCESS_API_KEY = "ux29fqp7vphhw6x8uupjaugk";
+	public static final String SOURCE = "springer.com";
 
     // Content Categories
     String[] contentCategories = { "Article", "Abstract", "Author",

@@ -10,7 +10,7 @@ public class EntrezApiParams extends BaseApiParams {
     public static final String API_URL = "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/";
 
     public static final String SOURCE = "crossref";
-
+    // 	public static final String SOURCE = "entrez" || "eutils.ncbi.nlm.nih.gov";
     // ?q=joiner&header=true
 
     List<String> ids = new ArrayList<>();

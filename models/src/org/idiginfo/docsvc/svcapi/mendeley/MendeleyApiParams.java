@@ -21,6 +21,7 @@ public class MendeleyApiParams extends BaseApiParams {
 	public static final String API_SERVICE = "oapi/documents";
 	public static final String API_SEARCH = "search";
 	public static final String API_DETAILS = "details";
+	public static final String SOURCE = "mendeley.com";
 
 	public static final String[] PUBLICATION_CONTENT_TYPE_VALUES = {
 			"title:", "author:", "year:", "published_in:" };
