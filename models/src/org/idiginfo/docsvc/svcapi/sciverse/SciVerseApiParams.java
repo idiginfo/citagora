@@ -7,6 +7,7 @@ public class SciVerseApiParams extends BaseApiParams {
 	public static final String API_URL = "http://api.elsevier.com/content/";
 	public static final String AUTH_URL = "http://api.elsevier.com/authenticate?platform=SCOPUS";
 	public static final String API_KEY = "32044be7be3a652a32654afeae5bf4d1"; // Riccardi's key
+	public static final String SOURCE = "elsevier.com";
 	// Content Categories
 	String[] contentCategories = { "Article", "Abstract", "Author",
 			"Affiliation" };

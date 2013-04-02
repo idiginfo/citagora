@@ -13,6 +13,7 @@ public class AnnotateApiParams extends BaseApiParams {
 	public static final String API_URL = "http://annotate.msrc.fsu.edu/php/";
 	public static final String API_KEY = "giqfrstIk9b6CddDL3ogGTUac6Lr3II9";
 	public static final String API_USER = "casey.mclaughlin@cci.fsu.edu";
+	public static final String SOURCE = "annotate.msrc.fsu.edu";
 	public static final long VALID_FOR = 0;
 
 	public AnnotateApiParams() {
