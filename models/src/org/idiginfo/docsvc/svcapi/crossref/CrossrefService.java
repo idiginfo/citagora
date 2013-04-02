@@ -4,6 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.List;
 
 import org.idiginfo.docsvc.model.apisvc.ApiParams;
 import org.idiginfo.docsvc.model.apisvc.DocService;
@@ -142,9 +143,9 @@ public class CrossrefService implements DocService {
 	return result;
     }
 
-    public JsonElement matchService(String[] references) {
+    public JsonElement matchService(List<String> refs) {
 	JsonArray jsonContent = new JsonArray();
-	for (String ref : references) {
+	for (String ref : refs) {
 	    jsonContent.add(new JsonPrimitive(ref));
 	}
 	return matchService(jsonContent);
