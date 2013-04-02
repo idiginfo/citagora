@@ -1,5 +1,8 @@
 package org.idiginfo.docsvc.controller.rest;
 
+import java.util.Arrays;
+import java.util.List;
+
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -15,7 +18,6 @@ import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
 
 import org.apache.commons.lang.StringUtils;
-
 import org.idiginfo.docsvc.svcapi.crossref.CrossrefService;
 
 import com.google.gson.Gson;
@@ -31,7 +33,7 @@ import com.google.gson.JsonParser;
  */
 @Path("/")
 @Produces(MediaType.APPLICATION_XML)
-public class CrossRefService {
+public class CrossrefRest {
 
     CrossrefService service = new CrossrefService();
     Gson gson = CrossrefService.getGson();
@@ -42,7 +44,7 @@ public class CrossRefService {
 
     @GET
     @Path(value = "/match")
-    public Response getCrossref(@QueryParam("ref") String[] refs) {
+    public Response getCrossref(@QueryParam("ref") List<String> refs) {
 	JsonElement matches = service.matchService(refs);
 	return createResponse(matches);
     }
@@ -58,7 +60,8 @@ public class CrossRefService {
 	    matches = service.matchService(refsArray);
 	} else {
 	    // not json array, try strings
-	    String[] refStrings = StringUtils.split(refs, '\n');
+	    List<String> refStrings = Arrays.asList(StringUtils.split(refs,
+		    '\n'));
 	    matches = service.matchService(refStrings);
 	}
 	return createResponse(matches);
