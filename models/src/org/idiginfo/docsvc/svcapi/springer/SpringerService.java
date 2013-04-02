@@ -76,6 +76,8 @@ public class SpringerService implements DocService {
 	JsonElement content = queryService("getdocument", params);
 	printJson(content, "c:/dev/api samples/springer1.json");
 	SpringerResult result = gson.fromJson(content, SpringerResult.class);
+	if (result == null)
+	    return null;
 	Documents documents = result.getDocuments();
 	if (documents == null || documents.size() < 1)
 	    return null;
