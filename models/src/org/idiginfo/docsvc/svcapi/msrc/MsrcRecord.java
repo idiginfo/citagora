@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.idiginfo.docsvc.model.apisvc.Annotation;
+import org.idiginfo.docsvc.model.apisvc.BaseDocument;
 import org.idiginfo.docsvc.model.apisvc.Document;
 
 /**
@@ -107,14 +108,8 @@ public class MsrcRecord implements Document {
 	if (document == null)
 	    return null;
 	String docId = document.getId();
-	if (docId != null && docId.startsWith("10.")) {
-	    // a proper doi
-	    return docId;
-	}
-	if (docId != null && docId.startsWith("doi:10.")) {
-	    // does not start with "doi:10.
-	    return docId.substring(3);
-	}
+	if (docId != null)
+	    return BaseDocument.doiUri(docId);
 	return id;
     }
 

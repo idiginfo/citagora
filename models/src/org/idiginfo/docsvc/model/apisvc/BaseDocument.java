@@ -45,11 +45,14 @@ public class BaseDocument implements Document {
 
     public static String BASE_URI = "http://ids.idiginfo.org/";
 
+    
     public static String doiUri(String doi) {
 	if (doi == null)
 	    return null;
 	if (doi.startsWith("doi:"))
 	    return doi;
+	if (doi.startsWith("info:doi:"))
+	    return doi.substring(5);// start after "info:"
 	return "doi:" + doi;
     }
 

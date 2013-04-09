@@ -7,7 +7,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
+import org.hamcrest.BaseDescription;
 import org.idiginfo.docsvc.model.apisvc.Annotation;
+import org.idiginfo.docsvc.model.apisvc.BaseDocument;
 import org.idiginfo.docsvc.model.apisvc.Document;
 import org.apache.commons.lang.StringUtils;
 
@@ -104,16 +106,14 @@ public class SpringerRecord implements Document {
     @Override
     public String getGUID() {
 	if (doi != null) {
-	    if (doi.startsWith("doi:"))
-		return doi;
-	    return "doi:" + doi;
+	    return BaseDocument.doiUri(doi);
 	}
 	return "http://ids.idiginfo.org/" + getId();
     }
 
     @Override
     public String getId() {
-	return "doi:" + doi;
+	return getGUID();
     }
 
     public String getIdentifier() {
@@ -226,9 +226,7 @@ public class SpringerRecord implements Document {
     @Override
     public String getUri() {
 	if (doi != null && doi.length() > 0) {
-	    if (doi.startsWith("doi:"))
-		return doi;
-	    return "doi:" + doi;
+	    return BaseDocument.doiUri(doi);
 	}
 	return url;
     }

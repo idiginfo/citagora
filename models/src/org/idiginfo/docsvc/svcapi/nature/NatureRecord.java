@@ -103,17 +103,12 @@ public class NatureRecord implements Document {
 
     @Override
     public String getGUID() {
-	if (doi != null) {
-	    if (doi.startsWith("doi:"))
-		return doi;
-	    return "doi:" + doi;
-	}
-	return "http://ids.idiginfo.org/" + getId();
+	return getUri();
     }
 
     @Override
     public String getId() {
-	return "doi:" + doi;
+	return getUri();
     }
 
     public String getIdentifier() {
@@ -225,11 +220,14 @@ public class NatureRecord implements Document {
 
     @Override
     public String getUri() {
-	if (doi != null && doi.length() > 0) {
+	if (doi != null) {
 	    if (doi.startsWith("doi:"))
 		return doi;
+	    if (doi.startsWith("info:doi:"))
+		return doi.substring(5);// start after "info:"
 	    return "doi:" + doi;
 	}
+	//return "http://ids.idiginfo.org/" + getId();
 	return url;
     }
 
