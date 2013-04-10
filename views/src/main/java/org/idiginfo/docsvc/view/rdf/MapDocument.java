@@ -1,8 +1,8 @@
 package org.idiginfo.docsvc.view.rdf;
 
 import org.idiginfo.docsvc.model.apisvc.Document;
-import org.idiginfo.docsvc.view.rdf.vocabulary.BIBO;
-import org.idiginfo.docsvc.view.rdf.vocabulary.RdfUtilities;
+import org.idiginfo.docsvc.model.vocabulary.BIBO;
+import org.idiginfo.docsvc.model.vocabulary.RdfUtilities;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Resource;
