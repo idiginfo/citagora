@@ -2,7 +2,12 @@ package org.idiginfo.docsvc.svcapi.crossref;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
+
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.apache.commons.lang.StringUtils;
 import org.idiginfo.docsvc.model.apisvc.Annotation;
@@ -148,7 +153,13 @@ public class RdfDocument implements Document {
 
     @Override
     public Date getDateObject() {
-	// TODO Auto-generated method stub
+	try {
+	    XMLGregorianCalendar calendar = DatatypeFactory.newInstance()
+		    .newXMLGregorianCalendar(getDate());
+	    return calendar.toGregorianCalendar().getTime();
+	} catch (DatatypeConfigurationException e) {
+	    e.printStackTrace();
+	}
 	return null;
     }
 
@@ -159,8 +170,10 @@ public class RdfDocument implements Document {
 
     @Override
     public String getEdition() {
-	// TODO Auto-generated method stub
-	return null;
+	String edition = getString(document, BIBO.edition);
+	if (edition != null)
+	    return edition;
+	return getString(journal, BIBO.edition);
     }
 
     @Override
@@ -180,8 +193,7 @@ public class RdfDocument implements Document {
 
     @Override
     public String getId() {
-	// TODO Auto-generated method stub
-	return null;
+	return getDoi();
     }
 
     @Override
@@ -196,25 +208,23 @@ public class RdfDocument implements Document {
 
     @Override
     public String getIssue() {
-	// TODO Auto-generated method stub
-	return null;
+	return getString(document,BIBO.issue);
     }
 
     @Override
     public List<String> getKeywords() {
 	// TODO Auto-generated method stub
+	//BIBO.
 	return null;
     }
 
     @Override
     public String getLanguage() {
-	// TODO Auto-generated method stub
-	return null;
+	return getString(document, DCTERMS.language);
     }
 
     @Override
     public List<String> getMeshTerms() {
-	// TODO Auto-generated method stub
 	return null;
     }
 
@@ -295,7 +305,6 @@ public class RdfDocument implements Document {
 
     @Override
     public String getTitle() {
-	// TODO Auto-generated method stub
 	return getString(document, DCTERMS.title);
     }
 
@@ -341,7 +350,7 @@ public class RdfDocument implements Document {
 	    Resource object = resource.getPropertyResourceValue(property);
 	    return object.getLocalName();
 	} catch (Exception e) {
-	    e.printStackTrace();
+	    // e.printStackTrace();
 	    return null;
 	}
     }
@@ -353,7 +362,7 @@ public class RdfDocument implements Document {
 	    Statement stmt = resource.getProperty(property);
 	    return stmt.getString();
 	} catch (Exception e) {
-	    e.printStackTrace();
+	    // e.printStackTrace();
 	    return null;
 	}
     }

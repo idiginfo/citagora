@@ -44,10 +44,16 @@ public class CrossrefSample {
 	RdfDocument result = (RdfDocument) rdfService.getDocument(doi);
 	Model model = result.getRdfModel();
 	System.out.println("Printing model");
-	//model.write(System.out);
-	System.out.println("type: "+result.getType());
-	System.out.println("title: "+result.getTitle());
-	System.out.println("authors: "+result.getAuthors());
+	// model.write(System.out);
+	System.out.println("type: " + result.getType());
+	System.out.println("title: " + result.getTitle());
+	System.out.println("authors: " + result.getAuthors());
+	System.out.println("start page: " + result.getPageStart());
+	System.out.println("pages: " + result.getPages());
+	System.out.println("journal title: " + result.getPublicationName());
+	System.out.println("issn: " + result.getIssn());
+	System.out.println("eIssn: " + result.geteIssn());
+	System.out.println("date object: "+result.getDateObject());
 	return result;
     }
 
