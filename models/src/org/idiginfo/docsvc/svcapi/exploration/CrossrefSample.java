@@ -3,21 +3,27 @@ package org.idiginfo.docsvc.svcapi.exploration;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
+import org.idiginfo.docsvc.model.apisvc.Document;
 import org.idiginfo.docsvc.svcapi.crossref.CrossrefApiParams;
 import org.idiginfo.docsvc.svcapi.crossref.CrossrefDocument;
 import org.idiginfo.docsvc.svcapi.crossref.CrossrefMatch;
+import org.idiginfo.docsvc.svcapi.crossref.CrossrefRdfService;
 import org.idiginfo.docsvc.svcapi.crossref.CrossrefResult;
 import org.idiginfo.docsvc.svcapi.crossref.CrossrefService;
 import org.idiginfo.docsvc.svcapi.crossref.CrossrefMatch.MatchResult;
+import org.idiginfo.docsvc.svcapi.crossref.RdfDocument;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.hp.hpl.jena.rdf.model.Model;
+import com.hp.hpl.jena.vocabulary.RDFS;
 
 public class CrossrefSample {
 
     static CrossrefService service = new CrossrefService();
+    static CrossrefRdfService rdfService = new CrossrefRdfService();
     static JsonParser parser = new JsonParser();
     static Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
@@ -25,18 +31,23 @@ public class CrossrefSample {
 
     private static void run() {
 	// testCrossrefDocument("241939");
-//	testCrossrefFile("c:/dev/api samples/crossref.json");
-//	testCrossrefMatchFile("c:/dev/api samples/crossrefMatch.json");
+	// testCrossrefFile("c:/dev/api samples/crossref.json");
+	// testCrossrefMatchFile("c:/dev/api samples/crossrefMatch.json");
 
-	// testDoiDocument("10.1038/news.2011.490");
+	testDoiDocument("10.1126/science.1157784");
 	// testPmidDocument("21148220");
-	//testCrossrefQuery();
-	testCrossrefMatch();
+	// testCrossrefQuery();
+	// testCrossrefMatch();
     }
 
-    public static String testDoiDocument(String doi) {
-	String result = service.getDocument(doi);
-	System.out.println(result);
+    public static Document testDoiDocument(String doi) {
+	RdfDocument result = (RdfDocument) rdfService.getDocument(doi);
+	Model model = result.getRdfModel();
+	System.out.println("Printing model");
+	//model.write(System.out);
+	System.out.println("type: "+result.getType());
+	System.out.println("title: "+result.getTitle());
+	System.out.println("authors: "+result.getAuthors());
 	return result;
     }
 
@@ -80,21 +91,20 @@ public class CrossrefSample {
     }
 
     private static void printResponse(CrossrefMatch response) {
-	System.out.println("query ok:"+response.getQueryOk());
-	for(MatchResult result : response.getResults()){
+	System.out.println("query ok:" + response.getQueryOk());
+	for (MatchResult result : response.getResults()) {
 	    System.out.println("<match>");
-	    System.out.println("\tmatch: "+result.getMatch());
-	    System.out.println("\tdoi: "+result.getDoi());
-	    System.out.println("\tscore: "+result.getScore());
-	    System.out.println("\ttext: "+result.getText());
-	    System.out.println("\treason: "+result.getReason());
+	    System.out.println("\tmatch: " + result.getMatch());
+	    System.out.println("\tdoi: " + result.getDoi());
+	    System.out.println("\tscore: " + result.getScore());
+	    System.out.println("\ttext: " + result.getText());
+	    System.out.println("\treason: " + result.getReason());
 	    System.out.println("</match>");
 
 	}
-	
-	
+
 	// TODO Auto-generated method stub
-	
+
     }
 
     private static void printResponse(CrossrefResult response) {
@@ -127,10 +137,12 @@ public class CrossrefSample {
 	printResponse(record);
 	return null;
     }
+
     public static String testCrossrefMatch() {
 	// String content;
-	String[] refs = {"M. Henrion, D. J. Mortlock, D. J. Hand, and A. Gandy, \"A Bayesian approach to star-galaxy classification,\" Monthly Notices of the Royal Astronomical Society, vol. 412, no. 4, pp. 2286-2302, Apr. 2011.",
-	  "Renear 2012"};
+	String[] refs = {
+		"M. Henrion, D. J. Mortlock, D. J. Hand, and A. Gandy, \"A Bayesian approach to star-galaxy classification,\" Monthly Notices of the Royal Astronomical Society, vol. 412, no. 4, pp. 2286-2302, Apr. 2011.",
+		"Renear 2012" };
 	CrossrefMatch record = service.getMatch(refs);
 	if (record == null) {
 	    System.err.println("Service request failed");
