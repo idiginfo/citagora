@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Vector;
 
 import org.hamcrest.BaseDescription;
+import org.idiginfo.docsvc.model.ServiceFactory;
 import org.idiginfo.docsvc.model.apisvc.Annotation;
 import org.idiginfo.docsvc.model.apisvc.BaseDocument;
 import org.idiginfo.docsvc.model.apisvc.Document;
@@ -205,8 +206,7 @@ public class SpringerRecord implements Document {
 
     @Override
     public String getSource() {
-	// TODO Auto-generated method stub
-	return null;
+	return ServiceFactory.COLLECTION_SPRINGER;
     }
 
     public String getStartingPage() {

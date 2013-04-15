@@ -63,6 +63,8 @@ public class AltmetricService implements DocService {
     }
 
     public AltmetricRecord getDetails(String altmetricId) {
+	if (altmetricId == null)
+	    return null;
 	AltmetricApiParams params = new AltmetricApiParams();
 	params.setCollection(AltmetricApiParams.DETAILS_COLLECTION);
 	params.setId(altmetricId);
@@ -74,6 +76,8 @@ public class AltmetricService implements DocService {
 	params.setCollection(AltmetricApiParams.DOI_COLLECTION);
 	params.setId(doi);
 	AltmetricRecord document = (AltmetricRecord) getDocument(params);
+	if (document == null)
+	    return null;
 	return document.getAltmetricId();
     }
 

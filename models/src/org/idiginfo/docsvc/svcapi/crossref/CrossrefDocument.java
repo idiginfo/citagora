@@ -3,6 +3,7 @@ package org.idiginfo.docsvc.svcapi.crossref;
 import java.util.Date;
 import java.util.List;
 
+import org.idiginfo.docsvc.model.ServiceFactory;
 import org.idiginfo.docsvc.model.apisvc.Annotation;
 import org.idiginfo.docsvc.model.apisvc.Document;
 
@@ -130,7 +131,7 @@ public class CrossrefDocument implements Document {
 
     @Override
     public String getSource() {
-	return CrossrefApiParams.SOURCE;
+	return ServiceFactory.COLLECTION_CROSSREF;
     }
 
     @Override

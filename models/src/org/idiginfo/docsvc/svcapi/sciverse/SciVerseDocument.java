@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import org.idiginfo.docsvc.model.ServiceFactory;
 import org.idiginfo.docsvc.model.apisvc.Annotation;
 import org.idiginfo.docsvc.model.apisvc.BaseDocument;
 import org.idiginfo.docsvc.model.apisvc.Document;
@@ -210,7 +211,7 @@ public class SciVerseDocument implements Document {
 
     @Override
     public String getSource() {
-	return SciVerseApiParams.SOURCE;
+	return ServiceFactory.COLLECTION_ELSEVIER;
     }
 
     @Override

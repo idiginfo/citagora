@@ -30,6 +30,8 @@ public class MsrcRecord implements Document {
     static DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX"); // "2011-11-04T15:40:15-04:00"
 
     public static Date parseDate(String date) {
+	if (date == null)
+	    return null;
 	try {
 	    return formatter.parse(date);
 	} catch (ParseException e) {

@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Vector;
 
 import org.apache.commons.lang.StringUtils;
+import org.idiginfo.docsvc.model.ServiceFactory;
 import org.idiginfo.docsvc.model.apisvc.Annotation;
 import org.idiginfo.docsvc.model.apisvc.Document;
 
@@ -200,8 +201,7 @@ public class NatureRecord implements Document {
 
     @Override
     public String getSource() {
-	// TODO Auto-generated method stub
-	return null;
+	return ServiceFactory.COLLECTION_NATURE;
     }
 
     public String getStartingPage() {
@@ -227,7 +227,7 @@ public class NatureRecord implements Document {
 		return doi.substring(5);// start after "info:"
 	    return "doi:" + doi;
 	}
-	//return "http://ids.idiginfo.org/" + getId();
+	// return "http://ids.idiginfo.org/" + getId();
 	return url;
     }
 

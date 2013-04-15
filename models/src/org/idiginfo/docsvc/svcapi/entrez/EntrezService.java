@@ -8,6 +8,10 @@ import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 
+import org.idiginfo.docsvc.model.apisvc.ApiParams;
+import org.idiginfo.docsvc.model.apisvc.DocService;
+import org.idiginfo.docsvc.model.apisvc.Document;
+import org.idiginfo.docsvc.model.apisvc.Documents;
 import org.idiginfo.esearch.ESearchResult;
 import org.idiginfo.esearch.Id;
 import org.idiginfo.medline.MedlineCitationSet;
@@ -19,7 +23,7 @@ import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 
-public class EntrezService {
+public class EntrezService implements DocService{
 
     static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
     static final int CONNECT_TIMEOUT = 200000;
@@ -115,9 +119,37 @@ public class EntrezService {
      * @param idList
      */
     public EntrezDocuments getDocumentsIdList(EntrezSearchResponse response) {
-	// TODO handle full capability of 
+	// TODO handle full capability of
 	return null;
 	// TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public String format(String content) {
+	// TODO Auto-generated method stub
+	return null;
+    }
+
+    @Override
+    public Document getDocument(ApiParams params) {
+	// TODO Auto-generated method stub
+	return null;
+    }
+
+    @Override
+    public Documents getDocuments(ApiParams params) {
+	// TODO Auto-generated method stub
+	return null;
+    }
+
+    @Override
+    public Document getAnnotations(ApiParams params) {
+	return null;
+    }
+
+    @Override
+    public Document getAnnotations(Document document) {
+	return null;
     }
 }

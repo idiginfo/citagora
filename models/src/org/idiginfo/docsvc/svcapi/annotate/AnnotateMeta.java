@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
+import org.idiginfo.docsvc.model.ServiceFactory;
 import org.idiginfo.docsvc.model.apisvc.Annotation;
 import org.idiginfo.docsvc.model.apisvc.Document;
 
@@ -229,8 +230,7 @@ public class AnnotateMeta implements Document {
 
     @Override
     public String getSource() {
-	// TODO Auto-generated method stub
-	return null;
+	return ServiceFactory.COLLECTION_ANNOTATE;
     }
 
     public String getSrcext() {

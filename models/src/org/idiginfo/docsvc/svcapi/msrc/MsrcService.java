@@ -85,11 +85,15 @@ public class MsrcService implements DocService {
 
     public MsrcRecord getDetailsByDoi(String doi) {
 	String biblioId = getBiblioIdByDoi(doi);
+	if (biblioId == null)
+	    return null;
 	return getDetails(biblioId);
     }
 
     public MsrcRecord getDetailsByPmid(String pmid) {
 	String biblioId = getBiblioIdByPmid(pmid);
+	if (biblioId == null)
+	    return null;
 	return getDetails(biblioId);
     }
 

@@ -7,9 +7,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
+import org.idiginfo.docsvc.model.ServiceFactory;
 import org.idiginfo.docsvc.model.apisvc.Annotation;
 import org.idiginfo.docsvc.model.apisvc.Document;
-import org.idiginfo.docsvc.svcapi.altmetric.AltmetricApiParams;
 
 public class AnnotateDocument implements Document {
 	String code;
@@ -189,7 +189,7 @@ public class AnnotateDocument implements Document {
 
 	@Override
 	public String getSource() {
-		return AltmetricApiParams.SOURCE;
+		return ServiceFactory.COLLECTION_ANNOTATE;
 	}
 
 	@Override
