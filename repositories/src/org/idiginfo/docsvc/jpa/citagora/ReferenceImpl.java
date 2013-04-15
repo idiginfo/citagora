@@ -17,16 +17,18 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 
 import org.apache.commons.lang.StringUtils;
 import org.idiginfo.docsvc.model.citagora.Author;
 import org.idiginfo.docsvc.model.citagora.CitagoraAgent;
-import org.idiginfo.docsvc.model.citagora.CitagoraFactory;
 import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.model.citagora.Reference;
 
 @Entity
-@Table(name = "citagora_references")
+@Table(name = "citagora_references", uniqueConstraints = {
+	@UniqueConstraint(columnNames = { "refSource", "doi" }),
+	@UniqueConstraint(columnNames = { "refSource", "pmid" }) })
 @DiscriminatorValue(value = "reference")
 public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
 
@@ -44,10 +46,11 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
     String biboType;
     @Temporal(TemporalType.TIMESTAMP)
     Date issued;
-    @Column(unique = true)
     String pmid;
-    @Column(unique = true)
     String doi;
+    // refSource is duplicated with superclass to allow for unique constraint
+    @Column(name = "ref_source")
+    String refSource;
     @Lob
     // @Column(length = 1000)
     String authorString;
@@ -104,10 +107,10 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
     String authorNotes;
     String itemNumber;
     String publicationDate;
-    String rights;
-    String seriesTitle; 
-    
-    
+    @Column(name="doc_rights")
+    String docRights;
+    String seriesTitle;
+
     public ReferenceImpl() {
 	type = Reference.TYPE;
 	setCollection(Reference.COLLECTION);
@@ -602,91 +605,110 @@ public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
     }
 
     public String getAggregationType() {
-		return aggregationType;
-	}
+	return aggregationType;
+    }
 
-	public void setAggregationType(String aggregationType) {
-		this.aggregationType = aggregationType;
-	}
+    public void setAggregationType(String aggregationType) {
+	this.aggregationType = aggregationType;
+    }
 
-	public String getArXivId() {
-		return arXivId;
-	}
+    public String getArXivId() {
+	return arXivId;
+    }
 
-	public void setArXivId(String arXivId) {
-		this.arXivId = arXivId;
-	}
+    public void setArXivId(String arXivId) {
+	this.arXivId = arXivId;
+    }
 
-	public String getCoverDate() {
-		return coverDate;
-	}
+    public String getCoverDate() {
+	return coverDate;
+    }
 
-	public void setCoverDate(String coverDate) {
-		this.coverDate = coverDate;
-	}
+    public void setCoverDate(String coverDate) {
+	this.coverDate = coverDate;
+    }
 
-	public String getEdition() {
-		return edition;
-	}
+    public String getEdition() {
+	return edition;
+    }
 
-	public void setEdition(String edition) {
-		this.edition = edition;
-	}
+    public void setEdition(String edition) {
+	this.edition = edition;
+    }
 
-	public String geteIssn() {
-		return eIssn;
-	}
+    public String geteIssn() {
+	return eIssn;
+    }
 
-	public void seteIssn(String eIssn) {
-		this.eIssn = eIssn;
-	}
+    public void seteIssn(String eIssn) {
+	this.eIssn = eIssn;
+    }
 
-	public String getGenre() {
-		return genre;
-	}
+    public String getGenre() {
+	return genre;
+    }
 
-	public void setGenre(String genre) {
-		this.genre = genre;
-	}
+    public void setGenre(String genre) {
+	this.genre = genre;
+    }
 
-	public String getAuthorNotes() {
-		return authorNotes;
-	}
+    public String getAuthorNotes() {
+	return authorNotes;
+    }
 
-	public void setAuthorNotes(String authorNotes) {
-		this.authorNotes = authorNotes;
-	}
+    public void setAuthorNotes(String authorNotes) {
+	this.authorNotes = authorNotes;
+    }
 
-	public String getItemNumber() {
-		return itemNumber;
-	}
+    public String getItemNumber() {
+	return itemNumber;
+    }
 
-	public void setItemNumber(String itemNumber) {
-		this.itemNumber = itemNumber;
-	}
+    public void setItemNumber(String itemNumber) {
+	this.itemNumber = itemNumber;
+    }
 
-	public String getPublicationDate() {
-		return publicationDate;
-	}
+    public String getPublicationDate() {
+	return publicationDate;
+    }
 
-	public void setPublicationDate(String publicationDate) {
-		this.publicationDate = publicationDate;
-	}
+    public void setPublicationDate(String publicationDate) {
+	this.publicationDate = publicationDate;
+    }
 
-	public String getRights() {
-		return rights;
-	}
+    public String getRights() {
+	return docRights;
+    }
 
-	public void setRights(String rights) {
-		this.rights = rights;
-	}
+    public void setRights(String rights) {
+	this.docRights = rights;
+    }
 
-	public String getSeriesTitle() {
-		return seriesTitle;
-	}
+    public String getSeriesTitle() {
+	return seriesTitle;
+    }
 
-	public void setSeriesTitle(String seriesTitle) {
-		this.seriesTitle = seriesTitle;
+    public void setSeriesTitle(String seriesTitle) {
+	this.seriesTitle = seriesTitle;
+    }
+
+    @Override
+    public String getSource() {
+	// make sure that this.source and super.source are consistent
+	if (super.source != refSource) {
+	    if (refSource == null) {
+		refSource = super.source;
+	    } else {
+		super.source = refSource;
+	    }
 	}
+	return refSource;
+    }
+
+    @Override
+    public void setSource(String source) {
+	this.refSource = source;
+	super.source = source;
+    }
 
 }

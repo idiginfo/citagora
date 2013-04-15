@@ -18,6 +18,7 @@ import org.idiginfo.docsvc.model.citagora.CitagoraFactory;
 import org.idiginfo.docsvc.model.citagora.CitagoraObject;
 import org.idiginfo.docsvc.model.citagora.Comment;
 import org.idiginfo.docsvc.model.citagora.Container;
+import org.idiginfo.docsvc.model.citagora.HarvestResult;
 import org.idiginfo.docsvc.model.citagora.Person;
 import org.idiginfo.docsvc.model.citagora.RatingType;
 import org.idiginfo.docsvc.model.citagora.Reference;
@@ -161,16 +162,13 @@ public class CitagoraFactoryImpl extends CitagoraFactory {
      * Get an object from the repository of a specific type.
      */
     protected <K> K findObject(Class<K> type, int key) {
-	getEntityManager();
-	K obj = em.find(type, key);
-	return obj;
-    }
-
-    /**
-     * Get an object from the repository of a specific type.
-     */
-    protected <K> K findObjectByUri(Class<K> type, int key) {
-	return null;
+	try {
+	    getEntityManager();
+	    K obj = em.find(type, key);
+	    return obj;
+	} catch (PersistenceException e) {
+	    return null;
+	}
     }
 
     @Override
@@ -196,15 +194,28 @@ public class CitagoraFactoryImpl extends CitagoraFactory {
     @SuppressWarnings("unchecked")
     // we know that the query returns the correct class
     @Override
-    public Reference findReferenceByDoi(String doi) {
+    public List<Reference> findReferencesByDoi(String doi) {
 	getEntityManager();
 	Query q = em.createQuery("SELECT e FROM " + REFERENCE_CLASS_NAME
 		+ " e WHERE e.doi=:doi");
 	q.setParameter("doi", doi);
 	List<Reference> references = q.getResultList();
-	if (references == null || references.size() < 1)
+	return references;
+    }
+
+    @Override
+    public Reference findReferenceBySourceDoi(String source, String doi) {
+	try {
+	    getEntityManager();
+	    Query q = em.createQuery("SELECT e FROM " + REFERENCE_CLASS_NAME
+		    + " e WHERE e.doi=:doi and e.source=:refSource");
+	    q.setParameter("doi", doi);
+	    q.setParameter("refSource", source);
+	    Reference reference = (Reference) q.getSingleResult();
+	    return reference;
+	} catch (NoResultException e) {
 	    return null;
-	return references.get(0);
+	}
     }
 
     @SuppressWarnings("unchecked")
@@ -212,8 +223,8 @@ public class CitagoraFactoryImpl extends CitagoraFactory {
     @Override
     public List<Reference> findReferencesById(String id) {
 	getEntityManager();
-	Query q = em.createQuery("SELECT e FROM "
-		+ ReferenceImpl.class.getCanonicalName() + " e WHERE e.id=:id");
+	Query q = em.createQuery("SELECT e FROM " + REFERENCE_CLASS_NAME
+		+ " e WHERE e.id=:id");
 	q.setParameter("id", id);
 	List<Reference> references = q.getResultList();
 	return references;
@@ -296,6 +307,7 @@ public class CitagoraFactoryImpl extends CitagoraFactory {
 	    em.merge(obj);
 	} else {
 	    em.persist(obj);
+	    obj.getUri();
 	}
 	if (localTransaction) {
 	    try {
@@ -381,7 +393,7 @@ public class CitagoraFactoryImpl extends CitagoraFactory {
 	    q.setParameter("name", name);
 	    Person person = (Person) q.getSingleResult();
 	    return person;
-	} catch (NoResultException e) {
+	} catch (PersistenceException e) {
 	    return null;
 	}
     }
@@ -395,8 +407,44 @@ public class CitagoraFactoryImpl extends CitagoraFactory {
 	    q.setParameter("uri", uri);
 	    CitagoraObject obj = (CitagoraObject) q.getSingleResult();
 	    return obj;
-	} catch (NoResultException e) {
+	} catch (PersistenceException e) {
 	    return null;
 	}
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<HarvestResult> findHarvestResults(String doi) {
+	try {
+	    getEntityManager();
+	    Query q = em
+		    .createQuery("SELECT h FROM HarvestImpl h WHERE h.doi=:doi");
+	    q.setParameter("doi", doi);
+	    List<HarvestResult> obj = q.getResultList();
+	    return obj;
+	} catch (PersistenceException e) {
+	    return null;
+	}
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<HarvestResult> findHarvestResults(String source, String doi) {
+	try {
+	    getEntityManager();
+	    Query q = em
+		    .createQuery("SELECT h FROM HarvestResultImpl h WHERE h.doi=:doi and h.source=:refSource");
+	    q.setParameter("doi", doi);
+	    q.setParameter("refSource", source);
+	    List<HarvestResult> obj = q.getResultList();
+	    return obj;
+	} catch (PersistenceException e) {
+	    return null;
+	}
+    }
+
+    @Override
+    public HarvestResult createHarvestResult() {
+	return new HarvestResultImpl();
     }
 }

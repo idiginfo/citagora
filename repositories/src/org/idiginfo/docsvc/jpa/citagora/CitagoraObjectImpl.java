@@ -128,7 +128,7 @@ public class CitagoraObjectImpl implements CitagoraObject {
 	if (uri == null && myId != null) {
 	    uri = makeId(myCollection, myId);
 	}
-	return null;
+	return uri;
     }
 
     @Override
