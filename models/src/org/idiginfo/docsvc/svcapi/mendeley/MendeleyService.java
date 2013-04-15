@@ -1,6 +1,7 @@
 package org.idiginfo.docsvc.svcapi.mendeley;
 
 import java.util.List;
+import java.util.Vector;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -11,6 +12,8 @@ import org.idiginfo.docsvc.model.apisvc.DocService;
 import org.idiginfo.docsvc.model.apisvc.Document;
 import org.idiginfo.docsvc.model.apisvc.Documents;
 import org.idiginfo.docsvc.model.apisvc.Users;
+import org.idiginfo.docsvc.svcapi.mendeley.MendeleyService;
+import org.idiginfo.docsvc.svcapi.mendeley.MendeleyResult;
 import org.idiginfo.docsvc.svcapi.mendeley.MendeleyHeader;
 import org.idiginfo.docsvc.svcapi.mendeley.MendeleyHeaders;
 import org.idiginfo.docsvc.svcapi.mendeley.MendeleyRecord;
@@ -35,7 +38,7 @@ import com.google.gson.JsonParser;
  * 
  */
 
-public class MendeleyService {
+public class MendeleyService implements DocService {
 
 	static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
 	static JsonParser parser = new JsonParser();
@@ -67,23 +70,18 @@ public class MendeleyService {
 	}
 
 	private MendeleyHeader getMendeleyHeader(ApiParams params) {
-		// TODO must make a MendeleyResult and then extract a MendeleyRecord
+		// make a MendeleyResult and then extract a MendeleyRecord
 		String search = "test";
 		JsonElement content = queryService("search", search, params);
 		printJson(content, "c:/dev/api samples/mendeley1.json");
 		MendeleyResult result = gson.fromJson(content, MendeleyResult.class);
-		// Documents documents = result.getDocuments();
-		// if (documents == null || documents.size() < 1)
-		// return null;
-		// return documents.get(0);
-		// }
 		List<MendeleyHeader> headers = result.getHeaders();
 		if (headers == null || headers.size() < 1)
 			return null;
 		return headers.get(0);
 	}
 
-	// TODO pass the uuid into URL creator to build "details" action
+	// pass the uuid into URL creator to build "details" action
 	public MendeleyRecord getMendeleyRecord(String function, String uuid,
 			ApiParams params) {
 		JsonElement content = queryService(function, uuid, params);
@@ -91,7 +89,7 @@ public class MendeleyService {
 		return result;
 	}
 
-	// TODO pass the search string into URL creator to build "search" action
+	// pass the search string into URL creator to build "search" action
 	public List<MendeleyHeader> getMendeleyHeaders(String function,
 			String search, ApiParams params) {
 		MendeleyResult result = getMendeleyResult(function, search, params);
@@ -171,41 +169,60 @@ public class MendeleyService {
 		return gson;
 	}
 
-	// @Override
-	// public Document getDocument(ApiParams params) {
-	// return getMendeleyDocument(params);
-	// }
+	@Override
+	public Document getDocument(ApiParams params) {
+		return getMendeleyDocument(params);
+	}
 
-	// @Override
-	// public Document getDocument(String id, String date) {
-	// return getDocument(id, date, false, false);
-	// }
+	private Document getMendeleyDocument(ApiParams params) {
+		String keywords = params.getKeyword();
+		params.setFirstResult(0);
+		MendeleyResult result = getMendeleyResult("search", keywords,
+				params);
+		if (result == null || result.getTotalResults() == 0)
+		    return null;
+		List<MendeleyHeader> headers = result.getHeaders();
+		String uuid = headers.get(0).getUuid();
+		String uText = getMendeleyUUID("details", uuid, params);
+		MendeleyRecord document = gson.fromJson(uText, MendeleyRecord.class);
+		return document;
+	}
 
-	// @Override
-	// public Document getDocument(String id, String date, boolean withMeta,
-	// boolean withNotes) {
-	// MendeleyApiParams params = new MendeleyApiParams();
-	// params.setId(id);
-	// return getMendeleyDocument(params);
-	// }
+	@Override
+	public Documents getDocuments(ApiParams params) {
+		Documents documents = getMendeleyDocuments(params);
+		return documents;
+	}
 
-	// @Override
-	// public Documents getDocuments(ApiParams params) {
-	// Documents documents = getMendeleyDocuments("search", params);
-	// return documents;
-	// }
+	private Documents getMendeleyDocuments(ApiParams params) {
+		String keywords = params.getKeyword();
+		List<MendeleyRecord> mDocs = new Vector<MendeleyRecord>();
+		MendeleyResult result = getMendeleyResult("search", keywords,
+				params);
+		if (result == null)
+		    return null;
+		List<MendeleyHeader> headers = result.getHeaders();
+		for (int i = 0; i < headers.size(); i++) {
+			String uuid = headers.get(i).getUuid();
+			String uText = getMendeleyUUID("details", uuid, params);
+			MendeleyRecord document = gson
+					.fromJson(uText, MendeleyRecord.class);
+			mDocs.add(document);
+		}
+		Documents documents = new MendeleyDocuments(mDocs);
+		return documents;
+	}
 
-	// @Override
-	// public Documents getDocuments(String user) {
-	// return getDocuments(user, false, false);
-	// }
+	@Override
+	public Document getAnnotations(ApiParams params) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-	// @Override
-	// public Documents getDocuments(String user, boolean withMeta,
-	// boolean withNotes) {
-	// MendeleyApiParams params = new MendeleyApiParams();
-	// map to AnnotateDocuments
-	// return getDocuments(params);
-	// }
+	@Override
+	public Document getAnnotations(Document document) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
