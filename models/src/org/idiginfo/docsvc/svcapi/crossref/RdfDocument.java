@@ -10,6 +10,7 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.apache.commons.lang.StringUtils;
+import org.idiginfo.docsvc.model.ServiceFactory;
 import org.idiginfo.docsvc.model.apisvc.Annotation;
 import org.idiginfo.docsvc.model.apisvc.Document;
 import org.idiginfo.docsvc.model.vocabulary.BIBO;
@@ -33,28 +34,19 @@ public class RdfDocument implements Document {
     Resource journal;
     List<Resource> creators = null;
 
-    // Namespaces in document
-    // xmlns:j.0="http://purl.org/ontology/bibo/"
-    // class BIBO.java
-    // xmlns:owl="http://www.w3.org/2002/07/owl#"
-    // xmlns:ns0="http://purl.org/dc/terms/"
-    // class DCTERMS
-    // xmlns:j.1="http://prismstandard.org/namespaces/basic/2.1/" >
-    // class Prism
+    // The code in comments below may be needed to get information from Prism
+    // properties
+    // So far, all Prism properties seem to be duplicated as BIBO
     // static final Model MODEL = ModelFactory.createDefaultModel();
-    // static final String TITLE = null;
-    // static final Property ispartof = MODEL
-    // .getProperty("http://purl.org/dc/terms/isPartOf");
-    // Properties not in namespace classes
-    static final Model MODEL = ModelFactory.createDefaultModel();
-    static final String PRISM = "http://prismstandard.org/namespaces/basic/2.1";
-
-    static final Property ENDING_PAGE = MODEL.getProperty(PRISM + "endingPage");
-    static final Property STARTING_PAGE = MODEL.getProperty(PRISM
-	    + "startingPage");
-    static final Property ISSN = MODEL.getProperty(PRISM + "issn");
-    static final Property ISBN = MODEL.getProperty(PRISM + "isbn");
-    static final Property EISSN = MODEL.getProperty(PRISM + "eIssn");
+    // static final String PRISM =
+    // "http://prismstandard.org/namespaces/basic/2.1";
+    // static final Property ENDING_PAGE = MODEL.getProperty(PRISM +
+    // "endingPage");
+    // static final Property STARTING_PAGE = MODEL.getProperty(PRISM
+    // + "startingPage");
+    // static final Property ISSN = MODEL.getProperty(PRISM + "issn");
+    // static final Property ISBN = MODEL.getProperty(PRISM + "isbn");
+    // static final Property EISSN = MODEL.getProperty(PRISM + "eIssn");
 
     public RdfDocument(Model model, Resource document) {
 	this.document = document;
@@ -198,7 +190,7 @@ public class RdfDocument implements Document {
 
     @Override
     public String getIsbn() {
-	return getString(journal, ISBN);
+	return getString(journal, BIBO.isbn);
     }
 
     @Override
@@ -208,13 +200,13 @@ public class RdfDocument implements Document {
 
     @Override
     public String getIssue() {
-	return getString(document,BIBO.issue);
+	return getString(document, BIBO.issue);
     }
 
     @Override
     public List<String> getKeywords() {
 	// TODO Auto-generated method stub
-	//BIBO.
+	// BIBO.
 	return null;
     }
 
@@ -300,7 +292,7 @@ public class RdfDocument implements Document {
 
     @Override
     public String getSource() {
-	return "crossref";
+	return ServiceFactory.COLLECTION_CROSSREF;
     }
 
     @Override
@@ -315,7 +307,13 @@ public class RdfDocument implements Document {
 
     @Override
     public String getUri() {
-	return document.getURI();
+	// if the URI given by the service is "http://dx.doi.org/10..." return "doi:10..."
+	String docUri = document.getURI();
+	int doiPos = docUri.indexOf("10.");
+	if (doiPos > 0) {
+	    return "doi:" + docUri.substring(doiPos - 1);
+	}
+	return docUri;
     }
 
     @Override
@@ -342,6 +340,8 @@ public class RdfDocument implements Document {
     public Model getRdfModel() {
 	return model;
     }
+
+    // Methods for extracting information from the RDF Model
 
     static String getResourceName(Resource resource, Property property) {
 	if (resource == null)
