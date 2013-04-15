@@ -17,7 +17,7 @@ public abstract class CitagoraFactory {
     public static CitagoraFactory getFactory() {
 	return factory;
     }
-    
+
     public abstract void renewPersistence();
 
     public abstract Author createAuthor();
@@ -60,7 +60,7 @@ public abstract class CitagoraFactory {
 
     public abstract Person createPerson(Class<?> subclass);
 
-    public abstract Reference findReferenceByDoi(String doi);
+    public abstract List<Reference> findReferencesByDoi(String doi);
 
     public abstract void init();
 
@@ -93,17 +93,23 @@ public abstract class CitagoraFactory {
 	return null;
     }
 
-    public CitagoraObject findCitagoraObjectByURI(String uri) {
-	// TODO Auto-generated method stub
-	return null;
-    }
+    public abstract CitagoraObject findCitagoraObjectByURI(String uri);
 
-    public static void setPersistence(String persistence){
+    public static void setPersistence(String persistence) {
 	CitagoraFactory.persistence = persistence;
     }
 
     public static String getPersistence() {
 	return persistence;
     }
+
+    public abstract Reference findReferenceBySourceDoi(String source, String doi);
+
+    public abstract List<HarvestResult> findHarvestResults(String doi);
+
+    public abstract List<HarvestResult> findHarvestResults(String source,
+	    String doi);
+
+    public abstract HarvestResult createHarvestResult() ;
 
 }
