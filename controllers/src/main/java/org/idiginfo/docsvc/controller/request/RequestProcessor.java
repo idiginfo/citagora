@@ -85,9 +85,10 @@ public class RequestProcessor {
 
     private Object getCitagoraObjects(ApiParams params) {
 	String doi = params.getDoi();
+	String source = params.getCollection();
 	if (doi != null) {
 	    System.out.print(" doi: " + doi);
-	    Reference ref = factory.findReferenceByDoi(doi);
+	    Reference ref = factory.findReferenceBySourceDoi(source, doi);
 	    if (ref != null) {
 		// get the containers for the document
 		List<Container> containers = ref.getContainers();

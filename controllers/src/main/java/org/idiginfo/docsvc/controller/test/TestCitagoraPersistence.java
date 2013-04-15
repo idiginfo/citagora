@@ -206,7 +206,7 @@ public class TestCitagoraPersistence {
 	comment.setAnnotator(annotator);
 	comment.setModelVersion("0.1");
 	comment.setRights("notate");
-	comment.setSource("comment source");
+	comment.setSource("comment refSource");
 	// comment.setUri("comment uri");
 	comment.setCommentType(RatingType.getUri("readability"));
 	comment.setWasAttributedTo("hearsay");
@@ -238,7 +238,7 @@ public class TestCitagoraPersistence {
 	reply.setAnnotator(replier);
 	reply.setModelVersion("0.1");
 	reply.setRights("notate");
-	reply.setSource("reply source");
+	reply.setSource("reply refSource");
 	// reply.setUri("reply uri");
 	reply.setCommentType(RatingType.getUri("readability"));
 	reply.setWasAttributedTo("hearsay");
