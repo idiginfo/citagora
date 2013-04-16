@@ -42,6 +42,10 @@ public class Augment {
 	ApiParams params = new BaseApiParams();
 	params.setDoi(doi);
 	for (String source : ServiceFactory.SERVICE_COLLECTIONS) {
+	    if (source.equals(ServiceFactory.COLLECTION_MSRC)) {
+		// do not fetch from MSRC
+		continue;
+	    }
 	    if (!documentMap.containsKey(source)) {
 		Document newDoc = ServiceFactory.getSharedService(source)
 			.getDocument(params);
