@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.idiginfo.docsvc.harvest.load.LoadDocuments;
+import org.idiginfo.docsvc.model.ServiceFactory;
 import org.idiginfo.docsvc.model.apisvc.Annotation;
 import org.idiginfo.docsvc.model.citagora.CitagoraAgent;
 import org.idiginfo.docsvc.model.citagora.CitagoraFactory;
@@ -53,7 +54,7 @@ public class MsrcLoad {
 	CitagoraAgent msrcAgent = loader.getFactory().getServiceAgent("msrc");
 	containerFields.setGenerator(msrcAgent);
 	containerFields.setRights("copyright 2013 idiginfo.com");
-	containerFields.setSource("msrc api");
+	containerFields.setSource(ServiceFactory.COLLECTION_MSRC);
 	containerFields.setWasAttributedTo("riccardi");
 	numFiles = loadFiles(containerFields, baseDirectory);
 	System.out.println("Number of files processed: " + numFiles);

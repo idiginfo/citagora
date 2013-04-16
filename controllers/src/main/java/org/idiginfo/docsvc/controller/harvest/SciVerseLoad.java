@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.Date;
 
 import org.idiginfo.docsvc.harvest.load.LoadDocuments;
+import org.idiginfo.docsvc.model.ServiceFactory;
 import org.idiginfo.docsvc.model.citagora.CitagoraAgent;
 import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.svcapi.sciverse.SciVerseDocument;
@@ -40,7 +41,7 @@ public class SciVerseLoad {
 	CitagoraAgent agent = loader.getFactory().getServiceAgent("sciverse");
 	containerFields.setGenerator(agent);
 	containerFields.setRights("copyright 2012 idiginfo.com");
-	containerFields.setSource("sciverse api");
+	containerFields.setSource(ServiceFactory.COLLECTION_ELSEVIER);
 	containerFields.setWasAttributedTo("riccardi");
 	numFiles = loadFiles(containerFields, baseDirectory);
 	System.out.println("Number of files processed: " + numFiles);

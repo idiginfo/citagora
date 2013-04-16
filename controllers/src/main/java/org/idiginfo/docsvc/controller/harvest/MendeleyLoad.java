@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.Date;
 
 import org.idiginfo.docsvc.harvest.load.LoadDocuments;
+import org.idiginfo.docsvc.model.ServiceFactory;
 import org.idiginfo.docsvc.model.citagora.CitagoraAgent;
 import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.svcapi.mendeley.MendeleyRecord;
@@ -39,7 +40,7 @@ public class MendeleyLoad {
 	CitagoraAgent agent = loader.getFactory().getServiceAgent("Mendeley");
 	containerFields.setGenerator(agent);
 	containerFields.setRights("copyright 2013 idiginfo.com");
-	containerFields.setSource("Mendeley api");
+	containerFields.setSource(ServiceFactory.COLLECTION_MENDELEY);
 	containerFields.setWasAttributedTo("sflager");
 	numFiles = loadFiles(containerFields, baseDirectory);
 	System.out.println("Number of files processed: " + numFiles);
