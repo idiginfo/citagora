@@ -24,7 +24,7 @@ import com.hp.hpl.jena.rdf.model.Model;
 public class LoadDocuments {
 
     CitagoraFactoryImpl factory = new CitagoraFactoryImpl();
-    public MapSvcapiToCitagora documentMapper = new MapSvcapiToCitagora();
+    MapSvcapiToCitagora documentMapper = new MapSvcapiToCitagora();
 
     public List<Container> load(Container containerFields, Documents documents) {
 	List<Container> containers = new Vector<Container>();
@@ -112,6 +112,10 @@ public class LoadDocuments {
 	}
 
 	return toReference;
+    }
+
+    public MapSvcapiToCitagora getDocumentMapper() {
+        return documentMapper;
     }
 
 }

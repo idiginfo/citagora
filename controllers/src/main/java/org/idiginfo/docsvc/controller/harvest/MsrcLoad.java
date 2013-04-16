@@ -103,7 +103,7 @@ public class MsrcLoad {
 		    if (notes == null || notes.getNotes() == null)
 			continue;
 		    for (Annotation annotation : notes.getNotes()) {
-			loader.documentMapper.map(container, annotation);
+			loader.getDocumentMapper().map(container, annotation);
 		    }
 		}
 	    }
