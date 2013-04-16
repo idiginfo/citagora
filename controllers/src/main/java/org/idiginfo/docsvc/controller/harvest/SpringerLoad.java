@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Date;
 
+import org.idiginfo.docsvc.harvest.load.LoadDocuments;
 import org.idiginfo.docsvc.model.citagora.CitagoraAgent;
 import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.svcapi.springer.SpringerRecord;
@@ -34,8 +35,7 @@ public class SpringerLoad {
     private void run(String[] args) {
 	int numFiles;
 	File baseDirectory = new File(BASE_DIR);
-	Container containerFields = loader.getFactory()
-		.createContainer();
+	Container containerFields = loader.getFactory().createContainer();
 	CitagoraAgent agent = loader.getFactory().getServiceAgent("springer");
 	containerFields.setGenerator(agent);
 	containerFields.setRights("copyright 2012 idiginfo.com");
@@ -62,15 +62,14 @@ public class SpringerLoad {
     }
 
     private int loadFile(Container containerFields, File file) {
-	if(!file.getName().endsWith(".json")){
-	    System.out.println("skipping file: "+file.getName());
+	if (!file.getName().endsWith(".json")) {
+	    System.out.println("skipping file: " + file.getName());
 	    return 0;
 	}
 	System.out.print("loading file: " + file.getName());
 	try {
 	    FileReader in = new FileReader(file);
-	    SpringerRecord document = gson.fromJson(in,
-		    SpringerRecord.class);
+	    SpringerRecord document = gson.fromJson(in, SpringerRecord.class);
 	    containerFields.setGenerated(new Date(file.lastModified()));
 	    loader.load(containerFields, document);
 	    return 1;

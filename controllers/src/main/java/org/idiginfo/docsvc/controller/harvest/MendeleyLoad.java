@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Date;
 
+import org.idiginfo.docsvc.harvest.load.LoadDocuments;
 import org.idiginfo.docsvc.model.citagora.CitagoraAgent;
 import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.svcapi.mendeley.MendeleyRecord;
