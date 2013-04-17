@@ -8,6 +8,7 @@
 		<class>org.idiginfo.docsvc.jpa.citagora.AnnotationImpl</class>
 		<class>org.idiginfo.docsvc.jpa.citagora.CommentImpl</class>
 		<class>org.idiginfo.docsvc.jpa.citagora.ContainerImpl</class>
+		<class>org.idiginfo.docsvc.jpa.citagora.HarvestResultImpl</class>
 		<class>org.idiginfo.docsvc.jpa.citagora.PersonImpl</class>
 		<class>org.idiginfo.docsvc.jpa.citagora.RatingTypeImpl</class>
 		<class>org.idiginfo.docsvc.jpa.citagora.ReferenceImpl</class>
@@ -17,10 +18,10 @@
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/citagora" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/citagora_dev" />
 			<property name="javax.persistence.jdbc.user" value="griccardi" />
 			<property name="javax.persistence.jdbc.password" value="Gadmin;" />
-			<property name="eclipselink.logging.level" value="INFO" />
+			<property name="eclipselink.logging.level" value="FINE" />
 		</properties>
 	</persistence-unit>
 	<persistence-unit name="idiginfodev">
@@ -29,6 +30,7 @@
 		<class>org.idiginfo.docsvc.jpa.citagora.AnnotationImpl</class>
 		<class>org.idiginfo.docsvc.jpa.citagora.CommentImpl</class>
 		<class>org.idiginfo.docsvc.jpa.citagora.ContainerImpl</class>
+		<class>org.idiginfo.docsvc.jpa.citagora.HarvestResultImpl</class>
 		<class>org.idiginfo.docsvc.jpa.citagora.PersonImpl</class>
 		<class>org.idiginfo.docsvc.jpa.citagora.RatingTypeImpl</class>
 		<class>org.idiginfo.docsvc.jpa.citagora.ReferenceImpl</class>
