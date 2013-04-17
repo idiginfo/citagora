@@ -70,9 +70,10 @@ public class MasService implements DocService {
 	return null;
     }
 
-    public String getResult(String doi) {
+    public String getResult(String doi, String title) {
 	MasApiParams params = new MasApiParams();
 	params.setId(doi);
+	params.setTitle(title);
 	MasResponse response = getResponse(params);
 	// printResponse(response);
 	return gson.toJson(response);
@@ -90,7 +91,6 @@ public class MasService implements DocService {
 	System.out.println(object.getResultCode());
 
     }
-
 
     @Override
     public Document getAnnotations(ApiParams params) {

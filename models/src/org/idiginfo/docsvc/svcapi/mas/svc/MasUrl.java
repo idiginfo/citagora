@@ -20,7 +20,7 @@ public class MasUrl extends GenericUrl {
 
     // id fields
     @Key("PublicationID")
-    public Integer publicationId;
+    public String publicationId;
     @Key("AuthorID")
     public Integer authorID;
     @Key("ConferenceID")
@@ -77,7 +77,15 @@ public class MasUrl extends GenericUrl {
     public MasUrl(BaseApiParams params) {
 	this();
 	params.mapFields(this);
-	endIdx = firstResult + params.getNumResults() - 1;
+	if (params.getId() != null) {
+	    keyword = params.getId();
+	}
+	if (params.getTitle() != null) {
+	    titleQuery = params.getTitle();
+	}
+	if (firstResult != null && params.getNumResults() != null) {
+	    endIdx = firstResult + params.getNumResults() - 1;
+	}
     }
 
     /**
