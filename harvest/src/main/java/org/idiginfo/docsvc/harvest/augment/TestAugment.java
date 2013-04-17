@@ -1,5 +1,8 @@
 package org.idiginfo.docsvc.harvest.augment;
 
+import org.idiginfo.docsvc.model.ServiceFactory;
+import org.idiginfo.docsvc.model.citagora.CitagoraFactory;
+
 public class TestAugment {
 
     /**
@@ -9,7 +12,9 @@ public class TestAugment {
 	// TODO Auto-generated method stub
 
 	Augment augmenter = new Augment();
-	augmenter.addMissingSources("10.1006/bulm.2001.0242");
+	CitagoraFactory factory = CitagoraFactory.getFactory();
+	augmenter.addMissingSources("10.1002/jts.20383");
+	
     }
 
 }

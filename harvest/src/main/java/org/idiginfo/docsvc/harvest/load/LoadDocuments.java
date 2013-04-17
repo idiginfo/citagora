@@ -40,6 +40,7 @@ public class LoadDocuments {
     public Container load(Container containerFields, Document document) {
 	boolean localTransaction = false;
 	String doi = document.getDoi();
+	String id = document.getId();
 	String source = document.getSource();
 	if (doi != null && !doi.startsWith("10.")) {
 	    // not a valid doi
@@ -76,8 +77,8 @@ public class LoadDocuments {
 	Container container = documentMapper.createContainer(containerFields,
 		document);
 	HarvestResult harvestResult = HarvestResultImpl.createHarvestResult(
-		source, "doi:" + doi, container.getIsAbout(), "success", true);
-	System.out.println(" uri: " + (doi != null ? doi : uri) + " created");
+		source, id, container.getIsAbout(), "success", true);
+	System.out.println(" uri: " + uri + " created");
 	System.out.println("Harvest Result " + harvestResult.getMyId()
 		+ " created");
 	if (localTransaction) {
@@ -115,7 +116,7 @@ public class LoadDocuments {
     }
 
     public MapSvcapiToCitagora getDocumentMapper() {
-        return documentMapper;
+	return documentMapper;
     }
 
 }
