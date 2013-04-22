@@ -41,6 +41,7 @@ public class CitagoraObjectImpl implements CitagoraObject {
     @Temporal(TemporalType.TIMESTAMP)
     Date updated;
     String source;
+    String sourceId;
     @Column(length = 1000)
     String rights;
     @ManyToOne(targetEntity = PersonImpl.class, cascade = CascadeType.ALL)
@@ -241,5 +242,21 @@ public class CitagoraObjectImpl implements CitagoraObject {
 
     public void setMyId(Integer myId) {
 	this.myId = myId;
+    }
+
+    public String getSourceId() {
+	return sourceId;
+    }
+
+    public void setSourceId(String sourceId) {
+	this.sourceId = sourceId;
+    }
+
+    public Date getUpdated() {
+	return updated;
+    }
+
+    public static int getObjectId() {
+	return objectId;
     }
 }
