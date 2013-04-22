@@ -65,8 +65,15 @@ public class MsrcLoad {
 	int numLoaded = 0;
 	File[] files = baseDir.listFiles();
 	// System.out.println("number of files: " + files.length);
+	// doc_017660.json
+	boolean skip = true;
 	for (int i = 0; i < files.length; i++) {
 	    File file = files[i];
+	    if (file.getName().equals("doc_017660.json")) {
+		skip = false;
+	    }
+	    if (skip)
+		continue;
 	    if (file.isDirectory()) {
 		numLoaded += loadFiles(containerFields, file);
 	    } else {
@@ -77,6 +84,7 @@ public class MsrcLoad {
     }
 
     private int loadFile(Container containerFields, File file) {
+
 	boolean localTransaction = false;
 	System.out.print("loading file: " + file.getName());
 	try {

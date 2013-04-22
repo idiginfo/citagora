@@ -1,5 +1,6 @@
 package org.idiginfo.docsvc.controller.harvest;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
@@ -14,9 +15,9 @@ import com.google.api.client.http.HttpTransport;
 
 public class MsrcHarvest {
     // TODO modify this class to gather documents from the MSRC repository
-    final static String FILE_DIR = "c:/dev/harvest/msrc/part2/";
+    final static String FILE_DIR = "c:/dev/harvest/msrc/";
     final static String FILE_PREFIX = FILE_DIR + "doc_";
-    private static final int START_INDEX = 2597;
+    private static final int START_INDEX = 0;
 
     private void run(String[] args) {
 	String test;
@@ -36,16 +37,29 @@ public class MsrcHarvest {
 	    int documentId = documentIds.get(i);
 	    String fileName = filePrefix + String.format("%06d", documentId)
 		    + ".json";
-	    System.out.println("getting file " + fileName);
+	    File outFile = new File(fileName);
+	    if (outFile.exists()) {
+		// System.out.println("Index: " + i + " id: " + documentId
+		// + " already present");
+		continue;
+	    }
+	    System.out.print("getting index " + i + " document id "
+		    + documentId);
+
 	    String contents = service.getJsonDocument(documentId);
+	    if (contents == null || contents.length() < 10) {
+		System.out.println(" no document returned");
+		continue;
+	    }
 	    try {
-		FileWriter out = new FileWriter(fileName);
+		FileWriter out = new FileWriter(outFile);
 		out.write(contents);
 		out.close();
 	    } catch (IOException e) {
 		e.printStackTrace();
 		break;
 	    }
+	    System.out.println("");
 	}
 
 	return null;
