@@ -21,7 +21,7 @@
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/citagora_dev" />
 			<property name="javax.persistence.jdbc.user" value="griccardi" />
 			<property name="javax.persistence.jdbc.password" value="Gadmin;" />
-			<property name="eclipselink.logging.level" value="FINE" />
+			<property name="eclipselink.logging.level" value="INFO" />
 		</properties>
 	</persistence-unit>
 	<persistence-unit name="idiginfodev">
@@ -44,7 +44,7 @@
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://10.145.254.46:3306/citagora_dev" />
 			<property name="javax.persistence.jdbc.user" value="idig_citagora_u" />
 			<property name="javax.persistence.jdbc.password" value="Sn4k39sk3mA21Lmmns" />
-			<property name="eclipselink.logging.level" value="FINE" />
+			<property name="eclipselink.logging.level" value="INFO" />
 		</properties>
 	</persistence-unit>
 </persistence>
