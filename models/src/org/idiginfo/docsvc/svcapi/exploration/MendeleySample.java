@@ -3,15 +3,10 @@ package org.idiginfo.docsvc.svcapi.exploration;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
-import org.idiginfo.docsvc.model.apisvc.ApiParams;
-import org.idiginfo.docsvc.model.apisvc.Document;
-import org.idiginfo.docsvc.model.apisvc.Documents;
-import org.idiginfo.docsvc.svcapi.mendeley.*;
+import org.idiginfo.docsvc.svcapi.mendeley.MendeleyRecord;
+import org.idiginfo.docsvc.svcapi.mendeley.MendeleyService;
 
-import com.google.api.client.json.JsonParser;
-import com.google.api.client.json.gson.GsonFactory;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 
 public class MendeleySample {

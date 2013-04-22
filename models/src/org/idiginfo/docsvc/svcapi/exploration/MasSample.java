@@ -27,14 +27,16 @@ public class MasSample {
 	// testMasDocument("241939");
 	// testMasFile("c:/dev/api samples/Mas_details.json");
 
-	//testDoiDocument("10.1001/archinte.160.10.1522", "Suicidal Ideation");
-	testDoiDocument(null, "Suicidal Ideation and Suicide Attempts in General Medical Illnesses");
+	// testDoiDocument("10.1001/archinte.160.10.1522");
+	testDoiDocument("10.1093/nar/25.17.338");
+	// testDoiDocument(null,
+	// "Suicidal Ideation and Suicide Attempts in General Medical Illnesses");
 	// testPmidDocument("21148220");
 	// testMasQuery();
     }
 
-    public static String testDoiDocument(String doi, String title) {
-	String result = service.getResult(doi, title);
+    public static String testDoiDocument(String doi) {
+	String result = service.getResult(doi,null);
 	System.out.println(result);
 	return result;
     }
