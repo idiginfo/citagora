@@ -1,10 +1,16 @@
 package org.idiginfo.docsvc.svcapi.mas.svc;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.io.UnsupportedEncodingException;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.io.IOUtils;
 import org.idiginfo.docsvc.model.apisvc.ApiParams;
 import org.idiginfo.docsvc.model.apisvc.DocService;
 import org.idiginfo.docsvc.model.apisvc.Document;
@@ -22,6 +28,7 @@ import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
+
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -70,6 +77,37 @@ public class MasService implements DocService {
 	return null;
     }
 
+    public String getResult(String doi) {
+	try {
+	    StringBuffer urlString = new StringBuffer("http://");
+	    urlString.append(MasApiParams.API_HOST);
+	    urlString.append('/').append(MasApiParams.API_SERVICE);
+	    urlString.append('/').append(MasApiParams.API_SEARCH);
+	    urlString.append("?appId=").append(MasApiParams.API_KEY);
+	    urlString.append("&EndIdx=10&FulltextQuery=doi:(").append(
+		    URLEncoder.encode(doi, "UTF-8"));
+	    urlString.append(")&ResultObjects=Publication");
+
+	    String test = "http://academic.research.microsoft.com/json.svc/search?AppId=349bdedd-f3c6-4939-97a2-032141aeb565"
+		    + "&EndIdx=10&FulltextQuery=doi:(10.1093%2fnar%2f25.17.3389)&ResultObjects=Publication";
+	    System.out.println(urlString.toString());
+	    System.out.println(test);
+	    //URL url = new URL(test);
+	    URL url = new URL(urlString.toString());
+
+	    InputStream in = url.openStream();
+	    String content = IOUtils.toString(in);
+	    JsonElement json = parser.parse(content);
+	    MasResponse response = gson.fromJson(json, MasResponse.class);
+	    // printResponse(response);
+	    return gson.toJson(response);
+	} catch (Exception e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
+	return null;
+    }
+    
     public String getResult(String doi, String title) {
 	MasApiParams params = new MasApiParams();
 	params.setId(doi);

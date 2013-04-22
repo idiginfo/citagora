@@ -33,7 +33,7 @@ public class MasSample {
 	}
 
 	public static String testDoiDocument(String doi) {
-		String result = service.getResult(doi,null);
+		String result = service.getResult(doi);
 		System.out.println(result);
 		return result;
 	}
