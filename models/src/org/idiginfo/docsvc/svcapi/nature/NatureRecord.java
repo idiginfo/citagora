@@ -10,6 +10,7 @@ import java.util.Vector;
 import org.apache.commons.lang.StringUtils;
 import org.idiginfo.docsvc.model.ServiceFactory;
 import org.idiginfo.docsvc.model.apisvc.Annotation;
+import org.idiginfo.docsvc.model.apisvc.BaseDocument;
 import org.idiginfo.docsvc.model.apisvc.Document;
 
 /**
@@ -221,13 +222,11 @@ public class NatureRecord implements Document {
     @Override
     public String getUri() {
 	if (doi != null) {
-	    if (doi.startsWith("doi:"))
-		return doi;
-	    if (doi.startsWith("info:doi:"))
-		return doi.substring(5);// start after "info:"
-	    return "doi:" + doi;
+	    return BaseDocument.doiUri(doi);
 	}
-	// return "http://ids.idiginfo.org/" + getId();
+	if (url == null) {
+	    return BaseDocument.BASE_URI + getId();
+	}
 	return url;
     }
 
@@ -323,6 +322,12 @@ public class NatureRecord implements Document {
 
     @Override
     public String getSeriesTitle() {
+	// TODO Auto-generated method stub
+	return null;
+    }
+
+    @Override
+    public String getSourceId() {
 	// TODO Auto-generated method stub
 	return null;
     }

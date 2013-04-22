@@ -42,6 +42,7 @@ public class BaseDocument implements Document {
     String status;
     String json;
     String abstractText;
+    String sourceId;
 
     public static String BASE_URI = "http://ids.idiginfo.org/";
 
@@ -376,6 +377,10 @@ public class BaseDocument implements Document {
     public String getSeriesTitle() {
 	// TODO Auto-generated method stub
 	return null;
+    }
+
+    public String getSourceId() {
+        return sourceId;
     }
 
 }

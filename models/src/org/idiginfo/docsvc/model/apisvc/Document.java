@@ -93,8 +93,10 @@ public interface Document {
 
     public String getVolume();
 
-    String getIssued();
+    public String getIssued();
 
-    Date getIssuedDate();
+    public Date getIssuedDate();
+
+    public String getSourceId();
 
 }

@@ -288,4 +288,10 @@ public class CrossrefDocument implements Document {
 	return getDate();
     }
 
+    @Override
+    public String getSourceId() {
+	// TODO Auto-generated method stub
+	return null;
+    }
+
 }

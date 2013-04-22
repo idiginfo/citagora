@@ -537,4 +537,10 @@ public class AltmetricRecord implements Document {
 	// TODO Auto-generated method stub
 	return null;
     }
+
+    @Override
+    public String getSourceId() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 }

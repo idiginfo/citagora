@@ -109,7 +109,7 @@ public class SpringerRecord implements Document {
 	if (doi != null) {
 	    return BaseDocument.doiUri(doi);
 	}
-	return "http://ids.idiginfo.org/" + getId();
+	return BaseDocument.BASE_URI + getId();
     }
 
     @Override
@@ -323,6 +323,12 @@ public class SpringerRecord implements Document {
 
     @Override
     public String getSeriesTitle() {
+	// TODO Auto-generated method stub
+	return null;
+    }
+
+    @Override
+    public String getSourceId() {
 	// TODO Auto-generated method stub
 	return null;
     }

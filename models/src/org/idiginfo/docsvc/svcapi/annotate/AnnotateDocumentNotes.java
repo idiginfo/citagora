@@ -344,4 +344,10 @@ public class AnnotateDocumentNotes implements Document {
     public String getIssued() {
 	return getDate();
     }
+
+    @Override
+    public String getSourceId() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 }

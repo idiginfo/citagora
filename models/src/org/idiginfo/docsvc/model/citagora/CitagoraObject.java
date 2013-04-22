@@ -25,6 +25,10 @@ public interface CitagoraObject extends UriObject {
 
     void setSource(String source);
 
+    String getSourceId();
+
+    void setSourceId(String source);
+
     String getRights();
 
     void setRights(String rights);

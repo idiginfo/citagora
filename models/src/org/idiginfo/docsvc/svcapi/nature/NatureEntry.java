@@ -394,4 +394,10 @@ public class NatureEntry implements Document {
 	return null;
     }
 
+    @Override
+    public String getSourceId() {
+	// TODO Auto-generated method stub
+	return null;
+    }
+
 }

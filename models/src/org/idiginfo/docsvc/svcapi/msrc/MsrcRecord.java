@@ -347,4 +347,9 @@ public class MsrcRecord implements Document {
 	return null;
     }
 
+    @Override
+    public String getSourceId() {
+	return id;
+    }
+
 }

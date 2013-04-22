@@ -45,6 +45,7 @@ public class MapSvcapiToCitagora {
 	toReference = factory.createReference();
 	factory.merge(toReference);
 	toReference.setSource(fromDocument.getSource());
+	toReference.setSourceId(fromDocument.getSourceId());
 	toReference.setBiboType(Reference.ARTICLE_TYPE);
 	toReference.setUri(fromDocument.getUri());
 	toReference.setTitle(fromDocument.getTitle());

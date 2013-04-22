@@ -410,4 +410,10 @@ public class MasPublication implements Document {
 	}
     }
 
+    @Override
+    public String getSourceId() {
+	// TODO Auto-generated method stub
+	return null;
+    }
+
 }

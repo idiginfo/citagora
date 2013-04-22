@@ -44,7 +44,7 @@
 		<dependency>
 			<groupId>com.google.http-client</groupId>
 			<artifactId>google-http-client</artifactId>
-			<version>1.10.3-beta</version>
+			<version>1.14.1-beta</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>

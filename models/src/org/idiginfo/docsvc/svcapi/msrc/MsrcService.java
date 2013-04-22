@@ -181,7 +181,7 @@ public class MsrcService implements DocService {
 	    // TODO add other functions
 	    MsrcUrl url = new MsrcUrl(params);
 	    url.prepare();
-	    System.out.println(url.build());
+	    // System.out.println(url.build());
 	    HttpRequest request = requestFactory.buildGetRequest(url);
 	    request.setConnectTimeout(CONNECT_TIMEOUT);
 	    HttpResponse result = request.execute();
@@ -202,7 +202,7 @@ public class MsrcService implements DocService {
 	    out.close();
 	    return json;
 	} catch (IOException e) {
-	    e.printStackTrace();
+	   // e.printStackTrace();
 	    return null;
 	}
     }
