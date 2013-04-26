@@ -41,10 +41,12 @@ public class ServiceFactory {
     public static final String COLLECTION_MSRC = "msrc";
     public static final String COLLECTION_NATURE = "nature";
     public static final String COLLECTION_MENDELEY = "mendeley";
+    public static final String COLLECTION_MEDLINE = "medline";
     public static final String[] SERVICE_COLLECTIONS = { COLLECTION_ANNOTATE,
 	    COLLECTION_SPRINGER, COLLECTION_ELSEVIER, COLLECTION_ALTMETRIC,
 	    COLLECTION_CROSSREF, COLLECTION_MAS, COLLECTION_ENTREZ,
-	    COLLECTION_MENDELEY, COLLECTION_MSRC, COLLECTION_NATURE };
+	    COLLECTION_MENDELEY, COLLECTION_MSRC, COLLECTION_NATURE,
+	    COLLECTION_MEDLINE};
 
     // non-service collections
     public static final String COLLECTION_CITAGORA = "citagora";
