@@ -14,8 +14,8 @@ import org.idiginfo.docsvc.model.apisvc.Annotation;
 import org.idiginfo.docsvc.model.apisvc.Document;
 
 /**
- * Class to implement Pubmed MEDLINE content mapping 
- * onto apisvc Document object via getters
+ * Class to implement Pubmed MEDLINE content mapping onto apisvc Document object
+ * via getters
  * 
  * @author sflager
  * 
@@ -71,7 +71,6 @@ public class MedlineArticle implements Document {
 		if (fields.containsKey(name)) {
 			List<String> prev = fields.get(name);
 			prev.add(value);
-			fields.put(name, prev);
 		} else {
 			List<String> newvalue = new ArrayList<String>();
 			newvalue.add(value);
@@ -203,7 +202,7 @@ public class MedlineArticle implements Document {
 
 	@Override
 	// repeating field:
-	// defer to (Print), of not found use (Electronic), else null
+	// defer to (Print), if not found use (Electronic), else null
 	public String getIssn() {
 		List<String> temp = fields.get("IS");
 		String tempissnP = null;
