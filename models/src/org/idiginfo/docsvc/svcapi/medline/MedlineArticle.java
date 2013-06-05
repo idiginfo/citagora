@@ -15,7 +15,6 @@ import org.idiginfo.docsvc.model.apisvc.Document;
 
 /**
  * Class to implement Pubmed MEDLINE content mapping onto apisvc Document object
- * via getters
  * 
  * @author sflager
  * 
@@ -152,9 +151,7 @@ public class MedlineArticle implements Document {
 	public String getDoi() {
 		List<String> temp = fields.get("AID");
 		String tempdoi = null;
-		int len = temp.size();
-		for (int i = 0; i < len; i++) {
-			String stemp = temp.get(i);
+		for (String stemp : temp) {
 			if (stemp.contains("[doi]")) {
 				int j = stemp.indexOf("[");
 				tempdoi = stemp.substring(0, j);
@@ -207,9 +204,7 @@ public class MedlineArticle implements Document {
 		List<String> temp = fields.get("IS");
 		String tempissnP = null;
 		String tempissnE = null;
-		int len = temp.size();
-		for (int i = 0; i < len; i++) {
-			String stemp = temp.get(i);
+		for (String stemp : temp) {
 			if (stemp.contains("(Print)")) {
 				int j = stemp.indexOf("(");
 				tempissnP = stemp.substring(0, j);
