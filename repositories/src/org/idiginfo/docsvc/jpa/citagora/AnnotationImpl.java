@@ -13,110 +13,117 @@ import org.idiginfo.docsvc.model.citagora.Annotation;
 import org.idiginfo.docsvc.model.citagora.AnnotationBody;
 import org.idiginfo.docsvc.model.citagora.Person;
 
+import com.google.gson.annotations.SerializedName;
+
 @Entity
 @Table(name = "annotations")
 abstract public class AnnotationImpl extends CitagoraObjectImpl implements
-	Annotation {
+		Annotation {
 
-    @ManyToOne(targetEntity = PersonImpl.class, cascade = CascadeType.ALL)
-    Person annotator;
-    @Embedded
-    AnnotationBodyImpl body;
-    String modelVersion;
-    String specifier;
-    String tags;
-    @Column(length=2000)
-    String context;
+	@ManyToOne(targetEntity = PersonImpl.class, cascade = CascadeType.ALL)
+	@SerializedName("annotator")
+	Person annotator;
+	@Embedded
+	AnnotationBodyImpl body;
+	@SerializedName("modelVersion")
+	String modelVersion;
+	@SerializedName("specifier")
+	String specifier;
+	@SerializedName("tags")
+	String tags;
+	@Column(length = 2000)
+	@SerializedName("context")
+	String context;
 
-    public AnnotationImpl() {
-	body = new AnnotationBodyImpl();
-	setType(Annotation.TYPE);
-	setCollection(Annotation.COLLECTION);
-	// initId();
-    }
+	public AnnotationImpl() {
+		body = new AnnotationBodyImpl();
+		setType(Annotation.TYPE);
+		setCollection(Annotation.COLLECTION);
+		// initId();
+	}
 
-    @Override
-    public String getCharacterEncoding() {
-	return body.getCharacterEncoding();
-    }
+	@Override
+	public String getCharacterEncoding() {
+		return body.getCharacterEncoding();
+	}
 
-    @Override
-    public void setCharacterEncoding(String characterEncoding) {
-	body.setCharacterEncoding(characterEncoding);
-    }
+	@Override
+	public void setCharacterEncoding(String characterEncoding) {
+		body.setCharacterEncoding(characterEncoding);
+	}
 
-    @Override
-    public String getChars() {
-	return body.getChars();
-    }
+	@Override
+	public String getChars() {
+		return body.getChars();
+	}
 
-    @Override
-    public void setChars(String chars) {
-	body.setChars(chars);
-    }
+	@Override
+	public void setChars(String chars) {
+		body.setChars(chars);
+	}
 
-    @Override
-    public Person getAnnotator() {
-	return annotator;
-    }
+	@Override
+	public Person getAnnotator() {
+		return annotator;
+	}
 
-    @Override
-    public void setAnnotator(Person annotator) {
-	// TODO check this field
-	// List<Annotation> annotators = annotator.get;
-	// if (annotator != null && annotator != this.annotator) {
-	//
-	// }
-	// this.annotator = annotator;
-    }
+	@Override
+	public void setAnnotator(Person annotator) {
+		// TODO check this field
+		// List<Annotation> annotators = annotator.get;
+		// if (annotator != null && annotator != this.annotator) {
+		//
+		// }
+		// this.annotator = annotator;
+		this.annotator = annotator;
+	}
 
-    @Override
-    public Date getAnnotated() {
-	return created;
-    }
+	@Override
+	public Date getAnnotated() {
+		return created;
+	}
 
-    @Override
-    public void setAnnotated(Date annotated) {
-	this.created = annotated;
-    }
+	@Override
+	public void setAnnotated(Date annotated) {
+		this.created = annotated;
+	}
 
-    public AnnotationBody getBody() {
-	return body;
-    }
+	public AnnotationBody getBody() {
+		return body;
+	}
 
-    @Override
-    public String getModelVersion() {
-	return modelVersion;
-    }
+	@Override
+	public String getModelVersion() {
+		return modelVersion;
+	}
 
-    @Override
-    public void setModelVersion(String modelVersion) {
-	this.modelVersion = modelVersion;
-    }
+	@Override
+	public void setModelVersion(String modelVersion) {
+		this.modelVersion = modelVersion;
+	}
 
-    public String getSpecifier() {
-	return specifier;
-    }
+	public String getSpecifier() {
+		return specifier;
+	}
 
-    public void setSpecifier(String specifier) {
-	this.specifier = specifier;
-    }
+	public void setSpecifier(String specifier) {
+		this.specifier = specifier;
+	}
 
-    public String getTags() {
-	return tags;
-    }
+	public String getTags() {
+		return tags;
+	}
 
-    public void setTags(String tags) {
-	this.tags = tags;
-    }
+	public void setTags(String tags) {
+		this.tags = tags;
+	}
 
-    public String getContext() {
-        return context;
-    }
+	public String getContext() {
+		return context;
+	}
 
-    public void setContext(String context) {
-        this.context = context;
-    }
-
+	public void setContext(String context) {
+		this.context = context;
+	}
 
 }
