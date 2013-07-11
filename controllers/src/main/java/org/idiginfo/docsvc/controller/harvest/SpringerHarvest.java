@@ -11,91 +11,99 @@ import org.idiginfo.docsvc.svcapi.springer.*;
 
 import com.google.api.client.http.HttpTransport;
 
+/**
+ * Class to Harvest content via Springer source
+ * 
+ * @author griccardi
+ * 
+ */
+
 public class SpringerHarvest {
 
-    final static String FILE_DIR = "c:/dev/harvest/springerTitle/";
-    final static String FILE_PREFIX = FILE_DIR + "abs_suicide_";
-    private final static int MAX_PER_PAGE = 100;
-    private static final int FIRST_PAGE = 10;
+	final static String FILE_DIR = "c:/dev/harvest/springerTitle/";
+	final static String FILE_PREFIX = FILE_DIR + "abs_suicide_";
+	private final static int MAX_PER_PAGE = 100;
+	private static final int FIRST_PAGE = 10;
 
-    @SuppressWarnings("unused")
-    private static void run(String[] args) {
-	String test;
-	String searchText = "suicide";
-	String filePrefix = FILE_PREFIX;
-	int numPerFile = MAX_PER_PAGE;
-	if (args != null && args.length > 0) {
-	    searchText = args[0];
-	}
-	if (args != null && args.length > 1) {
-	    filePrefix = args[1];
-	}
-	if (args != null && args.length > 2) {
-	    numPerFile = Integer.parseInt(args[2]);
-	}
-	test = harvestFiles(searchText, filePrefix, numPerFile);
-    }
-
-    public static String harvestFiles(String keywords, String filePrefix,
-	    int numPerFile) {
-	SpringerService service = new SpringerService();
-	SpringerApiParams params = new SpringerApiParams();
-	params.setSearchTerms(keywords);
-	//params.setId("10.1007/s11276-008-0131-4");
-	params.setNumResults(1);
-	SpringerResult result = service.getSpringerResult("getdocuments",params);
-	int totalResults = result.getTotalResults();
-	int totalPages = (int) Math.ceil(totalResults / numPerFile) + 1;
-	System.out.println("Total results: " + totalResults + " pages: "
-		+ totalPages + " per file: " + numPerFile);
-	for (int pageNum = FIRST_PAGE; pageNum < totalPages; pageNum++) {
-	    params.setFirstResult(pageNum * numPerFile);
-	    params.setNumResults(numPerFile);
-	    String fileName = filePrefix + String.format("%05d", pageNum)
-		    + ".json";
-	    System.out.println("getting file " + fileName);
-	    String contents = service.getSpringerContents(params);
-	    try {
-		FileWriter out = new FileWriter(fileName);
-		out.write(contents);
-		out.close();
-	    } catch (IOException e) {
-		e.printStackTrace();
-		break;
-	    }
-	   // break;
-	}
-
-	return null;
-    }
-
-    public static void main(String[] args) {
-	run(args);
-	return;
-    }
-
-    public static void enableLogging() {
-	Logger logger = Logger.getLogger(HttpTransport.class.getName());
-	logger.setLevel(Level.CONFIG);
-	logger.addHandler(new Handler() {
-
-	    @Override
-	    public void close() throws SecurityException {
-	    }
-
-	    @Override
-	    public void flush() {
-	    }
-
-	    @Override
-	    public void publish(LogRecord record) {
-		// default ConsoleHandler will print >= INFO to System.err
-		if (record.getLevel().intValue() < Level.INFO.intValue()) {
-		    System.out.println(record.getMessage());
+	@SuppressWarnings("unused")
+	private static void run(String[] args) {
+		String test;
+		String searchText = "suicide";
+		String filePrefix = FILE_PREFIX;
+		int numPerFile = MAX_PER_PAGE;
+		if (args != null && args.length > 0) {
+			searchText = args[0];
 		}
-	    }
-	});
-    }
+		if (args != null && args.length > 1) {
+			filePrefix = args[1];
+		}
+		if (args != null && args.length > 2) {
+			numPerFile = Integer.parseInt(args[2]);
+		}
+		test = harvestFiles(searchText, filePrefix, numPerFile);
+	}
+
+	public static String harvestFiles(String keywords, String filePrefix,
+			int numPerFile) {
+		SpringerService service = new SpringerService();
+		SpringerApiParams params = new SpringerApiParams();
+		params.setSearchTerms(keywords);
+		// params.setId("10.1007/s11276-008-0131-4");
+		params.setNumResults(1);
+		SpringerResult result = service.getSpringerResult("getdocuments",
+				params);
+		int totalResults = result.getTotalResults();
+		int totalPages = (int) Math.ceil(totalResults / numPerFile) + 1;
+		System.out.println("Total results: " + totalResults + " pages: "
+				+ totalPages + " per file: " + numPerFile);
+		for (int pageNum = FIRST_PAGE; pageNum < totalPages; pageNum++) {
+			params.setFirstResult(pageNum * numPerFile);
+			params.setNumResults(numPerFile);
+			String fileName = filePrefix + String.format("%05d", pageNum)
+					+ ".json";
+			System.out.println("getting file " + fileName);
+			String contents = service.getSpringerContents(params);
+			try {
+				FileWriter out = new FileWriter(fileName);
+				out.write(contents);
+				out.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+				break;
+			}
+			// break;
+		}
+
+		return null;
+	}
+
+	public static void main(String[] args) {
+		run(args);
+		return;
+	}
+
+	public static void enableLogging() {
+		Logger logger = Logger.getLogger(HttpTransport.class.getName());
+		logger.setLevel(Level.CONFIG);
+		logger.addHandler(new Handler() {
+
+			@Override
+			public void close() throws SecurityException {
+			}
+
+			@Override
+			public void flush() {
+			}
+
+			@Override
+			public void publish(LogRecord record) {
+				// default ConsoleHandler will print >= INFO to System.err
+				if (record.getLevel().intValue() < Level.INFO.intValue()) {
+					System.out.println(record.getMessage());
+				}
+			}
+		});
+	}
 }
 
 // http://annotate.msrc.fsu.edu/php/listUsers.php?api-auth=yKOfIUFmwDxk21FWkn2X0Ets9fY%3D&api-requesttime=1343244291737&api-user=casey.mclaughlin@cci.fsu.edu&api_key=giqfrstIk9b6CddDL3ogGTUac6Lr3II9

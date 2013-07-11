@@ -13,6 +13,13 @@ import org.idiginfo.docsvc.svcapi.msrc.MsrcService;
 
 import com.google.api.client.http.HttpTransport;
 
+/**
+ * Class to Harvest content via MSRC source 
+ * 
+ * @author griccardi
+ * 
+ */
+
 public class MsrcHarvest {
     // TODO modify this class to gather documents from the MSRC repository
     final static String FILE_DIR = "c:/dev/harvest/msrc/";
