@@ -3,46 +3,53 @@ package org.idiginfo.docsvc.model.citagora;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Interface to implement the CitagoraObject
+ * 
+ * @author griccardi
+ * 
+ */
+
 public interface CitagoraObject extends UriObject {
 
-    public static final String NAMESPACE = "http://citagora.org/";
+	public static final String NAMESPACE = "http://citagora.org/";
 
-    String getType();
+	String getType();
 
-    String getUri();
+	String getUri();
 
-    void setUri(String uri);
+	void setUri(String uri);
 
-    String getWasAttributedTo();
+	String getWasAttributedTo();
 
-    void setWasAttributedTo(String actor);
+	void setWasAttributedTo(String actor);
 
-    Date getCreated();
+	Date getCreated();
 
-    void setCreated(Date created);
+	void setCreated(Date created);
 
-    String getSource();
+	String getSource();
 
-    void setSource(String source);
+	void setSource(String source);
 
-    String getSourceId();
+	String getSourceId();
 
-    void setSourceId(String source);
+	void setSourceId(String source);
 
-    String getRights();
+	String getRights();
 
-    void setRights(String rights);
+	void setRights(String rights);
 
-    CitagoraAgent getGenerator(); // same as wasAttributedTo?
+	CitagoraAgent getGenerator(); // same as wasAttributedTo?
 
-    void setGenerator(CitagoraAgent generator);
+	void setGenerator(CitagoraAgent generator);
 
-    Date getGenerated();
+	Date getGenerated();
 
-    void setGenerated(Date generated);
+	void setGenerated(Date generated);
 
-    List<Annotation> getAnnotations();
+	List<Annotation> getAnnotations();
 
-    String getId();
+	String getId();
 
 }

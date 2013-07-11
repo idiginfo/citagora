@@ -1,5 +1,12 @@
 package org.idiginfo.docsvc.model.citagora;
 
+/**
+ * Interface to implement the Citagora AnnotationBody object
+ * 
+ * @author griccardi
+ * 
+ */
+
 public interface AnnotationBody extends UriObject {
 
 	static final String TYPE = "cnt:ContextAsText";
@@ -8,7 +15,7 @@ public interface AnnotationBody extends UriObject {
 	String getCharacterEncoding();
 
 	String getChars();
-	
+
 	String getUri();
 
 	void setChars(String string);

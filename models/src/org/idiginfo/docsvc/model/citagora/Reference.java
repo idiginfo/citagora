@@ -3,6 +3,13 @@ package org.idiginfo.docsvc.model.citagora;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Interface to implement the Citagora Reference object
+ * 
+ * @author griccardi
+ * 
+ */
+
 public interface Reference extends CitagoraObject {
 
     public String TYPE = "bibo:Document";
@@ -151,9 +158,13 @@ public interface Reference extends CitagoraObject {
     public void setUrl(String url);
 
     public String getUrl();
+    
+    public String getKeywords();
 
     public void setKeywords(List<String> keywords);
 
+    public String getMeshTerms();
+    
     public void setMeshTerms(List<String> meshTerms);
 
     public String getAggregationType();

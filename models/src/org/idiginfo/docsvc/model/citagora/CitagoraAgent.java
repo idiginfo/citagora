@@ -2,16 +2,23 @@ package org.idiginfo.docsvc.model.citagora;
 
 import java.util.List;
 
+/**
+ * Interface to implement the CitagoraAgent object
+ * 
+ * @author griccardi
+ * 
+ */
+
 public interface CitagoraAgent extends Person {
-    String TYPE = "citagora:agent";
+	String TYPE = "citagora:agent";
 
-    List<CitagoraObject> getAgentObjects();
+	List<CitagoraObject> getAgentObjects();
 
-    List<Comment> getAgentComments();
+	List<Comment> getAgentComments();
 
-    List<Tag> getAgentTags();
+	List<Tag> getAgentTags();
 
-    List<Reference> getAgentReferences();
+	List<Reference> getAgentReferences();
 
-    void addAgentDocument(Container document);
+	void addAgentDocument(Container document);
 }

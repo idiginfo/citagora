@@ -2,34 +2,41 @@ package org.idiginfo.docsvc.model.citagora;
 
 import java.util.Date;
 
+/**
+ * Interface to implement the Citagora HarvestResult object
+ * 
+ * @author griccardi
+ * 
+ */
+
 public interface HarvestResult extends UriObject {
 
-    public static final String TYPE = "harvestResult";
+	public static final String TYPE = "harvestResult";
 
-    Date getCreated();
+	Date getCreated();
 
-    void setReference(Reference reference);
+	void setReference(Reference reference);
 
-    Reference getReference();
+	Reference getReference();
 
-    String getDescription();
+	String getDescription();
 
-    void setDescription(String description);
+	void setDescription(String description);
 
-    Boolean getSuccess();
+	Boolean getSuccess();
 
-    void setSuccess(Boolean success);
+	void setSuccess(Boolean success);
 
-    Integer getMyId();
+	Integer getMyId();
 
-    void setMyId(Integer myId);
+	void setMyId(Integer myId);
 
-    String getSource();
+	String getSource();
 
-    void setSource(String source);
+	void setSource(String source);
 
-    String getIdentifier();
+	String getIdentifier();
 
-    void setIdentifier(String doi);
+	void setIdentifier(String doi);
 
 }
