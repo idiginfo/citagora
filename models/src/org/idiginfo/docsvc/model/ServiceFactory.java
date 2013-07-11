@@ -30,115 +30,113 @@ import org.idiginfo.docsvc.svcapi.springer.SpringerService;
  */
 public class ServiceFactory {
 
-    // Defined collections
-    public static final String COLLECTION_ANNOTATE = "annotate";
-    public static final String COLLECTION_SPRINGER = "springer";
-    public static final String COLLECTION_ELSEVIER = "elsevier";
-    public static final String COLLECTION_ALTMETRIC = "altmetric";
-    public static final String COLLECTION_CROSSREF = "crossref";
-    public static final String COLLECTION_MAS = "mas";
-    public static final String COLLECTION_ENTREZ = "entrez";
-    public static final String COLLECTION_MSRC = "msrc";
-    public static final String COLLECTION_NATURE = "nature";
-    public static final String COLLECTION_MENDELEY = "mendeley";
-    public static final String COLLECTION_MEDLINE = "medline";
-    public static final String[] SERVICE_COLLECTIONS = { COLLECTION_ANNOTATE,
-	    COLLECTION_SPRINGER, COLLECTION_ELSEVIER, COLLECTION_ALTMETRIC,
-	    COLLECTION_CROSSREF, COLLECTION_MAS, COLLECTION_ENTREZ,
-	    COLLECTION_MENDELEY, COLLECTION_MSRC, COLLECTION_NATURE,
-	    COLLECTION_MEDLINE};
+	// Defined collections
+	public static final String COLLECTION_ANNOTATE = "annotate";
+	public static final String COLLECTION_SPRINGER = "springer";
+	public static final String COLLECTION_ELSEVIER = "elsevier";
+	public static final String COLLECTION_ALTMETRIC = "altmetric";
+	public static final String COLLECTION_CROSSREF = "crossref";
+	public static final String COLLECTION_MAS = "mas";
+	public static final String COLLECTION_ENTREZ = "entrez";
+	public static final String COLLECTION_MSRC = "msrc";
+	public static final String COLLECTION_NATURE = "nature";
+	public static final String COLLECTION_MENDELEY = "mendeley";
+	public static final String[] SERVICE_COLLECTIONS = { COLLECTION_ANNOTATE,
+			COLLECTION_SPRINGER, COLLECTION_ELSEVIER, COLLECTION_ALTMETRIC,
+			COLLECTION_CROSSREF, COLLECTION_MAS, COLLECTION_ENTREZ,
+			COLLECTION_MENDELEY, COLLECTION_MSRC, COLLECTION_NATURE };
 
-    // non-service collections
-    public static final String COLLECTION_CITAGORA = "citagora";
+	// non-service collections
+	public static final String COLLECTION_CITAGORA = "citagora";
 
-    // services is used to keep a copy of each service available for shared use.
-    static Map<String, DocService> services;
+	// services is used to keep a copy of each service available for shared use.
+	static Map<String, DocService> services;
 
-    static void initializeServices() {
-	services = new HashMap<String, DocService>();
-	for (String serviceName : SERVICE_COLLECTIONS) {
-	    services.put(serviceName, createService(serviceName));
+	static void initializeServices() {
+		services = new HashMap<String, DocService>();
+		for (String serviceName : SERVICE_COLLECTIONS) {
+			services.put(serviceName, createService(serviceName));
+		}
 	}
-    }
 
-    /**
-     * Return the shared service object. Be careful that any state is managed.
-     * 
-     * Not thread safe
-     * 
-     * @param collection
-     * @return
-     */
-    public static DocService getSharedService(String collection) {
-	if (services == null)
-	    initializeServices();
-	return services.get(collection);
-    }
+	/**
+	 * Return the shared service object. Be careful that any state is managed.
+	 * 
+	 * Not thread safe
+	 * 
+	 * @param collection
+	 * @return
+	 */
+	public static DocService getSharedService(String collection) {
+		if (services == null)
+			initializeServices();
+		return services.get(collection);
+	}
 
-    /**
-     * create a new AnnotationService for the collection
-     * 
-     * @param collection
-     * @return
-     */
-    public static DocService createService(String collection) {
-	if (collection == null)
-	    return null;
-	if (collection.equals(COLLECTION_ANNOTATE)) {
-	    return new AnnotateService();
+	/**
+	 * create a new AnnotationService for the collection
+	 * 
+	 * @param collection
+	 * @return
+	 */
+	public static DocService createService(String collection) {
+		if (collection == null)
+			return null;
+		if (collection.equals(COLLECTION_ANNOTATE)) {
+			return new AnnotateService();
+		}
+		if (collection.equals(COLLECTION_SPRINGER)) {
+			return new SpringerService();
+		}
+		if (collection.equals(COLLECTION_ELSEVIER)) {
+			return new SciVerseService();
+		}
+		if (collection.equals(COLLECTION_ALTMETRIC)) {
+			return new AltmetricService();
+		}
+		if (collection.equals(COLLECTION_CROSSREF)) {
+			return new CrossrefRdfService();
+		}
+		if (collection.equals(COLLECTION_MAS)) {
+			return new MasService();
+		}
+		if (collection.equals(COLLECTION_MENDELEY)) {
+			return new MendeleyService();
+		}
+		if (collection.equals(COLLECTION_MSRC)) {
+			return new MsrcService();
+		}
+		if (collection.equals(COLLECTION_NATURE)) {
+			return new NatureService();
+		}
+		if (collection.equals(COLLECTION_ENTREZ)) {
+			return new EntrezService();
+		}
+		System.err.println("unrecognized service: " + collection);
+		return null;
 	}
-	if (collection.equals(COLLECTION_SPRINGER)) {
-	    return new SpringerService();
-	}
-	if (collection.equals(COLLECTION_ELSEVIER)) {
-	    return new SciVerseService();
-	}
-	if (collection.equals(COLLECTION_ALTMETRIC)) {
-	    return new AltmetricService();
-	}
-	if (collection.equals(COLLECTION_CROSSREF)) {
-	    return new CrossrefRdfService();
-	}
-	if (collection.equals(COLLECTION_MAS)) {
-	    return new MasService();
-	}
-	if (collection.equals(COLLECTION_MENDELEY)) {
-	    return new MendeleyService();
-	}
-	if (collection.equals(COLLECTION_MSRC)) {
-	    return new MsrcService();
-	}
-	if (collection.equals(COLLECTION_NATURE)) {
-	    return new NatureService();
-	}
-	if (collection.equals(COLLECTION_ENTREZ)) {
-	    return new EntrezService();
-	}
-	System.err.println("unrecognized service: " + collection);
-	return null;
-    }
 
-    /**
-     * Create a new ApiParams object of the proper type for the collection
-     * 
-     * @param collection
-     * @return
-     */
-    public static ApiParams createApiParams(String collection) {
-	if (collection != null) {
-	    if (collection.equals(COLLECTION_ANNOTATE)) {
-		return new AnnotateApiParams();
-	    }
-	    if (collection.equals(COLLECTION_SPRINGER)) {
-		return new SpringerApiParams();
-	    }
-	    if (collection.equals(COLLECTION_ELSEVIER)) {
-		return new SciVerseApiParams();
-	    }
-	    // if (collection.equals(COLLECTION_CITAGORA)){
-	    // return new CitagoraApiParams();
-	    // }
+	/**
+	 * Create a new ApiParams object of the proper type for the collection
+	 * 
+	 * @param collection
+	 * @return
+	 */
+	public static ApiParams createApiParams(String collection) {
+		if (collection != null) {
+			if (collection.equals(COLLECTION_ANNOTATE)) {
+				return new AnnotateApiParams();
+			}
+			if (collection.equals(COLLECTION_SPRINGER)) {
+				return new SpringerApiParams();
+			}
+			if (collection.equals(COLLECTION_ELSEVIER)) {
+				return new SciVerseApiParams();
+			}
+			// if (collection.equals(COLLECTION_CITAGORA)){
+			// return new CitagoraApiParams();
+			// }
+		}
+		return new BaseApiParams();
 	}
-	return new BaseApiParams();
-    }
 }
