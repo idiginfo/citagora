@@ -1,5 +1,12 @@
 package org.idiginfo.docsvc.model.apisvc;
 
+/**
+ * Interface to implement the ApiParams object 
+ * 
+ * @author griccardi
+ * 
+ */
+
 public interface ApiParams {
     public String getApiUser();
 

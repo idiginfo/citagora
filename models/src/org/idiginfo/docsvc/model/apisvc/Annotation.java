@@ -2,87 +2,93 @@ package org.idiginfo.docsvc.model.apisvc;
 
 import java.util.Date;
 
+/**
+ * Interface to implement the Annotation object
+ * 
+ * @author griccardi
+ * 
+ */
 
 public interface Annotation {
-    
-    public String getId();
 
-    public String getPageurl();
+	public String getId();
 
-    public void setPageurl(String pageurl);
+	public String getPageurl();
 
-    public String getType();
+	public void setPageurl(String pageurl);
 
-    public void setType(String type);
+	public String getType();
 
-    public String getPagetitle();
+	public void setType(String type);
 
-    public void setPagetitle(String pagetitle);
+	public String getPagetitle();
 
-    public String getContext();
+	public void setPagetitle(String pagetitle);
 
-    public void setContext(String context);
+	public String getContext();
 
-    public String getSubject();
+	public void setContext(String context);
 
-    public void setSubject(String subject);
+	public String getSubject();
 
-    public String getNotetext();
+	public void setSubject(String subject);
 
-    public void setNotetext(String notetext);
+	public String getNotetext();
 
-    public String getAuthor();
+	public void setNotetext(String notetext);
 
-    public void setAuthor(String author);
+	public String getAuthor();
 
-    public String getSigned();
+	public void setAuthor(String author);
 
-    public void setSigned(String signed);
+	public String getSigned();
 
-    public String getDateString();
+	public void setSigned(String signed);
 
-    public void setDate(String date);
+	public String getDateString();
 
-    public Date getDate();
+	public void setDate(String date);
 
-    public String getTags();
+	public Date getDate();
 
-    public void setTags(String tags);
+	public String getTags();
 
-    public String getMatch();
+	public void setTags(String tags);
 
-    public void setMatch(String match);
+	public String getMatch();
 
-    public String getNum();
+	public void setMatch(String match);
 
-    public void setNum(String num);
+	public String getNum();
 
-    public String getGid();
+	public void setNum(String num);
 
-    public void setGid(String gid);
+	public String getGid();
 
-    public String getColor();
+	public void setGid(String gid);
 
-    public void setColor(String color);
+	public String getColor();
 
-    public String getMark();
+	public void setColor(String color);
 
-    public void setMark(String mark);
+	public String getMark();
 
-    public String getState();
+	public void setMark(String mark);
 
-    public void setState(String state);
+	public String getState();
 
-    public String getFinalTags();
+	public void setState(String state);
 
-    public void setFinalTags(String finalTags);
+	public String getFinalTags();
 
-    public Annotation[] getReplies();
+	public void setFinalTags(String finalTags);
 
-    public void setReplies(Annotation[] replies);
+	public Annotation[] getReplies();
 
-    public String getFullPageUrl();
+	public void setReplies(Annotation[] replies);
 
-    public Integer getPagenum();
+	public String getFullPageUrl();
+
+	public Integer getPagenum();
 
 }

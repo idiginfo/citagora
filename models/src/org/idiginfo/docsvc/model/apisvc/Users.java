@@ -2,6 +2,13 @@ package org.idiginfo.docsvc.model.apisvc;
 
 import java.util.List;
 
+/**
+ * Interface to implement the Users object
+ * 
+ * @author griccardi
+ * 
+ */
+
 public interface Users {
 	public List<String> getMembers();
 
