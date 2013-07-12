@@ -11,6 +11,13 @@ import com.google.api.client.http.GenericUrl;
 import com.google.api.client.util.Key;
 import com.google.gson.JsonElement;
 
+/**
+ * Class to implement GenericUrl for a.nnotate service
+ * 
+ * @author griccardi
+ * 
+ */
+
 public class AnnotateUrl extends GenericUrl {
 
 	public AnnotateUrl(String function) {
@@ -121,7 +128,8 @@ public class AnnotateUrl extends GenericUrl {
 	}
 
 	private void mapParams(AnnotateApiParams params) {
-		if (params == null) return;
+		if (params == null)
+			return;
 		this.apiUser = params.getApiUser();
 		this.apiRequestTime = params.getApiRequestTime();
 		this.apiAuth = params.apiAuth;
@@ -247,7 +255,8 @@ public class AnnotateUrl extends GenericUrl {
 
 	public static boolean isError(JsonElement json) {
 		// TODO Auto-generated method stub
-		if (json==null) return true;
+		if (json == null)
+			return true;
 		return false;
 	}
 

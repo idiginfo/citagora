@@ -8,6 +8,7 @@ import org.idiginfo.docsvc.model.apisvc.BaseApiParams;
  * @author griccardi
  * 
  */
+
 public class AnnotateApiParams extends BaseApiParams {
 
 	public static final String API_URL = "http://annotate.msrc.fsu.edu/php/";
@@ -18,9 +19,9 @@ public class AnnotateApiParams extends BaseApiParams {
 
 	public AnnotateApiParams() {
 		apiUser = AnnotateApiParams.API_USER;
-		owner= AnnotateApiParams.API_USER;
+		owner = AnnotateApiParams.API_USER;
 	}
-	
+
 	// fields specific to a.nnotate API
 	protected String apiAuth;
 	protected String allusers; // set to 1 to return activity for all users in
@@ -35,7 +36,6 @@ public class AnnotateApiParams extends BaseApiParams {
 	protected String docurl; // http URL to fetch .docx file
 	protected String docname; // Filename of .docx file (or .xml word2003)
 	protected String docxmltype; // optional: if uploading word2003 .xml
-
 
 	public String getApiAuth() {
 		return apiAuth;
@@ -78,7 +78,8 @@ public class AnnotateApiParams extends BaseApiParams {
 	}
 
 	public void setWithNotes(boolean withNotes) {
-		if (withNotes) this.withNotes = "1";
+		if (withNotes)
+			this.withNotes = "1";
 		else
 			this.withNotes = null;
 	}
@@ -92,7 +93,8 @@ public class AnnotateApiParams extends BaseApiParams {
 	}
 
 	public void setWithMeta(boolean withMeta) {
-		if (withMeta) this.withMeta = "1";
+		if (withMeta)
+			this.withMeta = "1";
 		else
 			this.withMeta = null;
 	}
@@ -154,7 +156,7 @@ public class AnnotateApiParams extends BaseApiParams {
 	@Override
 	public void setSearchTerms(String keyword) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

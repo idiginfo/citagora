@@ -4,6 +4,13 @@ import java.io.IOException;
 
 import com.google.api.client.http.HttpResponse;
 
+/**
+ * Class to support access to a.nnotate service
+ * 
+ * @author griccardi
+ * 
+ */
+
 public class AnnotateClient {
 	private String apiUrl = null;
 	private String apiUser = null;
