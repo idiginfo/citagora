@@ -5,6 +5,13 @@ import java.util.List;
 
 import org.idiginfo.docsvc.model.apisvc.Users;
 
+/**
+ * Class to implement Users object for Annotate
+ * 
+ * @author griccardi
+ * 
+ */
+
 public class AnnotateUsers implements Users {
 
 	private List<String> members = new ArrayList<String>();

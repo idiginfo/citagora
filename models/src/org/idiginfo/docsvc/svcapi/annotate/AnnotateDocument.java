@@ -11,6 +11,13 @@ import org.idiginfo.docsvc.model.ServiceFactory;
 import org.idiginfo.docsvc.model.apisvc.Annotation;
 import org.idiginfo.docsvc.model.apisvc.Document;
 
+/**
+ * Class to implement Document object for Annotate
+ * 
+ * @author griccardi
+ * 
+ */
+
 public class AnnotateDocument implements Document {
 	String code;
 	String date;
@@ -317,8 +324,8 @@ public class AnnotateDocument implements Document {
 
 	@Override
 	public String getSourceId() {
-	    // TODO Auto-generated method stub
-	    return null;
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

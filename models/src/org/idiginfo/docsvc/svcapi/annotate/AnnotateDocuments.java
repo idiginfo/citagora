@@ -6,6 +6,13 @@ import java.util.Vector;
 import org.idiginfo.docsvc.model.apisvc.Document;
 import org.idiginfo.docsvc.model.apisvc.Documents;
 
+/**
+ * Class to implement Documents object for Annotate
+ * 
+ * @author griccardi
+ * 
+ */
+
 public class AnnotateDocuments extends Vector<Document> implements
 		List<Document>, Documents {
 
