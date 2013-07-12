@@ -15,56 +15,56 @@ import com.google.gson.JsonElement;
  * 
  */
 public class CrossrefResult {
-    // {
-    // "totalResults": 1752,
-    // "startIndex": 0,
-    // "itemsPerPage": 20,
-    // "query": {
-    // "searchTerms": "joiner",
-    // "startPage": 1
-    // },
-    // result from search
-    Integer totalResults;
-    Integer startIndex;
-    Integer itemsPerPage;
-    Query query;
-    
-    //result from Match
+	// {
+	// "totalResults": 1752,
+	// "startIndex": 0,
+	// "itemsPerPage": 20,
+	// "query": {
+	// "searchTerms": "joiner",
+	// "startPage": 1
+	// },
+	// result from search
+	Integer totalResults;
+	Integer startIndex;
+	Integer itemsPerPage;
+	Query query;
 
-    class Query {
-	String searchTerms;
-	Integer startPage;
-    }
+	// result from Match
 
-    List<CrossrefDocument> items;
+	class Query {
+		String searchTerms;
+		Integer startPage;
+	}
 
-    public static int getResultCode(JsonElement json) {
-	// TODO Auto-generated method stub
-	return 0;
-    }
+	List<CrossrefDocument> items;
 
-    public static String getMessage(JsonElement json) {
-	// TODO Auto-generated method stub
-	return null;
-    }
+	public static int getResultCode(JsonElement json) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
-    public Integer getTotalResults() {
-	return totalResults;
-    }
+	public static String getMessage(JsonElement json) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    public Integer getStartIndex() {
-	return startIndex;
-    }
+	public Integer getTotalResults() {
+		return totalResults;
+	}
 
-    public Integer getItemsPerPage() {
-	return itemsPerPage;
-    }
+	public Integer getStartIndex() {
+		return startIndex;
+	}
 
-    public Query getQuery() {
-	return query;
-    }
+	public Integer getItemsPerPage() {
+		return itemsPerPage;
+	}
 
-    public List<CrossrefDocument> getItems() {
-	return items;
-    }
+	public Query getQuery() {
+		return query;
+	}
+
+	public List<CrossrefDocument> getItems() {
+		return items;
+	}
 }
