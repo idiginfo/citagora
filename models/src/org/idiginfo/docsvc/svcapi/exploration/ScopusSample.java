@@ -17,6 +17,13 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+/**
+ * Class to acquire Scopus content
+ * 
+ * @author griccardi
+ * 
+ */
+
 public class ScopusSample {
 
 	static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();

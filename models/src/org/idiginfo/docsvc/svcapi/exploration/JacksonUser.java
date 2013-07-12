@@ -1,5 +1,12 @@
 package org.idiginfo.docsvc.svcapi.exploration;
 
+/**
+ * Class to support JacksonUser content
+ * 
+ * @author griccardi
+ * 
+ */
+
 public class JacksonUser {
 	public enum Gender {
 		MALE, FEMALE

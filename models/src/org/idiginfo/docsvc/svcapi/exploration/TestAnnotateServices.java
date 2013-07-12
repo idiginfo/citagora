@@ -64,10 +64,11 @@ public class TestAnnotateServices {
 		Document selectedDocument = documents.getDocument(1);
 		System.out.println("Selected document: " + selectedDocument.getId());
 
-		AnnotateDocumentNotes documentNotes = service
-				.getAnnotations("sJZefHkg","2012-03-27");// selectedDocument.getCode());
+		AnnotateDocumentNotes documentNotes = service.getAnnotations(
+				"sJZefHkg", "2012-03-27");// selectedDocument.getCode());
 		if (documentNotes == null || documentNotes.notes == null) {
-			System.out.println("No notes for document "+documentNotes.getId());
+			System.out
+					.println("No notes for document " + documentNotes.getId());
 		} else {
 			System.out
 					.println("Number of notes: " + documentNotes.notes.length);

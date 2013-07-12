@@ -9,6 +9,13 @@ import org.codehaus.jackson.JsonToken;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.*;
 
+/**
+ * Class to acquire Jackson content 
+ * 
+ * @author griccardi
+ * 
+ */
+
 public class TestJackson {
 
 	/**
@@ -17,8 +24,8 @@ public class TestJackson {
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 		ObjectMapper mapper = new ObjectMapper(); // can reuse, share globally
-		JacksonUser user = mapper
-				.readValue(new File("c:\\dev\\user.json"), JacksonUser.class);
+		JacksonUser user = mapper.readValue(new File("c:\\dev\\user.json"),
+				JacksonUser.class);
 		System.out.println(user.getGender());
 		mapper.writeValue(new File("c:/dev/user-modified.json"), user);
 		parseObject();
@@ -28,12 +35,13 @@ public class TestJackson {
 	public static void parseObject() throws Exception {
 		ObjectMapper m = new ObjectMapper();
 		// can either use mapper.readTree(JsonParser), or bind to JsonNode
-		JsonNode rootNode = m.readValue(new File("c:/dev/user.json"), JsonNode.class);
+		JsonNode rootNode = m.readValue(new File("c:/dev/user.json"),
+				JsonNode.class);
 		// ensure that "last name" isn't "Xmler"; if is, change to "Jsoner"
 		JsonNode nameNode = rootNode.path("name");
 		String lastName = nameNode.path("last").getTextValue();
 		if ("xmler".equalsIgnoreCase(lastName)) {
-		  ((ObjectNode)nameNode).put("last", "Jsoner");
+			((ObjectNode) nameNode).put("last", "Jsoner");
 		}
 		// and write it out:
 		m.writeValue(new File("user-modified.json"), rootNode);

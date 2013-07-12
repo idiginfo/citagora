@@ -25,6 +25,13 @@ import com.google.gson.JsonIOException;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 
+/**
+ * Class to acquire Annotate content
+ * 
+ * @author griccardi
+ * 
+ */
+
 public class AnnotateSample {
 
 	static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
@@ -53,7 +60,7 @@ public class AnnotateSample {
 		Document selectedDocument = documents.getDocument(1);
 		System.out.println("Selected document: " + selectedDocument.getId());
 		AnnotateDocumentNotes documentNotes = testNotes(selectedDocument);// selectedDocument.getCode());
-		if (documentNotes != null && documentNotes.notes!=null) {
+		if (documentNotes != null && documentNotes.notes != null) {
 			System.out
 					.println("Number of notes: " + documentNotes.notes.length);
 		}

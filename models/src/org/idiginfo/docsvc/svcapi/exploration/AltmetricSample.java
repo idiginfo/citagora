@@ -12,6 +12,13 @@ import org.idiginfo.docsvc.svcapi.altmetric.AltmetricUrl;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+/**
+ * Class to acquire Altmetric content
+ * 
+ * @author griccardi
+ * 
+ */
+
 public class AltmetricSample {
 
 	static AltmetricService service = new AltmetricService();
