@@ -6,6 +6,13 @@ import java.util.Vector;
 import org.idiginfo.docsvc.model.apisvc.Document;
 import org.idiginfo.docsvc.model.apisvc.Documents;
 
+/**
+ * Class to implement Documents object for Altmetric
+ * 
+ * @author griccardi
+ * 
+ */
+
 public class AltmetricDocuments extends Vector<Document> implements Documents {
 	private static final long serialVersionUID = 1L;
 

@@ -8,21 +8,22 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * Class to map results of Altmetric API calls
+ * 
  * @author griccardi
- *
+ * 
  */
 public class AltmetricResult {
 
 	Query query;
 	@SerializedName("results")
 	List<AltmetricRecord> results;
-	
+
 	transient Documents documents;
 
 	Documents getDocuments() {
 		if (documents != null)
 			return documents;
-		return  new AltmetricDocuments(results);
+		return new AltmetricDocuments(results);
 	}
 
 	public class Query {

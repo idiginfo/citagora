@@ -3,6 +3,13 @@ package org.idiginfo.docsvc.svcapi.altmetric;
 import org.idiginfo.docsvc.model.apisvc.ApiParams;
 import org.idiginfo.docsvc.model.apisvc.BaseApiParams;
 
+/**
+ * Class to implement ApiParams for Altmetric service
+ * 
+ * @author griccardi
+ * 
+ */
+
 public class AltmetricApiParams extends BaseApiParams {
 
 	public static final String API_VERSION = "v1";
@@ -35,7 +42,7 @@ public class AltmetricApiParams extends BaseApiParams {
 	// Include only articles with a DOI that contains the given prefix.
 	String nlmid; // Comma delimited list of journal NLM IDs
 	String subject; // Comma delimited list of slugified journal subjects
-	
+
 	String altmetricId;
 	String pmcid;
 	String arxid;
@@ -74,10 +81,10 @@ public class AltmetricApiParams extends BaseApiParams {
 	}
 
 	public void setAltmetricId(String altmetricId) {
-		this.altmetricId = altmetricId;		
+		this.altmetricId = altmetricId;
 	}
-	
-	public String getAltMetricId(){
+
+	public String getAltMetricId() {
 		return altmetricId;
 	}
 

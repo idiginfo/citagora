@@ -7,6 +7,13 @@ import com.google.api.client.http.GenericUrl;
 import com.google.api.client.util.Key;
 import com.google.gson.JsonElement;
 
+/**
+ * Class to implement Url for Altmetric
+ * 
+ * @author griccardi
+ * 
+ */
+
 public class AltmetricUrl extends GenericUrl {
 
 	public AltmetricUrl(String collection, String time) {
