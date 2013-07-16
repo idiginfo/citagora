@@ -12,6 +12,7 @@ import com.google.gson.annotations.SerializedName;
  * @author griccardi
  * 
  */
+
 public class MasResponse {
 	@SerializedName("d")
 	MasResponseObject d;

@@ -3,9 +3,18 @@ package org.idiginfo.docsvc.svcapi.mas.model;
 import java.util.List;
 
 /**
- * <p>Java class for Organization complex type.
+ * Class to implement the MicrosoftAcademicSearch Organization object
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * @author griccardi
+ * 
+ */
+/**
+ * <p>
+ * Java class for Organization complex type.
+ * 
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="Organization">
@@ -28,22 +37,21 @@ import java.util.List;
  * 
  */
 
-public class MasOrganization
-{
+public class MasOrganization {
 
 	protected Long authorCount;
-    
-    protected Long citationCount;
-    
-    protected String homepageURL;
-    
-    protected Long iD;
-    
-    protected String name;
-    
-    protected Long publicationCount;
-    
-    protected List<MasDomain> researchInterestDomain;
+
+	protected Long citationCount;
+
+	protected String homepageURL;
+
+	protected Long iD;
+
+	protected String name;
+
+	protected Long publicationCount;
+
+	protected List<MasDomain> researchInterestDomain;
 
 	public Long getAuthorCount() {
 		return authorCount;
@@ -101,5 +109,4 @@ public class MasOrganization
 		this.researchInterestDomain = researchInterestDomain;
 	}
 
-    
 }

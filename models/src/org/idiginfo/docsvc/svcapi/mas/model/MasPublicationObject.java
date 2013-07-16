@@ -5,6 +5,13 @@ import java.util.Vector;
 import org.idiginfo.docsvc.model.apisvc.Document;
 import org.idiginfo.docsvc.model.apisvc.Documents;
 
+/**
+ * Class to implement the MicrosoftAcademicSearch Result as Documents object
+ * 
+ * @author griccardi
+ * 
+ */
+
 public class MasPublicationObject extends Vector<Document> implements Documents {
 	/**
 	 * 

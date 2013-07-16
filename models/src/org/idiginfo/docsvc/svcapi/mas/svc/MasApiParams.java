@@ -3,6 +3,13 @@ package org.idiginfo.docsvc.svcapi.mas.svc;
 import org.idiginfo.docsvc.model.apisvc.ApiParams;
 import org.idiginfo.docsvc.model.apisvc.BaseApiParams;
 
+/**
+ * Class to implement the BaseApiParams object for MicrosoftAcademicSearch
+ * 
+ * @author griccardi
+ * 
+ */
+
 public class MasApiParams extends BaseApiParams {
 
 	// public static final String API_URL =
@@ -54,7 +61,7 @@ public class MasApiParams extends BaseApiParams {
 	// result parameter fields
 	public String resultObjects = "Publication";
 	public String referenceType;
-	public String publicationContent = null; //"Keyword";
+	public String publicationContent = null; // "Keyword";
 	public String orderBy;
 	public Integer yearStart;
 	public Integer yearEnd;

@@ -1,9 +1,18 @@
 package org.idiginfo.docsvc.svcapi.mas.model;
 
 /**
- * <p>Java class for Keyword complex type.
+ * Class to implement the MicrosoftAcademicSearch Keyword object
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * @author griccardi
+ * 
+ */
+/**
+ * <p>
+ * Java class for Keyword complex type.
+ * 
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="Keyword">
@@ -22,15 +31,14 @@ package org.idiginfo.docsvc.svcapi.mas.model;
  * 
  * 
  */
-public class MasKeyword
-{
-    protected Long citationCount;
-    
-    protected Long iD;
-    
-    protected String name;
+public class MasKeyword {
+	protected Long citationCount;
 
-    protected Long publicationCount;
+	protected Long iD;
+
+	protected String name;
+
+	protected Long publicationCount;
 
 	public Long getCitationCount() {
 		return citationCount;
@@ -64,5 +72,4 @@ public class MasKeyword
 		this.publicationCount = publicationCount;
 	}
 
-    
 }

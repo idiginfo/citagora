@@ -4,6 +4,13 @@ import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Class to implement the MicrosoftAcademicSearch Result object
+ * 
+ * @author griccardi
+ * 
+ */
+
 public class MasResultObject<T> {
 
 	@SerializedName("__type")

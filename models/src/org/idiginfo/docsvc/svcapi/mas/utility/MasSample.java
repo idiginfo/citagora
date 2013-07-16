@@ -14,6 +14,13 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
+/**
+ * Class to test the MicrosoftAcademicSearch
+ * 
+ * @author griccardi
+ * 
+ */
+
 public class MasSample {
 
 	static MasService service = new MasService();

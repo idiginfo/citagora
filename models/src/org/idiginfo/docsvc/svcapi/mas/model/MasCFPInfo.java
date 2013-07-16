@@ -3,9 +3,18 @@ package org.idiginfo.docsvc.svcapi.mas.model;
 import java.util.Date;
 
 /**
- * <p>Java class for CFPInfo complex type.
+ * Class to implement the MicrosoftAcademicSearch CFPInfo object
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * @author griccardi
+ * 
+ */
+/**
+ * <p>
+ * Java class for CFPInfo complex type.
+ * 
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="CFPInfo">
@@ -31,27 +40,26 @@ import java.util.Date;
  * 
  */
 
-public class MasCFPInfo
-{
+public class MasCFPInfo {
 
-    protected Date abstractSubmissionDate;
-	
+	protected Date abstractSubmissionDate;
+
 	protected String agendaURL;
-	
+
 	protected String city;
-	
+
 	protected Date conferenceEndDate;
-	
+
 	protected Date conferenceStartDate;
-	
+
 	protected String country;
-	
+
 	protected Date finalVersionDate;
-	
+
 	protected String homepageURL;
-	
+
 	protected Date paperSubmissionDate;
-	
+
 	protected Date resultNotificationDate;
 
 	public Date getAbstractSubmissionDate() {
@@ -62,7 +70,7 @@ public class MasCFPInfo
 		this.abstractSubmissionDate = abstractSubmissionDate;
 	}
 
- 	public String getAgendaURL() {
+	public String getAgendaURL() {
 		return agendaURL;
 	}
 
@@ -134,5 +142,4 @@ public class MasCFPInfo
 		this.resultNotificationDate = resultNotificationDate;
 	}
 
-	
 }

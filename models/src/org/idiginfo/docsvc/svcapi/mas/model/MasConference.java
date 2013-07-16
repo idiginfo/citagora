@@ -3,9 +3,18 @@ package org.idiginfo.docsvc.svcapi.mas.model;
 import java.util.List;
 
 /**
- * <p>Java class for Conference complex type.
+ * Class to implement the MicrosoftAcademicSearch Conference object
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * @author griccardi
+ * 
+ */
+/**
+ * <p>
+ * Java class for Conference complex type.
+ * 
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="Conference">
@@ -30,28 +39,27 @@ import java.util.List;
  * 
  * 
  */
-public class MasConference
-{
+public class MasConference {
 
-    protected MasCFPInfo cFP;
-    
-    protected Long citationCount;
-    
-    protected Integer endYear;
-    
-    protected String fullName;
-    
-    protected String homepageURL;
-    
-    protected Long iD;
-    
-    protected Long publicationCount;
-    
-    protected List<MasDomain> researchInterestDomain;
-    
-    protected String shortName;
-    
-    protected Integer startYear;
+	protected MasCFPInfo cFP;
+
+	protected Long citationCount;
+
+	protected Integer endYear;
+
+	protected String fullName;
+
+	protected String homepageURL;
+
+	protected Long iD;
+
+	protected Long publicationCount;
+
+	protected List<MasDomain> researchInterestDomain;
+
+	protected String shortName;
+
+	protected Integer startYear;
 
 	public MasCFPInfo getcFP() {
 		return cFP;
@@ -133,5 +141,4 @@ public class MasConference
 		this.startYear = startYear;
 	}
 
-    
 }

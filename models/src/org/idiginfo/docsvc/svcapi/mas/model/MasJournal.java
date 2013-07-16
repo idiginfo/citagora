@@ -3,9 +3,18 @@ package org.idiginfo.docsvc.svcapi.mas.model;
 import java.util.List;
 
 /**
- * <p>Java class for Journal complex type.
+ * Class to implement the MicrosoftAcademicSearch Journal object
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * @author griccardi
+ * 
+ */
+/**
+ * <p>
+ * Java class for Journal complex type.
+ * 
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="Journal">
@@ -30,28 +39,27 @@ import java.util.List;
  * 
  * 
  */
-public class MasJournal
-{
+public class MasJournal {
 
-    protected Long citationCount;
+	protected Long citationCount;
 
-    protected Integer endYear;
-    
-    protected String fullName;
-    
-    protected String homepageURL;
-    
-    protected Long iD;
-    
-    protected String iSSN;
-    
-    protected Long publicationCount;
-    
-    protected List<MasDomain> researchInterestDomain;
-    
-    protected String shortName;
-    
-    protected Integer startYear;
+	protected Integer endYear;
+
+	protected String fullName;
+
+	protected String homepageURL;
+
+	protected Long iD;
+
+	protected String iSSN;
+
+	protected Long publicationCount;
+
+	protected List<MasDomain> researchInterestDomain;
+
+	protected String shortName;
+
+	protected Integer startYear;
 
 	public Long getCitationCount() {
 		return citationCount;
@@ -133,5 +141,4 @@ public class MasJournal
 		this.startYear = startYear;
 	}
 
-    
 }

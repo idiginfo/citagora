@@ -1,9 +1,18 @@
 package org.idiginfo.docsvc.svcapi.mas.model;
 
 /**
- * <p>Java class for Domain complex type.
+ * Class to implement the MicrosoftAcademicSearch Domain object
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * @author griccardi
+ * 
+ */
+/**
+ * <p>
+ * Java class for Domain complex type.
+ * 
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="Domain">
@@ -19,21 +28,20 @@ package org.idiginfo.docsvc.svcapi.mas.model;
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
- * </pre> 
+ * </pre>
  * 
  */
-public class MasDomain
-{
+public class MasDomain {
 
-    protected Long citationCount;
-    
-    protected Long domainID;
-    
-    protected String name;
-    
-    protected Long publicationCount;
-    
-    protected Long subDomainID;
+	protected Long citationCount;
+
+	protected Long domainID;
+
+	protected String name;
+
+	protected Long publicationCount;
+
+	protected Long subDomainID;
 
 	public Long getCitationCount() {
 		return citationCount;
@@ -74,6 +82,5 @@ public class MasDomain
 	public void setSubDomainID(Long subDomainID) {
 		this.subDomainID = subDomainID;
 	}
-    
 
 }
