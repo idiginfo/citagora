@@ -8,9 +8,8 @@ import org.idiginfo.docsvc.svcapi.mendeley.MendeleyHeader;
 import org.idiginfo.docsvc.svcapi.mendeley.MendeleyHeaders;
 
 /**
- * Class that implements the Mendeley Headers - 
- *  a list of "search" results containing the uuid values
- *  necessary for "details" based retrieval
+ * Class that implements the Mendeley Headers - a list of "search" results
+ * containing the uuid values necessary for "details" based retrieval
  * 
  * @author sflager
  * 
@@ -22,6 +21,7 @@ public class MendeleyHeaders extends Vector<MendeleyHeader> {
 
 	/**
 	 * Convert the List<MendeleyRecord> into List<Document>
+	 * 
 	 * @param records
 	 */
 	public MendeleyHeaders(List<MendeleyHeader> records) {
@@ -32,7 +32,6 @@ public class MendeleyHeaders extends Vector<MendeleyHeader> {
 			add(documents.next());
 		}
 	}
-
 
 	public MendeleyHeader getHeader(int i) {
 		return get(i);

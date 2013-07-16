@@ -20,63 +20,63 @@ import com.google.gson.annotations.SerializedName;
  */
 public class MendeleyResult {
 
-    @SerializedName("documents")
-    List<MendeleyHeader> records;
-    @SerializedName("total_results")
+	@SerializedName("documents")
+	List<MendeleyHeader> records;
+	@SerializedName("total_results")
 	String total_results;
-    @SerializedName("total_pages")
-    String total_pages;
-    @SerializedName("current_page")
+	@SerializedName("total_pages")
+	String total_pages;
+	@SerializedName("current_page")
 	String current_page;
-    @SerializedName("items_per_page")
+	@SerializedName("items_per_page")
 	String items_per_page;
 
-    transient MendeleyHeaders headers;
+	transient MendeleyHeaders headers;
 
-    public List<MendeleyHeader> getHeaders() {
-	if (records != null)
-	    return records;
-	return null;
-    }
-
-    public int getTotalResults() {
-	if (total_results == null || total_results.length() == 0)
-		return 0;
-	try{
-	    return Integer.parseInt(total_results);
-	} catch (NumberFormatException e) {
-	    return 0;
+	public List<MendeleyHeader> getHeaders() {
+		if (records != null)
+			return records;
+		return null;
 	}
-    }
 
-    public int getTotalPages() {
-	if (total_pages != null && total_pages.length() > 0)
-		return 0;
-	try{
-	    return Integer.parseInt(total_pages);
-	} catch (NumberFormatException e) {
-	    return 0;
+	public int getTotalResults() {
+		if (total_results == null || total_results.length() == 0)
+			return 0;
+		try {
+			return Integer.parseInt(total_results);
+		} catch (NumberFormatException e) {
+			return 0;
+		}
 	}
-    }
 
-    public int getCurrentPages() {
-    	if (current_page != null && current_page.length() > 0)
-	    return 0;
-	try {
-	    return Integer.parseInt(current_page);
-	} catch (NumberFormatException e) {
-	    return 0;
+	public int getTotalPages() {
+		if (total_pages != null && total_pages.length() > 0)
+			return 0;
+		try {
+			return Integer.parseInt(total_pages);
+		} catch (NumberFormatException e) {
+			return 0;
+		}
 	}
-    }
 
-    public int getItemsPerPage() {
-    	if (items_per_page != null && items_per_page.length() > 0)
-	    return 0;
-	try {
-	    return Integer.parseInt(items_per_page);
-	} catch (NumberFormatException e) {
-	    return 0;
+	public int getCurrentPages() {
+		if (current_page != null && current_page.length() > 0)
+			return 0;
+		try {
+			return Integer.parseInt(current_page);
+		} catch (NumberFormatException e) {
+			return 0;
+		}
 	}
-    }
+
+	public int getItemsPerPage() {
+		if (items_per_page != null && items_per_page.length() > 0)
+			return 0;
+		try {
+			return Integer.parseInt(items_per_page);
+		} catch (NumberFormatException e) {
+			return 0;
+		}
+	}
 
 }

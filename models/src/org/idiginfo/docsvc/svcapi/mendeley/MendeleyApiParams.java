@@ -4,7 +4,7 @@ import org.idiginfo.docsvc.model.apisvc.ApiParams;
 import org.idiginfo.docsvc.model.apisvc.BaseApiParams;
 
 /**
- * Class that implements the Mendeley API 
+ * Class that implements the Mendeley BaseAPIParams object
  * 
  * @author sflager
  * 
@@ -23,11 +23,10 @@ public class MendeleyApiParams extends BaseApiParams {
 	public static final String API_DETAILS = "details";
 	public static final String SOURCE = "mendeley.com";
 
-	public static final String[] PUBLICATION_CONTENT_TYPE_VALUES = {
-			"title:", "author:", "year:", "published_in:" };
+	public static final String[] PUBLICATION_CONTENT_TYPE_VALUES = { "title:",
+			"author:", "year:", "published_in:" };
 
-	public static final String[] RESPONSE_CODE_MESSAGES = {
-			"OK",// 200
+	public static final String[] RESPONSE_CODE_MESSAGES = { "OK",// 200
 			"Created",// 201
 			"No Content",// 204
 			"Bad Request",// 400

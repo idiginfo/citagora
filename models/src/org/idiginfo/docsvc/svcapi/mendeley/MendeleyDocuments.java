@@ -20,6 +20,7 @@ public class MendeleyDocuments extends Vector<Document> implements Documents {
 
 	/**
 	 * Convert the List<MendeleyRecord> into List<Document>
+	 * 
 	 * @param records
 	 */
 	public MendeleyDocuments(List<MendeleyRecord> records) {

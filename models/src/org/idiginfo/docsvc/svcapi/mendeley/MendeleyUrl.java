@@ -9,7 +9,7 @@ import com.google.gson.JsonElement;
 /**
  * Class that implements the Mendeley URL 
  *  Note: Function Parameters are built with appendRawPath
- *        and API Key & record control (start/count) are standard ("?") type
+ *        and API Key & record control (start/count) are of standard ("?") type
  * 
  * @author sflager
  * 

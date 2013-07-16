@@ -32,7 +32,7 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 
 /**
- * Class that implements the Mendeley API service function
+ * Class that implements the Mendeley API Service function
  * 
  * @author sflager
  * 
@@ -177,10 +177,9 @@ public class MendeleyService implements DocService {
 	private Document getMendeleyDocument(ApiParams params) {
 		String keywords = params.getKeyword();
 		params.setFirstResult(0);
-		MendeleyResult result = getMendeleyResult("search", keywords,
-				params);
+		MendeleyResult result = getMendeleyResult("search", keywords, params);
 		if (result == null || result.getTotalResults() == 0)
-		    return null;
+			return null;
 		List<MendeleyHeader> headers = result.getHeaders();
 		String uuid = headers.get(0).getUuid();
 		String uText = getMendeleyUUID("details", uuid, params);
@@ -197,10 +196,9 @@ public class MendeleyService implements DocService {
 	private Documents getMendeleyDocuments(ApiParams params) {
 		String keywords = params.getKeyword();
 		List<MendeleyRecord> mDocs = new Vector<MendeleyRecord>();
-		MendeleyResult result = getMendeleyResult("search", keywords,
-				params);
+		MendeleyResult result = getMendeleyResult("search", keywords, params);
 		if (result == null)
-		    return null;
+			return null;
 		List<MendeleyHeader> headers = result.getHeaders();
 		for (int i = 0; i < headers.size(); i++) {
 			String uuid = headers.get(i).getUuid();
