@@ -7,7 +7,7 @@ import org.idiginfo.docsvc.model.apisvc.Document;
 import org.idiginfo.docsvc.model.apisvc.Documents;
 
 /**
- * Class to implement Document for PubMed MEDLINE 
+ * Class to implement Document for PubMed MEDLINE
  * 
  * @author griccardi
  * 

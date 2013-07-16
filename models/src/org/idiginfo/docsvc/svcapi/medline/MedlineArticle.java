@@ -14,7 +14,7 @@ import org.idiginfo.docsvc.model.apisvc.Annotation;
 import org.idiginfo.docsvc.model.apisvc.Document;
 
 /**
- * Class to implement Pubmed MEDLINE content mapping onto apisvc Document object
+ * Class to implement Pubmed MEDLINE content mapping onto ApiSvc Document object
  * 
  * @author sflager
  * 
@@ -332,7 +332,7 @@ public class MedlineArticle implements Document {
 
 	@Override
 	public String getSource() {
-		return ServiceFactory.COLLECTION_MEDLINE;
+		return null;
 	}
 
 	@Override
