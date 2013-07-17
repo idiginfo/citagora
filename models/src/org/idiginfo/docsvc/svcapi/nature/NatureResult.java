@@ -14,7 +14,7 @@ import com.google.gson.JsonElement;
  */
 public class NatureResult {
 
-    String comment; // "nature.com OpenSearch: urn:uuid:b8c9c71b-2faa-47b5-9606-507b6d112335",
-    JsonElement namespaces; // {
-    NatureFeed feed; //
+	String comment; // "nature.com OpenSearch: urn:uuid:b8c9c71b-2faa-47b5-9606-507b6d112335",
+	JsonElement namespaces; // {
+	NatureFeed feed; //
 }
