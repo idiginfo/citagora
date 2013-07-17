@@ -11,6 +11,13 @@ import org.idiginfo.docsvc.model.apisvc.Document;
 
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Class to implement Document object for Scopus
+ * 
+ * @author griccardi
+ * 
+ */
+
 public class ScopusDocument implements Document {
 
 	class CoreData {
@@ -198,7 +205,7 @@ public class ScopusDocument implements Document {
 
 	@Override
 	public String getSource() {
-	    return ServiceFactory.COLLECTION_ELSEVIER;
+		return ServiceFactory.COLLECTION_ELSEVIER;
 	}
 
 	@Override
@@ -326,8 +333,8 @@ public class ScopusDocument implements Document {
 
 	@Override
 	public String getSourceId() {
-	    // TODO Auto-generated method stub
-	    return null;
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

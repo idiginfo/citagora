@@ -3,6 +3,13 @@ package org.idiginfo.docsvc.svcapi.scopus;
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.util.Key;
 
+/**
+ * Class to implement GenericUrl object for Scopus
+ * 
+ * @author griccardi
+ * 
+ */
+
 public class ScopusUrl extends GenericUrl {
 
 	public ScopusUrl(String function) {
@@ -35,7 +42,6 @@ public class ScopusUrl extends GenericUrl {
 	String offset;
 	@Key
 	String callback;
-
 
 	// ={searchTerms}&[{param}=[paramValue]&{param]=[paramValue]...]
 
