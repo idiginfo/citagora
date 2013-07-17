@@ -14,7 +14,7 @@ import org.idiginfo.docsvc.model.apisvc.Document;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * Class to map Spring json object to Document
+ * Class to map Springer json object to Document
  * 
  * @author griccardi
  * 
