@@ -5,7 +5,7 @@ import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Class to map Spring result json document
+ * Class to map SciVerse result json document
  * 
  * Note that although this class has a set of SciVerseRecord (implements
  * Documents) it must create a more generic List<Document> to use for the
@@ -16,125 +16,124 @@ import com.google.gson.annotations.SerializedName;
  */
 public class SciVerseResult {
 
-    @SerializedName("search-results")
-    SearchResults searchResults;
+	@SerializedName("search-results")
+	SearchResults searchResults;
 
-    public class SearchResults {
-	@SerializedName("opensearch:totalResults")
-	Integer totalResults;
-	@SerializedName("opensearch:startIndex")
-	Integer startIndex;
+	public class SearchResults {
+		@SerializedName("opensearch:totalResults")
+		Integer totalResults;
+		@SerializedName("opensearch:startIndex")
+		Integer startIndex;
 
-	@SerializedName("opensearch:itemsPerPage")
-	Integer itemsPerPage;
-	@SerializedName("opensearch:Query")
-	Query query;
-	List<SciVerseLink> link;
-	@SerializedName("entry")
-	List<SciVerseDocument> records;
+		@SerializedName("opensearch:itemsPerPage")
+		Integer itemsPerPage;
+		@SerializedName("opensearch:Query")
+		Query query;
+		List<SciVerseLink> link;
+		@SerializedName("entry")
+		List<SciVerseDocument> records;
 
-    }
-
-    public class Query {
-	@SerializedName("@role")
-	String role;
-	@SerializedName("@searchTerms")
-	String searchTerms;
-	@SerializedName("@startPage")
-	Integer startPage;
-    }
-
-    public class Entry {
-	@SerializedName("link")
-	List<SciVerseLink> links;
-
-	public List<SciVerseLink> getLinks() {
-	    return links;
 	}
-    }
 
-    transient SciVerseDocuments documents;
+	public class Query {
+		@SerializedName("@role")
+		String role;
+		@SerializedName("@searchTerms")
+		String searchTerms;
+		@SerializedName("@startPage")
+		Integer startPage;
+	}
 
-    // @Override
-    SciVerseDocuments getDocuments() {
-	if (documents == null)
-	    documents = new SciVerseDocuments(searchResults.records);
-	return documents;
-    }
+	public class Entry {
+		@SerializedName("link")
+		List<SciVerseLink> links;
 
-     public SciVerseDocument getResult() {
-	if (searchResults.records != null && searchResults.records.size() > 0)
-	    return searchResults.records.get(0);
-	return null;
-    }
+		public List<SciVerseLink> getLinks() {
+			return links;
+		}
+	}
 
-    public Integer getTotalResults() {
-	return searchResults.totalResults;
-    }
+	transient SciVerseDocuments documents;
 
-    public void setTotalResults(Integer totalResults) {
-	this.searchResults.totalResults = totalResults;
-    }
+	// @Override
+	SciVerseDocuments getDocuments() {
+		if (documents == null)
+			documents = new SciVerseDocuments(searchResults.records);
+		return documents;
+	}
 
-    public Integer getStartIndex() {
-	return searchResults.startIndex;
-    }
+	public SciVerseDocument getResult() {
+		if (searchResults.records != null && searchResults.records.size() > 0)
+			return searchResults.records.get(0);
+		return null;
+	}
 
-    public void setStartIndex(Integer startIndex) {
-	this.searchResults.startIndex = startIndex;
-    }
+	public Integer getTotalResults() {
+		return searchResults.totalResults;
+	}
 
-    public Integer getItemsPerPage() {
-	return searchResults.itemsPerPage;
-    }
+	public void setTotalResults(Integer totalResults) {
+		this.searchResults.totalResults = totalResults;
+	}
 
-    public void setItemsPerPage(Integer itemsPerPage) {
-	this.searchResults.itemsPerPage = itemsPerPage;
-    }
+	public Integer getStartIndex() {
+		return searchResults.startIndex;
+	}
 
-    public Query getQuery() {
-	return searchResults.query;
-    }
+	public void setStartIndex(Integer startIndex) {
+		this.searchResults.startIndex = startIndex;
+	}
 
-    public void setQuery(Query query) {
-	this.searchResults.query = query;
-    }
+	public Integer getItemsPerPage() {
+		return searchResults.itemsPerPage;
+	}
 
-    public List<SciVerseLink> getLink() {
-	return searchResults.link;
-    }
+	public void setItemsPerPage(Integer itemsPerPage) {
+		this.searchResults.itemsPerPage = itemsPerPage;
+	}
 
-    public void setLink(List<SciVerseLink> link) {
-	this.searchResults.link = link;
-    }
+	public Query getQuery() {
+		return searchResults.query;
+	}
 
-    public List<SciVerseDocument> getRecords() {
-	return searchResults.records;
-    }
+	public void setQuery(Query query) {
+		this.searchResults.query = query;
+	}
 
-    public String getRole() {
-	return searchResults.query.role;
-    }
+	public List<SciVerseLink> getLink() {
+		return searchResults.link;
+	}
 
-    public void setRole(String role) {
-	this.searchResults.query.role = role;
-    }
+	public void setLink(List<SciVerseLink> link) {
+		this.searchResults.link = link;
+	}
 
-    public String getSearchTerms() {
-	return searchResults.query.searchTerms;
-    }
+	public List<SciVerseDocument> getRecords() {
+		return searchResults.records;
+	}
 
-    public void setSearchTerms(String searchTerms) {
-	this.searchResults.query.searchTerms = searchTerms;
-    }
+	public String getRole() {
+		return searchResults.query.role;
+	}
 
-    public Integer getStartPage() {
-	return searchResults.query.startPage;
-    }
+	public void setRole(String role) {
+		this.searchResults.query.role = role;
+	}
 
-    public void setStartPage(Integer startPage) {
-	this.searchResults.query.startPage = startPage;
-    }
+	public String getSearchTerms() {
+		return searchResults.query.searchTerms;
+	}
 
-    
+	public void setSearchTerms(String searchTerms) {
+		this.searchResults.query.searchTerms = searchTerms;
+	}
+
+	public Integer getStartPage() {
+		return searchResults.query.startPage;
+	}
+
+	public void setStartPage(Integer startPage) {
+		this.searchResults.query.startPage = startPage;
+	}
+
 }
