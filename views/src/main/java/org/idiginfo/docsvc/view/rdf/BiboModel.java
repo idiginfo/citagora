@@ -10,6 +10,13 @@ import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.rdf.model.ResourceFactory;
 import com.hp.hpl.jena.sparql.vocabulary.FOAF;
 
+/**
+ * Class to exercise BIBO model for RDF output
+ * 
+ * @author griccardi
+ * 
+ */
+
 public class BiboModel {
 
 	// sample command to run schemagen

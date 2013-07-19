@@ -18,8 +18,8 @@ public class MapDocuments {
 	MapDocument mapDocument = new MapDocument();
 
 	/**
-	 * Add List of apisvc document objects to the model, using an
-	 *  Iterator if the List is not null to map each element.
+	 * Add List of apisvc document objects to the model, using an Iterator if
+	 * the List is not null to map each element.
 	 * 
 	 * @param model
 	 * @param documents

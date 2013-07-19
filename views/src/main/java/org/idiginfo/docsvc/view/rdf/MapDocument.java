@@ -17,10 +17,9 @@ import com.hp.hpl.jena.vocabulary.DCTerms;
 public class MapDocument {
 
 	/**
-	 * Add apisvc document object to the model, using Document
-	 *  GUID as URI to create Resource; add document fields as
-	 *  Object of RFD Statements, with corresponding Vocabulary 
-	 *  as Predicate.
+	 * Add apisvc document object to the model, using Document GUID as URI to
+	 * create Resource; add document fields as Object of RFD Statements, with
+	 * corresponding Vocabulary as Predicate.
 	 * 
 	 * @param model
 	 * @param document
