@@ -7,6 +7,13 @@ import java.util.logging.Logger;
 
 import com.google.api.client.http.HttpTransport;
 
+/**
+ * Class to perform event logging 
+ * 
+ * @author griccardi
+ * 
+ */
+
 public class SvcApiLogger {
     public static void enableLogging() {
 	Logger logger = Logger.getLogger(HttpTransport.class.getName());

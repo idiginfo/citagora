@@ -18,33 +18,33 @@ import com.google.gson.JsonElement;
  */
 public class ListTypeAdapter<T> implements JsonDeserializer<List<T>> {
 
-    Class<?> classT;
+	Class<?> classT;
 
-    /**
-     * Constructor requires an element of the class T to use to get the Class of
-     * T
-     * 
-     * @param sample
-     */
-    public ListTypeAdapter(T sample) {
-	classT = sample.getClass();
-    }
-
-    @SuppressWarnings("unchecked")
-    public List<T> deserialize(JsonElement json, Type typeOfT,
-	    JsonDeserializationContext ctx) {
-
-	List<T> vals = new ArrayList<T>();
-	if (json.isJsonArray()) {
-	    for (JsonElement e : json.getAsJsonArray()) {
-		vals.add((T) ctx.deserialize(e, classT));
-	    }
-	} else if (json.isJsonObject()) {
-	    vals.add((T) ctx.deserialize(json, classT));
-	} else {
-	    throw new RuntimeException("Unexpected JSON type: "
-		    + json.getClass());
+	/**
+	 * Constructor requires an element of the class T to use to get the Class of
+	 * T
+	 * 
+	 * @param sample
+	 */
+	public ListTypeAdapter(T sample) {
+		classT = sample.getClass();
 	}
-	return vals;
-    }
+
+	@SuppressWarnings("unchecked")
+	public List<T> deserialize(JsonElement json, Type typeOfT,
+			JsonDeserializationContext ctx) {
+
+		List<T> vals = new ArrayList<T>();
+		if (json.isJsonArray()) {
+			for (JsonElement e : json.getAsJsonArray()) {
+				vals.add((T) ctx.deserialize(e, classT));
+			}
+		} else if (json.isJsonObject()) {
+			vals.add((T) ctx.deserialize(json, classT));
+		} else {
+			throw new RuntimeException("Unexpected JSON type: "
+					+ json.getClass());
+		}
+		return vals;
+	}
 }
