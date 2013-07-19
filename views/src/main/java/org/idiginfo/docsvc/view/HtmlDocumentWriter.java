@@ -138,5 +138,4 @@ public class HtmlDocumentWriter {
 		out.append("</body></html>");
 		return out.toString();
 	}
-
 }
