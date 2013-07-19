@@ -13,6 +13,13 @@ import org.idiginfo.docsvc.model.citagora.Review;
 
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Class to implement the Citagora persistence Review object
+ * 
+ * @author griccardi
+ * 
+ */
+
 @Entity
 @Table(name = "reviews")
 @DiscriminatorValue(value = "review")

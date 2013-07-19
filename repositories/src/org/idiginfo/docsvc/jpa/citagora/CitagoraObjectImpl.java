@@ -28,6 +28,13 @@ import org.idiginfo.docsvc.model.citagora.CitagoraObject;
 
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Class to implement the Citagora persistence CitagoraObject
+ * 
+ * @author griccardi
+ * 
+ */
+
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "citagora_objects")

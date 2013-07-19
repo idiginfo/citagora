@@ -11,6 +11,13 @@ import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.model.citagora.CitagoraObject;
 import org.idiginfo.docsvc.model.citagora.Tag;
 
+/**
+ * Class to implement the Citagora persistence Tag object
+ * 
+ * @author griccardi
+ * 
+ */
+
 @Entity
 @Table(name = "tags")
 @DiscriminatorValue(value = "tag")

@@ -10,6 +10,13 @@ import org.idiginfo.docsvc.model.citagora.CitagoraObject;
 
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Class to implement the Citagora persistence AnnotationBody object
+ * 
+ * @author griccardi
+ * 
+ */
+
 @Embeddable
 public class AnnotationBodyImpl implements AnnotationBody {
 

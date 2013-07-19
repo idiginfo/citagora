@@ -15,6 +15,13 @@ import org.idiginfo.docsvc.model.citagora.Person;
 
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Class to implement the Citagora persistence Annotation object
+ * 
+ * @author griccardi
+ * 
+ */
+
 @Entity
 @Table(name = "annotations")
 abstract public class AnnotationImpl extends CitagoraObjectImpl implements

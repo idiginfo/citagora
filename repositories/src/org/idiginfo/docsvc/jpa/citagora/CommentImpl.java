@@ -21,6 +21,13 @@ import org.idiginfo.docsvc.model.citagora.Reply;
 
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Class to implement the Citagora persistence Comment object
+ * 
+ * @author griccardi
+ * 
+ */
+
 @Entity
 @Table(name = "comments")
 @DiscriminatorValue(value = "comment")

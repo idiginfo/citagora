@@ -22,6 +22,13 @@ import org.idiginfo.docsvc.model.citagora.Reference;
 
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Class to implement the Citagora persistence HarvestResult object
+ * 
+ * @author griccardi
+ * 
+ */
+
 @Entity
 @Table(name = "harvest_results")
 public class HarvestResultImpl implements HarvestResult {

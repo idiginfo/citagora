@@ -31,6 +31,13 @@ import org.idiginfo.docsvc.model.GsonTransient;
 
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Class to implement the Citagora persistence Person objects
+ * 
+ * @author griccardi
+ * 
+ */
+
 @Entity
 @Table(name = "people")
 public class PersonImpl implements Person, CitagoraAgent, Author {

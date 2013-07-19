@@ -22,13 +22,12 @@ import org.idiginfo.docsvc.model.citagora.Tag;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * @author griccardi
- *
- */
-/**
+ * Class to implement the Citagora persistence Container object
+ * 
  * @author griccardi
  * 
  */
+
 @Entity
 @Table(name = "containers")
 @DiscriminatorValue(value = Container.COLLECTION)

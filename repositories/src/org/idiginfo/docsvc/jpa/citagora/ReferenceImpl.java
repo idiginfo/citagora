@@ -28,6 +28,13 @@ import org.idiginfo.docsvc.model.GsonTransient;
 
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Class to implement the Citagora persistence Reference object
+ * 
+ * @author griccardi
+ * 
+ */
+
 @Entity
 @Table(name = "citagora_references", uniqueConstraints = {
 		@UniqueConstraint(columnNames = { "refSource", "doi" }),

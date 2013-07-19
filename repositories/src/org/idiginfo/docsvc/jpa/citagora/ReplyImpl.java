@@ -11,6 +11,13 @@ import org.idiginfo.docsvc.model.citagora.CitagoraObject;
 import org.idiginfo.docsvc.model.citagora.Comment;
 import org.idiginfo.docsvc.model.citagora.Reply;
 
+/**
+ * Class to implement the Citagora persistence Reply object
+ * 
+ * @author griccardi
+ * 
+ */
+
 @Entity
 @Table(name = "replies")
 @DiscriminatorValue(value = "reply")
