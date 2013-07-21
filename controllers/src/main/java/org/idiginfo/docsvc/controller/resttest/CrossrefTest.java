@@ -7,26 +7,32 @@ import javax.ws.rs.core.Response;
 
 import org.idiginfo.docsvc.controller.rest.CrossrefRest;
 
+/**
+ * Test CrossRef
+ * 
+ * @author griccardi
+ */
+
 public class CrossrefTest {
 
-    /**
-     * @param args
-     */
-    public static void main(String[] args) {
-	// TODO Auto-generated method stub
-	CrossrefTest tester = new CrossrefTest();
-	tester.run();
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		CrossrefTest tester = new CrossrefTest();
+		tester.run();
 
-    }
+	}
 
-    CrossrefRest svc = new CrossrefRest();
+	CrossrefRest svc = new CrossrefRest();
 
-    public void run() {
-	String[] refArray = { "xxx" };
-	List<String> refs = Arrays.asList(refArray);
-	Response response = svc.getCrossref(refs);
-	Object obj = response.getEntity();
-	System.out.println("obj: " + obj);
-    }
+	public void run() {
+		String[] refArray = { "xxx" };
+		List<String> refs = Arrays.asList(refArray);
+		Response response = svc.getCrossref(refs);
+		Object obj = response.getEntity();
+		System.out.println("obj: " + obj);
+	}
 
 }

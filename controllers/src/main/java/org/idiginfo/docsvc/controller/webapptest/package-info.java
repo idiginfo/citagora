@@ -1,7 +1,6 @@
 /**
- * 
- */
-/**
+ * Package to hold classes testing API content request processing
+
  * @author griccardi
  *
  */

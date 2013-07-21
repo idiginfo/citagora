@@ -1,7 +1,7 @@
 /**
+ * Package to hold classes supporting Rest processes
+ * Including CrossRef & cryptographic support
  * 
- */
-/**
  * @author griccardi
  *
  */

@@ -1,7 +1,6 @@
 /**
- * 
- */
-/**
+ * Package to hold classes supporting WokV3 & Searchlite
+
  * @author griccardi
  *
  */
