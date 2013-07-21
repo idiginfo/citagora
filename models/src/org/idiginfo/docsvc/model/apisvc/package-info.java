@@ -1,7 +1,6 @@
 /**
  * Package to hold org.idiginfo.docsvc.model interfaces and abstract implementation classes
- */
-/**
+ *
  * @author griccardi
  *
  */

@@ -1,7 +1,6 @@
 /**
  * Package to hold common definitions and factories for all document services
- */
-/**
+ * 
  * @author griccardi
  *
  */

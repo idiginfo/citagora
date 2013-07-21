@@ -1,7 +1,6 @@
 /**
+ * Package to hold classes supporting access to SciVerse content
  * 
- */
-/**
  * @author griccardi
  *
  */

@@ -1,6 +1,7 @@
 /**
- * Classes in this package may be used to query the a.nnotate service API 
- * and return POJO objects that closely match the json objects returned by that API
+ * Classes in this package may be used to update content via the a.nnotate service API 
+ * 
+ * @author griccardi
  */
 package org.idiginfo.docsvc.svcapi.annotate.update;
 

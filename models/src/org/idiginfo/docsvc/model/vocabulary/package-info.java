@@ -1,7 +1,6 @@
 /**
+ * Package to hold vocabulary definitions for various Ontologies  
  * 
- */
-/**
  * @author griccardi
  *
  */

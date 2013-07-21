@@ -1,6 +1,8 @@
 /**
  * Contains classes that have been used to explore the capabilities of JSON tools 
- * and the a.nnotate service API
+ * and various service APIs
+ * 
+ * @author griccardi
  */
 package org.idiginfo.docsvc.svcapi.exploration;
 
