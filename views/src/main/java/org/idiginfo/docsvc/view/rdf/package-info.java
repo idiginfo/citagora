@@ -1,7 +1,6 @@
 /**
+ * Package to hold classes supporting RDF content generation 
  * 
- */
-/**
  * @author griccardi
  *
  */

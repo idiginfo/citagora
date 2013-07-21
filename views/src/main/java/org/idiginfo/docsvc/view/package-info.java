@@ -1,7 +1,6 @@
 /**
+ * Package to hold classes supporting content generation 
  * 
- */
-/**
  * @author griccardi
  *
  */

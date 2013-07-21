@@ -1,8 +1,7 @@
 /**
+ * Package to hold classes supporting Citagora RDF content generation 
  * 
- */
-/**
- * @author ssflager
+ * @author griccardi
  *
  */
 package org.idiginfo.docsvc.view.rdf.citagora;
