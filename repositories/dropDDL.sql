@@ -10,8 +10,8 @@ ALTER TABLE harvest_results DROP FOREIGN KEY FK_harvest_results_REFERENCE_MYID
 ALTER TABLE citagora_references DROP FOREIGN KEY FK_citagora_references_isPartOf
 ALTER TABLE citagora_references DROP FOREIGN KEY FK_citagora_references_CONTRIBUTEDBY_MYID
 ALTER TABLE citagora_references DROP FOREIGN KEY FK_citagora_references_MYID
-ALTER TABLE citagora_references DROP FOREIGN KEY UNQ_citagora_references_0
-ALTER TABLE citagora_references DROP FOREIGN KEY UNQ_citagora_references_1
+ALTER TABLE citagora_references DROP KEY UNQ_citagora_references_0
+ALTER TABLE citagora_references DROP KEY UNQ_citagora_references_1
 ALTER TABLE replies DROP FOREIGN KEY FK_replies_MYID
 ALTER TABLE replies DROP FOREIGN KEY FK_replies_REPLYTARGET_MYID
 ALTER TABLE reviews DROP FOREIGN KEY FK_reviews_MYID

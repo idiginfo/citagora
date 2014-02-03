@@ -88,7 +88,7 @@ public class CrossrefService implements DocService {
 	private JsonElement queryService(String function, ApiParams params) {
 		try {
 			// TODO add other functions
-			CrossrefUrl url = new CrossrefUrl("metadata", "json", function,
+			CrossrefUrl url = new CrossrefUrl("dois", "json", function,
 					params);
 			url.prepare();
 			System.out.println(url.build());

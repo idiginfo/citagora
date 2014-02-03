@@ -31,6 +31,14 @@
 							<filtering>true</filtering>
 							<targetPath>WEB-INF</targetPath>
 						</resource>
+						<resource>
+							<directory>../repositories/src/META-INF</directory>
+							<!-- override the destination directory for this resource -->
+							<targetPath>WEB-INF/classes/META-INF</targetPath>
+							<includes>
+								<include>persistence.xml</include>
+							</includes>
+						</resource>
 					</webResources>
 				</configuration>
 			</plugin>

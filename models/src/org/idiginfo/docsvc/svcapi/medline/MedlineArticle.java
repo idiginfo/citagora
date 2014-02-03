@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
-import org.idiginfo.docsvc.model.ServiceFactory;
 import org.idiginfo.docsvc.model.apisvc.Annotation;
 import org.idiginfo.docsvc.model.apisvc.Document;
 
