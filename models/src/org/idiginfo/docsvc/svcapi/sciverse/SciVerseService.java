@@ -17,6 +17,7 @@ import org.idiginfo.docsvc.model.apisvc.DocService;
 import org.idiginfo.docsvc.model.apisvc.Document;
 import org.idiginfo.docsvc.model.apisvc.Users;
 import org.idiginfo.docsvc.svcapi.ListTypeAdapter;
+import org.idiginfo.docsvc.svcapi.SvcApiLogger;
 
 import com.google.api.client.http.HttpHeaders;
 import com.google.api.client.http.HttpRequest;
@@ -54,7 +55,7 @@ public class SciVerseService implements DocService {
 	String authKey;
 
 	public SciVerseService() {
-		enableLogging();
+		SvcApiLogger.enableLogging();
 		authKey = getAuthKey();
 		System.out.println("authKey: " + authKey);
 	}
@@ -224,29 +225,6 @@ public class SciVerseService implements DocService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	public static void enableLogging() {
-		Logger logger = Logger.getLogger(HttpTransport.class.getName());
-		logger.setLevel(Level.CONFIG);
-		logger.addHandler(new Handler() {
-
-			@Override
-			public void close() throws SecurityException {
-			}
-
-			@Override
-			public void flush() {
-			}
-
-			@Override
-			public void publish(LogRecord record) {
-				// default ConsoleHandler will print >= INFO to System.err
-				if (record.getLevel().intValue() < Level.INFO.intValue()) {
-					System.out.println(record.getMessage());
-				}
-			}
-		});
 	}
 
 }
