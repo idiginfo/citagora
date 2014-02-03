@@ -156,28 +156,6 @@ public class MasSplit {
 		return;
 	}
 
-	public static void enableLogging() {
-		Logger logger = Logger.getLogger(HttpTransport.class.getName());
-		logger.setLevel(Level.CONFIG);
-		logger.addHandler(new Handler() {
-
-			@Override
-			public void close() throws SecurityException {
-			}
-
-			@Override
-			public void flush() {
-			}
-
-			@Override
-			public void publish(LogRecord record) {
-				// default ConsoleHandler will print >= INFO to System.err
-				if (record.getLevel().intValue() < Level.INFO.intValue()) {
-					System.out.println(record.getMessage());
-				}
-			}
-		});
-	}
 }
 
 // http://annotate.msrc.fsu.edu/php/listUsers.php?api-auth=yKOfIUFmwDxk21FWkn2X0Ets9fY%3D&api-requesttime=1343244291737&api-user=casey.mclaughlin@cci.fsu.edu&api_key=giqfrstIk9b6CddDL3ogGTUac6Lr3II9

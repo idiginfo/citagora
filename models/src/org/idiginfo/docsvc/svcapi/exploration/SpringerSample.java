@@ -1,10 +1,10 @@
 package org.idiginfo.docsvc.svcapi.exploration;
 
+import org.idiginfo.docsvc.model.ServiceFactory;
 import org.idiginfo.docsvc.model.apisvc.ApiParams;
+import org.idiginfo.docsvc.model.apisvc.DocService;
 import org.idiginfo.docsvc.model.apisvc.Document;
 import org.idiginfo.docsvc.model.apisvc.Documents;
-import org.idiginfo.docsvc.svcapi.springer.SpringerApiParams;
-import org.idiginfo.docsvc.svcapi.springer.SpringerService;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -17,16 +17,19 @@ import com.google.gson.GsonBuilder;
  */
 
 public class SpringerSample {
+	
+	//static final String collection = "springer";
+	static final String collection = "annotate";
 
-	static SpringerService service = new SpringerService();
+	static DocService service = ServiceFactory.createService(collection);
 
 	private static void run() {
-		testSpringerDocument();
-		// testSpringerQuery();
+		// testSpringerDocument();
+		testSpringerQuery();
 	}
 
 	public static String testSpringerDocument() {
-		ApiParams params = new SpringerApiParams();
+		ApiParams params = ServiceFactory.createApiParams(collection);
 		// params.setDoi("doi:10.1007/s11276-008-0131-4");
 		params.setId(// "10.1007/s00259-011-1959-x");
 		"10.1023/A:1009661728366");
@@ -47,7 +50,7 @@ public class SpringerSample {
 		// String content;
 		// SpringerUrl url = new SpringerUrl("metadata", "json");
 		// url.view="META_ABS";
-		ApiParams params = new SpringerApiParams();
+		ApiParams params = ServiceFactory.createApiParams(collection);
 		params.setKeyword("suicide");
 
 		Documents springerResult = service.getDocuments(params);

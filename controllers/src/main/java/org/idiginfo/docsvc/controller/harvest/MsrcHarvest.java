@@ -14,92 +14,70 @@ import org.idiginfo.docsvc.svcapi.msrc.MsrcService;
 import com.google.api.client.http.HttpTransport;
 
 /**
- * Class to Harvest content via MSRC source 
+ * Class to Harvest content via MSRC source
  * 
  * @author griccardi
  * 
  */
 
 public class MsrcHarvest {
-    // TODO modify this class to gather documents from the MSRC repository
-    final static String FILE_DIR = "c:/dev/harvest/msrc/";
-    final static String FILE_PREFIX = FILE_DIR + "doc_";
-    private static final int START_INDEX = 0;
+	// TODO modify this class to gather documents from the MSRC repository
+	final static String FILE_DIR = "c:/dev/harvest/msrc/";
+	final static String FILE_PREFIX = FILE_DIR + "doc_";
+	private static final int START_INDEX = 0;
 
-    private void run(String[] args) {
-	String test;
-	String filePrefix = FILE_PREFIX;
-	if (args != null && args.length > 0) {
-	    filePrefix = args[0];
-	}
-	test = harvestFiles(filePrefix);
-    }
-
-    public String harvestFiles(String filePrefix) {
-	MsrcService service = new MsrcService();
-	List<Integer> documentIds = service.getMsrcDocumentIds();
-	int totalResults = documentIds.size();
-	System.out.println("Total results: " + totalResults);
-	for (int i = START_INDEX; i < totalResults; i++) {
-	    int documentId = documentIds.get(i);
-	    String fileName = filePrefix + String.format("%06d", documentId)
-		    + ".json";
-	    File outFile = new File(fileName);
-	    if (outFile.exists()) {
-		// System.out.println("Index: " + i + " id: " + documentId
-		// + " already present");
-		continue;
-	    }
-	    System.out.print("getting index " + i + " document id "
-		    + documentId);
-
-	    String contents = service.getJsonDocument(documentId);
-	    if (contents == null || contents.length() < 10) {
-		System.out.println(" no document returned");
-		continue;
-	    }
-	    try {
-		FileWriter out = new FileWriter(outFile);
-		out.write(contents);
-		out.close();
-	    } catch (IOException e) {
-		e.printStackTrace();
-		break;
-	    }
-	    System.out.println("");
-	}
-
-	return null;
-    }
-
-    public static void main(String[] args) {
-	MsrcHarvest harvester = new MsrcHarvest();
-	harvester.run(args);
-	return;
-    }
-
-    public static void enableLogging() {
-	Logger logger = Logger.getLogger(HttpTransport.class.getName());
-	logger.setLevel(Level.CONFIG);
-	logger.addHandler(new Handler() {
-
-	    @Override
-	    public void close() throws SecurityException {
-	    }
-
-	    @Override
-	    public void flush() {
-	    }
-
-	    @Override
-	    public void publish(LogRecord record) {
-		// default ConsoleHandler will print >= INFO to System.err
-		if (record.getLevel().intValue() < Level.INFO.intValue()) {
-		    System.out.println(record.getMessage());
+	private void run(String[] args) {
+		String test;
+		String filePrefix = FILE_PREFIX;
+		if (args != null && args.length > 0) {
+			filePrefix = args[0];
 		}
-	    }
-	});
-    }
+		test = harvestFiles(filePrefix);
+	}
+
+	public String harvestFiles(String filePrefix) {
+		MsrcService service = new MsrcService();
+		List<Integer> documentIds = service.getMsrcDocumentIds();
+		int totalResults = documentIds.size();
+		System.out.println("Total results: " + totalResults);
+		for (int i = START_INDEX; i < totalResults; i++) {
+			int documentId = documentIds.get(i);
+			String fileName = filePrefix + String.format("%06d", documentId)
+					+ ".json";
+			File outFile = new File(fileName);
+			if (outFile.exists()) {
+				// System.out.println("Index: " + i + " id: " + documentId
+				// + " already present");
+				continue;
+			}
+			System.out.print("getting index " + i + " document id "
+					+ documentId);
+
+			String contents = service.getJsonDocument(documentId);
+			if (contents == null || contents.length() < 10) {
+				System.out.println(" no document returned");
+				continue;
+			}
+			try {
+				FileWriter out = new FileWriter(outFile);
+				out.write(contents);
+				out.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+				break;
+			}
+			System.out.println("");
+		}
+
+		return null;
+	}
+
+	public static void main(String[] args) {
+		MsrcHarvest harvester = new MsrcHarvest();
+		harvester.run(args);
+		return;
+	}
+
 }
 
 // http://annotate.msrc.fsu.edu/php/listUsers.php?api-auth=yKOfIUFmwDxk21FWkn2X0Ets9fY%3D&api-requesttime=1343244291737&api-user=casey.mclaughlin@cci.fsu.edu&api_key=giqfrstIk9b6CddDL3ogGTUac6Lr3II9

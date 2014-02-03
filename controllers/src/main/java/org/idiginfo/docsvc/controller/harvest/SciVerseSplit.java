@@ -20,7 +20,7 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 
 /**
- * Class to separate SciVerse content into individual files 
+ * Class to separate SciVerse content into individual files
  * 
  * @author griccardi
  * 
@@ -144,29 +144,6 @@ public class SciVerseSplit {
 		SciVerseSplit splitter = new SciVerseSplit();
 		splitter.run(args);
 		return;
-	}
-
-	public static void enableLogging() {
-		Logger logger = Logger.getLogger(HttpTransport.class.getName());
-		logger.setLevel(Level.CONFIG);
-		logger.addHandler(new Handler() {
-
-			@Override
-			public void close() throws SecurityException {
-			}
-
-			@Override
-			public void flush() {
-			}
-
-			@Override
-			public void publish(LogRecord record) {
-				// default ConsoleHandler will print >= INFO to System.err
-				if (record.getLevel().intValue() < Level.INFO.intValue()) {
-					System.out.println(record.getMessage());
-				}
-			}
-		});
 	}
 }
 

@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 
 import org.apache.commons.io.IOUtils;
 import org.idiginfo.docsvc.svcapi.ListTypeAdapter;
+import org.idiginfo.docsvc.svcapi.SvcApiLogger;
 import org.idiginfo.docsvc.svcapi.sciverse.SciVerseApiParams;
 import org.idiginfo.docsvc.svcapi.sciverse.SciVerseDocument;
 import org.idiginfo.docsvc.svcapi.sciverse.SciVerseLink;
@@ -78,7 +79,7 @@ public class SciVerseSample {
 	public static String testSciVerseDocument() {
 		String content;
 		try {
-			enableLogging();
+			SvcApiLogger.enableLogging();
 			// abstract/scopus_id:84865439036
 			// SciVerseUrl url = new
 			// SciVerseUrl("abstract","scopus_id","84865439036");
@@ -204,28 +205,6 @@ public class SciVerseSample {
 		return;
 	}
 
-	public static void enableLogging() {
-		Logger logger = Logger.getLogger(HttpTransport.class.getName());
-		logger.setLevel(Level.CONFIG);
-		logger.addHandler(new Handler() {
-
-			@Override
-			public void close() throws SecurityException {
-			}
-
-			@Override
-			public void flush() {
-			}
-
-			@Override
-			public void publish(LogRecord record) {
-				// default ConsoleHandler will print >= INFO to System.err
-				if (record.getLevel().intValue() < Level.INFO.intValue()) {
-					System.out.println(record.getMessage());
-				}
-			}
-		});
-	}
 }
 
 // http://annotate.msrc.fsu.edu/php/listUsers.php?api-auth=yKOfIUFmwDxk21FWkn2X0Ets9fY%3D&api-requesttime=1343244291737&api-user=casey.mclaughlin@cci.fsu.edu&api_key=giqfrstIk9b6CddDL3ogGTUac6Lr3II9

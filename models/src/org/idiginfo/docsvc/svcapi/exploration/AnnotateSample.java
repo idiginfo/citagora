@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import org.apache.commons.io.IOUtils;
 import org.idiginfo.docsvc.model.apisvc.Document;
+import org.idiginfo.docsvc.svcapi.SvcApiLogger;
 import org.idiginfo.docsvc.svcapi.annotate.AnnotateDocument;
 import org.idiginfo.docsvc.svcapi.annotate.AnnotateDocumentNotes;
 import org.idiginfo.docsvc.svcapi.annotate.AnnotateDocuments;
@@ -105,6 +106,7 @@ public class AnnotateSample {
 	public static AnnotateDocument[][] testDocuments(String user) {
 		String content;
 		try {
+			SvcApiLogger.enableLogging();
 			AnnotateApiParams params = new AnnotateApiParams();
 			params.setOwner(user);
 			params.setWithMeta("1");
