@@ -2,9 +2,16 @@ package org.idiginfo.docsvc.svcapi.exploration;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.List;
 
+import org.idiginfo.docsvc.model.apisvc.ApiParams;
+import org.idiginfo.docsvc.model.apisvc.ApiSvcUtilities;
+import org.idiginfo.docsvc.model.apisvc.Document;
+import org.idiginfo.docsvc.svcapi.SvcApiLogger;
+import org.idiginfo.docsvc.svcapi.mendeley.MendeleyApiParams;
 import org.idiginfo.docsvc.svcapi.mendeley.MendeleyRecord;
 import org.idiginfo.docsvc.svcapi.mendeley.MendeleyService;
+import org.idiginfo.docsvc.svcapi.mendeley.MendeleyUrl;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -24,8 +31,9 @@ public class MendeleySample {
 			+ "suicide_295731b0-d2fb-11e1-bce2-0024e8453de6.json";
 
 	private static void run() throws FileNotFoundException {
-		testMendeleyDocument(FILE_NAME);
-		// testMendeleyQuery();
+		SvcApiLogger.enableLogging();
+		// testMendeleyDocument(FILE_NAME);
+		testMendeleyQuery();
 	}
 
 	public static String testMendeleyDocument(String fileName)
@@ -43,20 +51,17 @@ public class MendeleySample {
 	}
 
 	public static String testMendeleyQuery() {
-		// String content;
-		// MendeleyUrl url = new MendeleyUrl("metadata", "json");
-		// url.view="META_ABS";
-		// ApiParams params = new MendeleyApiParams();
-		// params.setKeyword("suicide");
+		ApiParams params = new MendeleyApiParams();
+		params.setKeyword("suicide");
+
+		List<? extends Document> documents = service.getDocuments(params);
+		Document record = documents.get(0);
+		System.out.println("Id is: " + record.getId());
+		System.out.println("Title is: " + record.getTitle());
+		System.out.println("Pub name is: " + record.getName());
 		//
-		// Documents springerResult = service.getDocuments(params);
-		// Document record = springerResult.get(0);
-		// System.out.println("Id is: " + record.getId());
-		// System.out.println("Title is: " + record.getTitle());
-		// System.out.println("Pub name is: " + record.getName());
-		// //
-		// System.out.println("num results "+springerResult.result.get(0).total);
-		// System.out.println("num results " + springerResult.size());
+		// System.out.println("num results " + documents.get(0));
+		System.out.println("num results " + documents.size());
 		return null;
 	}
 
@@ -65,6 +70,3 @@ public class MendeleySample {
 		return;
 	}
 }
-
-// http://annotate.msrc.fsu.edu/php/listUsers.php?api-auth=yKOfIUFmwDxk21FWkn2X0Ets9fY%3D&api-requesttime=1343244291737&api-user=casey.mclaughlin@cci.fsu.edu&api_key=giqfrstIk9b6CddDL3ogGTUac6Lr3II9
-// http://annotate.msrc.fsu.edu/php/listUsers.php?api-user=casey.mclaughlin%40cci.fsu.edu&api-requesttime=1343244209&api-auth=43F6TiOpvCVhDs4CnNRZHvvPMa0%3D&api-annotateuser=casey.mclaughlin%40cci.fsu.edu
