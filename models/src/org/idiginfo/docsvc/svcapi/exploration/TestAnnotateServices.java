@@ -2,12 +2,12 @@ package org.idiginfo.docsvc.svcapi.exploration;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.idiginfo.docsvc.model.apisvc.Document;
 import org.idiginfo.docsvc.svcapi.annotate.AnnotateDocument;
 import org.idiginfo.docsvc.svcapi.annotate.AnnotateDocumentNotes;
-import org.idiginfo.docsvc.svcapi.annotate.AnnotateDocuments;
 import org.idiginfo.docsvc.svcapi.annotate.AnnotateUsers;
 import org.idiginfo.docsvc.svcapi.annotate.svc.AnnotateApiParams;
 import org.idiginfo.docsvc.svcapi.annotate.svc.AnnotateService;
@@ -53,15 +53,15 @@ public class TestAnnotateServices {
 		String documentUser = users.getMembers().get(7);
 		System.out.println("Document user: " + documentUser);
 
-		AnnotateDocuments documents = service.getDocuments(documentUser);
+		List<Document> documents = service.getDocuments(documentUser);
 		System.out.println("name of first document: "
-				+ documents.getDocument(0).getName());
+				+ documents.get(0).getName());
 		System.out.println("code of first document: "
-				+ documents.getDocument(0).getId());
+				+ documents.get(0).getId());
 		System.out.println("date of first document: "
-				+ documents.getDocument(0).getDate());
+				+ documents.get(0).getDate());
 		System.out.println("number of documents " + documents.size());
-		Document selectedDocument = documents.getDocument(1);
+		Document selectedDocument = documents.get(1);
 		System.out.println("Selected document: " + selectedDocument.getId());
 
 		AnnotateDocumentNotes documentNotes = service.getAnnotations(

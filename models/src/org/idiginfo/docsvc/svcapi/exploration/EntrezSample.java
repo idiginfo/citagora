@@ -7,13 +7,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.idiginfo.docsvc.model.apisvc.Document;
-import org.idiginfo.docsvc.model.apisvc.Documents;
 import org.idiginfo.docsvc.svcapi.entrez.EntrezApiParams;
 import org.idiginfo.docsvc.svcapi.entrez.EntrezDocuments;
 import org.idiginfo.docsvc.svcapi.entrez.EntrezSearchResponse;
 import org.idiginfo.docsvc.svcapi.entrez.EntrezService;
 import org.idiginfo.docsvc.svcapi.entrez.EntrezUrl;
-import org.idiginfo.esearch.Id;
 
 /**
  * Class to acquire Entrez (NCBI) content
@@ -57,7 +55,7 @@ public class EntrezSample {
 		String[] idVals = { "" };
 		List<String> ids = Arrays.asList(idVals);
 		// params.setDoi("doi:10.1136/bmj.c6801");
-		Documents documents = service.getDocuments(ids);
+		List<Document> documents = service.getDocuments(ids);
 		Document document = documents.get(0);
 		System.out.println(document.getId());
 		return null;
@@ -71,7 +69,7 @@ public class EntrezSample {
 		System.out.println("Number of Ids: " + searchResponse.getCount());
 		System.out.println("first id: "
 				+ searchResponse.getIdList().get(0).getvalue());
-		Documents documents = service.getDocumentsIdList(searchResponse);
+		List<Document> documents = service.getDocumentsIdList(searchResponse);
 		return null;
 	}
 

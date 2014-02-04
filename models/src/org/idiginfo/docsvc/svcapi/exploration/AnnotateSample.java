@@ -2,15 +2,16 @@ package org.idiginfo.docsvc.svcapi.exploration;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.idiginfo.docsvc.model.apisvc.Document;
 import org.idiginfo.docsvc.svcapi.SvcApiLogger;
 import org.idiginfo.docsvc.svcapi.annotate.AnnotateDocument;
 import org.idiginfo.docsvc.svcapi.annotate.AnnotateDocumentNotes;
-import org.idiginfo.docsvc.svcapi.annotate.AnnotateDocuments;
 import org.idiginfo.docsvc.svcapi.annotate.AnnotateUsers;
 import org.idiginfo.docsvc.svcapi.annotate.svc.AnnotateApiParams;
+import org.idiginfo.docsvc.svcapi.annotate.svc.AnnotateService;
 import org.idiginfo.docsvc.svcapi.annotate.svc.AnnotateUrl;
 
 import com.google.api.client.http.HttpRequest;
@@ -45,6 +46,8 @@ public class AnnotateSample {
 							throws IOException {
 					}
 				});
+		SvcApiLogger.enableLogging();
+
 		AnnotateUsers users = testUsers();
 		System.out.println("first member: " + users.getMembers().get(0));
 		System.out.println("first annotator: " + users.getAnnotaters().get(0));
@@ -52,13 +55,14 @@ public class AnnotateSample {
 		String documentUser = users.getMembers().get(7);
 		System.out.println("Document user: " + documentUser);
 		AnnotateDocument[][] documentArray = testDocuments(documentUser);
-		AnnotateDocuments documents = new AnnotateDocuments(documentArray);
+		List<Document> documents = AnnotateService
+				.createAnnotateDocuments(documentArray);
 		System.out.println("name of first document: "
-				+ documents.getDocument(0).getName());
+				+ documents.get(0).getName());
 		System.out.println("code of first document: "
-				+ documents.getDocument(0).getId());
+				+ documents.get(0).getId());
 		System.out.println("number of documents " + documents.size());
-		Document selectedDocument = documents.getDocument(1);
+		Document selectedDocument = documents.get(1);
 		System.out.println("Selected document: " + selectedDocument.getId());
 		AnnotateDocumentNotes documentNotes = testNotes(selectedDocument);// selectedDocument.getCode());
 		if (documentNotes != null && documentNotes.notes != null) {
@@ -106,10 +110,9 @@ public class AnnotateSample {
 	public static AnnotateDocument[][] testDocuments(String user) {
 		String content;
 		try {
-			SvcApiLogger.enableLogging();
 			AnnotateApiParams params = new AnnotateApiParams();
 			params.setOwner(user);
-			params.setWithMeta("1");
+			// params.setWithMeta("1");
 			// params.setWithNotes("1");
 			AnnotateUrl url = new AnnotateUrl("listDocuments.php", params);
 			url.prepare();
@@ -141,6 +144,7 @@ public class AnnotateSample {
 			// System.out.println("response from listusers.php\n" + json);
 		} catch (JsonIOException e) {
 		} catch (JsonParseException e) {
+			e.printStackTrace();
 		} catch (IOException e) {
 		}
 		// map to AnnotateDocuments

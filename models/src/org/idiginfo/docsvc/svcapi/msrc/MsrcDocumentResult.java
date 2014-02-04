@@ -1,7 +1,8 @@
 package org.idiginfo.docsvc.svcapi.msrc;
 
 import java.util.List;
-import org.idiginfo.docsvc.model.apisvc.Documents;
+
+import org.idiginfo.docsvc.model.apisvc.Document;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -21,7 +22,7 @@ public class MsrcDocumentResult extends MsrcResult {
 		return documentIds;
 	}
 
-	public Documents getDocuments() {
+	public List<Document> getDocuments() {
 		// TODO Auto-generated method stub
 
 		return null; // documents.values();

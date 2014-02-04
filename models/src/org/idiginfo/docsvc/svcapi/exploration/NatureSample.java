@@ -1,8 +1,9 @@
 package org.idiginfo.docsvc.svcapi.exploration;
 
+import java.util.List;
+
 import org.idiginfo.docsvc.model.apisvc.ApiParams;
 import org.idiginfo.docsvc.model.apisvc.Document;
-import org.idiginfo.docsvc.model.apisvc.Documents;
 import org.idiginfo.docsvc.svcapi.nature.NatureApiParams;
 import org.idiginfo.docsvc.svcapi.nature.NatureService;
 
@@ -28,11 +29,11 @@ public class NatureSample {
 	public static String testNatureDocument() {
 		ApiParams params = new NatureApiParams();
 		// params.setDoi("doi:10.1007/s11276-008-0131-4");
-		//params.setId( "10.1007/s00259-011-1959-x");
-		//"10.1023/A:1009661728366");
+		// params.setId( "10.1007/s00259-011-1959-x");
+		// "10.1023/A:1009661728366");
 		params.setSearchTerms("suicide");
 		// params.setDoi("doi:10.1136/bmj.c6801");
-		Documents documents = service.getDocuments(params);
+		List<? extends Document> documents = service.getDocuments(params);
 		// Document document = service.getDocument(params);
 		Document document = documents.get(0);
 		System.out.println(document.getId());
@@ -50,7 +51,7 @@ public class NatureSample {
 		ApiParams params = new NatureApiParams();
 		params.setKeyword("suicide");
 
-		Documents natureResult = service.getDocuments(params);
+		List<? extends Document> natureResult = service.getDocuments(params);
 		Document record = natureResult.get(0);
 		System.out.println("Id is: " + record.getId());
 		System.out.println("Title is: " + record.getTitle());

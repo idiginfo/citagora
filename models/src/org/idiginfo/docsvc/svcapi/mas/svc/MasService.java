@@ -4,18 +4,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.idiginfo.docsvc.model.apisvc.ApiParams;
 import org.idiginfo.docsvc.model.apisvc.DocService;
 import org.idiginfo.docsvc.model.apisvc.Document;
-import org.idiginfo.docsvc.model.apisvc.Documents;
-import org.idiginfo.docsvc.model.apisvc.Users;
 import org.idiginfo.docsvc.svcapi.SvcApiLogger;
 import org.idiginfo.docsvc.svcapi.mas.model.MasKeyword;
 import org.idiginfo.docsvc.svcapi.mas.model.MasResponse;
@@ -28,7 +24,6 @@ import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
-
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -200,7 +195,7 @@ public class MasService implements DocService {
 	}
 
 	@Override
-	public Documents getDocuments(ApiParams params) {
+	public List<? extends Document> getDocuments(ApiParams params) {
 		// TODO Auto-generated method stub
 		return null;
 	}

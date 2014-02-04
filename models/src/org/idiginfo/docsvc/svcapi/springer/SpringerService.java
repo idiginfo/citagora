@@ -4,12 +4,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.List;
 
 import org.idiginfo.docsvc.model.apisvc.ApiParams;
 import org.idiginfo.docsvc.model.apisvc.DocService;
 import org.idiginfo.docsvc.model.apisvc.Document;
-import org.idiginfo.docsvc.model.apisvc.Documents;
-import org.idiginfo.docsvc.model.apisvc.Users;
 
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestFactory;
@@ -61,8 +60,8 @@ public class SpringerService implements DocService {
 	}
 
 	@Override
-	public Documents getDocuments(ApiParams params) {
-		Documents documents = getSpringerDocuments("getdocuments", params);
+	public List<? extends Document> getDocuments(ApiParams params) {
+		List<Document> documents = getSpringerDocuments("getdocuments", params);
 		return documents;
 	}
 
@@ -85,13 +84,13 @@ public class SpringerService implements DocService {
 		SpringerResult result = gson.fromJson(content, SpringerResult.class);
 		if (result == null)
 			return null;
-		Documents documents = result.getDocuments();
+		List<Document> documents = result.getDocuments();
 		if (documents == null || documents.size() < 1)
 			return null;
 		return documents.get(0);
 	}
 
-	public Documents getSpringerDocuments(String function, ApiParams params) {
+	public List<Document> getSpringerDocuments(String function, ApiParams params) {
 		SpringerResult result = getSpringerResult(function, params);
 		if (result == null)
 			return null;

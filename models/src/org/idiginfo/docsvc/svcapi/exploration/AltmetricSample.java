@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.idiginfo.docsvc.model.apisvc.ApiParams;
+import org.idiginfo.docsvc.svcapi.SvcApiLogger;
 import org.idiginfo.docsvc.svcapi.altmetric.AltmetricApiParams;
 import org.idiginfo.docsvc.svcapi.altmetric.AltmetricRecord;
 import org.idiginfo.docsvc.svcapi.altmetric.AltmetricService;
@@ -26,11 +27,12 @@ public class AltmetricSample {
 	// http://api.altmetric.com/v1/citations/1d
 
 	private static void run() {
+		SvcApiLogger.enableLogging();
 		// testAltmetricDocument("241939");
-		//testDoiDocument("10.1038/news.2011.490");
-		testDoiDocument("10.1136/bmj.c6801");
+		testDoiDocument("10.1038/news.2011.490");
+		//testDoiDocument("10.1136/bmj.c6801");
 		//testPmidDocument("21148220");
-		// testAltmetricQuery();
+		//testAltmetricDetails("241939");
 	}
 
 	public static String testAltmetricDocument(String altmetricId) {
@@ -64,16 +66,18 @@ public class AltmetricSample {
 		System.out.println("Altmetric is: " + document.getAltmetricId());
 	}
 
-	public static String testAltmetricQuery() {
+	public static String testAltmetricDetails(String id) {
 		// String content;
 		AltmetricUrl url = new AltmetricUrl();
 		// List<String> pathParts = Arrays.asList("", "v1", "citations", "1d");
 
 		// http://api.altmetric.com/v1/details/241939
-		List<String> pathParts = Arrays.asList("", "v1", "details", "241939");
+		List<String> pathParts = Arrays.asList("", "v1", "details", id);
 
 		url.setPathParts(pathParts);
 		ApiParams params = new AltmetricApiParams();
+		params.setCollection("details");
+		params.setId(id);
 		System.out.println(url.build());
 		AltmetricRecord record = (AltmetricRecord) service.getDocument(params);
 		if (record == null) {

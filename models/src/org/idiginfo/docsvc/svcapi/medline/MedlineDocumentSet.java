@@ -2,9 +2,9 @@ package org.idiginfo.docsvc.svcapi.medline;
 
 import java.io.BufferedReader;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.idiginfo.docsvc.model.apisvc.Document;
-import org.idiginfo.docsvc.model.apisvc.Documents;
 
 /**
  * Class to implement Document for PubMed MEDLINE
@@ -13,8 +13,7 @@ import org.idiginfo.docsvc.model.apisvc.Documents;
  * 
  */
 
-public class MedlineDocumentSet extends ArrayList<Document> implements
-		Documents {
+public class MedlineDocumentSet extends ArrayList<Document> {
 
 	/**
      * 
@@ -32,12 +31,6 @@ public class MedlineDocumentSet extends ArrayList<Document> implements
 			article = MedlineArticle.getNextArticle(in);
 		}
 
-	}
-
-	@Override
-	public Document getDocument(int i) {
-		// TODO Auto-generated method stub
-		return get(i);
 	}
 
 }

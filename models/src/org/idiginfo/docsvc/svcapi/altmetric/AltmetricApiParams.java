@@ -17,7 +17,7 @@ public class AltmetricApiParams extends BaseApiParams {
 	// + API_VERSION + "/";;
 	public static final String API_KEY = "6b3b89d864f4d7bfc42d5254a00ad5c7";
 	public static final String API_DOCS = "http://api.altmetric.com/";
-	public static final String SOURCE = "altmetric.com";
+	//public static final String SOURCE = "altmetric.com";
 	public static final String API_HOST = "api.altmetric.com";
 	public static final String DOI_COLLECTION = "doi";
 	public static final String CITATION_COLLECTION = "citation";

@@ -9,19 +9,14 @@ import java.util.List;
 import org.idiginfo.docsvc.model.apisvc.ApiParams;
 import org.idiginfo.docsvc.model.apisvc.DocService;
 import org.idiginfo.docsvc.model.apisvc.Document;
-import org.idiginfo.docsvc.model.apisvc.Documents;
-import org.idiginfo.docsvc.model.apisvc.Users;
 import org.idiginfo.docsvc.svcapi.SvcApiLogger;
-import org.idiginfo.docsvc.svcapi.sciverse.SciVerseResult;
 
 import com.google.api.client.http.ByteArrayContent;
-import com.google.api.client.http.HttpContent;
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestFactory;
 import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpTransport;
-import com.google.api.client.http.InputStreamContent;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -88,8 +83,7 @@ public class CrossrefService implements DocService {
 	private JsonElement queryService(String function, ApiParams params) {
 		try {
 			// TODO add other functions
-			CrossrefUrl url = new CrossrefUrl("dois", "json", function,
-					params);
+			CrossrefUrl url = new CrossrefUrl("dois", "json", function, params);
 			url.prepare();
 			System.out.println(url.build());
 			HttpRequest request = requestFactory.buildGetRequest(url);
@@ -132,7 +126,7 @@ public class CrossrefService implements DocService {
 	}
 
 	@Override
-	public Documents getDocuments(ApiParams params) {
+	public List<? extends Document> getDocuments(ApiParams params) {
 		// TODO Auto-generated method stub
 		return null;
 	}

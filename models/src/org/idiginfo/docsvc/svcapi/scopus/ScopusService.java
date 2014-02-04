@@ -1,10 +1,10 @@
 package org.idiginfo.docsvc.svcapi.scopus;
 
+import java.util.List;
+
 import org.idiginfo.docsvc.model.apisvc.ApiParams;
 import org.idiginfo.docsvc.model.apisvc.DocService;
 import org.idiginfo.docsvc.model.apisvc.Document;
-import org.idiginfo.docsvc.model.apisvc.Documents;
-import org.idiginfo.docsvc.model.apisvc.Users;
 
 /**
  * Class to implement DocService object for Scopus
@@ -28,7 +28,7 @@ public class ScopusService implements DocService {
 	}
 
 	@Override
-	public Documents getDocuments(ApiParams params) {
+	public List<? extends Document> getDocuments(ApiParams params) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -3,14 +3,14 @@ package org.idiginfo.docsvc.svcapi.annotate.svc;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.List;
+import java.util.Vector;
 
 import org.idiginfo.docsvc.model.apisvc.ApiParams;
 import org.idiginfo.docsvc.model.apisvc.DocService;
 import org.idiginfo.docsvc.model.apisvc.Document;
-import org.idiginfo.docsvc.model.apisvc.Documents;
 import org.idiginfo.docsvc.svcapi.annotate.AnnotateDocument;
 import org.idiginfo.docsvc.svcapi.annotate.AnnotateDocumentNotes;
-import org.idiginfo.docsvc.svcapi.annotate.AnnotateDocuments;
 import org.idiginfo.docsvc.svcapi.annotate.AnnotateUsers;
 
 import com.google.api.client.http.HttpRequest;
@@ -104,7 +104,7 @@ public class AnnotateService implements DocService {
 	}
 
 	@Override
-	public Documents getDocuments(ApiParams params) {
+	public List<? extends Document> getDocuments(ApiParams params) {
 		if (!(params instanceof AnnotateApiParams))
 			return null;
 		AnnotateApiParams annotateParams = (AnnotateApiParams) params;
@@ -113,17 +113,28 @@ public class AnnotateService implements DocService {
 				annotateParams.withMeta, annotateParams.withNotes);
 	}
 
-	public AnnotateDocuments getDocuments(String user) {
+	public List<Document> getDocuments(String user) {
 		return getDocuments(user, false, false);
 	}
 
-	public AnnotateDocuments getDocuments(String user, String withMeta,
+	public List<Document> getDocuments(String user, String withMeta,
 			String withNotes) {
 		return getDocuments(user, "1".equals(withMeta), "1".equals(withNotes));
 
 	}
 
-	public AnnotateDocuments getDocuments(String user, boolean withMeta,
+	public static List<Document> createAnnotateDocuments(
+			AnnotateDocument[][] documentArray) {
+		List<Document> documents = new Vector<Document>();
+		for (int i = 0; i < documentArray.length; i++) {
+			for (int j = 0; j < documentArray[i].length; j++) {
+				documents.add(documentArray[i][j]);
+			}
+		}
+		return documents;
+	}
+
+	public List<Document> getDocuments(String user, boolean withMeta,
 			boolean withNotes) {
 		JsonElement content;
 		AnnotateApiParams params = new AnnotateApiParams();
@@ -131,10 +142,10 @@ public class AnnotateService implements DocService {
 		params.setWithMeta(withMeta);
 		params.setWithNotes(withNotes);
 		content = queryService("listDocuments.php", params);
-		// map to AnnotateDocuments
-		AnnotateDocuments documents = new AnnotateDocuments(gson.fromJson(
-				content, AnnotateDocument[][].class));
-		return documents;
+		// map to List<Document>
+		AnnotateDocument[][] documentArray = gson.fromJson(content,
+				AnnotateDocument[][].class);
+		return createAnnotateDocuments(documentArray);
 	}
 
 	/**

@@ -1,5 +1,7 @@
 package org.idiginfo.docsvc.model.apisvc;
 
+import java.util.List;
+
 /**
  * Interface to implement the DocService object
  * 
@@ -13,7 +15,7 @@ public interface DocService {
 
 	public Document getDocument(ApiParams params);
 
-	public Documents getDocuments(ApiParams params);
+	public List<? extends Document> getDocuments(ApiParams params);
 
 	public Document getAnnotations(ApiParams params);
 

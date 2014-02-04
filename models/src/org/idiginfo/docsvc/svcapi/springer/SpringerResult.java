@@ -2,7 +2,8 @@ package org.idiginfo.docsvc.svcapi.springer;
 
 import java.util.List;
 
-import org.idiginfo.docsvc.model.apisvc.Documents;
+import org.idiginfo.docsvc.model.apisvc.ApiSvcUtilities;
+import org.idiginfo.docsvc.model.apisvc.Document;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -25,12 +26,13 @@ public class SpringerResult {
 	List<SpringerRecord> records;
 	List<Facet> facets;
 
-	transient Documents documents;
+	transient List<Document> documents;
 
-	Documents getDocuments() {
-		if (documents != null)
-			return documents;
-		return new SpringerDocuments(records);
+	List<Document> getDocuments() {
+		if (documents == null) {
+			documents = ApiSvcUtilities.createDocuments(records);
+		}
+		return documents;
 	}
 
 	class Result {

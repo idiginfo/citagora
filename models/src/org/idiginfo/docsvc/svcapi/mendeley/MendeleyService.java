@@ -1,23 +1,16 @@
 package org.idiginfo.docsvc.svcapi.mendeley;
 
-import java.util.List;
-import java.util.Vector;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.List;
+import java.util.Vector;
 
 import org.idiginfo.docsvc.model.apisvc.ApiParams;
 import org.idiginfo.docsvc.model.apisvc.DocService;
 import org.idiginfo.docsvc.model.apisvc.Document;
-import org.idiginfo.docsvc.model.apisvc.Documents;
 import org.idiginfo.docsvc.model.apisvc.Users;
-import org.idiginfo.docsvc.svcapi.mendeley.MendeleyService;
-import org.idiginfo.docsvc.svcapi.mendeley.MendeleyResult;
-import org.idiginfo.docsvc.svcapi.mendeley.MendeleyHeader;
-import org.idiginfo.docsvc.svcapi.mendeley.MendeleyHeaders;
-import org.idiginfo.docsvc.svcapi.mendeley.MendeleyRecord;
-import org.idiginfo.docsvc.svcapi.mendeley.MendeleyDocuments;
 
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestFactory;
@@ -61,6 +54,17 @@ public class MendeleyService implements DocService {
 		} catch (JsonParseException e) {
 		}
 		return null;
+	}
+
+	public static List<Document> createMendeleyDocuments(
+			List<MendeleyRecord> records) {
+		List<Document> list = new Vector<Document>();
+		if (records == null)
+			return list;
+		for (Document doc : records) {
+			list.add(doc);
+		}
+		return list;
 	}
 
 	// @Override
@@ -188,12 +192,12 @@ public class MendeleyService implements DocService {
 	}
 
 	@Override
-	public Documents getDocuments(ApiParams params) {
-		Documents documents = getMendeleyDocuments(params);
+	public List<? extends Document> getDocuments(ApiParams params) {
+		List<Document> documents = getMendeleyDocuments(params);
 		return documents;
 	}
 
-	private Documents getMendeleyDocuments(ApiParams params) {
+	private List<Document> getMendeleyDocuments(ApiParams params) {
 		String keywords = params.getKeyword();
 		List<MendeleyRecord> mDocs = new Vector<MendeleyRecord>();
 		MendeleyResult result = getMendeleyResult("search", keywords, params);
@@ -207,7 +211,7 @@ public class MendeleyService implements DocService {
 					.fromJson(uText, MendeleyRecord.class);
 			mDocs.add(document);
 		}
-		Documents documents = new MendeleyDocuments(mDocs);
+		List<Document> documents = createMendeleyDocuments(mDocs);
 		return documents;
 	}
 

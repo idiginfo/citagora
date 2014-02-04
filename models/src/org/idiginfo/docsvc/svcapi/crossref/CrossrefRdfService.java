@@ -3,12 +3,11 @@ package org.idiginfo.docsvc.svcapi.crossref;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.List;
 
-import org.apache.http.client.HttpClient;
 import org.idiginfo.docsvc.model.apisvc.ApiParams;
 import org.idiginfo.docsvc.model.apisvc.DocService;
 import org.idiginfo.docsvc.model.apisvc.Document;
-import org.idiginfo.docsvc.model.apisvc.Documents;
 
 import com.google.api.client.http.HttpHeaders;
 import com.google.api.client.http.HttpRequest;
@@ -51,7 +50,7 @@ public class CrossrefRdfService implements DocService {
 	}
 
 	@Override
-	public Documents getDocuments(ApiParams params) {
+	public List<? extends Document> getDocuments(ApiParams params) {
 		// TODO Auto-generated method stub
 		return null;
 	}

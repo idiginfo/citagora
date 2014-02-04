@@ -144,6 +144,7 @@ public class SciVerseService implements DocService {
 
 	private SciVerseDocuments getSciVerseDocuments(String function,
 			ApiParams params) {
+		// TODO this is not a working method: needs revision
 		JsonElement content = queryService(function, params);
 		SciVerseDocuments result = gson.fromJson(content,
 				SciVerseDocuments.class);

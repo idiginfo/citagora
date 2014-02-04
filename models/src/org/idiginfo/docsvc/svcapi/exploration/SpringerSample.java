@@ -1,10 +1,11 @@
 package org.idiginfo.docsvc.svcapi.exploration;
 
+import java.util.List;
+
 import org.idiginfo.docsvc.model.ServiceFactory;
 import org.idiginfo.docsvc.model.apisvc.ApiParams;
 import org.idiginfo.docsvc.model.apisvc.DocService;
 import org.idiginfo.docsvc.model.apisvc.Document;
-import org.idiginfo.docsvc.model.apisvc.Documents;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -17,8 +18,8 @@ import com.google.gson.GsonBuilder;
  */
 
 public class SpringerSample {
-	
-	//static final String collection = "springer";
+
+	// static final String collection = "springer";
 	static final String collection = "annotate";
 
 	static DocService service = ServiceFactory.createService(collection);
@@ -35,7 +36,7 @@ public class SpringerSample {
 		"10.1023/A:1009661728366");
 		params.setSearchTerms("suicide");
 		// params.setDoi("doi:10.1136/bmj.c6801");
-		Documents documents = service.getDocuments(params);
+		List<? extends Document> documents = service.getDocuments(params);
 		// Document document = service.getDocument(params);
 		Document document = documents.get(0);
 		System.out.println(document.getId());
@@ -53,7 +54,7 @@ public class SpringerSample {
 		ApiParams params = ServiceFactory.createApiParams(collection);
 		params.setKeyword("suicide");
 
-		Documents springerResult = service.getDocuments(params);
+		List<? extends Document> springerResult = service.getDocuments(params);
 		Document record = springerResult.get(0);
 		System.out.println("Id is: " + record.getId());
 		System.out.println("Title is: " + record.getTitle());

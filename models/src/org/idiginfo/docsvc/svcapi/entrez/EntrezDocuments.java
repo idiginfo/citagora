@@ -3,7 +3,6 @@ package org.idiginfo.docsvc.svcapi.entrez;
 import java.util.ArrayList;
 
 import org.idiginfo.docsvc.model.apisvc.Document;
-import org.idiginfo.docsvc.model.apisvc.Documents;
 import org.idiginfo.medline.MedlineCitation;
 import org.idiginfo.medline.MedlineCitationSet;
 
@@ -14,7 +13,7 @@ import org.idiginfo.medline.MedlineCitationSet;
  * 
  */
 
-public class EntrezDocuments extends ArrayList<Document> implements Documents {
+public class EntrezDocuments extends ArrayList<Document> {
 	private static final long serialVersionUID = 1;
 
 	public EntrezDocuments() {
@@ -27,11 +26,6 @@ public class EntrezDocuments extends ArrayList<Document> implements Documents {
 		for (MedlineCitation citation : citations.getMedlineCitation()) {
 			add(new EntrezDocument(citation));
 		}
-	}
-
-	@Override
-	public Document getDocument(int i) {
-		return get(i);
 	}
 
 	public void add(EntrezFetchResponse response) {

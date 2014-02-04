@@ -1,9 +1,10 @@
 package org.idiginfo.docsvc.svcapi.annotatetest;
 
+import java.util.List;
+
 import org.idiginfo.docsvc.model.apisvc.Document;
 import org.idiginfo.docsvc.svcapi.annotate.AnnotateDocument;
 import org.idiginfo.docsvc.svcapi.annotate.AnnotateDocumentNotes;
-import org.idiginfo.docsvc.svcapi.annotate.AnnotateDocuments;
 import org.idiginfo.docsvc.svcapi.annotate.AnnotateUsers;
 import org.idiginfo.docsvc.svcapi.annotate.svc.AnnotateService;
 
@@ -26,20 +27,20 @@ public class TestAnnotateServices {
 		String code = "TZpwu9je";
 		String date = "2012-06-29";
 		// AnnotateDocumentNotes document = testDocument(code, date);
-		AnnotateDocuments documents = testDocuments(selectedUser);
+		List<Document> documents = testDocuments(selectedUser);
 		// AnnotateDocumentNotes notes = testNotes(documents.getDocument(0));
 	}
 
-	public static AnnotateDocuments testDocuments(String documentUser) {
+	public static List<Document> testDocuments(String documentUser) {
 
 		// get all documents for a user
-		AnnotateDocuments documents = service.getDocuments(documentUser);
+		List<Document> documents = service.getDocuments(documentUser);
 		System.out.println("name of first document: "
-				+ documents.getDocument(0).getName());
+				+ documents.get(0).getName());
 		System.out.println("code of first document: "
-				+ documents.getDocument(0).getId());
+				+ documents.get(0).getId());
 		System.out.println("number of documents " + documents.size());
-		Document selectedDocument = documents.getDocument(1);
+		Document selectedDocument = documents.get(1);
 		System.out.println("Selected document: " + selectedDocument.getId());
 		return documents;
 	}

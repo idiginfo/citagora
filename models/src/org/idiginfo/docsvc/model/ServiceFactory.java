@@ -30,7 +30,7 @@ import org.idiginfo.docsvc.svcapi.springer.SpringerService;
  */
 public class ServiceFactory {
 
-	// Defined collections
+	// Defined collections (also used for value of getSource())
 	public static final String COLLECTION_ANNOTATE = "annotate";
 	public static final String COLLECTION_SPRINGER = "springer";
 	public static final String COLLECTION_ELSEVIER = "elsevier";

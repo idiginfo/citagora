@@ -1,6 +1,8 @@
 package org.idiginfo.docsvc.svcapi.msrc;
 
-import org.idiginfo.docsvc.model.apisvc.Documents;
+import java.util.List;
+
+import org.idiginfo.docsvc.model.apisvc.Document;
 
 /**
  * Class to map results of MSRC API calls
@@ -13,7 +15,7 @@ public class MsrcCollectionResult extends MsrcResult {
 
 	MsrcRecord record;
 
-	public Documents getDocuments() {
+	public List<Document> getDocuments() {
 		// TODO Auto-generated method stub
 		return null;
 	}
