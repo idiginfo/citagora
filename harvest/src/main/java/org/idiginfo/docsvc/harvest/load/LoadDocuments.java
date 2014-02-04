@@ -1,15 +1,12 @@
 package org.idiginfo.docsvc.harvest.load;
 
 import java.io.StringWriter;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
 import org.idiginfo.docsvc.jpa.citagora.CitagoraFactoryImpl;
 import org.idiginfo.docsvc.jpa.citagora.HarvestResultImpl;
-import org.idiginfo.docsvc.model.apisvc.Annotation;
 import org.idiginfo.docsvc.model.apisvc.Document;
-import org.idiginfo.docsvc.model.apisvc.Documents;
 import org.idiginfo.docsvc.model.citagora.CitagoraFactory;
 import org.idiginfo.docsvc.model.citagora.CitagoraObject;
 import org.idiginfo.docsvc.model.citagora.Container;
@@ -33,7 +30,8 @@ public class LoadDocuments {
 	CitagoraFactoryImpl factory = new CitagoraFactoryImpl();
 	MapSvcapiToCitagora documentMapper = new MapSvcapiToCitagora();
 
-	public List<Container> load(Container containerFields, Documents documents) {
+	public List<Container> load(Container containerFields,
+			List<Document> documents) {
 		List<Container> containers = new Vector<Container>();
 		if (documents == null)
 			return null;
