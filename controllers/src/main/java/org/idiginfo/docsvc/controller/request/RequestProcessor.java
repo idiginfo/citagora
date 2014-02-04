@@ -12,7 +12,7 @@ import org.idiginfo.docsvc.model.ServiceFactory;
 import org.idiginfo.docsvc.model.apisvc.ApiParams;
 import org.idiginfo.docsvc.model.apisvc.DocService;
 import org.idiginfo.docsvc.model.apisvc.Document;
-import org.idiginfo.docsvc.model.apisvc.Documents;
+//import org.idiginfo.docsvc.model.apisvc.Documents;
 import org.idiginfo.docsvc.model.apisvc.Users;
 import org.idiginfo.docsvc.model.citagora.CitagoraObject;
 import org.idiginfo.docsvc.model.citagora.Container;
@@ -134,7 +134,7 @@ public class RequestProcessor {
 			return null;
 		Result result = new Result();
 		Document document = null;
-		Documents documents = null;
+		List<? extends Document> documents = null;
 
 		Object objects = null;
 		if (params.getMethod() == null) {
@@ -221,13 +221,12 @@ public class RequestProcessor {
 	 * @param documents
 	 * @return
 	 */
-	public int persist(Documents documents) {
+	public int persist(List<? extends Document> documents) {
 		if (documents == null)
 			return 0;
-		Iterator<Document> documentIterator = documents.iterator();
 		int numPersisted = 0;
-		while (documentIterator.hasNext()) {
-			numPersisted += persist(documentIterator.next());
+		for (Document document : documents) {
+			numPersisted += persist(document);
 		}
 		return numPersisted;
 	}

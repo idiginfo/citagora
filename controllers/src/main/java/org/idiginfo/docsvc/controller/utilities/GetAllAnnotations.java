@@ -5,11 +5,10 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import org.idiginfo.docsvc.model.apisvc.Annotation;
-import org.idiginfo.docsvc.model.apisvc.DocService;
 import org.idiginfo.docsvc.model.apisvc.Document;
-import org.idiginfo.docsvc.model.apisvc.Documents;
 import org.idiginfo.docsvc.svcapi.annotate.svc.AnnotateService;
 import org.idiginfo.docsvc.view.XlsAnnotationWriter;
 
@@ -58,7 +57,7 @@ public class GetAllAnnotations {
 	System.out.println("Document user: " + documentUser);
 
 	String selectedUser = documentUser;
-	Documents documents = service.getDocuments(selectedUser);
+	List<Document> documents = service.getDocuments(selectedUser);
 	System.out.println("number of documents " + documents.size());
 	try {
 	    // create output objects
@@ -90,11 +89,11 @@ public class GetAllAnnotations {
      * 
      * @param documents
      */
-    private void getAllNotes(Documents documents) {
+    private void getAllNotes(List<Document> documents) {
 	int numDocsWithNotes = 0;
 	int numNotesProcessed = 0;
 	for (int i = 0; i < documents.size(); i++) {
-	    Document document = documents.getDocument(i);
+	    Document document = documents.get(i);
 	    Document annotations = service.getAnnotations(document);
 	    if (annotations == null)
 		continue;

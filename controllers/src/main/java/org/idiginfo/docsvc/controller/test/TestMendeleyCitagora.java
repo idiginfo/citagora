@@ -3,14 +3,13 @@ package org.idiginfo.docsvc.controller.test;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.List;
 
 import org.idiginfo.docsvc.jpa.citagora.CitagoraFactoryImpl;
 import org.idiginfo.docsvc.model.apisvc.ApiParams;
 import org.idiginfo.docsvc.model.apisvc.Document;
-import org.idiginfo.docsvc.model.apisvc.Documents;
 import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.model.citagora.UriObject;
-import org.idiginfo.docsvc.model.mapping.MapSvcapiToCitagora;
 import org.idiginfo.docsvc.svcapi.mendeley.MendeleyApiParams;
 import org.idiginfo.docsvc.svcapi.mendeley.MendeleyService;
 import org.idiginfo.docsvc.view.rdf.citagora.MapCitagoraObject;
@@ -72,7 +71,7 @@ public class TestMendeleyCitagora {
 		params.setKeyword(requestParam);
 		// Document document = service.getDocument(params);
 		// System.out.println(document.getId());
-		Documents documents = service.getDocuments(params);
+		List<? extends Document> documents = service.getDocuments(params);
 
 		/*
 		 * MapSvcapiToCitagora documentMapper = new MapSvcapiToCitagora();
