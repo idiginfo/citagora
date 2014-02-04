@@ -1,7 +1,8 @@
 package org.idiginfo.docsvc.view;
 
+import java.util.List;
+
 import org.idiginfo.docsvc.model.apisvc.Document;
-import org.idiginfo.docsvc.model.apisvc.Documents;
 
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.Gson;
@@ -29,7 +30,7 @@ public class JsonWriter implements ObjectWriter {
 	}
 
 	@Override
-	public String writeDocuments(Documents documents) {
+	public String writeDocuments(List<Document> documents) {
 		return gson.toJson(documents);
 	}
 

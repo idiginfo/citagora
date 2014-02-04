@@ -4,7 +4,6 @@ import java.io.StringWriter;
 import java.util.List;
 
 import org.idiginfo.docsvc.model.apisvc.Document;
-import org.idiginfo.docsvc.model.apisvc.Documents;
 import org.idiginfo.docsvc.model.citagora.CitagoraObject;
 import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.model.citagora.UriObject;
@@ -48,7 +47,7 @@ public class RdfWriter implements ObjectWriter {
 	}
 
 	@Override
-	public String writeDocuments(Documents documents) {
+	public String writeDocuments(List<Document> documents) {
 		Model model = ModelFactory.createDefaultModel();
 		MapDocuments mapDocuments = new MapDocuments();
 		model = mapDocuments.addDocuments(model, documents);
@@ -69,8 +68,8 @@ public class RdfWriter implements ObjectWriter {
 
 	@Override
 	public String write(Object objects) {
-		if (objects instanceof Documents) {
-			return writeDocuments((Documents) objects);
+		if (objects instanceof List<?>) {
+			return writeDocuments((List<Document>) objects);
 		}
 		if (objects instanceof Document) {
 			return writeDocument((Document) objects);

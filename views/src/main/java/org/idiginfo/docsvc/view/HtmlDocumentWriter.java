@@ -1,11 +1,11 @@
 package org.idiginfo.docsvc.view;
 
 import java.util.Iterator;
+import java.util.List;
 
 import org.idiginfo.docsvc.model.apisvc.Annotation;
 import org.idiginfo.docsvc.model.apisvc.ApiParams;
 import org.idiginfo.docsvc.model.apisvc.Document;
-import org.idiginfo.docsvc.model.apisvc.Documents;
 import org.idiginfo.docsvc.model.apisvc.Users;
 
 /**
@@ -81,7 +81,7 @@ public class HtmlDocumentWriter {
 		return out.toString();
 	}
 
-	public static String toHtml(Documents documents) {
+	public static String toHtml(List<Document> documents) {
 		if (documents == null)
 			return null;
 		StringBuffer out = new StringBuffer();
@@ -108,8 +108,8 @@ public class HtmlDocumentWriter {
 			Users users = (Users) objects;
 			title.append(" users ");
 			body.append(toHtml(users));
-		} else if (objects instanceof Documents) {
-			Documents documents = (Documents) objects;
+		} else if (objects instanceof List<?>) {
+			List<Document> documents = (List<Document>) objects;
 			title.append(" documents ");
 			if (params.getKeyword() != null) {
 				title.append(" with keyword \"").append(params.getKeyword())

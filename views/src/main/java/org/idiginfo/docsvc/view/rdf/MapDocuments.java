@@ -1,9 +1,9 @@
 package org.idiginfo.docsvc.view.rdf;
 
 import java.util.Iterator;
+import java.util.List;
 
 import org.idiginfo.docsvc.model.apisvc.Document;
-import org.idiginfo.docsvc.model.apisvc.Documents;
 
 import com.hp.hpl.jena.rdf.model.Model;
 
@@ -26,7 +26,7 @@ public class MapDocuments {
 	 * 
 	 * @return model
 	 */
-	public Model addDocuments(Model model, Documents documents) {
+	public Model addDocuments(Model model, List<Document> documents) {
 		if (documents == null)
 			return model;
 		Iterator<Document> docs = documents.iterator();
