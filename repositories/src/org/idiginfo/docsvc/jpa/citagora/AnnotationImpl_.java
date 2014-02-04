@@ -4,7 +4,7 @@ import javax.annotation.Generated;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="Dali", date="2013-02-07T16:36:11.888-0500")
+@Generated(value="Dali", date="2014-02-03T15:09:43.350-0500")
 @StaticMetamodel(AnnotationImpl.class)
 public class AnnotationImpl_ extends CitagoraObjectImpl_ {
 	public static volatile SingularAttribute<AnnotationImpl, PersonImpl> annotator;

@@ -5,7 +5,7 @@ import javax.annotation.Generated;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="Dali", date="2013-04-16T09:44:56.935-0400")
+@Generated(value="Dali", date="2014-02-03T15:09:43.383-0500")
 @StaticMetamodel(HarvestResultImpl.class)
 public class HarvestResultImpl_ {
 	public static volatile SingularAttribute<HarvestResultImpl, Integer> myId;
