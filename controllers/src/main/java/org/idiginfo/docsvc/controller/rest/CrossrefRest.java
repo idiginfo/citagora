@@ -18,7 +18,8 @@ import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
 
 import org.apache.commons.lang.StringUtils;
-import org.idiginfo.docsvc.svcapi.crossref.CrossrefService;
+import org.idiginfo.docsvc.model.apisvc.DocService;
+import org.idiginfo.docsvc.model.apisvc.ServiceFactory;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -38,8 +39,8 @@ import com.google.gson.JsonParser;
 @Produces(MediaType.APPLICATION_XML)
 public class CrossrefRest {
 
-	CrossrefService service = new CrossrefService();
-	Gson gson = CrossrefService.getGson();
+	DocService service = ServiceFactory.getFactory().createService(ServiceFactory.COLLECTION_CROSSREF);
+	Gson gson = service.getGson();
 	@Context
 	UriInfo uriInfo;
 	@Context

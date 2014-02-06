@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.idiginfo.docsvc.model.ServiceFactory;
 import org.idiginfo.docsvc.model.apisvc.ApiParams;
 import org.idiginfo.docsvc.model.apisvc.BaseApiParams;
+import org.idiginfo.docsvc.model.apisvc.ServiceFactory;
 
 /**
  * Class to support DocServices API requests
@@ -96,7 +96,7 @@ public class DocServicesParams extends BaseApiParams {
 	 */
 	public static ApiParams getApiServiceParams(String collection,
 			Map<String, List<String>> queryParams) {
-		ApiParams apiParams = ServiceFactory.createApiParams(collection);
+		ApiParams apiParams = ServiceFactory.getFactory().createApiParams(collection);
 		mapParams(apiParams, queryParams);
 		apiParams.setCollection(collection);
 		return apiParams;

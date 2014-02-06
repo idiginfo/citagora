@@ -12,11 +12,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import org.idiginfo.docsvc.jpa.citagora.CitagoraFactoryImpl;
+import org.idiginfo.docsvc.model.apisvc.DocService;
+import org.idiginfo.docsvc.model.apisvc.MatchResult;
+import org.idiginfo.docsvc.model.apisvc.ServiceFactory;
 import org.idiginfo.docsvc.model.citagora.CitagoraFactory;
 import org.idiginfo.docsvc.model.citagora.Reference;
-import org.idiginfo.docsvc.svcapi.crossref.CrossrefMatch;
-import org.idiginfo.docsvc.svcapi.crossref.CrossrefMatch.MatchResult;
-import org.idiginfo.docsvc.svcapi.crossref.CrossrefService;
 
 /**
  * Class to Harvest content via Crossref source
@@ -33,12 +33,15 @@ public class CrossrefMatchHarvest {
 	static final int FIRST_RESULT = 1;
 	private static final int FIRST_PAGE = 0;
 	CitagoraFactoryImpl factory;
-	CrossrefService service;
+	ServiceFactory serviceFactory;
+	DocService service;
 
 	public CrossrefMatchHarvest() {
 		CitagoraFactory.setPersistence("local");
 		factory = new CitagoraFactoryImpl();
-		service = new CrossrefService();
+		serviceFactory = ServiceFactory.getFactory();
+		service = serviceFactory
+				.createService(ServiceFactory.COLLECTION_CROSSREF);
 	}
 
 	@SuppressWarnings("unused")
@@ -90,7 +93,7 @@ public class CrossrefMatchHarvest {
 			String refString = getReferenceString(ref);
 			refStrings.add(refString);
 		}
-		List<MatchResult> matches = getMatches(refStrings);
+		List<? extends MatchResult> matches = getMatches(refStrings);
 		for (MatchResult match : matches) {
 			printResponse(match);
 		}
@@ -110,7 +113,7 @@ public class CrossrefMatchHarvest {
 	}
 
 	private String[] reportMatches(List<Reference> missingDois,
-			List<MatchResult> matches) {
+			List<? extends MatchResult> matches) {
 		int size = missingDois.size();
 		if (size != matches.size()) {
 			System.err.println("problem with lists: missingDois: " + size
@@ -152,10 +155,10 @@ public class CrossrefMatchHarvest {
 		return references;
 	}
 
-	List<MatchResult> getMatches(List<String> references) {
+	List<? extends MatchResult> getMatches(List<String> references) {
 		String[] refStrings = references.toArray(new String[0]);
-		CrossrefMatch record = service.getMatch(refStrings);
-		return record.getResults();
+		List<? extends MatchResult> record = service.getMatch(refStrings);
+		return record;
 	}
 
 	static DateFormat dateFormat = new SimpleDateFormat("MMM. YYYY");

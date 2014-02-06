@@ -1,23 +1,13 @@
 package org.idiginfo.docsvc.controller.test;
 
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import javax.security.auth.Refreshable;
-
-import java.io.IOException;
-import java.io.PrintWriter;
-
-import org.idiginfo.docsvc.controller.request.DocServicesParams;
-import org.idiginfo.docsvc.controller.request.RequestProcessor;
-import org.idiginfo.docsvc.model.ServiceFactory;
-
 import org.idiginfo.docsvc.jpa.citagora.CitagoraFactoryImpl;
+import org.idiginfo.docsvc.model.citagora.Author;
 import org.idiginfo.docsvc.model.citagora.CitagoraAgent;
 import org.idiginfo.docsvc.model.citagora.CitagoraFactory;
-import org.idiginfo.docsvc.model.citagora.Author;
 import org.idiginfo.docsvc.model.citagora.Comment;
 import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.model.citagora.Person;
@@ -26,10 +16,7 @@ import org.idiginfo.docsvc.model.citagora.Reference;
 import org.idiginfo.docsvc.model.citagora.Reply;
 import org.idiginfo.docsvc.model.citagora.Review;
 import org.idiginfo.docsvc.model.citagora.Tag;
-import org.idiginfo.docsvc.model.citagora.UriObject;
 import org.idiginfo.docsvc.view.JsonWriter;
-
-import com.hp.hpl.jena.rdf.model.Model;
 
 /**
  * Class to test generation of JSON from Citagora Container object 

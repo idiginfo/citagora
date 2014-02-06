@@ -6,11 +6,10 @@ import java.io.IOException;
 import java.util.Date;
 
 import org.idiginfo.docsvc.harvest.load.LoadDocuments;
-import org.idiginfo.docsvc.model.ServiceFactory;
+import org.idiginfo.docsvc.model.apisvc.DocService;
+import org.idiginfo.docsvc.model.apisvc.ServiceFactory;
 import org.idiginfo.docsvc.model.citagora.CitagoraAgent;
 import org.idiginfo.docsvc.model.citagora.Container;
-import org.idiginfo.docsvc.svcapi.sciverse.SciVerseDocument;
-import org.idiginfo.docsvc.svcapi.sciverse.SciVerseService;
 
 import com.google.gson.Gson;
 
@@ -22,7 +21,9 @@ import com.google.gson.Gson;
  */
 public class SciVerseLoad {
 
-	Gson gson = SciVerseService.getGson();
+	DocService service = ServiceFactory.getFactory().createService(
+			ServiceFactory.COLLECTION_ELSEVIER);
+	Gson gson = service.getGson();
 	LoadDocuments loader = new LoadDocuments();
 
 	public static final String BASE_DIR = "c:/dev/split/sciverse/";
@@ -65,17 +66,17 @@ public class SciVerseLoad {
 	private int loadFile(Container containerFields, File file) {
 		System.out.print("loading file: " + file.getName());
 		try {
-			FileReader in = new FileReader(file);
-			SciVerseDocument document = gson.fromJson(in,
-					SciVerseDocument.class);
-			if (document == null) {
-				System.out.println(" no document");
-				return 0;
-			}
-			containerFields.setGenerated(new Date(file.lastModified()));
-			loader.load(containerFields, document);
+			// FileReader in = new FileReader(file);
+			// Document document = gson.fromJson(in,
+			// SciVerseDocument.class);
+			// if (document == null) {
+			// System.out.println(" no document");
+			// return 0;
+			// }
+			// containerFields.setGenerated(new Date(file.lastModified()));
+			// loader.load(containerFields, document);
 			return 1;
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
 		}

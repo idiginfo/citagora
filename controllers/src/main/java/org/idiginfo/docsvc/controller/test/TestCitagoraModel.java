@@ -7,7 +7,9 @@ import java.util.List;
 
 import org.idiginfo.docsvc.jpa.citagora.CitagoraFactoryImpl;
 import org.idiginfo.docsvc.model.apisvc.ApiParams;
+import org.idiginfo.docsvc.model.apisvc.DocService;
 import org.idiginfo.docsvc.model.apisvc.Document;
+import org.idiginfo.docsvc.model.apisvc.ServiceFactory;
 import org.idiginfo.docsvc.model.citagora.CitagoraAgent;
 import org.idiginfo.docsvc.model.citagora.CitagoraFactory;
 import org.idiginfo.docsvc.model.citagora.Container;
@@ -18,8 +20,6 @@ import org.idiginfo.docsvc.model.citagora.Review;
 import org.idiginfo.docsvc.model.citagora.Tag;
 import org.idiginfo.docsvc.model.citagora.UriObject;
 import org.idiginfo.docsvc.model.mapping.MapSvcapiToCitagora;
-import org.idiginfo.docsvc.svcapi.springer.SpringerApiParams;
-import org.idiginfo.docsvc.svcapi.springer.SpringerService;
 import org.idiginfo.docsvc.view.rdf.citagora.MapCitagoraObject;
 
 import com.hp.hpl.jena.rdf.model.Model;
@@ -294,9 +294,9 @@ public class TestCitagoraModel {
     }
     
     void testSpringDocument() {
-	SpringerService service = new SpringerService();
-
-	ApiParams params = new SpringerApiParams();
+    	ServiceFactory serviceFactory = ServiceFactory.getFactory();
+	DocService service = serviceFactory.createService(ServiceFactory.COLLECTION_SPRINGER);
+	ApiParams params = serviceFactory.createApiParams(ServiceFactory.COLLECTION_SPRINGER);
 	// params.setDoi("doi:10.1007/s11276-008-0131-4");
 	params.setId("doi:10.1007/s11276-008-0131-4");
 	Document document = service.getDocument(params);

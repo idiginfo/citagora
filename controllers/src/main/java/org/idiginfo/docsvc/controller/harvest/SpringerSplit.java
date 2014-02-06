@@ -27,7 +27,7 @@ import com.google.gson.JsonParser;
  */
 
 public class SpringerSplit {
-	final static String IN_FILE_PREFIX = SpringerHarvest.FILE_PREFIX;
+	final static String IN_FILE_PREFIX = SpringerHarvestTest.FILE_PREFIX;
 
 	final static String SPLIT_FILE_PREFIX = "c:/dev/split/springer/";
 

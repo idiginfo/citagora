@@ -5,7 +5,7 @@ import java.io.PrintWriter;
 
 import org.idiginfo.docsvc.controller.request.DocServicesParams;
 import org.idiginfo.docsvc.controller.request.RequestProcessor;
-import org.idiginfo.docsvc.model.ServiceFactory;
+import org.idiginfo.docsvc.model.apisvc.ServiceFactory;
 
 /**
  * Test request processing from various content sources

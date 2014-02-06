@@ -7,11 +7,11 @@ import java.util.List;
 
 import org.idiginfo.docsvc.jpa.citagora.CitagoraFactoryImpl;
 import org.idiginfo.docsvc.model.apisvc.ApiParams;
+import org.idiginfo.docsvc.model.apisvc.DocService;
 import org.idiginfo.docsvc.model.apisvc.Document;
+import org.idiginfo.docsvc.model.apisvc.ServiceFactory;
 import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.model.citagora.UriObject;
-import org.idiginfo.docsvc.svcapi.mendeley.MendeleyApiParams;
-import org.idiginfo.docsvc.svcapi.mendeley.MendeleyService;
 import org.idiginfo.docsvc.view.rdf.citagora.MapCitagoraObject;
 
 import com.hp.hpl.jena.rdf.model.Model;
@@ -63,9 +63,12 @@ public class TestMendeleyCitagora {
 	}
 
 	Container getMendeleyDocument(String requestParam) {
-		MendeleyService service = new MendeleyService();
+		ServiceFactory serviceFactory = ServiceFactory.getFactory();
+		DocService service = serviceFactory
+				.createService(ServiceFactory.COLLECTION_MENDELEY);
 		factory.openTransaction();
-		ApiParams params = new MendeleyApiParams();
+		ApiParams params = serviceFactory
+				.createApiParams(ServiceFactory.COLLECTION_MENDELEY);
 		// params.setDoi("doi:10.1007/s11276-008-0131-4");
 		// params.setId(requestDoi);
 		params.setKeyword(requestParam);
