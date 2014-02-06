@@ -1,6 +1,6 @@
 package org.idiginfo.docsvc.view;
 
-import org.idiginfo.docsvc.model.GsonTransient;
+import org.idiginfo.docsvc.model.apisvc.GsonTransient;
 
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
