@@ -1,6 +1,5 @@
 package org.idiginfo.docsvc.harvest.augment;
 
-import org.idiginfo.docsvc.model.ServiceFactory;
 import org.idiginfo.docsvc.model.citagora.CitagoraFactory;
 
 /**

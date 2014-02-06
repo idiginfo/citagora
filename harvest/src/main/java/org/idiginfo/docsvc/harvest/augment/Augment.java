@@ -7,12 +7,11 @@ import java.util.Map;
 import org.idiginfo.docsvc.harvest.load.LoadDocuments;
 import org.idiginfo.docsvc.jpa.citagora.CitagoraFactoryImpl;
 import org.idiginfo.docsvc.jpa.citagora.HarvestResultImpl;
-import org.idiginfo.docsvc.model.ServiceFactory;
 import org.idiginfo.docsvc.model.apisvc.ApiParams;
 import org.idiginfo.docsvc.model.apisvc.BaseApiParams;
-import org.idiginfo.docsvc.model.apisvc.DocService;
 import org.idiginfo.docsvc.model.apisvc.Document;
-import org.idiginfo.docsvc.model.citagora.HarvestResult;
+import org.idiginfo.docsvc.model.apisvc.ServiceFactory;
+import org.idiginfo.docsvc.model.citagora.CitagoraFactory;
 import org.idiginfo.docsvc.model.citagora.Reference;
 
 /**
@@ -24,14 +23,14 @@ import org.idiginfo.docsvc.model.citagora.Reference;
 
 public class Augment {
 
-	CitagoraFactoryImpl factory = new CitagoraFactoryImpl();
+	CitagoraFactory citagoraFactory = new CitagoraFactoryImpl();
 	LoadDocuments loader = new LoadDocuments();
 
 	public Map<String, Reference> fetchAllFromDoi(String doi) {
 		Map<String, Reference> documentMap = new HashMap<String, Reference>();
 		if (doi == null)
 			return documentMap;
-		List<Reference> references = factory.findReferencesByDoi(doi);
+		List<Reference> references = citagoraFactory.findReferencesByDoi(doi);
 		for (Reference ref : references) {
 			documentMap.put(ref.getSource(), ref);
 		}
@@ -48,11 +47,11 @@ public class Augment {
 				continue;
 			}
 			if (!documentMap.containsKey(source)) {
-				Document newDoc = ServiceFactory.getSharedService(source)
-						.getDocument(params);
+				Document newDoc = ServiceFactory.getFactory()
+						.getSharedService(source).getDocument(params);
 				if (newDoc == null) {
 					// no document found by service
-					HarvestResultImpl.createHarvestResult(source, "doi:" + doi,
+					citagoraFactory.createHarvestResult(source, "doi:" + doi,
 							null, "no such document in service", false);
 					continue;
 				}
