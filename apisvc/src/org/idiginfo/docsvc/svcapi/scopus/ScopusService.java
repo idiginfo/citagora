@@ -3,8 +3,10 @@ package org.idiginfo.docsvc.svcapi.scopus;
 import java.util.List;
 
 import org.idiginfo.docsvc.model.apisvc.ApiParams;
+import org.idiginfo.docsvc.model.apisvc.ApiResult;
 import org.idiginfo.docsvc.model.apisvc.DocService;
 import org.idiginfo.docsvc.model.apisvc.Document;
+import org.idiginfo.docsvc.model.apisvc.MatchResult;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -63,6 +65,19 @@ public class ScopusService implements DocService {
 
 	@Override
 	public JsonElement matchService(JsonArray refsArray) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<? extends MatchResult> getMatch(String[] refStrings) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ApiResult getApiResult(String function, String keywords,
+			ApiParams params) {
 		// TODO Auto-generated method stub
 		return null;
 	}

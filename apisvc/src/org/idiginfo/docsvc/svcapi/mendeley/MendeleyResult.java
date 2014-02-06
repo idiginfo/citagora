@@ -2,11 +2,10 @@ package org.idiginfo.docsvc.svcapi.mendeley;
 
 import java.util.List;
 
-//import org.idiginfo.docsvc.model.apisvc.Documents;
-import org.idiginfo.docsvc.svcapi.mendeley.MendeleyHeader;
-import org.idiginfo.docsvc.svcapi.mendeley.MendeleyHeaders;
+import org.idiginfo.docsvc.model.apisvc.ApiResult;
 
 import com.google.gson.annotations.SerializedName;
+//import org.idiginfo.docsvc.model.apisvc.Documents;
 
 /**
  * Class to map Mendeley result json document
@@ -18,7 +17,7 @@ import com.google.gson.annotations.SerializedName;
  * @author sflager
  * 
  */
-public class MendeleyResult {
+public class MendeleyResult implements ApiResult {
 
 	@SerializedName("documents")
 	List<MendeleyHeader> records;

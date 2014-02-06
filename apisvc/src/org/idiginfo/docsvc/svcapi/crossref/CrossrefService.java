@@ -7,8 +7,10 @@ import java.io.Reader;
 import java.util.List;
 
 import org.idiginfo.docsvc.model.apisvc.ApiParams;
+import org.idiginfo.docsvc.model.apisvc.ApiResult;
 import org.idiginfo.docsvc.model.apisvc.DocService;
 import org.idiginfo.docsvc.model.apisvc.Document;
+import org.idiginfo.docsvc.model.apisvc.MatchResult;
 import org.idiginfo.docsvc.svcapi.SvcApiLogger;
 
 import com.google.api.client.http.ByteArrayContent;
@@ -185,11 +187,24 @@ public class CrossrefService implements DocService {
 		return match;
 	}
 
-	public CrossrefMatch getMatch(String[] references) {
+	public CrossrefMatch getCrossrefMatch(String[] references) {
 		JsonArray jsonContent = new JsonArray();
 		for (String ref : references) {
 			jsonContent.add(new JsonPrimitive(ref));
 		}
 		return getMatch(jsonContent);
+	}
+
+	@Override
+	public List<? extends MatchResult> getMatch(String[] refStrings) {
+		CrossrefMatch matches = getCrossrefMatch(refStrings);
+		return matches.getResults();
+	}
+
+	@Override
+	public ApiResult getApiResult(String function, String keywords,
+			ApiParams params) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

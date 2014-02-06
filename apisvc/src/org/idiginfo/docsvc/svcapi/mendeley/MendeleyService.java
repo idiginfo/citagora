@@ -8,8 +8,10 @@ import java.util.List;
 import java.util.Vector;
 
 import org.idiginfo.docsvc.model.apisvc.ApiParams;
+import org.idiginfo.docsvc.model.apisvc.ApiResult;
 import org.idiginfo.docsvc.model.apisvc.DocService;
 import org.idiginfo.docsvc.model.apisvc.Document;
+import org.idiginfo.docsvc.model.apisvc.MatchResult;
 import org.idiginfo.docsvc.model.apisvc.Users;
 
 import com.google.api.client.http.HttpRequest;
@@ -238,6 +240,18 @@ public class MendeleyService implements DocService {
 	public JsonElement matchService(JsonArray refsArray) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<? extends MatchResult> getMatch(String[] refStrings) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ApiResult getApiResult(String function, String keywords,
+			ApiParams params) {
+		return getMendeleyResult(function, keywords, params);
 	}
 
 }

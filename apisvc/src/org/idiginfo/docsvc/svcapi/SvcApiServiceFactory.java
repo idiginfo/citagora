@@ -7,6 +7,7 @@ import org.idiginfo.docsvc.model.apisvc.ApiParams;
 import org.idiginfo.docsvc.model.apisvc.BaseApiParams;
 import org.idiginfo.docsvc.model.apisvc.DocService;
 import org.idiginfo.docsvc.model.apisvc.ServiceFactory;
+import org.idiginfo.docsvc.model.harvest.ApiHarvest;
 import org.idiginfo.docsvc.svcapi.altmetric.AltmetricApiParams;
 import org.idiginfo.docsvc.svcapi.altmetric.AltmetricService;
 import org.idiginfo.docsvc.svcapi.annotate.svc.AnnotateApiParams;
@@ -15,6 +16,7 @@ import org.idiginfo.docsvc.svcapi.crossref.CrossrefApiParams;
 import org.idiginfo.docsvc.svcapi.crossref.CrossrefRdfService;
 import org.idiginfo.docsvc.svcapi.entrez.EntrezApiParams;
 import org.idiginfo.docsvc.svcapi.entrez.EntrezService;
+import org.idiginfo.docsvc.svcapi.harvest.MendeleyHarvest;
 import org.idiginfo.docsvc.svcapi.mas.svc.MasApiParams;
 import org.idiginfo.docsvc.svcapi.mas.svc.MasService;
 import org.idiginfo.docsvc.svcapi.mendeley.MendeleyApiParams;
@@ -111,7 +113,7 @@ public class SvcApiServiceFactory extends ServiceFactory {
 	 * @param collection
 	 * @return
 	 */
-	public  ApiParams createApiParams(String collection) {
+	public ApiParams createApiParams(String collection) {
 		if (collection != null) {
 			if (collection.equals(COLLECTION_ANNOTATE)) {
 				return new AnnotateApiParams();
@@ -149,5 +151,15 @@ public class SvcApiServiceFactory extends ServiceFactory {
 			// }
 		}
 		return new BaseApiParams();
+	}
+
+	@Override
+	public ApiHarvest createApiHarvest(String collection) {
+		if (collection == null)
+			return null;
+		if (collection.equals(COLLECTION_MENDELEY)) {
+			return new MendeleyHarvest();
+		}
+		return null;
 	}
 }

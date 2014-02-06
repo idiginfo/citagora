@@ -1,5 +1,6 @@
 package org.idiginfo.docsvc.svcapi.mendeley;
 
+import org.idiginfo.docsvc.model.apisvc.Header;
 import org.idiginfo.docsvc.svcapi.mendeley.MendeleyRecord.Author;
 
 import com.google.gson.annotations.SerializedName;
@@ -12,7 +13,7 @@ import com.google.gson.annotations.SerializedName;
  * 
  */
 
-public class MendeleyHeader {
+public class MendeleyHeader implements Header {
 	@SerializedName("uuid")
 	String uuid;
 	@SerializedName("title")

@@ -4,13 +4,13 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 import org.idiginfo.docsvc.model.apisvc.Document;
+import org.idiginfo.docsvc.model.apisvc.MatchResult;
 import org.idiginfo.docsvc.svcapi.crossref.CrossrefApiParams;
 import org.idiginfo.docsvc.svcapi.crossref.CrossrefDocument;
 import org.idiginfo.docsvc.svcapi.crossref.CrossrefMatch;
 import org.idiginfo.docsvc.svcapi.crossref.CrossrefRdfService;
 import org.idiginfo.docsvc.svcapi.crossref.CrossrefResult;
 import org.idiginfo.docsvc.svcapi.crossref.CrossrefService;
-import org.idiginfo.docsvc.svcapi.crossref.CrossrefMatch.MatchResult;
 import org.idiginfo.docsvc.svcapi.crossref.RdfDocument;
 
 import com.google.gson.Gson;
@@ -43,7 +43,7 @@ public class CrossrefSample {
 
 		testDoiDocument("10.1126/science.1157784");
 		// testPmidDocument("21148220");
-		//testCrossrefQuery();
+		// testCrossrefQuery();
 		// testCrossrefMatch();
 	}
 
@@ -93,7 +93,7 @@ public class CrossrefSample {
 			System.out.println("result message from json: "
 					+ CrossrefResult.getMessage(json));
 			CrossrefMatch response = gson.fromJson(json, CrossrefMatch.class);
-			CrossrefMatch.MatchResult result = response.getResults().get(0);
+			MatchResult result = response.getResults().get(0);
 			printResponse(response);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -156,7 +156,7 @@ public class CrossrefSample {
 		String[] refs = {
 				"M. Henrion, D. J. Mortlock, D. J. Hand, and A. Gandy, \"A Bayesian approach to star-galaxy classification,\" Monthly Notices of the Royal Astronomical Society, vol. 412, no. 4, pp. 2286-2302, Apr. 2011.",
 				"Renear 2012" };
-		CrossrefMatch record = service.getMatch(refs);
+		CrossrefMatch record = (CrossrefMatch) service.getMatch(refs);
 		if (record == null) {
 			System.err.println("Service request failed");
 			return null;

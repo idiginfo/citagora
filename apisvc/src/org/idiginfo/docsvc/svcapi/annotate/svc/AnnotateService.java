@@ -7,8 +7,10 @@ import java.util.List;
 import java.util.Vector;
 
 import org.idiginfo.docsvc.model.apisvc.ApiParams;
+import org.idiginfo.docsvc.model.apisvc.ApiResult;
 import org.idiginfo.docsvc.model.apisvc.DocService;
 import org.idiginfo.docsvc.model.apisvc.Document;
+import org.idiginfo.docsvc.model.apisvc.MatchResult;
 import org.idiginfo.docsvc.svcapi.annotate.AnnotateDocument;
 import org.idiginfo.docsvc.svcapi.annotate.AnnotateDocumentNotes;
 import org.idiginfo.docsvc.svcapi.annotate.AnnotateUsers;
@@ -245,6 +247,19 @@ public class AnnotateService implements DocService {
 
 	@Override
 	public JsonElement matchService(JsonArray refsArray) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<? extends MatchResult> getMatch(String[] refStrings) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ApiResult getApiResult(String function, String keywords,
+			ApiParams params) {
 		// TODO Auto-generated method stub
 		return null;
 	}

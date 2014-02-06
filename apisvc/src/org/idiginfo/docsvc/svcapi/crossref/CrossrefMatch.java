@@ -2,6 +2,8 @@ package org.idiginfo.docsvc.svcapi.crossref;
 
 import java.util.List;
 
+import org.idiginfo.docsvc.model.apisvc.MatchResult;
+
 import com.google.gson.JsonElement;
 import com.google.gson.annotations.SerializedName;
 
@@ -36,31 +38,36 @@ public class CrossrefMatch {
 	// result from Match
 	@SerializedName("query_ok")
 	Boolean queryOk;
-	List<MatchResult> results;
+	List<CrossRefMatchResult> results;
 
-	public class MatchResult {
+	public class CrossRefMatchResult implements MatchResult {
 		String text;
 		Boolean match;
 		String doi;
 		Double score;
 		String reason;
 
+		@Override
 		public String getText() {
 			return text;
 		}
 
+		@Override
 		public Boolean getMatch() {
 			return match;
 		}
 
+		@Override
 		public String getDoi() {
 			return doi;
 		}
 
+		@Override
 		public Double getScore() {
 			return score;
 		}
 
+		@Override
 		public String getReason() {
 			return reason;
 		}
@@ -70,7 +77,7 @@ public class CrossrefMatch {
 		return queryOk;
 	}
 
-	public List<MatchResult> getResults() {
+	public List<? extends MatchResult> getResults() {
 		return results;
 	}
 
