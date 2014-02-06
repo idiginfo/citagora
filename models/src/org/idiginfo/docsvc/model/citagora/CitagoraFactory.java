@@ -113,4 +113,7 @@ public abstract class CitagoraFactory {
 
 	public abstract HarvestResult createHarvestResult();
 
+	public abstract HarvestResult createHarvestResult(String source, String identifier,
+			Reference ref, String description, boolean success) ;
+
 }
