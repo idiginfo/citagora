@@ -21,10 +21,10 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
-import org.idiginfo.docsvc.model.GsonTransient;
 import org.idiginfo.docsvc.model.citagora.Annotation;
 import org.idiginfo.docsvc.model.citagora.CitagoraAgent;
 import org.idiginfo.docsvc.model.citagora.CitagoraObject;
+import org.idiginfo.docsvc.model.apisvc.GsonTransient;
 
 import com.google.gson.annotations.SerializedName;
 

@@ -24,7 +24,7 @@ import org.idiginfo.docsvc.model.citagora.Author;
 import org.idiginfo.docsvc.model.citagora.CitagoraAgent;
 import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.model.citagora.Reference;
-import org.idiginfo.docsvc.model.GsonTransient;
+import org.idiginfo.docsvc.model.apisvc.GsonTransient;
 
 import com.google.gson.annotations.SerializedName;
 

@@ -4,9 +4,9 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Transient;
 
-import org.idiginfo.docsvc.model.GsonTransient;
 import org.idiginfo.docsvc.model.citagora.AnnotationBody;
 import org.idiginfo.docsvc.model.citagora.CitagoraObject;
+import org.idiginfo.docsvc.model.apisvc.GsonTransient;
 
 import com.google.gson.annotations.SerializedName;
 

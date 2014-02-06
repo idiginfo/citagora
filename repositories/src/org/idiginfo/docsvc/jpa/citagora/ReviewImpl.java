@@ -6,10 +6,10 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.idiginfo.docsvc.model.GsonTransient;
 import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.model.citagora.Person;
 import org.idiginfo.docsvc.model.citagora.Review;
+import org.idiginfo.docsvc.model.apisvc.GsonTransient;
 
 import com.google.gson.annotations.SerializedName;
 

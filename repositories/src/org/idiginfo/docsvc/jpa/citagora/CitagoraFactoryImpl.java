@@ -448,4 +448,10 @@ public class CitagoraFactoryImpl extends CitagoraFactory {
 	public HarvestResult createHarvestResult() {
 		return new HarvestResultImpl();
 	}
+
+	@Override
+	public HarvestResult createHarvestResult(String source, String identifier, Reference ref,
+			String description, boolean success) {
+		return HarvestResultImpl.createHarvestResult(source, identifier, ref, description, success);
+	}
 }

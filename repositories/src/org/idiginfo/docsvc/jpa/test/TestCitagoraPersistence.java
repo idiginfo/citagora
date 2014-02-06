@@ -14,13 +14,14 @@ import org.idiginfo.docsvc.jpa.citagora.ReferenceImpl;
 import org.idiginfo.docsvc.jpa.citagora.ReviewImpl;
 import org.idiginfo.docsvc.jpa.citagora.TagImpl;
 import org.idiginfo.docsvc.model.apisvc.ApiParams;
+import org.idiginfo.docsvc.model.apisvc.DocService;
 import org.idiginfo.docsvc.model.apisvc.Document;
+import org.idiginfo.docsvc.model.apisvc.ServiceFactory;
 import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.model.citagora.RatingType;
 import org.idiginfo.docsvc.model.citagora.Reference;
 import org.idiginfo.docsvc.model.mapping.MapSvcapiToCitagora;
-import org.idiginfo.docsvc.svcapi.springer.SpringerApiParams;
-import org.idiginfo.docsvc.svcapi.springer.SpringerService;
+
 
 /**
  * Class to test Citagora Persistence objects
@@ -128,8 +129,9 @@ public class TestCitagoraPersistence {
 	}
 
 	Reference createSpringerDocument() {
-		SpringerService service = new SpringerService();
-		ApiParams params = new SpringerApiParams();
+		ServiceFactory serviceFactory = ServiceFactory.getFactory();
+		DocService service = serviceFactory.createService(ServiceFactory.COLLECTION_SPRINGER);
+		ApiParams params = serviceFactory.createApiParams(ServiceFactory.COLLECTION_SPRINGER);
 		// params.setDoi("doi:10.1007/s11276-008-0131-4");
 		params.setId("doi:10.1007/s11276-008-0131-4");
 		Document document = service.getDocument(params);
