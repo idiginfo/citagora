@@ -19,8 +19,8 @@ import com.google.gson.GsonBuilder;
 
 public class SpringerSample {
 
-	// static final String collection = "springer";
-	static final String collection = "annotate";
+	static final String collection = ServiceFactory.COLLECTION_SPRINGER;
+	// static final String collection = "annotate";
 	static ServiceFactory serviceFactory = ServiceFactory.getFactory();
 
 	static DocService service = serviceFactory.createService(collection);
@@ -52,7 +52,7 @@ public class SpringerSample {
 		// String content;
 		// SpringerUrl url = new SpringerUrl("metadata", "json");
 		// url.view="META_ABS";
-		ApiParams params =serviceFactory.createApiParams(collection);
+		ApiParams params = serviceFactory.createApiParams(collection);
 		params.setKeyword("suicide");
 
 		List<? extends Document> springerResult = service.getDocuments(params);
