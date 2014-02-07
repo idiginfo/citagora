@@ -113,7 +113,20 @@ public abstract class CitagoraFactory {
 
 	public abstract HarvestResult createHarvestResult();
 
-	public abstract HarvestResult createHarvestResult(String source, String identifier,
-			Reference ref, String description, boolean success) ;
+	public abstract HarvestResult createHarvestResult(String source,
+			String identifier, Reference ref, String description,
+			boolean success);
 
+	public abstract boolean persist(Object entity);
+
+	public abstract boolean contains(Object entity);
+
+	public abstract String getReferenceClassName();
+
+	public abstract Long getLongResult(String query);
+
+	public abstract List<Reference> getMissingDois(int firstResult,
+			int numResults);
+
+	public abstract int getNumMissingDois();
 }

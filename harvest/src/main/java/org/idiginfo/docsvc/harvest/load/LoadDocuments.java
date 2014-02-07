@@ -4,8 +4,6 @@ import java.io.StringWriter;
 import java.util.List;
 import java.util.Vector;
 
-import org.idiginfo.docsvc.jpa.citagora.CitagoraFactoryImpl;
-import org.idiginfo.docsvc.jpa.citagora.HarvestResultImpl;
 import org.idiginfo.docsvc.model.apisvc.Document;
 import org.idiginfo.docsvc.model.citagora.CitagoraFactory;
 import org.idiginfo.docsvc.model.citagora.CitagoraObject;
@@ -27,7 +25,7 @@ import com.hp.hpl.jena.rdf.model.Model;
 
 public class LoadDocuments {
 
-	CitagoraFactoryImpl factory = new CitagoraFactoryImpl();
+	CitagoraFactory citagoraFactory = CitagoraFactory.getFactory();
 	MapSvcapiToCitagora documentMapper = new MapSvcapiToCitagora();
 
 	public List<Container> load(Container containerFields,
@@ -52,10 +50,11 @@ public class LoadDocuments {
 			doi = null;
 		}
 		if (doi != null) {
-			Reference ref = factory.findReferenceBySourceDoi(source, doi);
+			Reference ref = citagoraFactory.findReferenceBySourceDoi(source,
+					doi);
 			if (ref != null) {
 				System.out.println(" doi: " + doi + " already present");
-				HarvestResult harvestResult = HarvestResultImpl
+				HarvestResult harvestResult = citagoraFactory
 						.createHarvestResult(source, doi, ref,
 								"duplicate entry", false);
 				System.out.println("Harvest Result " + harvestResult.getMyId()
@@ -69,25 +68,25 @@ public class LoadDocuments {
 		// TODO decide what to do with harvest result in absence of DOI
 		String uri = document.getUri();
 		if (uri != null && !uri.equals(doi)) {
-			CitagoraObject obj = factory.findCitagoraObjectByURI(uri);
+			CitagoraObject obj = citagoraFactory.findCitagoraObjectByURI(uri);
 			if (obj != null) {
 				System.out.println(" uri: " + uri + " already present");
 				return null;
 			}
 		}
-		if (!factory.isTransactionActive()) {
-			factory.openTransaction();
+		if (!citagoraFactory.isTransactionActive()) {
+			citagoraFactory.openTransaction();
 			localTransaction = true;
 		}
 		Container container = documentMapper.createContainer(containerFields,
 				document);
-		HarvestResult harvestResult = HarvestResultImpl.createHarvestResult(
+		HarvestResult harvestResult = citagoraFactory.createHarvestResult(
 				source, id, container.getIsAbout(), "success", true);
 		System.out.println(" uri: " + uri + " created");
 		System.out.println("Harvest Result " + harvestResult.getMyId()
 				+ " created");
 		if (localTransaction) {
-			factory.commitTransaction();
+			citagoraFactory.commitTransaction();
 		}
 		return container;
 	}
@@ -102,19 +101,19 @@ public class LoadDocuments {
 	}
 
 	public CitagoraFactory getFactory() {
-		return factory;
+		return citagoraFactory;
 	}
 
 	public Reference loadDocument(Document fromDocument) {
 		boolean localTransaction = false;
-		if (!factory.isTransactionActive()) {
-			factory.openTransaction();
+		if (!citagoraFactory.isTransactionActive()) {
+			citagoraFactory.openTransaction();
 			localTransaction = true;
 		}
 
 		Reference toReference = documentMapper.map(fromDocument);
 		if (localTransaction) {
-			factory.commitTransaction();
+			citagoraFactory.commitTransaction();
 		}
 
 		return toReference;

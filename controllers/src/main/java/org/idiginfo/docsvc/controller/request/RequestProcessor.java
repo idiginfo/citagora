@@ -6,12 +6,12 @@ import java.util.Vector;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response.Status;
 
-import org.idiginfo.docsvc.jpa.citagora.CitagoraFactoryImpl;
 import org.idiginfo.docsvc.model.apisvc.ApiParams;
 import org.idiginfo.docsvc.model.apisvc.DocService;
 import org.idiginfo.docsvc.model.apisvc.Document;
 //import org.idiginfo.docsvc.model.apisvc.Documents;
 import org.idiginfo.docsvc.model.apisvc.ServiceFactory;
+import org.idiginfo.docsvc.model.citagora.CitagoraFactory;
 import org.idiginfo.docsvc.model.citagora.CitagoraObject;
 import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.model.citagora.Reference;
@@ -87,7 +87,7 @@ public class RequestProcessor {
 		}
 	}
 
-	CitagoraFactoryImpl factory = new CitagoraFactoryImpl();
+	CitagoraFactory factory = CitagoraFactory.getFactory();
 
 	private Object getCitagoraObjects(ApiParams params) {
 		String doi = params.getDoi();

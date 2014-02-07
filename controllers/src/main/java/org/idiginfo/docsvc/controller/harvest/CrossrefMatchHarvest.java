@@ -8,10 +8,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
-
-import org.idiginfo.docsvc.jpa.citagora.CitagoraFactoryImpl;
 import org.idiginfo.docsvc.model.apisvc.DocService;
 import org.idiginfo.docsvc.model.apisvc.MatchResult;
 import org.idiginfo.docsvc.model.apisvc.ServiceFactory;
@@ -32,13 +28,13 @@ public class CrossrefMatchHarvest {
 	static final int NUM_RESULTS_PER_HARVEST = 50;
 	static final int FIRST_RESULT = 1;
 	private static final int FIRST_PAGE = 0;
-	CitagoraFactoryImpl factory;
+	CitagoraFactory factory;
 	ServiceFactory serviceFactory;
 	DocService service;
 
 	public CrossrefMatchHarvest() {
 		CitagoraFactory.setPersistence("local");
-		factory = new CitagoraFactoryImpl();
+		factory = CitagoraFactory.getFactory();
 		serviceFactory = ServiceFactory.getFactory();
 		service = serviceFactory
 				.createService(ServiceFactory.COLLECTION_CROSSREF);
@@ -59,7 +55,7 @@ public class CrossrefMatchHarvest {
 	}
 
 	void harvestMatches(String filePrefix, int numPerFile) {
-		int numMissing = getNumMissingDois();
+		int numMissing = factory.getNumMissingDois();
 		int totalPages = (int) Math.ceil(numMissing / numPerFile) + 1;
 		System.out.println("Total results: " + numMissing + " pages: "
 				+ totalPages + " per file: " + numPerFile);
@@ -87,7 +83,8 @@ public class CrossrefMatchHarvest {
 	}
 
 	String[] harvestMatches(int firstResult, int numResults) {
-		List<Reference> missingDois = getMissingDois(firstResult, numResults);
+		List<Reference> missingDois = factory.getMissingDois(firstResult,
+				numResults);
 		List<String> refStrings = new Vector<String>();
 		for (Reference ref : missingDois) {
 			String refString = getReferenceString(ref);
@@ -99,17 +96,6 @@ public class CrossrefMatchHarvest {
 		}
 		String[] matchResults = reportMatches(missingDois, matches);
 		return matchResults;
-	}
-
-	private int getNumMissingDois() {
-		EntityManager em = factory.getEntityManager();
-		Query q = em.createQuery("SELECT count(e.myId) FROM "
-				+ CitagoraFactoryImpl.REFERENCE_CLASS_NAME
-				+ " e WHERE e.doi is null and e.biboType='article' ");
-		Long count = (Long) q.getSingleResult();
-		if (count != null)
-			return count.intValue();
-		return 0;
 	}
 
 	private String[] reportMatches(List<Reference> missingDois,
@@ -141,18 +127,6 @@ public class CrossrefMatchHarvest {
 		}
 		String[] results = { dois.toString(), noDois.toString() };
 		return results;
-	}
-
-	List<Reference> getMissingDois(int firstResult, int maxResults) {
-		EntityManager em = factory.getEntityManager();
-		Query q = em.createQuery("SELECT e FROM "
-				+ CitagoraFactoryImpl.REFERENCE_CLASS_NAME
-				+ " e WHERE e.doi is null and e.biboType='article' ");
-		q.setFirstResult(firstResult);
-		q.setMaxResults(maxResults);
-		@SuppressWarnings("unchecked")
-		List<Reference> references = q.getResultList();
-		return references;
 	}
 
 	List<? extends MatchResult> getMatches(List<String> references) {

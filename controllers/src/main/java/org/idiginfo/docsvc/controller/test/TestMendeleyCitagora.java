@@ -5,11 +5,11 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.util.List;
 
-import org.idiginfo.docsvc.jpa.citagora.CitagoraFactoryImpl;
 import org.idiginfo.docsvc.model.apisvc.ApiParams;
 import org.idiginfo.docsvc.model.apisvc.DocService;
 import org.idiginfo.docsvc.model.apisvc.Document;
 import org.idiginfo.docsvc.model.apisvc.ServiceFactory;
+import org.idiginfo.docsvc.model.citagora.CitagoraFactory;
 import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.model.citagora.UriObject;
 import org.idiginfo.docsvc.view.rdf.citagora.MapCitagoraObject;
@@ -25,7 +25,7 @@ import com.hp.hpl.jena.rdf.model.Model;
 
 public class TestMendeleyCitagora {
 
-	CitagoraFactoryImpl factory = new CitagoraFactoryImpl();
+	CitagoraFactory factory = CitagoraFactory.getFactory();
 
 	/**
 	 * @param args

@@ -3,11 +3,6 @@ package org.idiginfo.docsvc.view;
 import java.io.StringWriter;
 import java.util.GregorianCalendar;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-
-import org.idiginfo.docsvc.jpa.citagora.CitagoraFactoryImpl;
 import org.idiginfo.docsvc.model.apisvc.ApiParams;
 import org.idiginfo.docsvc.model.apisvc.DocService;
 import org.idiginfo.docsvc.model.apisvc.Document;
@@ -35,9 +30,10 @@ import com.hp.hpl.jena.rdf.model.Model;
 
 public class TestCitagoraModel {
 
-	CitagoraFactory factory = new CitagoraFactoryImpl();
-	private EntityManagerFactory emf;
-	private EntityManager em;
+	CitagoraFactory factory = CitagoraFactory.getFactory();
+
+	// private EntityManagerFactory emf;
+	// private EntityManager em;
 
 	public TestCitagoraModel() {
 
@@ -53,18 +49,16 @@ public class TestCitagoraModel {
 	}
 
 	private void testContainer() {
-		emf = Persistence.createEntityManagerFactory("repositories");
-		em = emf.createEntityManager();
-		em.getTransaction().begin();
+		factory.openTransaction();
 
-		Container document = createContainer();
+		Container container = createContainer();
 		// Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		// String string = gson.toJson(document);
 		// System.out.println(string);
-		em.persist(document);
-		em.getTransaction().commit();
+		factory.persist(container);
+		factory.commitTransaction();
 
-		String rdf = writeCitagora(document, "TURTLE");
+		String rdf = writeCitagora(container, "TURTLE");
 		System.out.println(rdf);
 	}
 

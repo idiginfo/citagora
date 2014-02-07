@@ -450,8 +450,64 @@ public class CitagoraFactoryImpl extends CitagoraFactory {
 	}
 
 	@Override
-	public HarvestResult createHarvestResult(String source, String identifier, Reference ref,
-			String description, boolean success) {
-		return HarvestResultImpl.createHarvestResult(source, identifier, ref, description, success);
+	public HarvestResult createHarvestResult(String source, String identifier,
+			Reference ref, String description, boolean success) {
+		return HarvestResultImpl.createHarvestResult(source, identifier, ref,
+				description, success);
 	}
+
+	@Override
+	public boolean persist(Object entity) {
+		try {
+			em.persist(entity);
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public boolean contains(Object entity) {
+		try {
+			return em.contains(entity);
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	@Override
+	public int getNumMissingDois() {
+		String query = "SELECT count(e.myId) FROM "
+				+ factory.getReferenceClassName()
+				+ " e WHERE e.doi is null and e.biboType='article' ";
+		Long count = factory.getLongResult(query);
+		if (count != null)
+			return count.intValue();
+		return 0;
+	}
+
+	@Override
+	public String getReferenceClassName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Long getLongResult(String query) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Reference> getMissingDois(int firstResult, int maxResults) {
+		Query q = em.createQuery("SELECT e FROM "
+				+ CitagoraFactoryImpl.REFERENCE_CLASS_NAME
+				+ " e WHERE e.doi is null and e.biboType='article' ");
+		q.setFirstResult(firstResult);
+		q.setMaxResults(maxResults);
+		@SuppressWarnings("unchecked")
+		List<Reference> references = q.getResultList();
+		return references;
+	}
+
 }

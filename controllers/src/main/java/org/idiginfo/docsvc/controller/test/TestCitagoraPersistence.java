@@ -6,13 +6,12 @@ import java.io.StringWriter;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import org.idiginfo.docsvc.jpa.citagora.CitagoraFactoryImpl;
-import org.idiginfo.docsvc.jpa.citagora.ReferenceImpl;
 import org.idiginfo.docsvc.model.apisvc.ApiParams;
 import org.idiginfo.docsvc.model.apisvc.DocService;
 import org.idiginfo.docsvc.model.apisvc.Document;
 import org.idiginfo.docsvc.model.apisvc.ServiceFactory;
 import org.idiginfo.docsvc.model.citagora.CitagoraAgent;
+import org.idiginfo.docsvc.model.citagora.CitagoraFactory;
 import org.idiginfo.docsvc.model.citagora.Comment;
 import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.model.citagora.Person;
@@ -24,12 +23,13 @@ import org.idiginfo.docsvc.model.citagora.Tag;
 import org.idiginfo.docsvc.model.citagora.UriObject;
 import org.idiginfo.docsvc.model.mapping.MapSvcapiToCitagora;
 import org.idiginfo.docsvc.view.rdf.citagora.MapCitagoraObject;
+import org.opensaml.ws.wssecurity.impl.ReferenceImpl;
 
 import com.hp.hpl.jena.rdf.model.Model;
 
 public class TestCitagoraPersistence {
 
-	CitagoraFactoryImpl factory = new CitagoraFactoryImpl();
+	CitagoraFactory factory = CitagoraFactory.getFactory();
 
 	/**
 	 * @param args
@@ -86,8 +86,7 @@ public class TestCitagoraPersistence {
 		factory.merge(document);
 		// factory.commitTransaction();
 		System.out.println("doc uri: " + document.getUri());
-		System.out.println("contains? "
-				+ factory.getEntityManager().contains(document));
+		System.out.println("contains? " + factory.contains(document));
 		// factory.refresh(document);
 		document.setSource("http://example.com/article");
 		document.setRights("http://www.nlm.nih.gov/databases/license/license.html");
@@ -166,10 +165,9 @@ public class TestCitagoraPersistence {
 		reference.setShortTitle("Short Article");
 		reference
 				.setAbstract("This is an abstract for a journal article. This article discusses something very important. This is an example.");
-		reference.setUri("doi:doi id:" + ((ReferenceImpl) reference).getMyId());
+		reference.setUri("doi:doi id:" + ((Reference) reference).getMyId());
 		reference.setDoi(reference.getUri());
-		reference
-				.setPmid("pmid number" + ((ReferenceImpl) reference).getMyId());
+		reference.setPmid("pmid number" + ((Reference) reference).getMyId());
 		reference.setPublisher("a publisher as plain text");
 		reference.setVolume("6");
 		reference.setPageStart(8);

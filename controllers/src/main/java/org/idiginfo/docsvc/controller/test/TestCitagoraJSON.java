@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import org.idiginfo.docsvc.jpa.citagora.CitagoraFactoryImpl;
 import org.idiginfo.docsvc.model.citagora.Author;
 import org.idiginfo.docsvc.model.citagora.CitagoraAgent;
 import org.idiginfo.docsvc.model.citagora.CitagoraFactory;
@@ -19,7 +18,7 @@ import org.idiginfo.docsvc.model.citagora.Tag;
 import org.idiginfo.docsvc.view.JsonWriter;
 
 /**
- * Class to test generation of JSON from Citagora Container object 
+ * Class to test generation of JSON from Citagora Container object
  * 
  * @author griccardi
  * 
@@ -27,7 +26,7 @@ import org.idiginfo.docsvc.view.JsonWriter;
 
 public class TestCitagoraJSON {
 
-	CitagoraFactory factory = new CitagoraFactoryImpl();
+	CitagoraFactory factory = CitagoraFactory.getFactory();
 
 	public TestCitagoraJSON() {
 
@@ -43,21 +42,21 @@ public class TestCitagoraJSON {
 
 	private void testContainer() {
 		String body = null;
-		//Container document = createContainer();
-	    //JsonWriter jsonWriter = new JsonWriter();
-	    //body = jsonWriter.write(document);
-		//JsonWriter jsonWriter = new JsonWriter();
-		//Reference reference = createReference();
-	    //body = jsonWriter.write(reference);
-		//System.out.println(body);
-		//Review review = createReview();
-		//body = jsonWriter.write(review);
-		//System.out.println(body);
-		//testReference();
-		//testReview();
-		//testTag();
-		//testComment();
-		//testReply();
+		// Container document = createContainer();
+		// JsonWriter jsonWriter = new JsonWriter();
+		// body = jsonWriter.write(document);
+		// JsonWriter jsonWriter = new JsonWriter();
+		// Reference reference = createReference();
+		// body = jsonWriter.write(reference);
+		// System.out.println(body);
+		// Review review = createReview();
+		// body = jsonWriter.write(review);
+		// System.out.println(body);
+		// testReference();
+		// testReview();
+		// testTag();
+		// testComment();
+		// testReply();
 		testAll();
 	}
 
@@ -82,9 +81,8 @@ public class TestCitagoraJSON {
 		document.addComment(comment);
 		body = jsonWriter.write(document);
 		System.out.println(body);
-		
+
 	}
-	
 
 	private Person createAuthor1() {
 		Person testAuthor = factory.createPerson();
@@ -97,7 +95,7 @@ public class TestCitagoraJSON {
 		testAuthor.setName("Autha A Aone");
 		testAuthor.setPersonType("Author");
 		testAuthor.setIsAuthor(true);
-	
+
 		return testAuthor;
 	}
 
@@ -112,10 +110,10 @@ public class TestCitagoraJSON {
 		testAuthor.setName("Authb B Atwo");
 		testAuthor.setPersonType("Author");
 		testAuthor.setIsAuthor(true);
-	
+
 		return testAuthor;
 	}
-	
+
 	private Reference createReference() {
 		Reference testReference = factory.createReference();
 		testReference.setLanguage("English");
@@ -181,7 +179,7 @@ public class TestCitagoraJSON {
 
 	private Review createReview() {
 		Review testReview = factory.createReview();
-		//review.setDocumentReviewed(document);
+		// review.setDocumentReviewed(document);
 		testReview.setRatingType(RatingType.getUri("overall"));
 		testReview.setRating(4);
 		testReview.setTotalVotes(11);
@@ -195,10 +193,10 @@ public class TestCitagoraJSON {
 		person.setName("Rvua R Rone");
 		person.setPersonType("Reviewer");
 		person.setIsPerson(true);
-		
+
 		return testReview;
 	}
-	
+
 	private Person createTagger() {
 		Person testTagger = factory.createPerson();
 		testTagger.setAccountName("registered_annotator_t");
@@ -209,10 +207,10 @@ public class TestCitagoraJSON {
 		testTagger.setHomePage("http://wwww.comment.org/~Tag1");
 		testTagger.setName("Taga T Tone");
 		testTagger.setPersonType("Annonymous User");
-	
+
 		return testTagger;
 	}
-	
+
 	private Tag createTag() {
 		Tag testTag = factory.createTag();
 		testTag.setChars("actual tag");
@@ -240,10 +238,10 @@ public class TestCitagoraJSON {
 		testCommentor.setHomePage("http://wwww.comment.org/~Comm1");
 		testCommentor.setName("Comma C. One");
 		testCommentor.setPersonType("Annonymous User");
-	
+
 		return testCommentor;
 	}
-	
+
 	private Comment createComment() {
 		Comment testComment = factory.createComment();
 		testComment.setAnnotated(new GregorianCalendar(2012, 01, 01).getTime());
@@ -264,7 +262,7 @@ public class TestCitagoraJSON {
 
 		return testComment;
 	}
-	
+
 	private Person createReplier() {
 		Person testReplier = factory.createPerson();
 		testReplier.setAccount("ReplyorOne");
@@ -274,10 +272,10 @@ public class TestCitagoraJSON {
 		testReplier.setHomePage("http://wwww.comment.org/~Repl1");
 		testReplier.setName("Repla N. One");
 		testReplier.setPersonType("Annonymous User");
-		
+
 		return testReplier;
 	}
-	
+
 	private Reply createReply() {
 		Person commentor = factory.createPerson();
 		commentor.setAccountName("registered_annotator");
@@ -304,44 +302,25 @@ public class TestCitagoraJSON {
 	}
 }
 /*
-private void testReference() {
-String body = null;
-JsonWriter jsonWriter = new JsonWriter();
-Reference reference = createReference();
-body = jsonWriter.write(reference);
-System.out.println(body);
-
-}
-
-private void testReview() {
-String body = null;
-JsonWriter jsonWriter = new JsonWriter();
-Review review = createReview();
-body = jsonWriter.write(review);
-System.out.println(body);
-}
-
-private void testTag() {
-String body = null;
-JsonWriter jsonWriter = new JsonWriter();
-Tag tag = createTag();
-body = jsonWriter.write(tag);
-System.out.println(body);
-}
-
-private void testComment() {
-String body = null;
-JsonWriter jsonWriter = new JsonWriter();
-Comment comment = createComment();
-body = jsonWriter.write(comment);
-System.out.println(body);
-}
-
-private void testReply() {
-String body = null;
-JsonWriter jsonWriter = new JsonWriter();
-Reply reply = createReply();
-body = jsonWriter.write(reply);
-System.out.println(body);
-}
-*/
+ * private void testReference() { String body = null; JsonWriter jsonWriter =
+ * new JsonWriter(); Reference reference = createReference(); body =
+ * jsonWriter.write(reference); System.out.println(body);
+ * 
+ * }
+ * 
+ * private void testReview() { String body = null; JsonWriter jsonWriter = new
+ * JsonWriter(); Review review = createReview(); body =
+ * jsonWriter.write(review); System.out.println(body); }
+ * 
+ * private void testTag() { String body = null; JsonWriter jsonWriter = new
+ * JsonWriter(); Tag tag = createTag(); body = jsonWriter.write(tag);
+ * System.out.println(body); }
+ * 
+ * private void testComment() { String body = null; JsonWriter jsonWriter = new
+ * JsonWriter(); Comment comment = createComment(); body =
+ * jsonWriter.write(comment); System.out.println(body); }
+ * 
+ * private void testReply() { String body = null; JsonWriter jsonWriter = new
+ * JsonWriter(); Reply reply = createReply(); body = jsonWriter.write(reply);
+ * System.out.println(body); }
+ */

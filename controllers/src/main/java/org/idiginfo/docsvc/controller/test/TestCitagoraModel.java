@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import org.idiginfo.docsvc.jpa.citagora.CitagoraFactoryImpl;
 import org.idiginfo.docsvc.model.apisvc.ApiParams;
 import org.idiginfo.docsvc.model.apisvc.DocService;
 import org.idiginfo.docsvc.model.apisvc.Document;
@@ -26,7 +25,7 @@ import com.hp.hpl.jena.rdf.model.Model;
 
 public class TestCitagoraModel {
 
-    CitagoraFactory factory = new CitagoraFactoryImpl();
+    CitagoraFactory factory = CitagoraFactory.getFactory();
 
     public TestCitagoraModel() {
 

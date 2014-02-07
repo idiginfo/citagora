@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.idiginfo.docsvc.harvest.load.LoadDocuments;
-import org.idiginfo.docsvc.jpa.citagora.CitagoraFactoryImpl;
-import org.idiginfo.docsvc.jpa.citagora.HarvestResultImpl;
 import org.idiginfo.docsvc.model.apisvc.ApiParams;
 import org.idiginfo.docsvc.model.apisvc.BaseApiParams;
 import org.idiginfo.docsvc.model.apisvc.Document;
@@ -23,7 +21,7 @@ import org.idiginfo.docsvc.model.citagora.Reference;
 
 public class Augment {
 
-	CitagoraFactory citagoraFactory = new CitagoraFactoryImpl();
+	CitagoraFactory citagoraFactory = CitagoraFactory.getFactory();
 	LoadDocuments loader = new LoadDocuments();
 
 	public Map<String, Reference> fetchAllFromDoi(String doi) {
@@ -58,8 +56,8 @@ public class Augment {
 				// map newDoc to citagora reference
 				// TODO connect this new document to an existing container
 				Reference ref = loader.loadDocument(newDoc);
-				HarvestResultImpl.createHarvestResult(source, "doi:" + doi,
-						ref, "created by augment", true);
+				citagoraFactory.createHarvestResult(source,
+						"doi:" + doi, ref, "created by augment", true);
 
 				documentMap.put(source, ref);
 			}
