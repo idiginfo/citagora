@@ -116,7 +116,7 @@ public class SpringerRecord implements Document {
 	public String getId() {
 		if (doi != null) {
 			String tempId = BaseDocument.doiUri(doi);
-			if (tempId.trim() != "doi:") {
+			if (tempId.trim() != "http://dx.doi.org/") {
 				return tempId;
 			}
 		}

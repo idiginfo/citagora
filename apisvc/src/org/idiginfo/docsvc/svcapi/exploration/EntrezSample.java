@@ -54,7 +54,7 @@ public class EntrezSample {
 	public static String testEntrezDocument() {
 		String[] idVals = { "" };
 		List<String> ids = Arrays.asList(idVals);
-		// params.setDoi("doi:10.1136/bmj.c6801");
+		// params.setDoi("http://dx.doi.org/10.1136/bmj.c6801");
 		List<Document> documents = service.getDocuments(ids);
 		Document document = documents.get(0);
 		System.out.println(document.getId());

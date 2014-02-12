@@ -32,11 +32,11 @@ public class SpringerSample {
 
 	public static String testSpringerDocument() {
 		ApiParams params = serviceFactory.createApiParams(collection);
-		// params.setDoi("doi:10.1007/s11276-008-0131-4");
+		// params.setDoi("http://dx.doi.org/10.1007/s11276-008-0131-4");
 		params.setId(// "10.1007/s00259-011-1959-x");
 		"10.1023/A:1009661728366");
 		params.setSearchTerms("suicide");
-		// params.setDoi("doi:10.1136/bmj.c6801");
+		// params.setDoi("http://dx.doi.org/10.1136/bmj.c6801");
 		List<? extends Document> documents = service.getDocuments(params);
 		// Document document = service.getDocument(params);
 		Document document = documents.get(0);

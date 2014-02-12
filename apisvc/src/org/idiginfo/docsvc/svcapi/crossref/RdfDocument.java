@@ -314,12 +314,12 @@ public class RdfDocument implements Document {
 
 	@Override
 	public String getUri() {
-		// if the URI given by the service is "http://dx.doi.org/10..." return
-		// "doi:10..."
+		// if the URI given by the service is not "http://dx.doi.org/10..." return
+		// "http://dx.doi.org/10..."
 		String docUri = document.getURI();
 		int doiPos = docUri.indexOf("10.");
-		if (doiPos > 0) {
-			return "doi:" + docUri.substring(doiPos - 1);
+		if (doiPos < "http://dx.doi.org/".length()) {
+			return "http://dx.doi.org/" + docUri.substring(doiPos - 1);
 		}
 		return docUri;
 	}

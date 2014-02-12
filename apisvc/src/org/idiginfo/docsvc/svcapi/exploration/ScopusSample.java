@@ -48,7 +48,7 @@ public class ScopusSample {
 			// AnnotateApiParams params = new AnnotateApiParams();
 			ScopusUrl url = new ScopusUrl("");
 			url.setSearch("suicide");
-			// "article/DOI:10.1016/j.jpsychires.2008.05.001");
+			// "article/http://dx.doi.org/10.1016/j.jpsychires.2008.05.001");
 			// url.view = "META_ABS";
 			url.prepare();
 			System.out.println(url.build());

@@ -31,7 +31,7 @@ public class NatureEntry implements Document {
 
 	public class Head {
 		@SerializedName("dc:identifier")
-		String identifier; // "doi:10.1038/026533a0",
+		String identifier; // "http://dx.doi.org/10.1038/026533a0",
 		@SerializedName("dc:title")
 		String title;
 		@SerializedName("prism:productCode")

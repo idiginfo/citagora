@@ -27,7 +27,7 @@ public class SpringerDocument implements Document {
 		SpringerLink link;
 
 		@SerializedName("dc:identifier")
-		String id; // : "DOI:10.1016/j.jpsychires.2008.05.001",
+		String id; // : "http://dx.doi.org/10.1016/j.jpsychires.2008.05.001",
 		@SerializedName("prism:doi")
 		String doi; // : "10.1016/j.jpsychires.2008.05.001",
 		@SerializedName("pii")
