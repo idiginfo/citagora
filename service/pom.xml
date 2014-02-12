@@ -26,6 +26,6 @@
 		<module>../wok_v3</module>
 		<module>../harvest</module>
 		<module>../apisvc</module>
-		<module>../docsvc</module>
+		<module>../docsvcs</module>
 	</modules>
 </project>

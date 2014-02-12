@@ -3,7 +3,6 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.idiginfo.docsvc</groupId>
 	<artifactId>applications</artifactId>
-	<version>1</version>
 	<packaging>war</packaging>
 	<parent>
 		<groupId>org.idiginfo.docservice</groupId>
@@ -11,15 +10,25 @@
 		<version>1</version>
 		<relativePath>../service</relativePath>
 	</parent>
-
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>
 			<plugin>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>2.2</version>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
 				<configuration>
-					<warName>docsvc</warName>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.3</version>
+				<configuration>
+					<warName>docsvcs</warName>
+					<warSourceDirectory>WebContent</warSourceDirectory>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
 					<dependentWarExcludes>WEB-INF/web.xml,**/**.class</dependentWarExcludes>
 					<webResources>
 						<resource>
@@ -39,16 +48,7 @@
 					</webResources>
 				</configuration>
 			</plugin>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
-				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+		</plugins>	</build>
 	<dependencies>
 		<dependency>
 			<groupId>org.idiginfo.docsvc</groupId>
