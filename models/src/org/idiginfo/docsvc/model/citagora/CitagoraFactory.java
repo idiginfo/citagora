@@ -14,6 +14,18 @@ public abstract class CitagoraFactory {
 
 	protected static CitagoraFactory factory = null;
 	protected static String persistence = "local";
+	
+	static {
+		try {
+			Class<?> factoryClass = Class
+					.forName("org.idiginfo.docsvc.jpa.citagora.CitagoraFactoryImpl");
+			factory = (CitagoraFactory) factoryClass.getConstructor()
+					.newInstance();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 
 	public static CitagoraFactory getFactory() {
 		return factory;
