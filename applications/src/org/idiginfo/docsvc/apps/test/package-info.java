@@ -4,4 +4,4 @@
  * @author griccardi
  *
  */
-package org.idiginfo.docsvc.controller.test;
+package org.idiginfo.docsvc.apps.test;

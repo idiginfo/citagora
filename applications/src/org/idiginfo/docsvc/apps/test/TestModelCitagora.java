@@ -1,4 +1,4 @@
-package org.idiginfo.docsvc.controller.test;
+package org.idiginfo.docsvc.apps.test;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -16,7 +16,7 @@ import org.idiginfo.docsvc.view.rdf.citagora.MapCitagoraObject;
 
 import com.hp.hpl.jena.rdf.model.Model;
 
-public class TestSpringerCitagora {
+public class TestModelCitagora {
 
 	CitagoraFactory factory = CitagoraFactory.getFactory();
 
@@ -24,7 +24,7 @@ public class TestSpringerCitagora {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		TestSpringerCitagora tester = new TestSpringerCitagora();
+		TestModelCitagora tester = new TestModelCitagora();
 		tester.run(args);
 
 	}

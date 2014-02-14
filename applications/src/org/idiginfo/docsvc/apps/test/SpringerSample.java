@@ -1,4 +1,4 @@
-package org.idiginfo.docsvc.controller.test;
+package org.idiginfo.docsvc.apps.test;
 
 import java.util.List;
 
