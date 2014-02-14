@@ -45,7 +45,7 @@ public class TestCitagoraPersistence {
 	}
 
 	private void run(String[] args) {
-		emf = Persistence.createEntityManagerFactory("repositories");
+		emf = Persistence.createEntityManagerFactory("local");
 		em = emf.createEntityManager();
 		Container doc = createContainer();
 		// Reference ref = createSpringerDocument();
@@ -53,7 +53,7 @@ public class TestCitagoraPersistence {
 		em.persist(doc);
 		// em.persist(ref);
 		em.getTransaction().commit();
-		CitagoraObjectImpl doc2 = em.find(CitagoraObjectImpl.class, 52);
+		CitagoraObjectImpl doc2 = em.find(CitagoraObjectImpl.class, doc.getMyId());
 		System.out.println(doc2.getClass().getName());
 	}
 

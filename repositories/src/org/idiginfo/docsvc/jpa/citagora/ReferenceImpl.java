@@ -37,8 +37,8 @@ import com.google.gson.annotations.SerializedName;
 
 @Entity
 @Table(name = "citagora_references", uniqueConstraints = {
-		@UniqueConstraint(columnNames = { "refSource", "doi" }),
-		@UniqueConstraint(columnNames = { "refSource", "pmid" }) })
+		@UniqueConstraint(columnNames = { "ref_source", "doi" }),
+		@UniqueConstraint(columnNames = { "ref_source", "pmid" }) })
 @DiscriminatorValue(value = "reference")
 public class ReferenceImpl extends CitagoraObjectImpl implements Reference {
 
