@@ -39,11 +39,10 @@ public class MendeleySample {
 	public static String testMendeleyDocument(String fileName)
 			throws FileNotFoundException {
 		FileReader in = new FileReader(fileName);
-		Gson gson = service.getGson();
-//		JsonElement tree = gson.toJsonTree(in);
-		MendeleyRecord document = gson.fromJson(in, MendeleyRecord.class);
+		Document document = service.getDocument(in);
 		// Document document = service.getDocument(params);
 		System.out.println(document.getId());
+		Gson gson = service.getGson();
 		String string = gson.toJson(document);
 		System.out.println(string);
 
