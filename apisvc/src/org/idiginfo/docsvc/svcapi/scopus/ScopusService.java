@@ -1,5 +1,6 @@
 package org.idiginfo.docsvc.svcapi.scopus;
 
+import java.io.Reader;
 import java.util.List;
 
 import org.idiginfo.docsvc.model.apisvc.ApiParams;
@@ -78,6 +79,12 @@ public class ScopusService implements DocService {
 	@Override
 	public ApiResult getApiResult(String function, String keywords,
 			ApiParams params) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Document getDocument(Reader in) {
 		// TODO Auto-generated method stub
 		return null;
 	}

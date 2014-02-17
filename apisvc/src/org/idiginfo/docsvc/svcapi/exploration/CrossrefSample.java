@@ -2,23 +2,23 @@ package org.idiginfo.docsvc.svcapi.exploration;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.List;
 
+import org.idiginfo.docsvc.model.apisvc.ApiParams;
+import org.idiginfo.docsvc.model.apisvc.DocService;
 import org.idiginfo.docsvc.model.apisvc.Document;
 import org.idiginfo.docsvc.model.apisvc.MatchResult;
-import org.idiginfo.docsvc.svcapi.crossref.CrossrefApiParams;
+import org.idiginfo.docsvc.model.apisvc.ServiceFactory;
 import org.idiginfo.docsvc.svcapi.crossref.CrossrefDocument;
 import org.idiginfo.docsvc.svcapi.crossref.CrossrefMatch;
 import org.idiginfo.docsvc.svcapi.crossref.CrossrefRdfService;
 import org.idiginfo.docsvc.svcapi.crossref.CrossrefResult;
-import org.idiginfo.docsvc.svcapi.crossref.CrossrefService;
 import org.idiginfo.docsvc.svcapi.crossref.RdfDocument;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import com.hp.hpl.jena.rdf.model.Model;
-import com.hp.hpl.jena.vocabulary.RDFS;
 
 /**
  * Class to acquire Crossref content
@@ -29,7 +29,12 @@ import com.hp.hpl.jena.vocabulary.RDFS;
 
 public class CrossrefSample {
 
-	static CrossrefService service = new CrossrefService();
+	static final String collection = ServiceFactory.COLLECTION_CROSSREF;
+	static ServiceFactory serviceFactory = ServiceFactory.getFactory();
+
+	static DocService service = serviceFactory.createService(collection);
+
+//	static CrossrefService service = new CrossrefService();
 	static CrossrefRdfService rdfService = new CrossrefRdfService();
 	static JsonParser parser = new JsonParser();
 	static Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -41,15 +46,15 @@ public class CrossrefSample {
 		// testCrossrefFile("c:/dev/api samples/crossref.json");
 		// testCrossrefMatchFile("c:/dev/api samples/crossrefMatch.json");
 
-		testDoiDocument("10.1126/science.1157784");
+//		testDoiDocument("10.1126/science.1157784");
 		// testPmidDocument("21148220");
-		// testCrossrefQuery();
-		// testCrossrefMatch();
+		 testCrossrefQuery();
+//		 testCrossrefMatch();
 	}
 
 	public static Document testDoiDocument(String doi) {
 		RdfDocument result = (RdfDocument) rdfService.getDocument(doi);
-		Model model = result.getRdfModel();
+//		Model model = result.getRdfModel();
 		System.out.println("Printing model");
 		// model.write(System.out);
 		System.out.println("type: " + result.getType());
@@ -76,7 +81,6 @@ public class CrossrefSample {
 			CrossrefResult response = gson.fromJson(json, CrossrefResult.class);
 			printResponse(response);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -93,19 +97,19 @@ public class CrossrefSample {
 			System.out.println("result message from json: "
 					+ CrossrefResult.getMessage(json));
 			CrossrefMatch response = gson.fromJson(json, CrossrefMatch.class);
-			MatchResult result = response.getResults().get(0);
-			printResponse(response);
+			
+//			MatchResult result = response.getResults().get(0);
+			printResponse(response.getResults());
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		return "";
 	}
 
-	private static void printResponse(CrossrefMatch response) {
-		System.out.println("query ok:" + response.getQueryOk());
-		for (MatchResult result : response.getResults()) {
+	private static void printResponse(List<? extends MatchResult> response) {
+		System.out.println("query returned: " + response.size() + " results");
+		for (MatchResult result : response) {
 			System.out.println("<match>");
 			System.out.println("\tmatch: " + result.getMatch());
 			System.out.println("\tdoi: " + result.getDoi());
@@ -115,16 +119,17 @@ public class CrossrefSample {
 			System.out.println("</match>");
 
 		}
-
-		// TODO Auto-generated method stub
-
 	}
 
 	private static void printResponse(CrossrefResult response) {
 		// CrossrefResponseObject object = response.getResultObject();
 		System.out.println("numresults is: " + response.getTotalResults());
 	}
-
+	
+	private static void printItems(List<? extends Document> response) {
+		// CrossrefResponseObject object = response.getResultObject();
+		System.out.println("numresults is: " + response.size());
+	}
 	public static String testPmidDocument(String pmid) {
 		return null;
 	}
@@ -140,14 +145,14 @@ public class CrossrefSample {
 
 	public static String testCrossrefQuery() {
 		// String content;
-		CrossrefApiParams params = new org.idiginfo.docsvc.svcapi.crossref.CrossrefApiParams();
+		ApiParams params = serviceFactory.createApiParams(collection);
 		params.setKeyword("suicide");
-		CrossrefResult record = service.getResponse(params);
-		if (record == null) {
+		List<? extends Document> documents  = service.getDocuments(params);
+		if (documents == null) {
 			System.err.println("Service request failed");
 			return null;
 		}
-		printResponse(record);
+		printItems(documents);
 		return null;
 	}
 
@@ -155,12 +160,14 @@ public class CrossrefSample {
 		// String content;
 		String[] refs = {
 				"M. Henrion, D. J. Mortlock, D. J. Hand, and A. Gandy, \"A Bayesian approach to star-galaxy classification,\" Monthly Notices of the Royal Astronomical Society, vol. 412, no. 4, pp. 2286-2302, Apr. 2011.",
-				"Renear 2012" };
-		CrossrefMatch record = (CrossrefMatch) service.getMatch(refs);
+				"Renear 2012"};
+		List<? extends MatchResult> record = (List<? extends MatchResult>) service.getMatch(refs);
+//		CrossrefMatch record = (CrossrefMatch) service.getCrossrefMatch(refs);
 		if (record == null) {
 			System.err.println("Service request failed");
 			return null;
 		}
+		
 		printResponse(record);
 		return null;
 	}

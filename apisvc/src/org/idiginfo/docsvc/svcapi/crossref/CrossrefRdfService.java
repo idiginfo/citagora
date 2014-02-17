@@ -135,4 +135,10 @@ public class CrossrefRdfService implements DocService {
 		return null;
 	}
 
+	@Override
+	public Document getDocument(Reader in) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

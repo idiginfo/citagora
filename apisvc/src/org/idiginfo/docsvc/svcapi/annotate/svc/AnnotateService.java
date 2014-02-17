@@ -264,6 +264,12 @@ public class AnnotateService implements DocService {
 		return null;
 	}
 
+	@Override
+	public Document getDocument(Reader in) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
 
 // http://annotate.msrc.fsu.edu/php/listUsers.php?api-auth=yKOfIUFmwDxk21FWkn2X0Ets9fY%3D&api-requesttime=1343244291737&api-user=casey.mclaughlin@cci.fsu.edu&api_key=giqfrstIk9b6CddDL3ogGTUac6Lr3II9

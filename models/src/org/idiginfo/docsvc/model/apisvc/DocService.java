@@ -1,5 +1,8 @@
 package org.idiginfo.docsvc.model.apisvc;
 
+import java.io.FileReader;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.List;
 
 import com.google.gson.Gson;
@@ -20,6 +23,8 @@ public interface DocService {
 	public Document getDocument(ApiParams params);
 
 	public List<? extends Document> getDocuments(ApiParams params);
+	
+	public Document getDocument(InputStreamReader in);
 
 	public Document getAnnotations(ApiParams params);
 
