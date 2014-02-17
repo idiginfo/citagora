@@ -44,7 +44,7 @@ public class EntrezSample {
 		} else {
 			EntrezSearchResponse searchResponse = service
 					.getSearchReponse(reader);
-			System.out.println("Number of Ids: " + searchResponse.getCount());
+			System.out.println("Number of Ids: " + searchResponse.getIdList().size());
 			System.out.println("first id: "
 					+ searchResponse.getIdList().get(0).getvalue());
 		}
