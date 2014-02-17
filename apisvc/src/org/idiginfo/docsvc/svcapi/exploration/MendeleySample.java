@@ -5,17 +5,13 @@ import java.io.FileReader;
 import java.util.List;
 
 import org.idiginfo.docsvc.model.apisvc.ApiParams;
-import org.idiginfo.docsvc.model.apisvc.ApiSvcUtilities;
 import org.idiginfo.docsvc.model.apisvc.DocService;
 import org.idiginfo.docsvc.model.apisvc.Document;
+import org.idiginfo.docsvc.model.apisvc.ServiceFactory;
 import org.idiginfo.docsvc.svcapi.SvcApiLogger;
-import org.idiginfo.docsvc.svcapi.mendeley.MendeleyApiParams;
 import org.idiginfo.docsvc.svcapi.mendeley.MendeleyRecord;
-import org.idiginfo.docsvc.svcapi.mendeley.MendeleyService;
-import org.idiginfo.docsvc.svcapi.mendeley.MendeleyUrl;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 
 /**
  * Class to acquire Mendeley content
@@ -26,7 +22,10 @@ import com.google.gson.JsonElement;
 
 public class MendeleySample {
 
-	static DocService service = new MendeleyService();
+	static final String collection = ServiceFactory.COLLECTION_MENDELEY;
+	static ServiceFactory serviceFactory = ServiceFactory.getFactory();
+
+	static DocService service = serviceFactory.createService(collection);
 	final static String FILE_DIR = "c:/dev/harvest/mendeleyTitle/";
 	final static String FILE_NAME = FILE_DIR
 			+ "suicide_295731b0-d2fb-11e1-bce2-0024e8453de6.json";
@@ -41,7 +40,7 @@ public class MendeleySample {
 			throws FileNotFoundException {
 		FileReader in = new FileReader(fileName);
 		Gson gson = service.getGson();
-		JsonElement tree = gson.toJsonTree(in);
+//		JsonElement tree = gson.toJsonTree(in);
 		MendeleyRecord document = gson.fromJson(in, MendeleyRecord.class);
 		// Document document = service.getDocument(params);
 		System.out.println(document.getId());
@@ -52,7 +51,7 @@ public class MendeleySample {
 	}
 
 	public static String testMendeleyQuery() {
-		ApiParams params = new MendeleyApiParams();
+		ApiParams params = serviceFactory.createApiParams(collection);
 		params.setKeyword("suicide");
 
 		List<? extends Document> documents = service.getDocuments(params);
