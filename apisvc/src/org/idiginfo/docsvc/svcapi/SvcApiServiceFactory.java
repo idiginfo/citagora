@@ -21,6 +21,8 @@ import org.idiginfo.docsvc.svcapi.entrez.EntrezService;
 import org.idiginfo.docsvc.svcapi.harvest.MasSplit;
 import org.idiginfo.docsvc.svcapi.harvest.MendeleyHarvest;
 import org.idiginfo.docsvc.svcapi.harvest.MendeleyLoad;
+import org.idiginfo.docsvc.svcapi.harvest.SpringerHarvest;
+import org.idiginfo.docsvc.svcapi.harvest.SpringerLoad;
 import org.idiginfo.docsvc.svcapi.mas.svc.MasApiParams;
 import org.idiginfo.docsvc.svcapi.mas.svc.MasService;
 import org.idiginfo.docsvc.svcapi.mendeley.MendeleyApiParams;
@@ -161,6 +163,10 @@ public class SvcApiServiceFactory extends ServiceFactory {
 	public ApiHarvest createApiHarvest(String collection) {
 		if (collection == null)
 			return null;
+		if (collection.equals(COLLECTION_SPRINGER)) {
+			return new SpringerHarvest();
+		}
+
 		if (collection.equals(COLLECTION_MENDELEY)) {
 			return new MendeleyHarvest();
 		}
@@ -181,6 +187,9 @@ public class SvcApiServiceFactory extends ServiceFactory {
 	public ApiLoad createApiLoad(String collection) {
 		if (collection == null)
 			return null;
+		if (collection.equals(COLLECTION_SPRINGER)) {
+			return new SpringerLoad();
+		}
 		if (collection.equals(COLLECTION_MENDELEY)) {
 			return new MendeleyLoad();
 		}
