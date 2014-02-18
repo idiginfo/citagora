@@ -3,10 +3,10 @@ package org.idiginfo.docsvc.svcapi.exploration;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
+import org.idiginfo.docsvc.model.apisvc.ApiParams;
 import org.idiginfo.docsvc.model.apisvc.DocService;
-import org.idiginfo.docsvc.svcapi.msrc.MsrcApiParams;
+import org.idiginfo.docsvc.model.apisvc.ServiceFactory;
 import org.idiginfo.docsvc.svcapi.msrc.MsrcResult;
-import org.idiginfo.docsvc.svcapi.msrc.MsrcService;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonParser;
@@ -20,7 +20,10 @@ import com.google.gson.JsonParser;
 
 public class MsrcSample {
 
-	static DocService service = new MsrcService();
+	static final String collection = ServiceFactory.COLLECTION_MSRC;
+	static ServiceFactory serviceFactory = ServiceFactory.getFactory();
+
+	static DocService service = serviceFactory.createService(collection);
 	static JsonParser parser = new JsonParser();
 	static Gson gson = service.getGson();
 
@@ -69,7 +72,7 @@ public class MsrcSample {
 
 	public String testMsrcQuery() {
 		// String content;
-		MsrcApiParams params = new MsrcApiParams();
+		ApiParams params = serviceFactory.createApiParams(collection);
 		params.setKeyword("suicide");
 		// MsrcResult record = service.getResponse(params);
 		// if (record == null) {
