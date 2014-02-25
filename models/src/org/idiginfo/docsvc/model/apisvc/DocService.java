@@ -24,7 +24,7 @@ public interface DocService {
 
 	public List<? extends Document> getDocuments(ApiParams params);
 	
-	public Document getDocument(InputStreamReader in);
+	public Document getDocument(Reader in);
 
 	public Document getAnnotations(ApiParams params);
 

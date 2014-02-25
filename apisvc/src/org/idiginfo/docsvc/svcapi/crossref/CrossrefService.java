@@ -129,8 +129,8 @@ public class CrossrefService implements DocService {
 
 	@Override
 	public List<? extends Document> getDocuments(ApiParams params) {
-		// TODO Auto-generated method stub
-		return null;
+		CrossrefResult result = getResponse(params);
+		return result.getItems();
 	}
 
 	public String getDocument(String doi) {
@@ -138,7 +138,7 @@ public class CrossrefService implements DocService {
 		return null;
 	}
 
-	public CrossrefResult getResponse(CrossrefApiParams params) {
+	public CrossrefResult getResponse(ApiParams params) {
 		JsonElement content = queryService("getDocuments", params);
 		CrossrefResult result = gson.fromJson(content, CrossrefResult.class);
 		if (result == null)
@@ -207,4 +207,11 @@ public class CrossrefService implements DocService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public Document getDocument(Reader in) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

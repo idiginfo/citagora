@@ -254,4 +254,9 @@ public class MendeleyService implements DocService {
 		return getMendeleyResult(function, keywords, params);
 	}
 
+	@Override
+	public Document getDocument(Reader in) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

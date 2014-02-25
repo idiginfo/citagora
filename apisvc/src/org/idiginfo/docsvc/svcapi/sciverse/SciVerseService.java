@@ -6,10 +6,6 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.lang.reflect.Type;
 import java.util.List;
-import java.util.logging.Handler;
-import java.util.logging.Level;
-import java.util.logging.LogRecord;
-import java.util.logging.Logger;
 
 import org.apache.commons.io.IOUtils;
 import org.idiginfo.docsvc.model.apisvc.ApiParams;
@@ -18,7 +14,6 @@ import org.idiginfo.docsvc.model.apisvc.DocService;
 import org.idiginfo.docsvc.model.apisvc.Document;
 import org.idiginfo.docsvc.model.apisvc.ListTypeAdapter;
 import org.idiginfo.docsvc.model.apisvc.MatchResult;
-import org.idiginfo.docsvc.model.apisvc.Users;
 import org.idiginfo.docsvc.svcapi.SvcApiLogger;
 
 import com.google.api.client.http.HttpHeaders;
@@ -253,6 +248,12 @@ public class SciVerseService implements DocService {
 	@Override
 	public ApiResult getApiResult(String function, String keywords,
 			ApiParams params) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Document getDocument(Reader in) {
 		// TODO Auto-generated method stub
 		return null;
 	}
