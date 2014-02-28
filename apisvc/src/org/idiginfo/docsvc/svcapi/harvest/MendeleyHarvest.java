@@ -6,8 +6,6 @@ import java.util.List;
 
 import org.idiginfo.docsvc.model.apisvc.ApiParams;
 import org.idiginfo.docsvc.model.apisvc.ApiResult;
-import org.idiginfo.docsvc.model.apisvc.DocService;
-import org.idiginfo.docsvc.model.apisvc.Header;
 import org.idiginfo.docsvc.model.apisvc.ServiceFactory;
 import org.idiginfo.docsvc.model.harvest.ApiHarvest;
 import org.idiginfo.docsvc.svcapi.mendeley.MendeleyHeader;
