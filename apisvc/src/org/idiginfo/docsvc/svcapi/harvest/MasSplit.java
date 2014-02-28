@@ -26,9 +26,9 @@ import com.google.gson.JsonParser;
 
 public class MasSplit implements ApiSplit{
 
-	private static final int FIRST_FILE = 1;
-
-	private static final int MAX_FILES = 300;
+//	private static final int FIRST_FILE = 1;
+//
+//	private static final int MAX_FILES = 300;
 
 	DocService service = ServiceFactory.getFactory().createService(
 			ServiceFactory.COLLECTION_MAS);
@@ -49,12 +49,16 @@ public class MasSplit implements ApiSplit{
 	@Override
 	public int splitFiles(String inFilePrefix, String splitFilePrefix) {
 		int numFiles = 0;
-		for (int fileNum = FIRST_FILE; fileNum < MAX_FILES; fileNum++) {
-			String inFileName = inFilePrefix + String.format("%05d", fileNum)
-					+ ".json";
-			System.out.println("getting file " + inFileName);
+		File baseDirectory = new File(inFilePrefix);
+		File[] files = baseDirectory.listFiles();
+		System.out.println("number of files: " + files.length);
+		for (File f : files) {
+			if (f.isDirectory()) {
+				continue;
+			}
+			System.out.println("getting file " + f.getName());
 			try {
-				FileReader in = new FileReader(inFileName);
+				FileReader in = new FileReader(f);
 				JsonObject tree = (JsonObject) parser.parse(in);
 				// get list of records
 				JsonObject results = (JsonObject) tree.get("d");
@@ -62,7 +66,7 @@ public class MasSplit implements ApiSplit{
 						.get("Publication");
 				JsonElement result = publication.get("Result");
 				JsonArray entries = result.getAsJsonArray();
-				int numEntries = entries.size();
+//				int numEntries = entries.size();
 				for (JsonElement entry : entries) {
 					String splitFileName = splitFilePrefix;
 					JsonObject record = (JsonObject) entry;
@@ -131,7 +135,7 @@ public class MasSplit implements ApiSplit{
 				in.close();
 				numFiles++;
 			} catch (FileNotFoundException e) {
-				System.out.println("no file: " + inFileName);
+				System.out.println("no file: " + f.getName());
 				break;
 			} catch (IOException e) {
 				e.printStackTrace();
