@@ -15,12 +15,15 @@ import org.idiginfo.docsvc.svcapi.altmetric.AltmetricService;
 import org.idiginfo.docsvc.svcapi.annotate.svc.AnnotateApiParams;
 import org.idiginfo.docsvc.svcapi.annotate.svc.AnnotateService;
 import org.idiginfo.docsvc.svcapi.crossref.CrossrefApiParams;
-import org.idiginfo.docsvc.svcapi.crossref.CrossrefRdfService;
+import org.idiginfo.docsvc.svcapi.crossref.CrossrefService;
 import org.idiginfo.docsvc.svcapi.entrez.EntrezApiParams;
 import org.idiginfo.docsvc.svcapi.entrez.EntrezService;
+import org.idiginfo.docsvc.svcapi.harvest.MasHarvest;
 import org.idiginfo.docsvc.svcapi.harvest.MasSplit;
 import org.idiginfo.docsvc.svcapi.harvest.MendeleyHarvest;
 import org.idiginfo.docsvc.svcapi.harvest.MendeleyLoad;
+import org.idiginfo.docsvc.svcapi.harvest.MsrcHarvest;
+import org.idiginfo.docsvc.svcapi.harvest.MsrcLoad;
 import org.idiginfo.docsvc.svcapi.harvest.SpringerHarvest;
 import org.idiginfo.docsvc.svcapi.harvest.SpringerLoad;
 import org.idiginfo.docsvc.svcapi.mas.svc.MasApiParams;
@@ -92,7 +95,7 @@ public class SvcApiServiceFactory extends ServiceFactory {
 			return new AltmetricService();
 		}
 		if (collection.equals(COLLECTION_CROSSREF)) {
-			return new CrossrefRdfService();
+			return new CrossrefService();
 		}
 		if (collection.equals(COLLECTION_MAS)) {
 			return new MasService();
@@ -166,9 +169,14 @@ public class SvcApiServiceFactory extends ServiceFactory {
 		if (collection.equals(COLLECTION_SPRINGER)) {
 			return new SpringerHarvest();
 		}
-
 		if (collection.equals(COLLECTION_MENDELEY)) {
 			return new MendeleyHarvest();
+		}
+		if (collection.equals(COLLECTION_MAS)) {
+			return new MasHarvest();
+		}
+		if (collection.equals(COLLECTION_MSRC)) {
+			return new MsrcHarvest();
 		}
 		return null;
 	}
@@ -192,6 +200,9 @@ public class SvcApiServiceFactory extends ServiceFactory {
 		}
 		if (collection.equals(COLLECTION_MENDELEY)) {
 			return new MendeleyLoad();
+		}
+		if (collection.equals(COLLECTION_MSRC)) {
+			return new MsrcLoad();
 		}
 		return null;
 	}
