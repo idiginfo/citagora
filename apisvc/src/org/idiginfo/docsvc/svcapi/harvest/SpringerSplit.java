@@ -6,11 +6,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import org.idiginfo.docsvc.model.apisvc.DocService;
-import org.idiginfo.docsvc.model.apisvc.ServiceFactory;
-import org.idiginfo.docsvc.model.harvest.ApiSplit;
-
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -18,22 +15,23 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 
 /**
- * Class to separate MAS content into individual files
+ * Class to separate Springer content into individual files
  * 
  * @author griccardi
  * 
  */
 
-public class MasSplit implements ApiSplit{
+public class SpringerSplit {
+	
 
-//	private static final int FIRST_FILE = 1;
+//	private static final int FIRST_FILE = 0;
 //
 //	private static final int MAX_FILES = 300;
 
-	DocService service = ServiceFactory.getFactory().createService(
-			ServiceFactory.COLLECTION_MAS);
-	Gson gson = service.getGson();
+	Gson gson = new GsonBuilder().setPrettyPrinting().create();
 	static JsonParser parser = new JsonParser();
+
+	
 
 	public String format(String content) {
 		String formattedContent;
@@ -46,7 +44,6 @@ public class MasSplit implements ApiSplit{
 		return null;
 	}
 
-	@Override
 	public int splitFiles(String inFilePrefix, String splitFilePrefix) {
 		int numFiles = 0;
 		File baseDirectory = new File(inFilePrefix);
@@ -57,19 +54,16 @@ public class MasSplit implements ApiSplit{
 				continue;
 			}
 			System.out.println("getting file " + f.getName());
+
 			try {
 				FileReader in = new FileReader(f);
 				JsonObject tree = (JsonObject) parser.parse(in);
 				// get list of records
-				JsonObject results = (JsonObject) tree.get("d");
-				JsonObject publication = (JsonObject) results
-						.get("Publication");
-				JsonElement result = publication.get("Result");
-				JsonArray entries = result.getAsJsonArray();
-//				int numEntries = entries.size();
-				for (JsonElement entry : entries) {
+
+				JsonArray results = (JsonArray) tree.get("records");
+				for (JsonElement result : results) {
+					JsonObject record = (JsonObject) result;
 					String splitFileName = splitFilePrefix;
-					JsonObject record = (JsonObject) entry;
 					if (record == null)
 						break;
 					// find an id to use as the file name
@@ -78,7 +72,7 @@ public class MasSplit implements ApiSplit{
 					// Examples include "org/{valid doi}", "http://...", "{valid
 					// doi}\"
 					// "jkns.2011..."
-					JsonElement id = record.get("DOI");
+					JsonElement id = record.get("doi");
 					boolean isDoi = false;
 					String doi = null;
 					if (id != null) {
@@ -89,16 +83,18 @@ public class MasSplit implements ApiSplit{
 						} else if (doi.startsWith("org")) {
 							doi = doi.substring(4);
 							isDoi = true;
+						} else if (doi.startsWith("DOItmp")) {
+							isDoi = true;
 						}
 						// fix double slashes and trailing backslashes
 						doi = doi.replaceAll("//", "/");
-						if (doi.contains("<")) {
-							System.out.println("Problem character in: " + doi);
+						if (doi.contains("\\")) {
+							System.out.println(doi);
 						}
+						doi = doi.replace("\\", "");
+						doi = doi.replace(":", "-");
 						doi = doi.replace("<", "-");
 						doi = doi.replace(">", "-");
-						doi = doi.replace(":", "-");
-						doi = doi.replace(";", "-");
 					}
 					if (isDoi) {
 						int endIndex = doi.lastIndexOf('/');
@@ -109,33 +105,40 @@ public class MasSplit implements ApiSplit{
 						}
 
 						splitFileName += doi + ".json";
-					} else { // use MAS id
-						id = record.get("ID");
+					} else { // use SCOPUS id
+						// TODO revise for Springer
+						System.out.println("no doi for item");
+						id = record.get("dc:identifier");
 						String idString = id.getAsString();
 						int beginIndex = idString.indexOf(':') + 1;
-						String fileDirName = splitFilePrefix + "mas/";
+						String fileDirName = splitFilePrefix + "scopus/";
 						(new File(fileDirName)).mkdirs();
-						splitFileName = fileDirName + "mas_"
+						splitFileName = fileDirName + "scopus_"
 								+ idString.substring(beginIndex) + ".json";
 					}
-					try {
-						File outFile = new File(splitFileName);
-						if (outFile.exists()) {
-							// already stored this item
-							System.out.println("File exists: " + splitFileName);
-						} else {
+
+					File outFile = new File(splitFileName);
+					if (outFile.exists()) {
+						// already stored this item
+						System.out.println("File exists: " + splitFileName);
+					} else {
+						try {
 							FileWriter out = new FileWriter(splitFileName);
 							gson.toJson(record, out);
 							out.close();
+						} catch (FileNotFoundException e) {
+							System.out.println("problem creating file "
+									+ splitFileName);
+							e.printStackTrace();
+							return numFiles;
 						}
-					} catch (Exception e) {
-						e.printStackTrace();
 					}
 				}
 				in.close();
 				numFiles++;
 			} catch (FileNotFoundException e) {
 				System.out.println("no file: " + f.getName());
+				e.printStackTrace();
 				break;
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -145,5 +148,7 @@ public class MasSplit implements ApiSplit{
 
 		return numFiles;
 	}
-
 }
+
+// http://annotate.msrc.fsu.edu/php/listUsers.php?api-auth=yKOfIUFmwDxk21FWkn2X0Ets9fY%3D&api-requesttime=1343244291737&api-user=casey.mclaughlin@cci.fsu.edu&api_key=giqfrstIk9b6CddDL3ogGTUac6Lr3II9
+// http://annotate.msrc.fsu.edu/php/listUsers.php?api-user=casey.mclaughlin%40cci.fsu.edu&api-requesttime=1343244209&api-auth=43F6TiOpvCVhDs4CnNRZHvvPMa0%3D&api-annotateuser=casey.mclaughlin%40cci.fsu.edu

@@ -2,15 +2,11 @@ package org.idiginfo.docsvc.svcapi.harvest;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.logging.Handler;
-import java.util.logging.Level;
-import java.util.logging.LogRecord;
-import java.util.logging.Logger;
 
 import org.idiginfo.docsvc.model.harvest.ApiHarvest;
-import org.idiginfo.docsvc.svcapi.springer.*;
-
-import com.google.api.client.http.HttpTransport;
+import org.idiginfo.docsvc.svcapi.springer.SpringerApiParams;
+import org.idiginfo.docsvc.svcapi.springer.SpringerResult;
+import org.idiginfo.docsvc.svcapi.springer.SpringerService;
 
 /**
  * Class to Harvest content via Springer source

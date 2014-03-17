@@ -1,4 +1,4 @@
-package org.idiginfo.docsvc.svcapi.harvest;
+package org.idiginfo.docsvc.apps.harvest;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -6,11 +6,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import org.idiginfo.docsvc.model.apisvc.DocService;
-import org.idiginfo.docsvc.model.apisvc.ServiceFactory;
-import org.idiginfo.docsvc.model.harvest.ApiSplit;
-
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -18,22 +15,32 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 
 /**
- * Class to separate MAS content into individual files
+ * Class to separate SciVerse content into individual files
  * 
  * @author griccardi
  * 
  */
 
-public class MasSplit implements ApiSplit{
+public class SciVerseSplit {
 
-//	private static final int FIRST_FILE = 1;
+//	private static final int FIRST_FILE = 0;
 //
 //	private static final int MAX_FILES = 300;
 
-	DocService service = ServiceFactory.getFactory().createService(
-			ServiceFactory.COLLECTION_MAS);
-	Gson gson = service.getGson();
+	Gson gson = new GsonBuilder().setPrettyPrinting().create();
 	static JsonParser parser = new JsonParser();
+
+	private void run(String[] args) {
+		int numFiles;
+		File dir = new File(ParameterConstants.Sciverse.BASE_DIR);
+		@SuppressWarnings("unused")
+		boolean res = false;
+		if(! dir.exists()){
+			res = dir.mkdir();
+		}
+		numFiles = splitFiles(ParameterConstants.Sciverse.FILE_PREFIX, ParameterConstants.Sciverse.SPLIT_FILE_PREFIX);
+		System.out.println("Number of files processed: " + numFiles);
+	}
 
 	public String format(String content) {
 		String formattedContent;
@@ -46,10 +53,9 @@ public class MasSplit implements ApiSplit{
 		return null;
 	}
 
-	@Override
 	public int splitFiles(String inFilePrefix, String splitFilePrefix) {
 		int numFiles = 0;
-		File baseDirectory = new File(inFilePrefix);
+		File baseDirectory = new File(ParameterConstants.Springer.IN_FILE_PREFIX);
 		File[] files = baseDirectory.listFiles();
 		System.out.println("number of files: " + files.length);
 		for (File f : files) {
@@ -57,19 +63,17 @@ public class MasSplit implements ApiSplit{
 				continue;
 			}
 			System.out.println("getting file " + f.getName());
+
 			try {
 				FileReader in = new FileReader(f);
 				JsonObject tree = (JsonObject) parser.parse(in);
 				// get list of records
-				JsonObject results = (JsonObject) tree.get("d");
-				JsonObject publication = (JsonObject) results
-						.get("Publication");
-				JsonElement result = publication.get("Result");
-				JsonArray entries = result.getAsJsonArray();
-//				int numEntries = entries.size();
-				for (JsonElement entry : entries) {
+				JsonObject results = (JsonObject) tree.get("search-results");
+				JsonElement entry = results.get("entry");
+				JsonArray entries = entry.getAsJsonArray();
+				for (int i = 0; i < entries.size(); i++) {
 					String splitFileName = splitFilePrefix;
-					JsonObject record = (JsonObject) entry;
+					JsonObject record = (JsonObject) entries.get(i);
 					if (record == null)
 						break;
 					// find an id to use as the file name
@@ -78,7 +82,7 @@ public class MasSplit implements ApiSplit{
 					// Examples include "org/{valid doi}", "http://...", "{valid
 					// doi}\"
 					// "jkns.2011..."
-					JsonElement id = record.get("DOI");
+					JsonElement id = record.get("prism:doi");
 					boolean isDoi = false;
 					String doi = null;
 					if (id != null) {
@@ -92,13 +96,10 @@ public class MasSplit implements ApiSplit{
 						}
 						// fix double slashes and trailing backslashes
 						doi = doi.replaceAll("//", "/");
-						if (doi.contains("<")) {
-							System.out.println("Problem character in: " + doi);
+						if (doi.contains("\\")) {
+							System.out.println(doi);
 						}
-						doi = doi.replace("<", "-");
-						doi = doi.replace(">", "-");
-						doi = doi.replace(":", "-");
-						doi = doi.replace(";", "-");
+						doi = doi.replace("\\", "");
 					}
 					if (isDoi) {
 						int endIndex = doi.lastIndexOf('/');
@@ -109,27 +110,23 @@ public class MasSplit implements ApiSplit{
 						}
 
 						splitFileName += doi + ".json";
-					} else { // use MAS id
-						id = record.get("ID");
+					} else { // use SCOPUS id
+						id = record.get("dc:identifier");
 						String idString = id.getAsString();
 						int beginIndex = idString.indexOf(':') + 1;
-						String fileDirName = splitFilePrefix + "mas/";
+						String fileDirName = splitFilePrefix + "scopus/";
 						(new File(fileDirName)).mkdirs();
-						splitFileName = fileDirName + "mas_"
+						splitFileName = fileDirName + "scopus_"
 								+ idString.substring(beginIndex) + ".json";
 					}
-					try {
-						File outFile = new File(splitFileName);
-						if (outFile.exists()) {
-							// already stored this item
-							System.out.println("File exists: " + splitFileName);
-						} else {
-							FileWriter out = new FileWriter(splitFileName);
-							gson.toJson(record, out);
-							out.close();
-						}
-					} catch (Exception e) {
-						e.printStackTrace();
+					File outFile = new File(splitFileName);
+					if (outFile.exists()) {
+						// already stored this item
+						System.out.println("File exists: " + splitFileName);
+					} else {
+						FileWriter out = new FileWriter(splitFileName);
+						gson.toJson(record, out);
+						out.close();
 					}
 				}
 				in.close();
@@ -146,4 +143,12 @@ public class MasSplit implements ApiSplit{
 		return numFiles;
 	}
 
+	public static void main(String[] args) {
+		SciVerseSplit splitter = new SciVerseSplit();
+		splitter.run(args);
+		return;
+	}
 }
+
+// http://annotate.msrc.fsu.edu/php/listUsers.php?api-auth=yKOfIUFmwDxk21FWkn2X0Ets9fY%3D&api-requesttime=1343244291737&api-user=casey.mclaughlin@cci.fsu.edu&api_key=giqfrstIk9b6CddDL3ogGTUac6Lr3II9
+// http://annotate.msrc.fsu.edu/php/listUsers.php?api-user=casey.mclaughlin%40cci.fsu.edu&api-requesttime=1343244209&api-auth=43F6TiOpvCVhDs4CnNRZHvvPMa0%3D&api-annotateuser=casey.mclaughlin%40cci.fsu.edu

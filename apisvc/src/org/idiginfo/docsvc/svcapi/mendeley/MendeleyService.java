@@ -13,6 +13,7 @@ import org.idiginfo.docsvc.model.apisvc.DocService;
 import org.idiginfo.docsvc.model.apisvc.Document;
 import org.idiginfo.docsvc.model.apisvc.MatchResult;
 import org.idiginfo.docsvc.model.apisvc.Users;
+import org.idiginfo.docsvc.svcapi.SvcApiLogger;
 
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestFactory;
@@ -47,6 +48,9 @@ public class MendeleyService implements DocService {
 				}
 			});
 
+	public MendeleyService(){
+		SvcApiLogger.enableLogging();
+	}
 	// @Override
 	public String format(String content) {
 		String formattedContent;

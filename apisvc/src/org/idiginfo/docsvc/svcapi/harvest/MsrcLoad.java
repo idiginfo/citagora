@@ -47,11 +47,11 @@ public class MsrcLoad implements ApiLoad {
 		boolean skip = true;
 		for (int i = 0; i < files.length; i++) {
 			File file = files[i];
-			if (file.getName().equals("doc_017660.json")) {
-				skip = false;
-			}
-			if (skip)
-				continue;
+//			if (file.getName().equals("doc_017660.json")) {
+//				skip = false;
+//			}
+//			if (skip)
+//				continue;
 			if (file.isDirectory()) {
 				numLoaded += loadFiles(containerFields, file);
 			} else {

@@ -477,9 +477,9 @@ public class CitagoraFactoryImpl extends CitagoraFactory {
 
 	@Override
 	public int getNumMissingDois() {
-		String query = "SELECT count(e.myId) FROM "
-				+ factory.getReferenceClassName()
-				+ " e WHERE e.doi is null and e.biboType='article' ";
+		String query = "SELECT e FROM "
+				+ CitagoraFactoryImpl.REFERENCE_CLASS_NAME
+				+ " e WHERE e.doi is null and e.biboType='article' and e.authorString is not null and e.title is not null ";
 		Long count = factory.getLongResult(query);
 		if (count != null)
 			return count.intValue();
@@ -494,15 +494,15 @@ public class CitagoraFactoryImpl extends CitagoraFactory {
 
 	@Override
 	public Long getLongResult(String query) {
-		// TODO Auto-generated method stub
-		return null;
+		Query q = em.createQuery(query);
+		return (long) q.getResultList().size();
 	}
 
 	@Override
 	public List<Reference> getMissingDois(int firstResult, int maxResults) {
 		Query q = em.createQuery("SELECT e FROM "
 				+ CitagoraFactoryImpl.REFERENCE_CLASS_NAME
-				+ " e WHERE e.doi is null and e.biboType='article' ");
+				+ " e WHERE e.doi is null and e.biboType='article' and e.authorString is not null and e.title is not null ");
 		q.setFirstResult(firstResult);
 		q.setMaxResults(maxResults);
 		@SuppressWarnings("unchecked")

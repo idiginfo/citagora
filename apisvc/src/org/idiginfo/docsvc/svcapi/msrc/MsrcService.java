@@ -14,6 +14,7 @@ import org.idiginfo.docsvc.model.apisvc.DocService;
 import org.idiginfo.docsvc.model.apisvc.Document;
 import org.idiginfo.docsvc.model.apisvc.ListTypeAdapter;
 import org.idiginfo.docsvc.model.apisvc.MatchResult;
+import org.idiginfo.docsvc.svcapi.SvcApiLogger;
 
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestFactory;
@@ -49,7 +50,9 @@ public class MsrcService implements DocService {
 				public void initialize(HttpRequest request) throws IOException {
 				}
 			});
-
+	public MsrcService() {
+		SvcApiLogger.enableLogging();
+	}
 	/**
 	 * Get the gson object tailored to processing the SciVerse results
 	 * 
