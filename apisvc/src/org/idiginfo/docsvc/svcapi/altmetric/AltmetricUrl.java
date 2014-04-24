@@ -37,10 +37,10 @@ public class AltmetricUrl extends GenericUrl {
 		// List<String> pathParts = Arrays.asList("", "v1", "citations", "1d");
 		// List<String> pathParts = Arrays.asList("", "v1", "details",
 		// "241939");201135
-		String collection = params.getCollection();
+		String collection = params.getAltmetricCollection();
 		if (AltmetricApiParams.CITATION_COLLECTION.equals(collection)) {
 			// get all citations by timeframe
-			String timeframe = params.getTimeframe();
+			String timeframe = params.getTimeframe()==null?"":params.getTimeframe();
 			List<String> pathParts = Arrays.asList("",
 					AltmetricApiParams.API_VERSION, collection, timeframe);
 			setPathParts(pathParts);

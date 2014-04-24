@@ -46,6 +46,7 @@ public class AltmetricApiParams extends BaseApiParams {
 	String altmetricId;
 	String pmcid;
 	String arxid;
+	String altmetricCollection = CITATION_COLLECTION;
 
 	// DOI collection uses path params for doi
 
@@ -67,6 +68,14 @@ public class AltmetricApiParams extends BaseApiParams {
 
 	// get by altmetric id with details
 	// path /{version}/details/{altmetric id}
+
+	public String getAltmetricCollection() {
+		return altmetricCollection;
+	}
+
+	public void setAltmetricCollection(String altmetricCollection) {
+		this.altmetricCollection = altmetricCollection;
+	}
 
 	public AltmetricApiParams(ApiParams apiParams) {
 		if (apiParams == null)

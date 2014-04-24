@@ -74,14 +74,14 @@ public class AltmetricService implements DocService {
 		if (altmetricId == null)
 			return null;
 		AltmetricApiParams params = new AltmetricApiParams();
-		params.setCollection(AltmetricApiParams.DETAILS_COLLECTION);
+		params.setAltmetricCollection(AltmetricApiParams.DETAILS_COLLECTION);
 		params.setId(altmetricId);
 		return (AltmetricRecord) getDocument(params);
 	}
 
 	public String getAltmetricIdByDoi(String doi) {
 		AltmetricApiParams params = new AltmetricApiParams();
-		params.setCollection(AltmetricApiParams.DOI_COLLECTION);
+		params.setAltmetricCollection(AltmetricApiParams.DOI_COLLECTION);
 		params.setId(doi);
 		AltmetricRecord document = (AltmetricRecord) getDocument(params);
 		if (document == null)
@@ -91,7 +91,7 @@ public class AltmetricService implements DocService {
 
 	public String getAltmetricIdByPmid(String pmid) {
 		AltmetricApiParams params = new AltmetricApiParams();
-		params.setCollection(AltmetricApiParams.PMID_COLLECTION);
+		params.setAltmetricCollection(AltmetricApiParams.PMID_COLLECTION);
 		params.setId(pmid);
 		AltmetricRecord document = (AltmetricRecord) getDocument(params);
 		System.out.println("For Pmid: " + pmid + " Altmetric id: "
