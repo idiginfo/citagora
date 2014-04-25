@@ -44,6 +44,7 @@ public class AltmetricService implements DocService {
 				}
 			});
 
+
 	@Override
 	public String format(String content) {
 		String formattedContent;
