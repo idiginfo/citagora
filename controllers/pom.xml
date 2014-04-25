@@ -44,9 +44,10 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>2.5</version>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-servlet-api</artifactId>
+			<version>7.0.12</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>asm</groupId>
@@ -85,12 +86,13 @@
 			<artifactId>harvest</artifactId>
 			<version>1</version>
 		</dependency>
-		<dependency>
+<!-- 		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-bundle</artifactId>
 			<version>2.7.0</version>
 		</dependency>
-	</dependencies>
+ -->
+ 	</dependencies>
 	<repositories>
 		<repository>
 			<id>maven2-repository.dev.java.net</id>
