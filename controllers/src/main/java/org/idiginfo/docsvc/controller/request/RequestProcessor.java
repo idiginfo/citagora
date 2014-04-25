@@ -68,20 +68,20 @@ public class RequestProcessor {
 	 * @return
 	 */
 	public Object getObjects(ApiParams params) {
-		String source = params.getSource();
-		if (source == null) {
+		String collection = params.getCollection();
+		if (collection == null) {
 			return new Result(Status.BAD_REQUEST,
 					"collection must be specified");
 		}
-		if (source.equals(ServiceFactory.COLLECTION_CITAGORA)) {
+		if (collection.equals(ServiceFactory.COLLECTION_CITAGORA)) {
 			// access objects already in the repository
 			return getCitagoraObjects(params);
 		} else {
 			DocService service = ServiceFactory.getFactory().getSharedService(
-					source);
+					collection);
 			if (service == null) {
 				return new Result(Status.BAD_REQUEST, "source "
-						+ source + " is unknown");
+						+ collection + " is unknown");
 			}
 			return getObjects(service, params);
 		}
@@ -91,10 +91,10 @@ public class RequestProcessor {
 
 	private Object getCitagoraObjects(ApiParams params) {
 		String doi = params.getDoi();
-		String source = params.getCollection();
+		String collection = params.getCollection();
 		if (doi != null) {
 			System.out.print(" doi: " + doi);
-			Reference ref = factory.findReferenceBySourceDoi(source, doi);
+			Reference ref = factory.findReferenceBySourceDoi(collection, doi);
 			if (ref != null) {
 				// get the containers for the document
 				List<Container> containers = ref.getContainers();

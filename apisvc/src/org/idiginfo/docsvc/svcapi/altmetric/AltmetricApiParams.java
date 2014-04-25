@@ -20,7 +20,7 @@ public class AltmetricApiParams extends BaseApiParams {
 	//public static final String SOURCE = "altmetric.com";
 	public static final String API_HOST = "api.altmetric.com";
 	public static final String DOI_COLLECTION = "doi";
-	public static final String CITATION_COLLECTION = "citation";
+	public static final String CITATION_COLLECTION = "citations";
 	public static final String PMID_COLLECTION = "pmid";
 	public static final String DETAILS_COLLECTION = "details";
 	public static final String ARXID_COLLECTION = "arxid";
