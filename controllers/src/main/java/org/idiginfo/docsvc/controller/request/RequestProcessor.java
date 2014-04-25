@@ -68,20 +68,20 @@ public class RequestProcessor {
 	 * @return
 	 */
 	public Object getObjects(ApiParams params) {
-		String collection = params.getCollection();
-		if (collection == null) {
+		String source = params.getSource();
+		if (source == null) {
 			return new Result(Status.BAD_REQUEST,
 					"collection must be specified");
 		}
-		if (collection.equals(ServiceFactory.COLLECTION_CITAGORA)) {
+		if (source.equals(ServiceFactory.COLLECTION_CITAGORA)) {
 			// access objects already in the repository
 			return getCitagoraObjects(params);
 		} else {
 			DocService service = ServiceFactory.getFactory().getSharedService(
-					collection);
+					source);
 			if (service == null) {
-				return new Result(Status.BAD_REQUEST, "collection "
-						+ collection + " is unknown");
+				return new Result(Status.BAD_REQUEST, "source "
+						+ source + " is unknown");
 			}
 			return getObjects(service, params);
 		}
@@ -105,7 +105,7 @@ public class RequestProcessor {
 			return null;
 		}
 		String uri = params.getId();
-		if (uri != null) {
+		if (uri != null || !"".equals(uri)) {
 			System.out.print(" uri: " + uri);
 			CitagoraObject obj = factory.findCitagoraObjectByURI(uri);
 			if (obj != null) {
@@ -180,7 +180,7 @@ public class RequestProcessor {
 		Object objects = getObjects(params);
 		String body = null;
 		String format = params.getFormat();
-		String collection = params.getCollection();
+		String collection = params.getSource();
 		if (DocServicesParams.FORMAT_JSON.equals(format)) {
 			JsonWriter jsonWriter = new JsonWriter();
 			body = jsonWriter.write(objects);

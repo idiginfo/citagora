@@ -45,6 +45,7 @@ public class BaseApiParams implements ApiParams {
 	public boolean persist = false;
 	public Integer numResults;
 	public Integer firstResult;
+	public String source;
 
 	/**
 	 * Use reflection methods to set fields of an ApiParam object from an HTTP
@@ -398,4 +399,16 @@ public class BaseApiParams implements ApiParams {
 	public void setFirstResult(Integer firstResult) {
 		this.firstResult = firstResult;
 	}
+	
+	@Override
+	public String getSource() {
+		return source;
+	}
+	
+	@Override
+	public void setSource(String source) {
+		this.source = source;
+	}
+
+	
 }

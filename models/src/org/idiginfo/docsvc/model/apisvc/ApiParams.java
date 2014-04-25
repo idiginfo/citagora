@@ -132,4 +132,9 @@ public interface ApiParams {
 
     void setFirstResult(Integer firstResult);
 
+	public String getSource();
+	
+	public void setSource(String source);
+
+
 }
