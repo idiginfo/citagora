@@ -39,7 +39,7 @@ public class CrossrefService implements DocService {
 
 	static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
 	static JsonParser parser = new JsonParser();
-	static final int CONNECT_TIMEOUT = 200000;
+	static final int CONNECT_TIMEOUT = 600000;
 	Gson gson = getGson();
 
 	public CrossrefService() {
