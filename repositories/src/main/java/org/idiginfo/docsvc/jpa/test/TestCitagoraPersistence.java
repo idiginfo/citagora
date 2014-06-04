@@ -4,11 +4,11 @@ import java.util.GregorianCalendar;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
 
 import org.idiginfo.docsvc.jpa.citagora.AnnotationBodyImpl;
-import org.idiginfo.docsvc.jpa.citagora.ContainerImpl;
 import org.idiginfo.docsvc.jpa.citagora.CitagoraObjectImpl;
+import org.idiginfo.docsvc.jpa.citagora.ContainerImpl;
 import org.idiginfo.docsvc.jpa.citagora.PersonImpl;
 import org.idiginfo.docsvc.jpa.citagora.ReferenceImpl;
 import org.idiginfo.docsvc.jpa.citagora.ReviewImpl;
@@ -21,6 +21,7 @@ import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.model.citagora.RatingType;
 import org.idiginfo.docsvc.model.citagora.Reference;
 import org.idiginfo.docsvc.model.mapping.MapSvcapiToCitagora;
+import org.springframework.transaction.annotation.Transactional;
 
 
 /**
@@ -33,6 +34,8 @@ import org.idiginfo.docsvc.model.mapping.MapSvcapiToCitagora;
 public class TestCitagoraPersistence {
 
 	private EntityManagerFactory emf;
+	
+	@PersistenceContext
 	private EntityManager em;
 
 	/**
@@ -43,16 +46,16 @@ public class TestCitagoraPersistence {
 		tester.run(args);
 
 	}
-
+	@Transactional 
 	private void run(String[] args) {
-		emf = Persistence.createEntityManagerFactory("local");
-		em = emf.createEntityManager();
+//		emf = Persistence.createEntityManagerFactory("local");
+//		em = emf.createEntityManager();
 		Container doc = createContainer();
 		// Reference ref = createSpringerDocument();
-		em.getTransaction().begin();
+//		em.getTransaction().begin();
 		em.persist(doc);
 		// em.persist(ref);
-		em.getTransaction().commit();
+//		em.getTransaction().commit();
 		CitagoraObjectImpl doc2 = em.find(CitagoraObjectImpl.class, doc.getMyId());
 		System.out.println(doc2.getClass().getName());
 	}
