@@ -10,14 +10,14 @@
 
 	<description>Connection to citagora-dev database on localhost</description>
 
-<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="locations">
-            <list>
-                <value>META-INF/datasource.properties</value>
-            </list>
-        </property>
-        <property name="ignoreUnresolvablePlaceholders" value="true"/>
-    </bean>
+<!-- <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> -->
+<!--         <property name="locations"> -->
+<!--             <list> -->
+<!--                 <value>META-INF/datasource.properties</value> -->
+<!--             </list> -->
+<!--         </property> -->
+<!--         <property name="ignoreUnresolvablePlaceholders" value="true"/> -->
+<!--     </bean> -->
 
 	<!-- JDBC Data Source. It is assumed you have MySQL running on localhost 
 		port 3306 with username root and blank password. Change below if it's not 
@@ -27,7 +27,7 @@
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://localhost:3306/citagora_dev" />
 		<property name="username" value="citagora" />
-		<property name="password" value="citagora;" />
+		<property name="password" value="citagora" />
 		<property name="validationQuery" value="SELECT 1" />
 	</bean>
 

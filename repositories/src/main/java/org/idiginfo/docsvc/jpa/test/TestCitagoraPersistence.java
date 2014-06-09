@@ -21,6 +21,11 @@ import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.model.citagora.RatingType;
 import org.idiginfo.docsvc.model.citagora.Reference;
 import org.idiginfo.docsvc.model.mapping.MapSvcapiToCitagora;
+import org.junit.runner.RunWith;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 
@@ -30,7 +35,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author griccardi
  * 
  */
-
+@ContextConfiguration
 public class TestCitagoraPersistence {
 
 	private EntityManagerFactory emf;
@@ -42,6 +47,10 @@ public class TestCitagoraPersistence {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		ApplicationContext ctx = 
+			      new ClassPathXmlApplicationContext("META-INF/spring/app-context.xml");
+//			AutowireCapableBeanFactory fac = ctx.getAutowireCapableBeanFactory();
+//			fac.getAliases(null);
 		TestCitagoraPersistence tester = new TestCitagoraPersistence();
 		tester.run(args);
 
