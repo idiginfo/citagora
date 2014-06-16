@@ -33,9 +33,10 @@
 
 	<tx:annotation-driven transaction-manager="transactionManager" />
 
-	<context:component-scan base-package="org.idiginfo.docsvc.jpa.citagora" />
-
-	<context:component-scan base-package="org.idiginfo.docsvc.test" />
-	<context:component-scan base-package="org.idiginfo.docsvc.model.citagora" />
+	<context:component-scan base-package="org.idiginfo.docsvc" />
+<!-- 	<context:component-scan base-package="org.idiginfo.docsvc.jpa.citagora" /> -->
+<!-- 	<context:component-scan base-package="org.idiginfo.docsvc.test" /> -->
+<!-- 	<context:component-scan base-package="org.idiginfo.docsvc.jpa.test" /> -->
+<!-- 	<context:component-scan base-package="org.idiginfo.docsvc.model.citagora" /> -->
 
 </beans>

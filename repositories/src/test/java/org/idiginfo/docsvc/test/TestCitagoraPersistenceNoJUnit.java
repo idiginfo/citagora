@@ -1,4 +1,4 @@
-package org.idiginfo.docsvc.jpa.test;
+package org.idiginfo.docsvc.test;
 
 import java.util.GregorianCalendar;
 
@@ -22,10 +22,8 @@ import org.idiginfo.docsvc.model.citagora.Container;
 import org.idiginfo.docsvc.model.citagora.RatingType;
 import org.idiginfo.docsvc.model.citagora.Reference;
 import org.idiginfo.docsvc.model.mapping.MapSvcapiToCitagora;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,12 +37,24 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @ContextConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
-public class TestCitagoraPersistence {
+public class TestCitagoraPersistenceNoJUnit {
 
-	private EntityManagerFactory emf;
-	
+//	private EntityManagerFactory emf;
+//	
 	@PersistenceContext
-	private EntityManager entityManager;
+	private static EntityManager entityManager;
+	
+	private static ApplicationContext context = null;
+	static {
+		context = LoadAppContext.getContext();		
+	}
+  
+//    @PersistenceContext
+//    public void setEntityManager(EntityManager entityManager) {
+//        this.entityManager = entityManager;
+//    }
+//	private  EntityManagerContainer container = new EntityManagerContainer();
+
 	/**
 	 * @param args
 	 */
@@ -52,26 +62,39 @@ public class TestCitagoraPersistence {
 		//context = LoadAppContext.getContext();
 //		ApplicationContext ctx = 
 //			      new ClassPathXmlApplicationContext("META-INF/spring/app-context.xml");
-//			AutowireCapableBeanFactory fac = ctx.getAutowireCapableBeanFactory();
-//			fac.getAliases(null);
-		TestCitagoraPersistence tester = new TestCitagoraPersistence();
+			//AutowireCapableBeanFactory fac = ctx.getAutowireCapableBeanFactory();
+			//fac.getAliases(null);
+		EntityManagerFactory factory = (EntityManagerFactory) context.getBean("localContainerEntityManagerFactoryBean");
+		entityManager = factory.createEntityManager();
+		TestCitagoraPersistenceNoJUnit tester = new TestCitagoraPersistenceNoJUnit();
 		tester.run();
 
 	}
 	
-	@Test
+//	@Test
+//	@Transactional	
+//
+//	public void save(){
+//		
+//	}
+	
+//	@Test
 	@Transactional	
 	public void run() {
 //		emf = Persistence.createEntityManagerFactory("local");
 //		em = emf.createEntityManager();
 		Container doc = createContainer();
-		// Reference ref = createSpringerDocument();
-//		em.getTransaction().begin();
 		entityManager.persist(doc);
-		// em.persist(ref);
-//		em.getTransaction().commit();
+		entityManager.flush();
 		CitagoraObjectImpl doc2 = entityManager.find(CitagoraObjectImpl.class, doc.getMyId());
 		System.out.println(doc2.getClass().getName());
+		// Reference ref = createSpringerDocument();
+//		em.getTransaction().begin();
+		
+		entityManager.clear();
+		// em.persist(ref);
+//		em.getTransaction().commit();
+		
 	}
 
 	private ContainerImpl createContainer() {

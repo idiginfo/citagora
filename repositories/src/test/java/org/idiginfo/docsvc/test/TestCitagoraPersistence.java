@@ -1,4 +1,4 @@
-package org.idiginfo.docsvc.jpa.test;
+package org.idiginfo.docsvc.test;
 
 import java.util.GregorianCalendar;
 
@@ -68,6 +68,7 @@ public class TestCitagoraPersistence {
 		// Reference ref = createSpringerDocument();
 //		em.getTransaction().begin();
 		entityManager.persist(doc);
+		entityManager.flush();
 		// em.persist(ref);
 //		em.getTransaction().commit();
 		CitagoraObjectImpl doc2 = entityManager.find(CitagoraObjectImpl.class, doc.getMyId());
