@@ -9,7 +9,7 @@ import javax.persistence.PersistenceContext;
 import org.idiginfo.docsvc.jpa.citagora.AnnotationBodyImpl;
 import org.idiginfo.docsvc.jpa.citagora.CitagoraObjectImpl;
 import org.idiginfo.docsvc.jpa.citagora.ContainerImpl;
-import org.idiginfo.docsvc.jpa.citagora.LoadAppContext;
+import org.idiginfo.docsvc.jpa.citagora.CitagoraApplicationContext;
 import org.idiginfo.docsvc.jpa.citagora.PersonImpl;
 import org.idiginfo.docsvc.jpa.citagora.ReferenceImpl;
 import org.idiginfo.docsvc.jpa.citagora.ReviewImpl;
